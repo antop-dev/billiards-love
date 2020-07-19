@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: info
+
+server:
+  servlet:
+    encoding:
+      force: true
+      force-request: true
+      force-response: true
