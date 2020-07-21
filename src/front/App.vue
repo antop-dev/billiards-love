@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
-    {{ message }}
-  </div>
+  <app-header></app-header>
 </template>
 
 <script>
+import AppHeader from './components/AppHeader';
+
 export default {
+  components: { AppHeader },
   data() {
     return {
-      message: 'Hello World',
     };
   },
 };
