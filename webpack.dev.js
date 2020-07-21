@@ -10,8 +10,8 @@ module.exports = {
     filename: '[name].js',
     host: 'localhost',
     port: 9000,
-    proxy: {
+    /*proxy: {
       '**': 'http://localhost:8080/',
-    },
+    },*/
   },
 };
