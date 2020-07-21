@@ -7,13 +7,11 @@ module.exports = {
     historyApiFallback: true,
     inline: true,
     hot: true,
-    contentBase: path.resolve(__dirname, 'src/main/resources/static'),
     filename: '[name].js',
-    publicPath: '/static/',
     host: 'localhost',
-    port: 8081,
-    /* proxy: {
-      '**': 'http://localhost:8080/'
-    }, */
+    port: 9000,
+    proxy: {
+      '**': 'http://localhost:8080/',
+    },
   },
 };

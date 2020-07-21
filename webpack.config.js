@@ -31,6 +31,7 @@ const config = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+
       },
       {
         test: /\.scss$/,
@@ -66,7 +67,6 @@ const config = {
       template: path.resolve(__dirname, 'src/front/main.html')
     })
   ],
-
 };
 
 module.exports = function(env) {
