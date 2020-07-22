@@ -11,7 +11,7 @@ module.exports = {
   },
   // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-  extends: ['plugin:vue/essential', 'airbnb-base', '@vue/prettier'],
+  extends: ['plugin:vue/essential', '@vue/prettier'],
   // required to lint *.vue files
   plugins: [
     'vue'
@@ -28,10 +28,6 @@ module.exports = {
   rules: {
     'arrow-body-style': 'off',
     // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      js: 'never',
-      vue: 'never'
-    }],
     // disallow reassignment of function parameters
     // disallow parameter object manipulation except for specific exclusions
     'no-param-reassign': ['error', {
