@@ -33,6 +33,8 @@ dependencies {
     testImplementation "org.springframework.security:spring-security-test"
     // https://docs.sentry.io/clients/java/integrations/#spring
     implementation "io.sentry:sentry-spring:1.7.30"
+    // https://github.com/ulisesbocchio/jasypt-spring-boot/issues
+    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
 }
 
 test {
