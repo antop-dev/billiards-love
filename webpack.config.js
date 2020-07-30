@@ -7,7 +7,7 @@ const path = require('path');
 
 const config = {
   entry: {
-    app: path.resolve(__dirname, 'src/front/main.js')
+    app: path.resolve(__dirname, 'src/main/front/main.js')
   },
   output: {
     path: path.resolve(__dirname, 'src/main/resources/static'),
@@ -64,7 +64,7 @@ const config = {
       filename: '[name].css',
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/front/main.html')
+      template: path.resolve(__dirname, 'src/main/front/main.html')
     })
   ],
 };
