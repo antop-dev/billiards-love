@@ -24,7 +24,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: SonarCloud Scan
-        run: ./gradle sonarqube -Dsonar.verbose=true
+        run: ./gradlew sonarqube -Dsonar.verbose=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
