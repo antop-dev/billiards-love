@@ -26,7 +26,10 @@
 
 CI<sup>`Continuous Integration`</sup> 단계에서 소스코드 정적 분석을 수행한다.
 
-* https://github.com/SonarSource/sonarcloud-github-action
+프로젝트: https://sonarcloud.io/dashboard?id=antop-dev_billiards-love
+
+#### References
+
 * https://sonarcloud.io/documentation/analysis/scan/sonarscanner-for-gradle/
 * https://plugins.gradle.org/plugin/org.sonarqube
 
