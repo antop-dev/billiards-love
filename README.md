@@ -21,3 +21,15 @@
 개발시에는 아래와 같이 암호화 비밀번호를 파라미터에 추가 후 실행한다. 
 
 ![Intellij 암호화 비밀번호 설정](https://i.imgur.com/aXSRNu7.png)
+
+### SonarCloud
+
+CI<sup>`Continuous Integration`</sup> 단계에서 소스코드 정적 분석을 수행한다.
+
+프로젝트: https://sonarcloud.io/dashboard?id=antop-dev_billiards-love
+
+#### References
+
+* https://sonarcloud.io/documentation/analysis/scan/sonarscanner-for-gradle/
+* https://plugins.gradle.org/plugin/org.sonarqube
+
