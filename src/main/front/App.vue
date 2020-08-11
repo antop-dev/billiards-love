@@ -2,7 +2,9 @@
   <div>
     <app-header></app-header>
     <div>
-      <router-view></router-view>
+      <div v-if="loading" class="md-layout md-gutter" :class="`md-alignment-center-center`">
+        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+      </div>
     </div>
   </div>
 </template>
@@ -13,7 +15,19 @@ import AppHeader from './components/AppHeader';
 export default {
   components: { AppHeader },
   data() {
-    return {};
+    return {
+      loading: true,
+    };
+  },
+  mounted() {
+    Kakao.init('0d394b0cf1d7956aba38ee4bceedbdb4');
+    if (Kakao.isInitialized()) {
+      this.loading = false;
+      console.warn('Kakao API initialized');
+      Kakao.Auth.authorize({
+        redirectUri: 'http://localhost:9000',
+      });
+    }
   },
 };
 </script>

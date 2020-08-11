@@ -7,6 +7,8 @@ import 'vue-material/dist/theme/default.css';
 
 Vue.use(VueMaterial);
 
+
+
 // eslint-disable-next-line no-new
 window.$app = new Vue({
   el: '#app',
