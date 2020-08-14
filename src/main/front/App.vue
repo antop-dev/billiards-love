@@ -1,33 +1,45 @@
 <template>
-  <div>
-    <app-header></app-header>
-    <div>
-      <div v-if="loading" class="md-layout md-gutter" :class="`md-alignment-center-center`">
-        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-      </div>
-    </div>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import AppHeader from './components/AppHeader';
+import { SET_USER_INFO } from './store/mutation-types';
 
 export default {
-  components: { AppHeader },
   data() {
     return {
       loading: true,
     };
   },
-  mounted() {
-    Kakao.init('0d394b0cf1d7956aba38ee4bceedbdb4');
-    if (Kakao.isInitialized()) {
-      this.loading = false;
-      console.warn('Kakao API initialized');
-      Kakao.Auth.authorize({
-        redirectUri: 'http://localhost:9000',
+  methods: {
+    init: function () {
+      Kakao.init('60b53819660d5a05c66c3d1c5d4a4503');
+    },
+    getInfo: function (data) {
+      Kakao.API.request({
+        url: '/v2/user/me',
+        success: (res) => {
+          this.$store.commit(SET_USER_INFO, res.kakao_account.profile);
+        },
+        fail: (message) => {
+          console.log(message);
+        },
       });
-    }
+    },
+  },
+  mounted() {
+    this.init();
+    Kakao.Auth.login({
+      success: (response) => {
+        this.getInfo(response);
+        this.$router.push('/dashboard').catch(() => {
+          /**Do Noting**/
+        });
+      },
+      fail: (error) => {
+        console.log(error);
+      },
+    });
   },
 };
 </script>
