@@ -18,7 +18,7 @@
 
 암호화 비밀번호<sup>`encryption password`</sup>는 [RANDOM.ORG](https://www.random.org/strings) 에서 무작위 생성했다.
 
-개발시에는 아래와 같이 암호화 비밀번호를 파라미터에 추가 후 실행한다. 
+개발 시에는 아래와 같이 암호화 비밀번호를 파라미터에 추가 후 실행한다. 
 
 ![Intellij 암호화 비밀번호 설정](https://i.imgur.com/aXSRNu7.png)
 
@@ -26,7 +26,11 @@
 
 CI<sup>`Continuous Integration`</sup> 단계에서 소스코드 정적 분석을 수행한다.
 
-프로젝트: https://sonarcloud.io/dashboard?id=antop-dev_billiards-love
+프로젝트
+
+* https://sonarcloud.io/dashboard?id=antop-dev_billiards-love
+
+References
 
 #### References
 
