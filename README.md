@@ -32,8 +32,18 @@ CI<sup>`Continuous Integration`</sup> 단계에서 소스코드 정적 분석을
 
 References
 
-#### References
-
 * https://sonarcloud.io/documentation/analysis/scan/sonarscanner-for-gradle/
 * https://plugins.gradle.org/plugin/org.sonarqube
 
+## Database
+
+ERDCloud 사용하여 작성. ERD 공유 선택이 **공개**, **개인**, **팀**이 있는데 팀+공개가 되었으면 좋겠다. 
+
+* Team : https://www.erdcloud.com/team/3Rm8Lqv55MTLh2eXN
+* ERD<sup>`Entity Relationship Diagram`</sup> : https://www.erdcloud.com/d/AyLdJKNJA4ratsoNm
+
+References
+
+* [변수명 짓기](https://www.curioustore.com/#!/util/naming)
+* [H2 Data Types](http://www.h2database.com/html/datatypes.html)
+* [MariaDB Data Types](https://mariadb.com/kb/en/data-types/)
