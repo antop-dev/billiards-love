@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      - run: npm ci
       - name: Test Javascript + Vue
         run: npm run test
       - name: Set up JDK 11
