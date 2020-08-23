@@ -1,8 +1,28 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=alert_status)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=bugs)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=code_smells)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=coverage)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
+
 # Billiards Love
 
 당구사랑 동호회 대회 관리 사이트
 
 ## Front-End
+
+### Test
+
+Jest 를 사용하여 `vue`, `js` 코드를 테스트 한다.
+
+```
+npm run test
+```
+
+**References**
+
+* https://heropy.blog/2020/05/20/vue-test-with-jest/
+* https://jestjs.io/docs/en/configuration
 
 ## Back-End
 
@@ -22,18 +42,27 @@
 
 ![Intellij 암호화 비밀번호 설정](https://i.imgur.com/aXSRNu7.png)
 
-### SonarCloud
+## Continuous Integration (GitHub Actions)
 
-CI<sup>`Continuous Integration`</sup> 단계에서 소스코드 정적 분석을 수행한다.
+### Node
+
+Node 12.x 버전으로 빌드
+
+### Java
+
+Java 8 버전으로 빌드
+
+###  SonarCloud
+
+Java / JavaScript 코드를 테스트 후 SonarCloud 로 보고서<sup>`report`</sup>를 전송한다.
 
 프로젝트
 
-* https://sonarcloud.io/dashboard?id=antop-dev_billiards-love
-
-References
+**References**
 
 * https://sonarcloud.io/documentation/analysis/scan/sonarscanner-for-gradle/
 * https://plugins.gradle.org/plugin/org.sonarqube
+* https://www.npmjs.com/package/jest-sonar-reporter
 
 ## Database
 
@@ -42,7 +71,7 @@ ERDCloud 사용하여 작성. ERD 공유 선택이 **공개**, **개인**, **팀
 * Team : https://www.erdcloud.com/team/3Rm8Lqv55MTLh2eXN
 * ERD<sup>`Entity Relationship Diagram`</sup> : https://www.erdcloud.com/d/AyLdJKNJA4ratsoNm
 
-References
+**References**
 
 * [변수명 짓기](https://www.curioustore.com/#!/util/naming)
 * [H2 Data Types](http://www.h2database.com/html/datatypes.html)
