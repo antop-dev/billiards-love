@@ -19,5 +19,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+#      - run: cd front-end
       - run: npm ci
+        working-directory: front-end
       - run: npm run build --if-present
+        working-directory: front-end

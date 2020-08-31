@@ -1,1 +1,3 @@
-rootProject.name = 'billiards-love'
+rootProject.name = "billiards-love"
+include "front-end"
+include "back-end"
