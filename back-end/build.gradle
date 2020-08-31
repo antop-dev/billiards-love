@@ -1,0 +1,72 @@
+plugins {
+    id "org.springframework.boot" version "2.3.1.RELEASE"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id "java"
+    id "org.sonarqube" version "3.0"
+    id "jacoco"
+}
+
+group = "org.antop"
+version = "1.0.0"
+sourceCompatibility = "1.8"
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
+    compileOnly "org.projectlombok:lombok"
+    developmentOnly "org.springframework.boot:spring-boot-devtools"
+    runtimeOnly "com.h2database:h2"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor "org.projectlombok:lombok"
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+    testImplementation "org.springframework.security:spring-security-test"
+    // https://docs.sentry.io/clients/java/integrations/#spring
+    implementation "io.sentry:sentry-spring:1.7.30"
+    // https://github.com/ulisesbocchio/jasypt-spring-boot/issues
+    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "antop-dev_billiards-love"
+        property "sonar.organization", "antop-dev-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java,src/main/front"
+        property "sonar.tests", "src/test/java,src/test/front"
+        property "sonar.javascript.lcov.reportPaths", "coverage/lcov.info"
+        property "sonar.testExecutionReportPaths", "coverage/reports.xml"
+    }
+}
+
+jacoco {
+    toolVersion "0.8.5"
+}
+
+test {
+    // 이 테스크가 끝난 다음 수행할 테스크
+    finalizedBy "jacocoTestReport"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
