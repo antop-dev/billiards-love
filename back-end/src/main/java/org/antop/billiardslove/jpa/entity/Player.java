@@ -1,7 +1,14 @@
 package org.antop.billiardslove.jpa.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "TBL_PLYR")
 public class Player {
@@ -12,7 +19,7 @@ public class Player {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MMVR_ID")
+    @JoinColumn(name = "MMBR_ID")
     private Member member;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -23,7 +30,7 @@ public class Player {
     private int number;
 
     @Column(name = "PRIC_HNDC")
-    private Byte handicap;
+    private int handicap;
 
     @Column(name = "PLYR_RNKN")
     private int rank;

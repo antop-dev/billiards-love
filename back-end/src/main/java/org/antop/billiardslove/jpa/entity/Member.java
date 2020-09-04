@@ -1,8 +1,15 @@
 package org.antop.billiardslove.jpa.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "TBL_MMBR")
 public class Member {
@@ -12,22 +19,22 @@ public class Member {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "MMBR_NCK_NM", length = 50)
+    @Column(name = "MMBR_NCK_NM")
     private String nickname;
 
     @Column(name = "MMBR_HNDC")
-    private Byte handicap;
+    private int handicap;
 
-    @Column(name = "RGST_DT", nullable = false)
-    private LocalDateTime registerDate;
+    @Column(name = "RGST_DT")
+    private LocalDateTime registerDateTime;
 
     @Column(name = "MDFY_DT")
-    private LocalDateTime modifyDate;
+    private LocalDateTime modifyDateTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private Kakao kakao;
+    private KakaoLogin kakaoLogin;
 
-    @Column(name = "LGN_TKN", nullable = false)
+    @Column(name = "LGN_TKN")
     private String loginToken;
 }

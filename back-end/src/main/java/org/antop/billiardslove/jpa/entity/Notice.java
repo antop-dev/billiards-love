@@ -1,10 +1,16 @@
 package org.antop.billiardslove.jpa.entity;
 
-import org.antop.billiardslove.jpa.convertor.BooleanToYNConverter;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "TBL_NTC")
 public class Notice {
@@ -14,32 +20,31 @@ public class Notice {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "NTC_TTL", nullable = false)
+    @Column(name = "NTC_TTL")
     private String title;
 
-    @Column(name = "NTC_CNTN", nullable = false)
+    @Column(name = "NTC_CNTN")
     private String contents;
 
     @ManyToOne
     @JoinColumn(name = "TRGT_CNTS_ID")
     private Contest contest;
 
-    @Convert(converter = BooleanToYNConverter.class)
-    @Column(name = "CAN_SKIP", nullable = false)
+    @Convert(converter = BooleanConverter.class)
+    @Column(name = "CAN_SKIP")
     private boolean canSkip;
 
     @ManyToOne
     @JoinColumn(name = "RGST_USER_ID")
     private Manager manager;
 
-    @Column(name = "RGST_DT", nullable = false)
-    private LocalDateTime registerDate;
+    @Column(name = "RGST_DT")
+    private LocalDateTime registerDateTime;
 
-    @ManyToOne
-    @JoinColumn(name = "MDFT_USER_ID")
-    private Manager managerModifyId;
+    @Column(name = "MDFT_USER_ID")
+    private Long managerModifyId;
 
     @Column(name = "MDFY_DT")
-    private LocalDateTime modifyDate;
+    private LocalDateTime modifyDateTime;
 
 }

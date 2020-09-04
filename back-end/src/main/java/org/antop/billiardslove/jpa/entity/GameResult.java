@@ -1,11 +1,15 @@
 package org.antop.billiardslove.jpa.entity;
 
 
-import org.antop.billiardslove.jpa.convertor.BooleanToYNConverter;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter @Setter @ToString
 @Entity
 @Table(name = "TBL_GAME_RSLT")
 public class GameResult {
@@ -19,19 +23,19 @@ public class GameResult {
     @JoinColumn(name = "PLYR_ID")
     private Player player;
 
-    @Column(name = "FRST_RSLT", nullable = false)
-    private WinLoseStatus firstWinLose;
+    @Column(name = "FRST_RSLT")
+    private GameResultStatus firstResult;
 
-    @Column(name = "SCND_RSLT", nullable = false)
-    private WinLoseStatus secondWinLose;
+    @Column(name = "SCND_RSLT")
+    private GameResultStatus secondResult;
 
-    @Column(name = "THRD_RSLT", nullable = false)
-    private WinLoseStatus thirdWinLose;
+    @Column(name = "THRD_RSLT")
+    private GameResultStatus thirdResult;
 
-    @Convert(converter = BooleanToYNConverter.class)
+    @Convert(converter = BooleanConverter.class)
     @Column(name = "IS_CNFR")
-    private boolean isConfirmation;
+    private boolean confirmation;
 
-    @Column(name = "CNFR_DT", nullable = false)
+    @Column(name = "CNFR_DT")
     private LocalDateTime confirmationDateTime;
 }
