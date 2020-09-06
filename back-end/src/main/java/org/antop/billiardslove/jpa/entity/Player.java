@@ -1,30 +1,30 @@
 package org.antop.billiardslove.jpa.entity;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
 @ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "TBL_PLYR")
 public class Player {
 
     @Id
     @Column(name = "PLYR_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MMBR_ID")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CNTS_ID")
     private Contest contest;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MMBR_ID")
+    private Member member;
 
     @Column(name = "PLYR_NO")
     private int number;
