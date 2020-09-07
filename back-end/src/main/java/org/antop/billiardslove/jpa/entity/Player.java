@@ -33,8 +33,8 @@ public class Player {
     private int handicap;
 
     @Column(name = "PLYR_RNKN")
-    private int rank;
+    private Integer rank;
 
     @Column(name = "PLYR_SCR")
-    private int score;
+    private Integer score;
 }

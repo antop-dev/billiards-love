@@ -52,7 +52,7 @@ public class Contest {
     @Setter
     @Convert(converter = ProgressStatusConverter.class)
     @Column(name = "PRGR_STT")
-    private boolean progressStatus;
+    private ProgressStatus progressStatus;
 
     @Setter
     @Column(name = "MAX_PRIC_PRSN")

@@ -8,7 +8,7 @@ public class BooleanConverter implements AttributeConverter<Boolean, String> {
 
     @Override
     public String convertToDatabaseColumn(Boolean attribute) {
-        return (attribute) ? "Y" : "N";
+        return attribute ? "Y" : "N";
     }
 
     @Override
