@@ -37,6 +37,10 @@ dependencies {
     implementation "io.sentry:sentry-spring:1.7.30"
     // https://github.com/ulisesbocchio/jasypt-spring-boot/issues
     implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
+    // https://github.com/candrews/log4jdbc-spring-boot-starter/
+    implementation "com.integralblue:log4jdbc-spring-boot-starter:2.0.0"
+    // https://mariadb.com/kb/en/about-mariadb-connector-j/
+    implementation "org.mariadb.jdbc:mariadb-java-client:2.6.2"
 }
 
 test {
