@@ -38,7 +38,7 @@ jobs:
         working-directory: back-end
       - run: ./gradlew --console verbose test
         working-directory: back-end
-      - run: ./gradlew --console verbose --info sonarqube
+      - run: ./gradlew --stacktrace --console verbose --info sonarqube
         working-directory: back-end
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
