@@ -9,6 +9,7 @@ import javax.persistence.Converter;
 public class GameResultStatusConverter implements AttributeConverter<GameResultStatus, String> {
     @Override
     public String convertToDatabaseColumn(GameResultStatus attribute) {
+        if (attribute == null) return null;
         return attribute.getStatus();
     }
 
