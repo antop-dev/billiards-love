@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.antop.billiardslove.jpa.convertor.ProgressStatusConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.time.LocalTime;
 @ToString
 @NoArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_CNTS")
 public class Contest {
 
@@ -34,11 +36,11 @@ public class Contest {
     private String description;
 
     @Setter
-    @Column(name = "START_DATE")
+    @Column(name = "STRT_DATE")
     private LocalDate startDate;
 
     @Setter
-    @Column(name = "START_TIME")
+    @Column(name = "STRT_TIME")
     private LocalTime startTime;
 
     @Setter
@@ -55,9 +57,10 @@ public class Contest {
     private ProgressStatus progressStatus;
 
     @Setter
-    @Column(name = "MAX_PRIC_PRSN")
+    @Column(name = "MAX_PRTC_PRSN")
     private int maximumParticipants;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RGST_USER_ID")
     private Manager registrationUser;
@@ -66,8 +69,9 @@ public class Contest {
     @Column(name = "RGST_DT")
     private LocalDateTime registerDateTime;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MDFT_USER_ID")
+    @JoinColumn(name = "MDFY_USER_ID")
     private Manager modifyUser;
 
     @LastModifiedDate

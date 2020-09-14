@@ -22,10 +22,12 @@ public class GameResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLYR_ID")
     private Player playerId;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPNN_PLYR_ID")
     private Player opponentPlayerId;

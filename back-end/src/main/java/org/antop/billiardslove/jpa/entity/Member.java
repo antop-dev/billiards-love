@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_MMBR")
 public class Member {
 
@@ -38,8 +40,9 @@ public class Member {
     @Column(name = "MDFY_DT")
     private LocalDateTime modifyDateTime;
 
+    @Setter
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "LGN_ID")
     private KakaoLogin kakaoLogin;
 
     @Setter
