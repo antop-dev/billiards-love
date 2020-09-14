@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameResultStatusConverterTest {
@@ -18,7 +17,7 @@ class GameResultStatusConverterTest {
         assertThat(converter.convertToDatabaseColumn(GameResultStatus.LOSE), is("2"));
         assertThat(converter.convertToDatabaseColumn(GameResultStatus.ABSTENTION), is("3"));
         assertThat(converter.convertToDatabaseColumn(GameResultStatus.HOLD), is("4"));
-        assertThat(converter.convertToDatabaseColumn(null), nullValue());
+        assertThat(converter.convertToDatabaseColumn(null), is("0"));
     }
 
     @Test
