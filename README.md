@@ -1,3 +1,8 @@
+[![GitHub issues](https://img.shields.io/github/issues/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love/issues)
+[![GitHub forks](https://img.shields.io/github/forks/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love/network)
+[![GitHub stars](https://img.shields.io/github/stars/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love/stargazers)
+[![GitHub license](https://img.shields.io/github/license/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=alert_status)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=bugs)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
