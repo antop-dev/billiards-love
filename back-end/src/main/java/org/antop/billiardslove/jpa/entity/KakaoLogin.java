@@ -29,7 +29,7 @@ public class KakaoLogin {
     private String accessToken;
 
     @Setter
-    @Column(name = "NICK_NM")
+    @Column(name = "NCK_NM")
     private String nickname;
 
     @Setter

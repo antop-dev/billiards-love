@@ -86,8 +86,8 @@ class GameResultRepositoryTest extends DataJpaTest {
         playerRepository.save(player2);
 
         GameResult gameResult = new GameResult();
-        gameResult.setPlayerId(player1);
-        gameResult.setOpponentPlayerId(player2);
+        gameResult.setPlayer(player1);
+        gameResult.setOpponentPlayer(player2);
         gameResult.setFirstResult(GameResultStatus.WIN);
         gameResult.setSecondResult(GameResultStatus.LOSE);
         gameResult.setThirdResult(GameResultStatus.NONE);
@@ -95,8 +95,8 @@ class GameResultRepositoryTest extends DataJpaTest {
         gameResultRepository.save(gameResult);
 
         assertThat(gameResult.getId(), notNullValue());
-        assertThat(gameResult.getPlayerId(), notNullValue());
-        assertThat(gameResult.getOpponentPlayerId(), notNullValue());
+        assertThat(gameResult.getPlayer(), notNullValue());
+        assertThat(gameResult.getOpponentPlayer(), notNullValue());
         assertThat(gameResult.getFirstResult(), notNullValue());
         assertThat(gameResult.getSecondResult(), notNullValue());
         assertThat(gameResult.getThirdResult(), notNullValue());
@@ -146,8 +146,8 @@ class GameResultRepositoryTest extends DataJpaTest {
         playerRepository.save(player2);
 
         GameResult gameResult1 = new GameResult();
-        gameResult1.setPlayerId(player1);
-        gameResult1.setOpponentPlayerId(player2);
+        gameResult1.setPlayer(player1);
+        gameResult1.setOpponentPlayer(player2);
         gameResult1.setFirstResult(GameResultStatus.WIN);
         gameResult1.setSecondResult(GameResultStatus.LOSE);
         gameResult1.setThirdResult(GameResultStatus.NONE);
@@ -155,8 +155,8 @@ class GameResultRepositoryTest extends DataJpaTest {
         gameResultRepository.save(gameResult1);
 
         GameResult gameResult2 = new GameResult();
-        gameResult2.setPlayerId(player1);
-        gameResult2.setOpponentPlayerId(player2);
+        gameResult2.setPlayer(player1);
+        gameResult2.setOpponentPlayer(player2);
         gameResult2.setFirstResult(GameResultStatus.LOSE);
         gameResult2.setSecondResult(GameResultStatus.WIN);
         gameResult2.setThirdResult(GameResultStatus.NONE);
@@ -212,8 +212,8 @@ class GameResultRepositoryTest extends DataJpaTest {
         playerRepository.save(player2);
 
         GameResult gameResult1 = new GameResult();
-        gameResult1.setPlayerId(player1);
-        gameResult1.setOpponentPlayerId(player2);
+        gameResult1.setPlayer(player1);
+        gameResult1.setOpponentPlayer(player2);
         gameResult1.setFirstResult(GameResultStatus.WIN);
         gameResult1.setSecondResult(GameResultStatus.LOSE);
         gameResult1.setThirdResult(GameResultStatus.NONE);
@@ -221,8 +221,8 @@ class GameResultRepositoryTest extends DataJpaTest {
         gameResultRepository.save(gameResult1);
 
         GameResult gameResult2 = new GameResult();
-        gameResult2.setPlayerId(player1);
-        gameResult2.setOpponentPlayerId(player2);
+        gameResult2.setPlayer(player1);
+        gameResult2.setOpponentPlayer(player2);
         gameResult2.setFirstResult(GameResultStatus.LOSE);
         gameResult2.setSecondResult(GameResultStatus.WIN);
         gameResult2.setThirdResult(GameResultStatus.NONE);

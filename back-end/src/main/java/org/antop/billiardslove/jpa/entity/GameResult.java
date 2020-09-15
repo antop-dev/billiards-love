@@ -25,12 +25,12 @@ public class GameResult {
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLYR_ID")
-    private Player playerId;
+    private Player player;
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPNN_PLYR_ID")
-    private Player opponentPlayerId;
+    private Player opponentPlayer;
 
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
