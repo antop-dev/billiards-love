@@ -45,32 +45,26 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "antop-dev_billiards-love"
-        property "sonar.organization", "antop-dev-github"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.sources", "src/main/java,src/main/front"
-        property "sonar.tests", "src/test/java,src/test/front"
-        property "sonar.javascript.lcov.reportPaths", "coverage/lcov.info"
-        property "sonar.testExecutionReportPaths", "coverage/reports.xml"
-    }
+    // 이 테스크가 끝난 다음 수행할 테스크
+    finalizedBy "jacocoTestReport"
 }
 
 jacoco {
     toolVersion "0.8.5"
 }
 
-test {
-    // 이 테스크가 끝난 다음 수행할 테스크
-    finalizedBy "jacocoTestReport"
-}
-
 jacocoTestReport {
     reports {
         xml.enabled true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.organization", "antop-dev-github"
+        property "sonar.projectKey", "antop-dev_billiards-love:back-end"
+        property "sonar.projectName", "billiards-love:back-end"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.sourceEncoding", "UTF-8"
     }
 }
