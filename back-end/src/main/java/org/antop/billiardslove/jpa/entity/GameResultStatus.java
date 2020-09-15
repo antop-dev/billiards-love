@@ -15,7 +15,7 @@ public enum GameResultStatus {
     /** 기권 */
     ABSTENTION("3"),
     /** 진행의사 있음 */
-    HOLD("5");
+    HOLD("4");
 
     private String status;
 

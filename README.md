@@ -1,15 +1,15 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=alert_status)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=bugs)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=code_smells)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=coverage)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love)
-
 # Billiards Love
 
 당구사랑 동호회 대회 관리 사이트
 
 ## Front-End
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Afront-end&metric=alert_status)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Afront-end&metric=bugs)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Afront-end&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Afront-end&metric=code_smells)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Afront-end&metric=coverage)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Afront-end&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
 
 ### Test
 
@@ -25,6 +25,13 @@ npm run test
 * https://jestjs.io/docs/en/configuration
 
 ## Back-End
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=alert_status)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=bugs)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=code_smells)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=coverage)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
 
 ### [Sentry](https://sentry.io/)
 
@@ -58,11 +65,10 @@ Java / JavaScript 코드를 테스트 후 SonarCloud 로 보고서<sup>`report`<
 
 프로젝트
 
-**References**
+* [billiards-love:front-end](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Afront-end)
+* [billiards-love:back-end](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
 
-* https://sonarcloud.io/documentation/analysis/scan/sonarscanner-for-gradle/
-* https://plugins.gradle.org/plugin/org.sonarqube
-* https://www.npmjs.com/package/jest-sonar-reporter
+**Issue:** https://github.com/antop-dev/billiards-love/issues/33 
 
 ## Database
 
