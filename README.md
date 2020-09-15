@@ -1,5 +1,10 @@
 # Billiards Love
 
+[![GitHub issues](https://img.shields.io/github/issues/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love/issues)
+[![GitHub forks](https://img.shields.io/github/forks/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love/network)
+[![GitHub stars](https://img.shields.io/github/stars/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love/stargazers)
+[![GitHub license](https://img.shields.io/github/license/antop-dev/billiards-love)](https://github.com/antop-dev/billiards-love)
+
 당구사랑 동호회 대회 관리 사이트
 
 ## Front-End
