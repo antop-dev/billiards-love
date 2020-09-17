@@ -1,9 +1,6 @@
 package org.antop.billiardslove.jpa.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.antop.billiardslove.jpa.convertor.ProgressStatusConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,8 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
-@ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_CNTS")

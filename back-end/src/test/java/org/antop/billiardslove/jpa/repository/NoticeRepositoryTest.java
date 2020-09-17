@@ -49,9 +49,13 @@ class NoticeRepositoryTest extends DataJpaTest {
         assertThat(notice.getId(), notNullValue());
         assertThat(notice.getTitle(), notNullValue());
         assertThat(notice.getContents(), notNullValue());
+        assertThat(notice.getContest(), nullValue());
         assertThat(notice.isCanSkip(), notNullValue());
         assertThat(notice.getRegistrationUser(), notNullValue());
         assertThat(notice.getRegisterDateTime(), notNullValue());
+        assertThat(notice.getModifyUser(), nullValue());
+        assertThat(notice.getModifyDateTime(), notNullValue());
+
     }
 
     @Test

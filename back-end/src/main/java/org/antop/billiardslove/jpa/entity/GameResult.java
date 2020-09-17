@@ -1,9 +1,6 @@
 package org.antop.billiardslove.jpa.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 import org.antop.billiardslove.jpa.convertor.GameResultStatusConverter;
 
@@ -11,8 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "TBL_GAME_RSLT")
 public class GameResult {

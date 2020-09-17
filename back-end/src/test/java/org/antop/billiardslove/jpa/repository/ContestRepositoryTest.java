@@ -53,10 +53,17 @@ class ContestRepositoryTest extends DataJpaTest {
 
         assertThat(contest.getId(), notNullValue());
         assertThat(contest.getTitle(), notNullValue());
+        assertThat(contest.getDescription(), nullValue());
+        assertThat(contest.getStartDate(), nullValue());
+        assertThat(contest.getStartTime(), nullValue());
         assertThat(contest.getEndDate(), notNullValue());
+        assertThat(contest.getEndTime(), nullValue());
         assertThat(contest.getProgressStatus(), notNullValue());
+        assertThat(contest.getMaximumParticipants(), is(0));
         assertThat(contest.getRegistrationUser(), notNullValue());
         assertThat(contest.getRegisterDateTime(), notNullValue());
+        assertThat(contest.getModifyUser(), nullValue());
+        assertThat(contest.getModifyDateTime(), notNullValue());
     }
 
     @Test
