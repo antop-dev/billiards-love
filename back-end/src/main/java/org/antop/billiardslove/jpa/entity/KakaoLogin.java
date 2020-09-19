@@ -1,18 +1,17 @@
 package org.antop.billiardslove.jpa.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_KKO_LGN")
 public class KakaoLogin {
 
@@ -26,7 +25,7 @@ public class KakaoLogin {
     private String accessToken;
 
     @Setter
-    @Column(name = "NICK_NM")
+    @Column(name = "NCK_NM")
     private String nickname;
 
     @Setter

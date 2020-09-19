@@ -1,14 +1,12 @@
 package org.antop.billiardslove.jpa.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "TBL_PLYR")
 public class Player {
@@ -18,10 +16,12 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CNTS_ID")
     private Contest contest;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MMBR_ID")
     private Member member;
@@ -29,7 +29,7 @@ public class Player {
     @Column(name = "PLYR_NO")
     private int number;
 
-    @Column(name = "PRIC_HNDC")
+    @Column(name = "PRTC_HNDC")
     private int handicap;
 
     @Column(name = "PLYR_RNKN")

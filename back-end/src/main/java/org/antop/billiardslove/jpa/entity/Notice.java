@@ -1,20 +1,18 @@
 package org.antop.billiardslove.jpa.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_NTC")
 public class Notice {
 
@@ -31,6 +29,7 @@ public class Notice {
     @Column(name = "NTC_CNTN")
     private String contents;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRGT_CNTS_ID")
     private Contest contest;
@@ -40,6 +39,7 @@ public class Notice {
     @Column(name = "CAN_SKIP")
     private boolean canSkip;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RGST_USER_ID")
     private Manager registrationUser;
@@ -48,8 +48,9 @@ public class Notice {
     @Column(name = "RGST_DT")
     private LocalDateTime registerDateTime;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MDFT_USER_ID")
+    @JoinColumn(name = "MDFY_USER_ID")
     private Manager modifyUser;
 
     @LastModifiedDate
