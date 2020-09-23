@@ -10,13 +10,6 @@ module.exports = {
   plugins: [
     'vue'
   ],
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: './webpack.config.js'
-      }
-    }
-  },
   overrides: [
     {
       files: [
