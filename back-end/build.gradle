@@ -41,6 +41,13 @@ dependencies {
     implementation "com.integralblue:log4jdbc-spring-boot-starter:2.0.0"
     // https://mariadb.com/kb/en/about-mariadb-connector-j/
     implementation "org.mariadb.jdbc:mariadb-java-client:2.6.2"
+    // https://commons.apache.org/proper/commons-io/
+    implementation "commons-io:commons-io:2.8.0"
+    // https://commons.apache.org/proper/commons-lang/
+    implementation "org.apache.commons:commons-lang3:3.11"
+    // https://github.com/google/gson
+    implementation "com.google.code.gson:gson:2.8.6"
+
     // https://github.com/DiUS/java-faker
     testImplementation "com.github.javafaker:javafaker:1.0.2"
 }
