@@ -43,8 +43,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         if (StringUtils.equals(realClientIp, clientIp)) {
             log.debug("Request: {} → {} {}", realClientIp, request.getMethod(), request.getRequestURL());
         } else {
-            log.debug(
-                    "Request: {} → {} → {} {}",
+            log.debug("Request: {} → {} → {} {}",
                     realClientIp,
                     clientIp,
                     request.getMethod(),
@@ -63,8 +62,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         filterChain.doFilter(wrappedRequest, wrappedResponse);
         long duration = System.currentTimeMillis() - startTime;
 
-        log.debug(
-                "Returned status={} in {}ms, charset={}",
+        log.debug("Returned status={} in {}ms, charset={}",
                 response.getStatus(),
                 duration,
                 response.getCharacterEncoding());
@@ -143,8 +141,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
                 LocalDateTime.ofInstant(
                         Instant.ofEpochMilli(session.getCreationTime()), ZoneId.systemDefault());
 
-        log.debug(
-                "session id = {}, created={}, interval={}s",
+        log.debug("session id = {}, created={}, interval={}s",
                 session.getId(),
                 created,
                 session.getMaxInactiveInterval());
@@ -157,6 +154,18 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
     }
 
     /**
+     * 뽑아낼 해더명들
+     */
+    public static final String[] HEADERS = new String[]{
+            "X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"
+    };
+
+    /**
+     * 알 수 없음 플래그
+     */
+    public static final String UNKNOWN_REMOTE = "unknown";
+
+    /**
      * 웹서버를 타고 들어오는 경우 실제 클라이언트의 IP를 알아낸다.<br>
      * 웹서버 쪽에서도 설정이 되어 있어야 한다.
      *
@@ -164,23 +173,13 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
      * @return 실제 클라이언트 아이피
      */
     private String getRealClientIp(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+        for (String header : HEADERS) {
+            String ip = request.getHeader(header);
+            if (StringUtils.isNotBlank(ip) && StringUtils.equalsIgnoreCase(ip, UNKNOWN_REMOTE)) {
+                return ip;
+            }
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
+        return request.getRemoteAddr();
     }
 
 }
