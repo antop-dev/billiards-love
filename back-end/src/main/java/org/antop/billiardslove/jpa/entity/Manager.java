@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Manager {
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "MNGR_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,6 +24,7 @@ public class Manager {
 
     @Setter
     @Column(name = "LGN_BOX")
+    @ToString.Exclude
     private String password;
 
     @LastModifiedDate

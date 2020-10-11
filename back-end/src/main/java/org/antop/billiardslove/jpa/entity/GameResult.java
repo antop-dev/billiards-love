@@ -1,6 +1,7 @@
 package org.antop.billiardslove.jpa.entity;
 
 import lombok.*;
+import org.antop.billiardslove.core.GameResultStatus;
 import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 import org.antop.billiardslove.jpa.convertor.GameResultStatusConverter;
 

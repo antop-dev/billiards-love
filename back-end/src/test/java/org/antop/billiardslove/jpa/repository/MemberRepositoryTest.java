@@ -1,6 +1,7 @@
 package org.antop.billiardslove.jpa.repository;
 
 import org.antop.billiardslove.jpa.DataJpaTest;
+import org.antop.billiardslove.jpa.domain.KakaoProfile;
 import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.hamcrest.collection.IsEmptyCollection;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -32,8 +34,11 @@ class MemberRepositoryTest extends DataJpaTest {
 
     @Test
     void insert() {
-        KakaoLogin kakaoLogin = new KakaoLogin();
-        kakaoLogin.setAccessToken("accessToken&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
+        KakaoLogin kakaoLogin = KakaoLogin.builder()
+                .id(999182L)
+                .profile(KakaoProfile.builder().nickname("김철수").imgUrl("").thumbUrl("").build())
+                .connectedAt(LocalDateTime.now())
+                .build();
         kakaoRepository.save(kakaoLogin);
 
         Member member = new Member();
@@ -45,58 +50,16 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(member.getRegisterDateTime(), notNullValue());
         assertThat(member.getKakaoLogin(), notNullValue());
         assertThat(member.getLoginToken(), notNullValue());
-
     }
 
     @Test
     void insert_read() {
-        KakaoLogin kakaoLogin1 = new KakaoLogin();
-        kakaoLogin1.setAccessToken("accessToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin1);
-
-        Member member1 = new Member();
-        member1.setLoginToken("LoginToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member1.setKakaoLogin(kakaoLogin1);
-        memberRepository.save(member1);
-
-        KakaoLogin kakaoLogin2 = new KakaoLogin();
-        kakaoLogin2.setAccessToken("accessToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin2);
-
-        Member member2 = new Member();
-        member2.setLoginToken("LoginToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member2.setKakaoLogin(kakaoLogin2);
-        memberRepository.save(member2);
-
-        List<Member> memberList = memberRepository.findAll();
-
-        assertThat(memberList, hasSize(2));
-        assertThat(memberList, contains(member1, member2));
 
     }
 
     @Test
     void insert_delete() {
-        KakaoLogin kakaoLogin1 = new KakaoLogin();
-        kakaoLogin1.setAccessToken("accessToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin1);
 
-        Member member1 = new Member();
-        member1.setLoginToken("LoginToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member1.setKakaoLogin(kakaoLogin1);
-        memberRepository.save(member1);
-
-        KakaoLogin kakaoLogin2 = new KakaoLogin();
-        kakaoLogin2.setAccessToken("accessToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin2);
-
-        Member member2 = new Member();
-        member2.setLoginToken("LoginToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member2.setKakaoLogin(kakaoLogin2);
-        memberRepository.save(member2);
-
-        memberRepository.deleteAll();
-        assertThat(memberRepository.findAll(), IsEmptyCollection.empty());
     }
 
 }

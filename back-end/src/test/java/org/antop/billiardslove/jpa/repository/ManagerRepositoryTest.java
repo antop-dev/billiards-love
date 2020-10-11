@@ -16,12 +16,7 @@ import static org.hamcrest.Matchers.*;
 @DisplayName("관리자 테스트")
 class ManagerRepositoryTest extends DataJpaTest {
     @Autowired
-    private ManagerRepository managerRepository;
-
-    @AfterEach
-    void afterEach() {
-        managerRepository.deleteAll();
-    }
+    private ManagerRepository repository;
 
     @Test
     void insert() {
@@ -29,7 +24,7 @@ class ManagerRepositoryTest extends DataJpaTest {
         manager.setUsername("antop@naver.com");
         manager.setPassword("password1");
 
-        managerRepository.save(manager);
+        repository.save(manager);
 
         assertThat(manager.getId(), notNullValue());
         assertThat(manager.getUsername(), notNullValue());
@@ -41,19 +36,19 @@ class ManagerRepositoryTest extends DataJpaTest {
         Manager manager1 = new Manager();
         manager1.setUsername("antop@naver.com");
         manager1.setPassword("password1");
-        managerRepository.save(manager1);
+        repository.save(manager1);
 
         Manager manager2 = new Manager();
         manager2.setUsername("jm@naver.com");
         manager2.setPassword("password2");
-        managerRepository.save(manager2);
+        repository.save(manager2);
 
         Manager manager3 = new Manager();
         manager3.setUsername("hi@naver.com");
         manager3.setPassword("password3");
-        managerRepository.save(manager3);
+        repository.save(manager3);
 
-        List<Manager> managerList = managerRepository.findAll();
+        List<Manager> managerList = repository.findAll();
 
         assertThat(managerList, hasSize(3));
         assertThat(managerList, contains(manager1, manager2, manager3));
@@ -64,20 +59,27 @@ class ManagerRepositoryTest extends DataJpaTest {
         Manager manager1 = new Manager();
         manager1.setUsername("antop@naver.com");
         manager1.setPassword("p@ssword1");
-        managerRepository.save(manager1);
+        repository.save(manager1);
 
         Manager manager2 = new Manager();
         manager2.setUsername("jm@naver.com");
         manager2.setPassword("password2");
-        managerRepository.save(manager2);
+        repository.save(manager2);
 
         Manager manager3 = new Manager();
         manager3.setUsername("hi@naver.com");
         manager3.setPassword("password3");
-        managerRepository.save(manager3);
+        repository.save(manager3);
 
-        managerRepository.deleteAll();
+        repository.deleteAll();
 
-        assertThat(managerRepository.findAll(), IsEmptyCollection.empty());
+        assertThat(repository.findAll(), IsEmptyCollection.empty());
+    }
+
+    @Test
+    void select() {
+        for (Manager manager : repository.findAll()) {
+            System.out.println("manager = " + manager);
+        }
     }
 }

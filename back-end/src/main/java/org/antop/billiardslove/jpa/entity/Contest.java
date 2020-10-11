@@ -1,6 +1,7 @@
 package org.antop.billiardslove.jpa.entity;
 
 import lombok.*;
+import org.antop.billiardslove.core.ProgressStatus;
 import org.antop.billiardslove.jpa.convertor.ProgressStatusConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -58,7 +59,7 @@ public class Contest {
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RGST_USER_ID")
+    @JoinColumn(name = "RGST_MNGR_ID")
     private Manager registrationUser;
 
     @CreatedDate
@@ -67,7 +68,7 @@ public class Contest {
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MDFY_USER_ID")
+    @JoinColumn(name = "MDFY_MNGR_ID")
     private Manager modifyUser;
 
     @LastModifiedDate

@@ -1,9 +1,9 @@
 package org.antop.billiardslove.jpa.repository;
 
+import org.antop.billiardslove.core.ProgressStatus;
 import org.antop.billiardslove.jpa.DataJpaTest;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Manager;
-import org.antop.billiardslove.jpa.entity.ProgressStatus;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ class ContestRepositoryTest extends DataJpaTest {
     private ContestRepository contestRepository;
 
     @AfterEach
-    void afterEach(){
+    void afterEach() {
         contestRepository.deleteAll();
     }
 

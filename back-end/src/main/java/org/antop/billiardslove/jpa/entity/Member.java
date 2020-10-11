@@ -38,7 +38,7 @@ public class Member {
 
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LGN_ID")
+    @JoinColumn(name = "KKO_LGN_ID")
     private KakaoLogin kakaoLogin;
 
     @Setter

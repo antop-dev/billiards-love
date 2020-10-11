@@ -1,4 +1,4 @@
-package org.antop.billiardslove.jpa.entity;
+package org.antop.billiardslove.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,15 +6,25 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum GameResultStatus {
-    /** 입력되지 않음 */
+    /**
+     * 입력되지 않음
+     */
     NONE("0"),
-    /** 승리 */
+    /**
+     * 승리
+     */
     WIN("1"),
-    /** 패배 */
+    /**
+     * 패배
+     */
     LOSE("2"),
-    /** 기권 */
+    /**
+     * 기권
+     */
     ABSTENTION("3"),
-    /** 진행의사 있음 */
+    /**
+     * 진행의사 있음
+     */
     HOLD("4");
 
     private String status;

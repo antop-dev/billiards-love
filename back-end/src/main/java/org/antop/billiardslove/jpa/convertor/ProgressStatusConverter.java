@@ -1,6 +1,6 @@
 package org.antop.billiardslove.jpa.convertor;
 
-import org.antop.billiardslove.jpa.entity.ProgressStatus;
+import org.antop.billiardslove.core.ProgressStatus;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -10,7 +10,7 @@ public class ProgressStatusConverter implements AttributeConverter<ProgressStatu
 
     @Override
     public String convertToDatabaseColumn(ProgressStatus attribute) {
-        return attribute.getStatus();
+        return attribute.getCode();
     }
 
     @Override
