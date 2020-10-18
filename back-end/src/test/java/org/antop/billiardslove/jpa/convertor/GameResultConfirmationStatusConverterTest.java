@@ -7,7 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GameResultStatusConverterTest {
+class GameResultConfirmationStatusConverterTest {
     private final GameResultStatusConverter converter = new GameResultStatusConverter();
 
     @Test

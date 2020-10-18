@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Table(name = "TBL_KKO_LGN")
 public class KakaoLogin {
     /**
-     * 카카오톡 아이디
+     * 카카오 아이디
      */
     @Id
     @Column(name = "LGN_ID")

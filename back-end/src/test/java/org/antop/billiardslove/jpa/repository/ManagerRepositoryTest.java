@@ -2,78 +2,62 @@ package org.antop.billiardslove.jpa.repository;
 
 import org.antop.billiardslove.jpa.DataJpaTest;
 import org.antop.billiardslove.jpa.entity.Manager;
-import org.hamcrest.collection.IsEmptyCollection;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 
+@EnableJpaAuditing
 @DisplayName("관리자 테스트")
 class ManagerRepositoryTest extends DataJpaTest {
     @Autowired
     private ManagerRepository repository;
 
     @Test
-    void insert() {
-        Manager manager = new Manager();
-        manager.setUsername("antop@naver.com");
-        manager.setPassword("password1");
+    @DisplayName("관리자 데이터를 조회한다.")
+    void read() {
+        Optional<Manager> optional = repository.findById(1L);
+        assertThat(optional.isPresent(), is(true));
+        Manager manager = optional.get();
+        assertThat(manager.getUsername(), is("admin"));
+    }
 
+    @Test
+    @DisplayName("새로운 관리자 데이터를 등록한다.")
+    void E6RA6() {
+        Manager manager = Manager.builder()
+                .username("manager")
+                .password("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS")
+                .build();
         repository.save(manager);
-
-        assertThat(manager.getId(), notNullValue());
-        assertThat(manager.getUsername(), notNullValue());
-        assertThat(manager.getPassword(), notNullValue());
+        System.out.println(manager);
+        Optional<Manager> optional = repository.findById(5L);
+        assertThat(optional.isPresent(), is(true));
+        Manager manager1 = optional.get();
+        assertThat(manager1.getUsername(), is("manager"));
     }
 
     @Test
-    void insert_read() {
-        Manager manager1 = new Manager();
-        manager1.setUsername("antop@naver.com");
-        manager1.setPassword("password1");
-        repository.save(manager1);
+    @DisplayName("이미 존재하는 데이터를 등록하려고 한다.")
+    void O6G() {
+        Manager manager = Manager.builder()
+                .id(1L)
+                .username("admin1")
+                .password("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS1")
+                .build();
+        repository.save(manager);
+        System.out.println(manager);
 
-        Manager manager2 = new Manager();
-        manager2.setUsername("jm@naver.com");
-        manager2.setPassword("password2");
-        repository.save(manager2);
-
-        Manager manager3 = new Manager();
-        manager3.setUsername("hi@naver.com");
-        manager3.setPassword("password3");
-        repository.save(manager3);
-
-        List<Manager> managerList = repository.findAll();
-
-        assertThat(managerList, hasSize(3));
-        assertThat(managerList, contains(manager1, manager2, manager3));
-    }
-
-    @Test
-    void insert_delete() {
-        Manager manager1 = new Manager();
-        manager1.setUsername("antop@naver.com");
-        manager1.setPassword("p@ssword1");
-        repository.save(manager1);
-
-        Manager manager2 = new Manager();
-        manager2.setUsername("jm@naver.com");
-        manager2.setPassword("password2");
-        repository.save(manager2);
-
-        Manager manager3 = new Manager();
-        manager3.setUsername("hi@naver.com");
-        manager3.setPassword("password3");
-        repository.save(manager3);
-
-        repository.deleteAll();
-
-        assertThat(repository.findAll(), IsEmptyCollection.empty());
+        Optional<Manager> optional = repository.findById(1L);
+        assertThat(optional.isPresent(), is(true));
+        Manager manager1 = optional.get();
+        assertThat(manager1.getUsername(), is("admin1"));
+        assertThat(manager1.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS1"));
     }
 
     @Test

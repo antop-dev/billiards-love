@@ -41,6 +41,10 @@ public class KakaoRepositoryTest extends DataJpaTest {
                 .build();
         repository.save(kakaoLogin);
         System.out.println(kakaoLogin);
+        Optional<KakaoLogin> optional = repository.findById(9999999999L);
+        assertThat(optional.isPresent(), is(true));
+        KakaoLogin kakaoLogin1 = optional.get();
+        assertThat(kakaoLogin1.getProfile().getNickname(), is("알파고"));
     }
 
     @Test
@@ -55,6 +59,13 @@ public class KakaoRepositoryTest extends DataJpaTest {
             it.connect(LocalDateTime.now());
             it.changeProfile(newProfile);
         });
+
+        Optional<KakaoLogin> optional = repository.findById(1213141501L);
+        assertThat(optional.isPresent(), is(true));
+        KakaoLogin kakaoLogin1 = optional.get();
+        assertThat(kakaoLogin1.getProfile().getNickname(), is("Antop"));
+        assertThat(kakaoLogin1.getProfile().getImgUrl(), is("https://foo"));
+        assertThat(kakaoLogin1.getProfile().getThumbUrl(), is("https://bar"));
     }
 
     @Test
@@ -67,5 +78,10 @@ public class KakaoRepositoryTest extends DataJpaTest {
                 .build();
         repository.save(kakaoLogin);
         System.out.println(kakaoLogin);
+
+        Optional<KakaoLogin> optional = repository.findById(1213141502L);
+        assertThat(optional.isPresent(), is(true));
+        KakaoLogin kakaoLogin1 = optional.get();
+        assertThat(kakaoLogin1.getProfile().getNickname(), is("침착맨"));
     }
 }
