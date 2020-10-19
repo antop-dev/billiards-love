@@ -18,8 +18,8 @@ module.exports = {
       ],
       env: {
         jest: true
-      },
-    },
+      }
+    }
   ],
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
@@ -31,6 +31,6 @@ module.exports = {
       singleQuote: true,
       trailingComma: 'all',
       printWidth: 80,
-    }],
-  },
+    }]
+  }
 };
