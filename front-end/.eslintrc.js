@@ -7,10 +7,9 @@ module.exports = {
   parserOptions: {
     parser: "babel-eslint"
   },
-  rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
-  },
+  plugins: [
+    'vue'
+  ],
   overrides: [
     {
       files: [
@@ -21,5 +20,17 @@ module.exports = {
         jest: true
       }
     }
-  ]
+  ],
+  rules: {
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    'prettier/prettier': ['error', {
+      useTabs: false,
+      tabWidth: 2,
+      semi: true,
+      singleQuote: true,
+      trailingComma: 'all',
+      printWidth: 80,
+    }]
+  }
 };
