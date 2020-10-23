@@ -1,14 +1,14 @@
 <template>
   <div>
     <app-header></app-header>
-    <div>
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import AppHeader from './components/common/AppHeader';
 export default {
+  components: { AppHeader },
   data() {
     return {};
   },

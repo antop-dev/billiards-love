@@ -1,10 +1,12 @@
 <template>
-  <span>Hello</span>
+  <div>
+    <span>gameRank</span>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Hello',
+  name: 'GameRank',
 };
 </script>
 

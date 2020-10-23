@@ -1,10 +1,12 @@
 <template>
-  <span>World</span>
+  <div>
+    <span>gameInfo</span>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'World',
+  name: 'GameInfo',
 };
 </script>
 
