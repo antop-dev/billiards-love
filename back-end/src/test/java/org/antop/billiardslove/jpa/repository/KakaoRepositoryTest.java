@@ -6,7 +6,6 @@ import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.TestConstructor;
 
 import java.time.LocalDateTime;
@@ -15,7 +14,6 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-@EnableJpaAuditing
 @DisplayName("카카오 로그인 저장소 테스트")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class KakaoRepositoryTest extends DataJpaTest {
@@ -25,9 +23,9 @@ public class KakaoRepositoryTest extends DataJpaTest {
     @Test
     @DisplayName("카카오 로그인 데이터를 조회한다.")
     void SEfEt() {
-        Optional<KakaoLogin> optional = repository.findById(1213141501L);
-        assertThat(optional.isPresent(), is(true));
-        KakaoLogin kakaoLogin = optional.get();
+        Optional<KakaoLogin> kakaoLoginOptional = repository.findById(1213141501L);
+        assertThat(kakaoLoginOptional.isPresent(), is(true));
+        KakaoLogin kakaoLogin = kakaoLoginOptional.get();
         assertThat(kakaoLogin.getProfile().getNickname(), is("안정용"));
     }
 
@@ -40,10 +38,10 @@ public class KakaoRepositoryTest extends DataJpaTest {
                 .profile(KakaoProfile.builder().nickname("알파고").imgUrl("").thumbUrl("").build())
                 .build();
         repository.save(kakaoLogin);
-        System.out.println(kakaoLogin);
-        Optional<KakaoLogin> optional = repository.findById(9999999999L);
-        assertThat(optional.isPresent(), is(true));
-        KakaoLogin kakaoLogin1 = optional.get();
+
+        Optional<KakaoLogin> kakaoLoginOptional = repository.findById(9999999999L);
+        assertThat(kakaoLoginOptional.isPresent(), is(true));
+        KakaoLogin kakaoLogin1 = kakaoLoginOptional.get();
         assertThat(kakaoLogin1.getProfile().getNickname(), is("알파고"));
     }
 
@@ -60,12 +58,12 @@ public class KakaoRepositoryTest extends DataJpaTest {
             it.changeProfile(newProfile);
         });
 
-        Optional<KakaoLogin> optional = repository.findById(1213141501L);
-        assertThat(optional.isPresent(), is(true));
-        KakaoLogin kakaoLogin1 = optional.get();
-        assertThat(kakaoLogin1.getProfile().getNickname(), is("Antop"));
-        assertThat(kakaoLogin1.getProfile().getImgUrl(), is("https://foo"));
-        assertThat(kakaoLogin1.getProfile().getThumbUrl(), is("https://bar"));
+        Optional<KakaoLogin> kakaoLoginOptional = repository.findById(1213141501L);
+        assertThat(kakaoLoginOptional.isPresent(), is(true));
+        KakaoLogin kakaoLogin = kakaoLoginOptional.get();
+        assertThat(kakaoLogin.getProfile().getNickname(), is("Antop"));
+        assertThat(kakaoLogin.getProfile().getImgUrl(), is("https://foo"));
+        assertThat(kakaoLogin.getProfile().getThumbUrl(), is("https://bar"));
     }
 
     @Test
@@ -77,11 +75,10 @@ public class KakaoRepositoryTest extends DataJpaTest {
                 .profile(KakaoProfile.builder().nickname("침착맨").imgUrl("").thumbUrl("").build())
                 .build();
         repository.save(kakaoLogin);
-        System.out.println(kakaoLogin);
 
-        Optional<KakaoLogin> optional = repository.findById(1213141502L);
-        assertThat(optional.isPresent(), is(true));
-        KakaoLogin kakaoLogin1 = optional.get();
+        Optional<KakaoLogin> kakaoLoginOptional = repository.findById(1213141502L);
+        assertThat(kakaoLoginOptional.isPresent(), is(true));
+        KakaoLogin kakaoLogin1 = kakaoLoginOptional.get();
         assertThat(kakaoLogin1.getProfile().getNickname(), is("침착맨"));
     }
 }

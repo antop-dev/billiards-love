@@ -4,11 +4,16 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * 선수 정보
+ *
+ * @author jammini
+ */
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "TBL_PLYR")
 public class Player {
@@ -17,17 +22,22 @@ public class Player {
      */
     @Id
     @Column(name = "PLYR_ID")
+    @EqualsAndHashCode.Exclude
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 대회 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CNTS_ID")
     private Contest contest;
     /**
      * 회원 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MMBR_ID")
     private Member member;
@@ -55,4 +65,14 @@ public class Player {
     @Setter
     @Column(name = "PLYR_SCR")
     private int score = 0;
+
+    @Builder
+    public Player(Contest contest, Member member, Integer number, int handicap, Integer rank, int score) {
+        this.contest = contest;
+        this.member = member;
+        this.number = number;
+        this.handicap = handicap;
+        this.rank = rank;
+        this.score = score;
+    }
 }

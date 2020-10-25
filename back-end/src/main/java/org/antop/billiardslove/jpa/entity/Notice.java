@@ -9,11 +9,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * 공지사항
+ *
+ * @author jammini
+ */
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_NTC")
@@ -23,6 +28,7 @@ public class Notice {
      */
     @Id
     @Column(name = "NTC_ID")
+    @EqualsAndHashCode.Exclude
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -40,6 +46,8 @@ public class Notice {
     /**
      * 대상 대회 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRGT_CNTS_ID")
     private Contest contest;
@@ -53,6 +61,8 @@ public class Notice {
     /**
      * 등록 관리자 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RGST_MNGR_ID")
     private Manager registrationUser;
@@ -65,6 +75,8 @@ public class Notice {
     /**
      * 수정 관리자 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MDFY_MNGR_ID")
     private Manager modifyUser;
@@ -75,4 +87,13 @@ public class Notice {
     @Column(name = "MDFY_DT")
     private LocalDateTime modifyDateTime;
 
+    @Builder
+    public Notice(String title, String contents, Contest contest, boolean canSkip, Manager registrationUser, Manager modifyUser) {
+        this.title = title;
+        this.contents = contents;
+        this.contest = contest;
+        this.canSkip = canSkip;
+        this.registrationUser = registrationUser;
+        this.modifyUser = modifyUser;
+    }
 }

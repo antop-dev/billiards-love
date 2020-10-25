@@ -21,9 +21,9 @@ class ManagerRepositoryTest extends DataJpaTest {
     @Test
     @DisplayName("관리자 데이터를 조회한다.")
     void read() {
-        Optional<Manager> optional = repository.findById(1L);
-        assertThat(optional.isPresent(), is(true));
-        Manager manager = optional.get();
+        Optional<Manager> managerOptional = repository.findById(1L);
+        assertThat(managerOptional.isPresent(), is(true));
+        Manager manager = managerOptional.get();
         assertThat(manager.getUsername(), is("admin"));
     }
 
@@ -35,7 +35,7 @@ class ManagerRepositoryTest extends DataJpaTest {
                 .password("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS")
                 .build();
         repository.save(manager);
-        System.out.println(manager);
+
         Optional<Manager> optional = repository.findById(5L);
         assertThat(optional.isPresent(), is(true));
         Manager manager1 = optional.get();
@@ -43,27 +43,19 @@ class ManagerRepositoryTest extends DataJpaTest {
     }
 
     @Test
-    @DisplayName("이미 존재하는 데이터를 등록하려고 한다.")
+    @DisplayName("관리자데이트를 갱신한다.")
     void O6G() {
-        Manager manager = Manager.builder()
-                .id(1L)
-                .username("admin1")
-                .password("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS1")
-                .build();
-        repository.save(manager);
-        System.out.println(manager);
+        repository.findById(1L).ifPresent(it -> {
+            it.setUsername("manager2");
+            it.setPassword("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS");
+        });
 
-        Optional<Manager> optional = repository.findById(1L);
-        assertThat(optional.isPresent(), is(true));
-        Manager manager1 = optional.get();
-        assertThat(manager1.getUsername(), is("admin1"));
-        assertThat(manager1.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS1"));
+        Optional<Manager> managerOptional = repository.findById(1L);
+        assertThat(managerOptional.isPresent(), is(true));
+        Manager manager = managerOptional.get();
+        assertThat(manager.getUsername(), is("manager2"));
+        assertThat(manager.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS"));
+
     }
 
-    @Test
-    void select() {
-        for (Manager manager : repository.findAll()) {
-            System.out.println("manager = " + manager);
-        }
-    }
 }

@@ -3,6 +3,7 @@ package org.antop.billiardslove.jpa.entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,11 +29,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * 대회 정보
+ *
+ * @author jammini
+ */
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_CNTS")
@@ -42,6 +48,7 @@ public class Contest {
      */
     @Id
     @Column(name = "CNTS_ID")
+    @EqualsAndHashCode.Exclude
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -51,7 +58,7 @@ public class Contest {
     @Column(name = "CNTS_NM")
     private String title;
     /**
-     * 대회설명
+     * 대회 설명
      */
     @Setter
     @Column(name = "CNTS_DSCR")
@@ -92,15 +99,17 @@ public class Contest {
      */
     @Setter
     @Column(name = "MAX_PRTC_PRSN")
-    private int maximumParticipants;
+    private int maximumParticipants = 0;
     /**
      * 등록 관리자 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RGST_MNGR_ID")
     private Manager registrationUser;
     /**
-     * 등록일시
+     * 등록 일시
      */
     @CreatedDate
     @Column(name = "RGST_DT")
@@ -108,6 +117,8 @@ public class Contest {
     /**
      * 수정 관리자 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MDFY_MNGR_ID")
     private Manager modifyUser;
@@ -117,4 +128,19 @@ public class Contest {
     @LastModifiedDate
     @Column(name = "MDFY_DT")
     private LocalDateTime modifyDateTime;
+
+    @Builder
+    public Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, ProgressStatus progressStatus, int maximumParticipants, Manager registrationUser, Manager modifyUser) {
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.progressStatus = progressStatus;
+        this.maximumParticipants = maximumParticipants;
+        this.registrationUser = registrationUser;
+        this.modifyUser = modifyUser;
+    }
+
 }

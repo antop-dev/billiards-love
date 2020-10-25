@@ -3,6 +3,7 @@ package org.antop.billiardslove.jpa.entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,20 +24,26 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * 회원 정보
+ *
+ * @author jammini
+ */
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_MMBR")
 public class Member {
     /**
-     * 회원아이디
+     * 회원 아이디
      */
     @Id
     @Column(name = "MMBR_ID")
+    @EqualsAndHashCode.Exclude
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -52,13 +59,13 @@ public class Member {
     @Column(name = "MMBR_HNDC")
     private Integer handicap;
     /**
-     * 등록일시
+     * 등록 일시
      */
     @CreatedDate
     @Column(name = "RGST_DT")
     private LocalDateTime registerDateTime;
     /**
-     * 수정일시
+     * 수정 일시
      */
     @LastModifiedDate
     @Column(name = "MDFY_DT")
@@ -66,6 +73,8 @@ public class Member {
     /**
      * 카카오 로그인 아이디
      */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KKO_LGN_ID")
     private KakaoLogin kakaoLogin;
@@ -76,4 +85,11 @@ public class Member {
     @Column(name = "LGN_TKN")
     private String loginToken;
 
+    @Builder
+    public Member(String nickname, Integer handicap, KakaoLogin kakaoLogin, String loginToken) {
+        this.nickname = nickname;
+        this.handicap = handicap;
+        this.kakaoLogin = kakaoLogin;
+        this.loginToken = loginToken;
+    }
 }

@@ -16,11 +16,11 @@ public enum ProgressStatus {
     /**
      * 접수중 (시작하지 않음)
      */
-    NONE("0"),
+    ACCEPTING("0"),
     /**
      * 진행중
      */
-    PROGRESS("1"),
+    PROCEEDING("1"),
     /**
      * 종료
      */
@@ -31,9 +31,10 @@ public enum ProgressStatus {
     private final String code;
 
     public static ProgressStatus of(String code) {
-        return Arrays.stream(values())
-                .filter(it -> it.getCode().equals(code))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(code));
+        for (ProgressStatus o : values()) {
+            if (o.getCode().equals(code))
+                return o;
+        }
+        return ProgressStatus.ACCEPTING;
     }
 }

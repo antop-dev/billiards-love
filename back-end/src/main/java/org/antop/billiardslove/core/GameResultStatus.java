@@ -3,6 +3,11 @@ package org.antop.billiardslove.core;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 게임결과 상태
+ *
+ * @author jammini
+ */
 @Getter
 @AllArgsConstructor
 public enum GameResultStatus {

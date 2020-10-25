@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
  * 카카오 사용자 정보<br>
  * https://developers.kakao.com/docs/latest/ko/user-mgmt/common#user-info
  *
- * @author
+ * @author jammini
  */
 @Getter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_KKO_LGN")
 public class KakaoLogin {
     /**
@@ -27,6 +27,7 @@ public class KakaoLogin {
      */
     @Id
     @Column(name = "LGN_ID")
+    @EqualsAndHashCode.Exclude
     private Long id;
     /**
      * 접속 일시

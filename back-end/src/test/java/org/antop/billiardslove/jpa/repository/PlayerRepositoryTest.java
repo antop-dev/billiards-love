@@ -30,9 +30,9 @@ class PlayerRepositoryTest extends DataJpaTest {
     @Test
     @DisplayName("선수 데이터를 조회한다")
     void select() {
-        Optional<Player> optional = playerRepository.findById(1L);
-        assertThat(optional.isPresent(), is(true));
-        Player player = optional.get();
+        Optional<Player> playerOptional = playerRepository.findById(1L);
+        assertThat(playerOptional.isPresent(), is(true));
+        Player player = playerOptional.get();
         assertThat(player.getId(), is(1L));
     }
 
@@ -47,11 +47,12 @@ class PlayerRepositoryTest extends DataJpaTest {
                 .member(memberOptional.get())
                 .build();
         playerRepository.save(player);
-        System.out.println(player);
 
-        Optional<Player> optional1 = playerRepository.findById(3L);
-        assertThat(optional1.isPresent(), is(true));
-        Player player1 = optional1.get();
+        System.out.println(player.toString());
+
+        Optional<Player> playerOptional = playerRepository.findById(3L);
+        assertThat(playerOptional.isPresent(), is(true));
+        Player player1 = playerOptional.get();
         assertThat(player1.getId(), is(3L));
     }
 
@@ -65,30 +66,10 @@ class PlayerRepositoryTest extends DataJpaTest {
             it.setScore(3);
         });
 
-        Optional<Player> optional = playerRepository.findById(1L);
-        assertThat(optional.isPresent(), is(true));
-        Player player = optional.get();
+        Optional<Player> playerOptional = playerRepository.findById(1L);
+        assertThat(playerOptional.isPresent(), is(true));
+        Player player = playerOptional.get();
         assertThat(player.getNumber(), is(99));
     }
 
-    @Test
-    @DisplayName("이미 존재하는 데이터를 등록하려고 한다.")
-    void O6G() {
-        Optional<Member> memberOptional = memberRepository.findById(1L);
-        Optional<Contest> contestOptional = contestRepository.findById(1L);
-
-        Player player = Player.builder()
-                .id(1L)
-                .contest(contestOptional.get())
-                .member(memberOptional.get())
-                .number(99)
-                .build();
-        playerRepository.save(player);
-        System.out.println(player);
-
-        Optional<Player> optional1 = playerRepository.findById(1L);
-        assertThat(optional1.isPresent(), is(true));
-        Player player1 = optional1.get();
-        assertThat(player1.getNumber(), is(99));
-    }
 }
