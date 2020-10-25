@@ -11,9 +11,8 @@ import javax.persistence.*;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @Table(name = "TBL_PLYR")
 public class Player {
@@ -22,14 +21,13 @@ public class Player {
      */
     @Id
     @Column(name = "PLYR_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 대회 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CNTS_ID")
     private Contest contest;
@@ -37,7 +35,6 @@ public class Player {
      * 회원 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MMBR_ID")
     private Member member;

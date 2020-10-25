@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -27,7 +27,7 @@ public class KakaoLogin {
      */
     @Id
     @Column(name = "LGN_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     private Long id;
     /**
      * 접속 일시

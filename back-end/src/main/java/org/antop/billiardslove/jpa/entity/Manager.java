@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_MNGR")
@@ -26,7 +25,7 @@ public class Manager {
      */
     @Id
     @Column(name = "MNGR_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**

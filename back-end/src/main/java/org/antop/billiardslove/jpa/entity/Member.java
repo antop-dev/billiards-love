@@ -31,9 +31,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_MMBR")
@@ -43,7 +42,7 @@ public class Member {
      */
     @Id
     @Column(name = "MMBR_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -74,7 +73,6 @@ public class Member {
      * 카카오 로그인 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KKO_LGN_ID")
     private KakaoLogin kakaoLogin;

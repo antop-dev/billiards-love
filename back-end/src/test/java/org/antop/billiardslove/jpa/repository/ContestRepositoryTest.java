@@ -57,6 +57,14 @@ class ContestRepositoryTest extends DataJpaTest {
         assertThat(contestOptional.isPresent(), is(true));
         Contest contest1 = contestOptional.get();
         assertThat(contest1.getTitle(), is("코로나 리그전 2020"));
+        assertThat(contest1.getDescription(), is("1등 상품 맥북"));
+        assertThat(contest1.getStartDate(), is(LocalDate.of(2020,12,25)));
+        assertThat(contest1.getStartTime(), is(LocalTime.of(10,00)));
+        assertThat(contest1.getEndDate(), is(LocalDate.of(2021, 1, 31)));
+        assertThat(contest1.getEndTime(), is(LocalTime.of(12, 0)));
+        assertThat(contest1.getMaximumParticipants(), is(16));
+        assertThat(contest1.getProgressStatus(), is(ProgressStatus.ACCEPTING));
+        assertThat(contest1.getRegistrationUser(), is(managerOptional.get()));
     }
 
     @Test

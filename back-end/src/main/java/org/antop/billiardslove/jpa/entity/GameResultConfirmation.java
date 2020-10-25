@@ -33,9 +33,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_GAME_RSLT_CNFR")
@@ -45,14 +44,13 @@ public class GameResultConfirmation {
      */
     @Id
     @Column(name = "GAME_RSLT_CNFR_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 선수 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLYR_ID")
     private Player player;
@@ -60,7 +58,6 @@ public class GameResultConfirmation {
      * 선수 입력 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLYR_INPT_ID")
     private GameResultInput playerGameResultInput;
@@ -68,7 +65,6 @@ public class GameResultConfirmation {
      * 상대 선수 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPNN_PLYR_ID")
     private Player opponentPlayer;
@@ -76,7 +72,6 @@ public class GameResultConfirmation {
      * 상대 선수 입력 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPNN_PLYR_INPT_ID")
     private GameResultInput opponentGameResultInput;
@@ -105,7 +100,6 @@ public class GameResultConfirmation {
      * 확정자 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CNFR_MNGR_ID")
     private Manager manager;

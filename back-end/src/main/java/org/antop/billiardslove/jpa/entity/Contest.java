@@ -36,9 +36,8 @@ import java.time.LocalTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_CNTS")
@@ -48,7 +47,7 @@ public class Contest {
      */
     @Id
     @Column(name = "CNTS_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -95,7 +94,8 @@ public class Contest {
     @Column(name = "PRGR_STT")
     private ProgressStatus progressStatus;
     /**
-     * 최대 참가 인원
+     * 최대 참가 인원<br>
+     * 0일 경우 무제한
      */
     @Setter
     @Column(name = "MAX_PRTC_PRSN")
@@ -104,7 +104,6 @@ public class Contest {
      * 등록 관리자 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RGST_MNGR_ID")
     private Manager registrationUser;
@@ -118,7 +117,6 @@ public class Contest {
      * 수정 관리자 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MDFY_MNGR_ID")
     private Manager modifyUser;

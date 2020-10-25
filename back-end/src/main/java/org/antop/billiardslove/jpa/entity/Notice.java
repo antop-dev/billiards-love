@@ -16,9 +16,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_NTC")
@@ -28,7 +27,7 @@ public class Notice {
      */
     @Id
     @Column(name = "NTC_ID")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -47,7 +46,6 @@ public class Notice {
      * 대상 대회 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRGT_CNTS_ID")
     private Contest contest;
@@ -62,7 +60,6 @@ public class Notice {
      * 등록 관리자 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RGST_MNGR_ID")
     private Manager registrationUser;
@@ -76,7 +73,6 @@ public class Notice {
      * 수정 관리자 아이디
      */
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MDFY_MNGR_ID")
     private Manager modifyUser;
