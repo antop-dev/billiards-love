@@ -9,10 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 @DisplayName("선수 테스트")
 @EnableJpaAuditing
@@ -33,7 +36,17 @@ class PlayerRepositoryTest extends DataJpaTest {
         Optional<Player> playerOptional = playerRepository.findById(1L);
         assertThat(playerOptional.isPresent(), is(true));
         Player player = playerOptional.get();
-        assertThat(player.getId(), is(1L));
+        assertThat(player.getNumber(), is(1));
+        assertThat(player.getHandicap(), is(22));
+        assertThat(player.getRank(), is(1));
+        assertThat(player.getScore(), is(0));
+    }
+
+    @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Player> list = playerRepository.findAll();
+        assertThat(list, hasSize(6));
     }
 
     @Test
@@ -48,12 +61,13 @@ class PlayerRepositoryTest extends DataJpaTest {
                 .build();
         playerRepository.save(player);
 
-        System.out.println(player.toString());
-
-        Optional<Player> playerOptional = playerRepository.findById(3L);
+        Optional<Player> playerOptional = playerRepository.findById(7L);
         assertThat(playerOptional.isPresent(), is(true));
         Player player1 = playerOptional.get();
-        assertThat(player1.getId(), is(3L));
+        assertThat(player1.getNumber(), nullValue());
+        assertThat(player1.getHandicap(), is(0));
+        assertThat(player1.getRank(), nullValue());
+        assertThat(player1.getScore(), is(0));
     }
 
     @Test
@@ -70,6 +84,9 @@ class PlayerRepositoryTest extends DataJpaTest {
         assertThat(playerOptional.isPresent(), is(true));
         Player player = playerOptional.get();
         assertThat(player.getNumber(), is(99));
+        assertThat(player.getHandicap(), is(30));
+        assertThat(player.getRank(), is(1));
+        assertThat(player.getScore(), is(3));
     }
 
 }

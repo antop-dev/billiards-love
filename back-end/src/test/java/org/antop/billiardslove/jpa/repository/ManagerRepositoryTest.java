@@ -7,10 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @EnableJpaAuditing
 @DisplayName("관리자 테스트")
@@ -25,6 +28,14 @@ class ManagerRepositoryTest extends DataJpaTest {
         assertThat(managerOptional.isPresent(), is(true));
         Manager manager = managerOptional.get();
         assertThat(manager.getUsername(), is("admin"));
+        assertThat(manager.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS"));
+    }
+
+    @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Manager> list = repository.findAll();
+        assertThat(list, hasSize(1));
     }
 
     @Test
@@ -40,6 +51,9 @@ class ManagerRepositoryTest extends DataJpaTest {
         assertThat(optional.isPresent(), is(true));
         Manager manager1 = optional.get();
         assertThat(manager1.getUsername(), is("manager"));
+        assertThat(manager1.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS"));
+        assertThat(manager1.getLastLoginDateTime(), notNullValue());
+
     }
 
     @Test

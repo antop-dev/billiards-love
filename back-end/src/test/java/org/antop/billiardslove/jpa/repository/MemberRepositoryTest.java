@@ -8,10 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @EnableJpaAuditing
 @DisplayName("회원 테스트")
@@ -30,6 +33,16 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(memberOptional.isPresent(), is(true));
         Member member = memberOptional.get();
         assertThat(member.getNickname(), is("띠용"));
+        assertThat(member.getHandicap(), is(20));
+        assertThat(member.getRegisterDateTime(), notNullValue());
+        assertThat(member.getLoginToken(), is("803fa52145da1c0cc9a748018a95d131"));
+    }
+
+    @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Member> list = memberRepository.findAll();
+        assertThat(list, hasSize(6));
     }
 
     @Test
@@ -49,6 +62,9 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(memberOptional.isPresent(), is(true));
         Member member1 = memberOptional.get();
         assertThat(member1.getNickname(), is("골드스푼"));
+        assertThat(member.getHandicap(), is(30));
+        assertThat(member.getRegisterDateTime(), notNullValue());
+        assertThat(member.getLoginToken(), is("loginToken1"));
     }
 
     @Test
@@ -64,6 +80,9 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(memberOptional.isPresent(), is(true));
         Member member = memberOptional.get();
         assertThat(member.getNickname(), is("골드스푼"));
+        assertThat(member.getHandicap(), is(30));
+        assertThat(member.getRegisterDateTime(), notNullValue());
+        assertThat(member.getLoginToken(), is("loginTokenChange1"));
     }
 
 }

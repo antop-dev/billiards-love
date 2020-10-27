@@ -1,7 +1,6 @@
 package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -111,7 +110,7 @@ public class GameResultConfirmation {
     private LocalDateTime confirmationDateTime;
 
     @Builder
-    public GameResultConfirmation(Player player, GameResultInput playerGameResultInput, Player opponentPlayer, GameResultInput opponentGameResultInput, GameResultStatus firstResult, GameResultStatus secondResult, GameResultStatus thirdResult, Manager manager){
+    public GameResultConfirmation(Player player, GameResultInput playerGameResultInput, Player opponentPlayer, GameResultInput opponentGameResultInput, GameResultStatus firstResult, GameResultStatus secondResult, GameResultStatus thirdResult, Manager manager) {
         this.player = player;
         this.playerGameResultInput = playerGameResultInput;
         this.opponentPlayer = opponentPlayer;

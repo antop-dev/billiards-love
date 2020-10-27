@@ -11,9 +11,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 @DisplayName("대회 테스트")
@@ -27,12 +29,26 @@ class ContestRepositoryTest extends DataJpaTest {
     private ContestRepository contestRepository;
 
     @Test
-    @DisplayName("대회 데이터를 조회한다")
+    @DisplayName("대회 데이터를 조회")
     void select() {
         Optional<Contest> contestOptional = contestRepository.findById(1L);
         assertThat(contestOptional.isPresent(), is(true));
         Contest contest = contestOptional.get();
         assertThat(contest.getTitle(), is("2019 리그전"));
+        assertThat(contest.getDescription(), is("2020.01.01~"));
+        assertThat(contest.getStartDate(), is(LocalDate.of(2019, 01, 01)));
+        assertThat(contest.getStartTime(), is(LocalTime.of(00, 00, 00)));
+        assertThat(contest.getEndDate(), is(LocalDate.of(2019, 12, 30)));
+        assertThat(contest.getEndTime(), is(LocalTime.of(23, 59, 59)));
+        assertThat(contest.getMaximumParticipants(), is(64));
+        assertThat(contest.getProgressStatus(), is(ProgressStatus.END));
+    }
+
+    @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Contest> list = contestRepository.findAll();
+        assertThat(list, hasSize(3));
     }
 
     @Test
@@ -58,8 +74,8 @@ class ContestRepositoryTest extends DataJpaTest {
         Contest contest1 = contestOptional.get();
         assertThat(contest1.getTitle(), is("코로나 리그전 2020"));
         assertThat(contest1.getDescription(), is("1등 상품 맥북"));
-        assertThat(contest1.getStartDate(), is(LocalDate.of(2020,12,25)));
-        assertThat(contest1.getStartTime(), is(LocalTime.of(10,00)));
+        assertThat(contest1.getStartDate(), is(LocalDate.of(2020, 12, 25)));
+        assertThat(contest1.getStartTime(), is(LocalTime.of(10, 00)));
         assertThat(contest1.getEndDate(), is(LocalDate.of(2021, 1, 31)));
         assertThat(contest1.getEndTime(), is(LocalTime.of(12, 0)));
         assertThat(contest1.getMaximumParticipants(), is(16));
@@ -80,6 +96,8 @@ class ContestRepositoryTest extends DataJpaTest {
         assertThat(contestOptional.isPresent(), is(true));
         Contest contest = contestOptional.get();
         assertThat(contest.getTitle(), is("2020 리그전 - 2"));
+        assertThat(contest.getDescription(), is("2020년 2번째 리그전 코로나로 인해 종료"));
+        assertThat(contest.getProgressStatus(), is((ProgressStatus.END)));
     }
 
 }

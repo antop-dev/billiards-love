@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("카카오 로그인 저장소 테스트")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
@@ -27,6 +30,16 @@ public class KakaoRepositoryTest extends DataJpaTest {
         assertThat(kakaoLoginOptional.isPresent(), is(true));
         KakaoLogin kakaoLogin = kakaoLoginOptional.get();
         assertThat(kakaoLogin.getProfile().getNickname(), is("안정용"));
+        assertThat(kakaoLogin.getConnectedAt(), notNullValue());
+        assertThat(kakaoLogin.getProfile().getImgUrl(), is("https://picsum.photos/640"));
+        assertThat(kakaoLogin.getProfile().getThumbUrl(), is("https://picsum.photos/110"));
+    }
+
+    @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<KakaoLogin> list = repository.findAll();
+        assertThat(list, hasSize(6));
     }
 
     @Test
@@ -35,7 +48,7 @@ public class KakaoRepositoryTest extends DataJpaTest {
         KakaoLogin kakaoLogin = KakaoLogin.builder()
                 .id(9999999999L)
                 .connectedAt(LocalDateTime.now())
-                .profile(KakaoProfile.builder().nickname("알파고").imgUrl("").thumbUrl("").build())
+                .profile(KakaoProfile.builder().nickname("알파고").imgUrl("https://picsum.test/640").thumbUrl("https://picsum.test/110").build())
                 .build();
         repository.save(kakaoLogin);
 
@@ -43,6 +56,9 @@ public class KakaoRepositoryTest extends DataJpaTest {
         assertThat(kakaoLoginOptional.isPresent(), is(true));
         KakaoLogin kakaoLogin1 = kakaoLoginOptional.get();
         assertThat(kakaoLogin1.getProfile().getNickname(), is("알파고"));
+        assertThat(kakaoLogin.getConnectedAt(), notNullValue());
+        assertThat(kakaoLogin.getProfile().getImgUrl(), is("https://picsum.test/640"));
+        assertThat(kakaoLogin.getProfile().getThumbUrl(), is("https://picsum.test/110"));
     }
 
     @Test
@@ -62,6 +78,7 @@ public class KakaoRepositoryTest extends DataJpaTest {
         assertThat(kakaoLoginOptional.isPresent(), is(true));
         KakaoLogin kakaoLogin = kakaoLoginOptional.get();
         assertThat(kakaoLogin.getProfile().getNickname(), is("Antop"));
+        assertThat(kakaoLogin.getConnectedAt(), notNullValue());
         assertThat(kakaoLogin.getProfile().getImgUrl(), is("https://foo"));
         assertThat(kakaoLogin.getProfile().getThumbUrl(), is("https://bar"));
     }
@@ -72,7 +89,7 @@ public class KakaoRepositoryTest extends DataJpaTest {
         KakaoLogin kakaoLogin = KakaoLogin.builder()
                 .id(1213141502L)
                 .connectedAt(LocalDateTime.now())
-                .profile(KakaoProfile.builder().nickname("침착맨").imgUrl("").thumbUrl("").build())
+                .profile(KakaoProfile.builder().nickname("침착맨").imgUrl("a").thumbUrl("b").build())
                 .build();
         repository.save(kakaoLogin);
 
@@ -80,5 +97,8 @@ public class KakaoRepositoryTest extends DataJpaTest {
         assertThat(kakaoLoginOptional.isPresent(), is(true));
         KakaoLogin kakaoLogin1 = kakaoLoginOptional.get();
         assertThat(kakaoLogin1.getProfile().getNickname(), is("침착맨"));
+        assertThat(kakaoLogin1.getConnectedAt(), notNullValue());
+        assertThat(kakaoLogin1.getProfile().getImgUrl(), is("a"));
+        assertThat(kakaoLogin1.getProfile().getThumbUrl(), is("b"));
     }
 }

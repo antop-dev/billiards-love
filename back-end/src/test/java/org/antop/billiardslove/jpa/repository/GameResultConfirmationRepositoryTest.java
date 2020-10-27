@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("경기결과확정 테이블 테스트")
 @EnableJpaAuditing
@@ -40,7 +41,15 @@ class GameResultConfirmationRepositoryTest extends DataJpaTest {
         Optional<GameResultConfirmation> gameResultConfirmationOptional = gameResultConfirmationRepository.findById(2L);
         assertThat(gameResultConfirmationOptional.isPresent(), is(true));
         GameResultConfirmation gameResultConfirmation = gameResultConfirmationOptional.get();
-        assertThat(gameResultConfirmation.getId(), is(2L));
+        assertThat(gameResultConfirmation.getFirstResult(), is(GameResultStatus.WIN));
+        assertThat(gameResultConfirmation.getSecondResult(), is(GameResultStatus.WIN));
+        assertThat(gameResultConfirmation.getThirdResult(), is(GameResultStatus.WIN));
+        assertThat(gameResultConfirmation.getConfirmationDateTime(), notNullValue());
+    }
+
+    @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
         List<GameResultConfirmation> list = gameResultConfirmationRepository.findAll();
         assertThat(list, hasSize(6));
     }
@@ -71,9 +80,15 @@ class GameResultConfirmationRepositoryTest extends DataJpaTest {
         Optional<GameResultConfirmation> optional1 = gameResultConfirmationRepository.findById(7L);
         assertThat(optional1.isPresent(), is(true));
         GameResultConfirmation gameResultConfirmation1 = optional1.get();
-        assertThat(gameResultConfirmation1.getId(), is(7L));
-        List<GameResultConfirmation> list = gameResultConfirmationRepository.findAll();
-        assertThat(list, hasSize(7));
+        assertThat(gameResultConfirmation1.getPlayer(), is((player1.get())));
+        assertThat(gameResultConfirmation1.getPlayerGameResultInput(), is((gameResultInput1.get())));
+        assertThat(gameResultConfirmation1.getOpponentPlayer(), is((player2.get())));
+        assertThat(gameResultConfirmation1.getOpponentGameResultInput(), is((gameResultInput2.get())));
+        assertThat(gameResultConfirmation1.getPlayer(), is((player1.get())));
+        assertThat(gameResultConfirmation1.getFirstResult(), is(GameResultStatus.WIN));
+        assertThat(gameResultConfirmation1.getSecondResult(), is(GameResultStatus.LOSE));
+        assertThat(gameResultConfirmation1.getThirdResult(), is(GameResultStatus.NONE));
+        assertThat(gameResultConfirmation1.getConfirmationDateTime(), notNullValue());
     }
 
     @Test
