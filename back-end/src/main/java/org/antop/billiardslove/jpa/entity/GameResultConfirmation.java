@@ -80,21 +80,21 @@ public class GameResultConfirmation {
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
     @Column(name = "FRST_RSLT")
-    private GameResultStatus firstResult;
+    private GameResultStatus firstResult = GameResultStatus.NONE;
     /**
      * 두 번째 경기 결과
      */
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
     @Column(name = "SCND_RSLT")
-    private GameResultStatus secondResult;
+    private GameResultStatus secondResult = GameResultStatus.NONE;
     /**
      * 세 번째 경기 결과
      */
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
     @Column(name = "THRD_RSLT")
-    private GameResultStatus thirdResult;
+    private GameResultStatus thirdResult = GameResultStatus.NONE;
     /**
      * 확정자 아이디
      */
@@ -110,14 +110,11 @@ public class GameResultConfirmation {
     private LocalDateTime confirmationDateTime;
 
     @Builder
-    public GameResultConfirmation(Player player, GameResultInput playerGameResultInput, Player opponentPlayer, GameResultInput opponentGameResultInput, GameResultStatus firstResult, GameResultStatus secondResult, GameResultStatus thirdResult, Manager manager) {
+    public GameResultConfirmation(Player player, GameResultInput playerGameResultInput, Player opponentPlayer, GameResultInput opponentGameResultInput, Manager manager) {
         this.player = player;
         this.playerGameResultInput = playerGameResultInput;
         this.opponentPlayer = opponentPlayer;
         this.opponentGameResultInput = opponentGameResultInput;
-        this.firstResult = firstResult;
-        this.secondResult = secondResult;
-        this.thirdResult = thirdResult;
         this.manager = manager;
     }
 }

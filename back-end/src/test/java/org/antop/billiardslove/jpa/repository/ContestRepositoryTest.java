@@ -64,7 +64,6 @@ class ContestRepositoryTest extends DataJpaTest {
                 .endDate(LocalDate.of(2021, 1, 31))
                 .endTime(LocalTime.of(12, 0))
                 .maximumParticipants(16)
-                .progressStatus(ProgressStatus.ACCEPTING)
                 .registrationUser(managerOptional.get())
                 .build();
         contestRepository.save(contest);

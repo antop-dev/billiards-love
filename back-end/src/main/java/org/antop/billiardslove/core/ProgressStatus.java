@@ -3,8 +3,6 @@ package org.antop.billiardslove.core;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-
 /**
  * 대회 진행 상태
  *

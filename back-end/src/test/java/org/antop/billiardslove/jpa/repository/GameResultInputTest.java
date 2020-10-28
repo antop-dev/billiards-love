@@ -54,9 +54,6 @@ class GameResultInputTest extends DataJpaTest {
         GameResultInput gameResultInput = GameResultInput.builder()
                 .player(player1.get())
                 .opponentPlayer(player2.get())
-                .firstResult(GameResultStatus.WIN)
-                .secondResult(GameResultStatus.LOSE)
-                .thirdResult(GameResultStatus.NONE)
                 .build();
         gameResultInputRepository.save(gameResultInput);
 
@@ -65,8 +62,8 @@ class GameResultInputTest extends DataJpaTest {
         GameResultInput gameResultInput1 = optional1.get();
         assertThat(gameResultInput1.getPlayer(), is(player1.get()));
         assertThat(gameResultInput1.getOpponentPlayer(), is(player2.get()));
-        assertThat(gameResultInput1.getFirstResult(), is(GameResultStatus.WIN));
-        assertThat(gameResultInput1.getSecondResult(), is(GameResultStatus.LOSE));
+        assertThat(gameResultInput1.getFirstResult(), is(GameResultStatus.NONE));
+        assertThat(gameResultInput1.getSecondResult(), is(GameResultStatus.NONE));
         assertThat(gameResultInput1.getThirdResult(), is(GameResultStatus.NONE));
         assertThat(gameResultInput1.getInputDateTime(), notNullValue());
     }

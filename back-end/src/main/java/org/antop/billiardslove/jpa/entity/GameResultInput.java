@@ -66,21 +66,21 @@ public class GameResultInput {
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
     @Column(name = "FRST_RSLT")
-    private GameResultStatus firstResult;
+    private GameResultStatus firstResult = GameResultStatus.NONE;
     /**
      * 두번째 경기 결과
      */
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
     @Column(name = "SCND_RSLT")
-    private GameResultStatus secondResult;
+    private GameResultStatus secondResult = GameResultStatus.NONE;
     /**
      * 세번째 경기 결과
      */
     @Setter
     @Convert(converter = GameResultStatusConverter.class)
     @Column(name = "THRD_RSLT")
-    private GameResultStatus thirdResult;
+    private GameResultStatus thirdResult = GameResultStatus.NONE;
     /**
      * 입력 일시
      */
@@ -89,11 +89,8 @@ public class GameResultInput {
     private LocalDateTime inputDateTime;
 
     @Builder
-    public GameResultInput(Player player, Player opponentPlayer, GameResultStatus firstResult, GameResultStatus secondResult, GameResultStatus thirdResult) {
+    public GameResultInput(Player player, Player opponentPlayer) {
         this.player = player;
         this.opponentPlayer = opponentPlayer;
-        this.firstResult = firstResult;
-        this.secondResult = secondResult;
-        this.thirdResult = thirdResult;
     }
 }

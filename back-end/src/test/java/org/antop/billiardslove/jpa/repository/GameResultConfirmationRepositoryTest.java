@@ -70,9 +70,6 @@ class GameResultConfirmationRepositoryTest extends DataJpaTest {
                 .playerGameResultInput(gameResultInput1.get())
                 .opponentPlayer(player2.get())
                 .opponentGameResultInput(gameResultInput2.get())
-                .firstResult(GameResultStatus.WIN)
-                .secondResult(GameResultStatus.LOSE)
-                .thirdResult(GameResultStatus.NONE)
                 .manager(manager.get())
                 .build();
         gameResultConfirmationRepository.save(gameResultConfirmation);
@@ -85,8 +82,8 @@ class GameResultConfirmationRepositoryTest extends DataJpaTest {
         assertThat(gameResultConfirmation1.getOpponentPlayer(), is((player2.get())));
         assertThat(gameResultConfirmation1.getOpponentGameResultInput(), is((gameResultInput2.get())));
         assertThat(gameResultConfirmation1.getPlayer(), is((player1.get())));
-        assertThat(gameResultConfirmation1.getFirstResult(), is(GameResultStatus.WIN));
-        assertThat(gameResultConfirmation1.getSecondResult(), is(GameResultStatus.LOSE));
+        assertThat(gameResultConfirmation1.getFirstResult(), is(GameResultStatus.NONE));
+        assertThat(gameResultConfirmation1.getSecondResult(), is(GameResultStatus.NONE));
         assertThat(gameResultConfirmation1.getThirdResult(), is(GameResultStatus.NONE));
         assertThat(gameResultConfirmation1.getConfirmationDateTime(), notNullValue());
     }

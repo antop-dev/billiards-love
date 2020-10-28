@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("카카오 로그인 저장소 테스트")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-public class KakaoRepositoryTest extends DataJpaTest {
+class KakaoRepositoryTest extends DataJpaTest {
     @Autowired
     private KakaoRepository repository;
 

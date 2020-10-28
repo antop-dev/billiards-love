@@ -91,7 +91,7 @@ public class Contest {
     @Setter
     @Convert(converter = ProgressStatusConverter.class)
     @Column(name = "PRGR_STT")
-    private ProgressStatus progressStatus;
+    private ProgressStatus progressStatus = ProgressStatus.ACCEPTING;
     /**
      * 최대 참가 인원<br>
      * 0일 경우 무제한
@@ -127,14 +127,13 @@ public class Contest {
     private LocalDateTime modifyDateTime;
 
     @Builder
-    public Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, ProgressStatus progressStatus, int maximumParticipants, Manager registrationUser, Manager modifyUser) {
+    public Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, int maximumParticipants, Manager registrationUser, Manager modifyUser) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
-        this.progressStatus = progressStatus;
         this.maximumParticipants = maximumParticipants;
         this.registrationUser = registrationUser;
         this.modifyUser = modifyUser;
