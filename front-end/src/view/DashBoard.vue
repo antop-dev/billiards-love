@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <board-contents></board-contents>
+    <board-contents @click.native="getDetail"></board-contents>
     <board-contents></board-contents>
     <board-contents></board-contents>
   </div>
@@ -10,6 +10,11 @@ import BoardContents from '../components/dashboard/BoardContents';
 export default {
   name: 'DashBoard',
   components: { BoardContents },
+  methods: {
+    getDetail() {
+      this.$router.push('/game-status');
+    },
+  },
 };
 </script>
 

@@ -14,16 +14,16 @@ export default [
     component: DashBoard,
   },
   {
-    path: '/game-status',
+    path: '/status',
     component: GameStatus,
     children: [
       {
-        path: '/game-info',
-        components: GameInfo,
+        path: 'info',
+        component: GameInfo,
       },
       {
-        path: '/game-rank',
-        components: GameRank,
+        path: 'rank',
+        component: GameRank,
       },
     ],
   },
