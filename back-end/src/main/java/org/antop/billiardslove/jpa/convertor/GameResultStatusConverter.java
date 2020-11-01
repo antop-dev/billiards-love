@@ -1,6 +1,6 @@
 package org.antop.billiardslove.jpa.convertor;
 
-import org.antop.billiardslove.jpa.entity.GameResultStatus;
+import org.antop.billiardslove.core.GameResultStatus;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

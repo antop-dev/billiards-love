@@ -1,13 +1,13 @@
 package org.antop.billiardslove.jpa.convertor;
 
-import org.antop.billiardslove.jpa.entity.GameResultStatus;
+import org.antop.billiardslove.core.GameResultStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GameResultStatusConverterTest {
+class GameResultConfirmationStatusConverterTest {
     private final GameResultStatusConverter converter = new GameResultStatusConverter();
 
     @Test

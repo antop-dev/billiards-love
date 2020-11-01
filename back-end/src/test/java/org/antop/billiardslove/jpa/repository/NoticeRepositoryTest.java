@@ -1,19 +1,21 @@
 package org.antop.billiardslove.jpa.repository;
 
 import org.antop.billiardslove.jpa.DataJpaTest;
+import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Manager;
 import org.antop.billiardslove.jpa.entity.Notice;
-import org.hamcrest.collection.IsEmptyCollection;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("공지사항 테스트")
 @EnableJpaAuditing
@@ -25,99 +27,67 @@ class NoticeRepositoryTest extends DataJpaTest {
     @Autowired
     private ManagerRepository managerRepository;
 
-    @AfterEach
-    void afterEach() {
-        noticeRepository.deleteAll();
+    @Autowired
+    private ContestRepository contestRepository;
+
+    @Test
+    @DisplayName("공지사항 데이터를 조회한다")
+    void select() {
+        Optional<Notice> noticeOptional = noticeRepository.findById(1L);
+        assertThat(noticeOptional.isPresent(), is(true));
+        Notice notice = noticeOptional.get();
+        assertThat(notice.getTitle(), is("공지사항 제목"));
+        assertThat(notice.getContents(), is("공지사항 내용"));
+        assertThat(notice.getRegisterDateTime(), notNullValue());
     }
 
     @Test
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Notice> list = noticeRepository.findAll();
+        assertThat(list, hasSize(1));
+    }
+
+    @Test
+    @DisplayName("공지사항 데이터를 등록한다.")
     void insert() {
-        Manager manager = new Manager();
-        manager.setUsername("jammini@naver.com");
-        manager.setPassword("password1");
+        Optional<Manager> managerOptional = managerRepository.findById(1L);
+        Optional<Contest> contestOptional = contestRepository.findById(1L);
 
-        managerRepository.save(manager);
-
-        Notice notice = new Notice();
-        notice.setTitle("공지사항1");
-        notice.setContents("내용은 abcd 입니다~~~!");
-        notice.setCanSkip(false);
-        notice.setRegistrationUser(manager);
-
+        Notice notice = Notice.builder()
+                .title("2020리그전 공지사항")
+                .contents("참가비는 만원입니다.")
+                .contest(contestOptional.get())
+                .canSkip(true)
+                .registrationUser(managerOptional.get())
+                .build();
         noticeRepository.save(notice);
 
-        assertThat(notice.getId(), notNullValue());
-        assertThat(notice.getTitle(), notNullValue());
-        assertThat(notice.getContents(), notNullValue());
-        assertThat(notice.getContest(), nullValue());
-        assertThat(notice.isCanSkip(), notNullValue());
-        assertThat(notice.getRegistrationUser(), notNullValue());
-        assertThat(notice.getRegisterDateTime(), notNullValue());
-        assertThat(notice.getModifyUser(), nullValue());
-        assertThat(notice.getModifyDateTime(), notNullValue());
-
+        Optional<Notice> noticeOptional = noticeRepository.findById(2L);
+        assertThat(noticeOptional.isPresent(), is(true));
+        Notice notice1 = noticeOptional.get();
+        assertThat(notice1.getTitle(), is("2020리그전 공지사항"));
+        assertThat(notice1.getContents(), is("참가비는 만원입니다."));
+        assertThat(notice1.getContest(), is(contestOptional.get()));
+        assertThat(notice1.isCanSkip(), is(true));
+        assertThat(notice1.getRegistrationUser(), is(managerOptional.get()));
+        assertThat(notice1.getRegisterDateTime(), notNullValue());
+        assertThat(notice1.getModifyDateTime(), notNullValue());
     }
 
     @Test
-    void insert_read() {
-        Manager manager1 = new Manager();
-        manager1.setUsername("jammini123@naver.com");
-        manager1.setPassword("password1");
-        managerRepository.save(manager1);
+    @DisplayName("공지사항 데이터를 갱신한다.")
+    void J6l1Z() {
+        noticeRepository.findById(1L).ifPresent(it -> {
+            it.setTitle("2020 리그전 잠정연기");
+            it.setContents("코로나로 인해 2020 리그전을 잠정 연기합니다.");
+        });
 
-        Notice notice1 = new Notice();
-        notice1.setTitle("공지사항1~!");
-        notice1.setContents("내용은 abcd 입니다~~~~!");
-        notice1.setCanSkip(false);
-        notice1.setRegistrationUser(manager1);
-        noticeRepository.save(notice1);
-
-        Manager manager2 = new Manager();
-        manager2.setUsername("jm@naver.com");
-        manager2.setPassword("p@ssword");
-        managerRepository.save(manager2);
-
-        Notice notice2 = new Notice();
-        notice2.setTitle("공지사항2 입니다");
-        notice2.setContents("내용은 abcdsaasdasdfasdfadsaas 입니다~2");
-        notice2.setCanSkip(false);
-        notice2.setRegistrationUser(manager2);
-        noticeRepository.save(notice2);
-
-        List<Notice> noticeList = noticeRepository.findAll();
-
-        assertThat(noticeList, hasSize(2));
-        assertThat(noticeList, contains(notice1, notice2));
+        Optional<Notice> noticeOptional = noticeRepository.findById(1L);
+        assertThat(noticeOptional.isPresent(), is(true));
+        Notice notice = noticeOptional.get();
+        assertThat(notice.getTitle(), is("2020 리그전 잠정연기"));
+        assertThat(notice.getContents(), is("코로나로 인해 2020 리그전을 잠정 연기합니다."));
     }
 
-    @Test
-    void insert_delete() {
-        Manager manager1 = new Manager();
-        manager1.setUsername("jammini1234@naver.com");
-        manager1.setPassword("p@ssword");
-        managerRepository.save(manager1);
-
-        Notice notice1 = new Notice();
-        notice1.setTitle("공지사항1");
-        notice1.setContents("내용은 abcdsaasdasdfasdfadsaas 입니다~2");
-        notice1.setCanSkip(false);
-        notice1.setRegistrationUser(manager1);
-        noticeRepository.save(notice1);
-
-        Manager manager2 = new Manager();
-        manager2.setUsername("jm@naver.com");
-        manager2.setPassword("p@ssword");
-        managerRepository.save(manager2);
-
-        Notice notice2 = new Notice();
-        notice2.setTitle("공지사항2");
-        notice2.setContents("내용은 abcdsaasdasdfasdfadsaas 입니다~3");
-        notice2.setCanSkip(false);
-        notice2.setRegistrationUser(manager2);
-        noticeRepository.save(notice2);
-
-        noticeRepository.deleteAll();
-
-        assertThat(noticeRepository.findAll(), IsEmptyCollection.empty());
-    }
 }

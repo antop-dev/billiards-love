@@ -2,82 +2,74 @@ package org.antop.billiardslove.jpa.repository;
 
 import org.antop.billiardslove.jpa.DataJpaTest;
 import org.antop.billiardslove.jpa.entity.Manager;
-import org.hamcrest.collection.IsEmptyCollection;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
+@EnableJpaAuditing
 @DisplayName("관리자 테스트")
 class ManagerRepositoryTest extends DataJpaTest {
     @Autowired
-    private ManagerRepository managerRepository;
+    private ManagerRepository repository;
 
-    @AfterEach
-    void afterEach() {
-        managerRepository.deleteAll();
+    @Test
+    @DisplayName("관리자 데이터를 조회한다.")
+    void read() {
+        Optional<Manager> managerOptional = repository.findById(1L);
+        assertThat(managerOptional.isPresent(), is(true));
+        Manager manager = managerOptional.get();
+        assertThat(manager.getUsername(), is("admin"));
+        assertThat(manager.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS"));
     }
 
     @Test
-    void insert() {
-        Manager manager = new Manager();
-        manager.setUsername("antop@naver.com");
-        manager.setPassword("password1");
-
-        managerRepository.save(manager);
-
-        assertThat(manager.getId(), notNullValue());
-        assertThat(manager.getUsername(), notNullValue());
-        assertThat(manager.getPassword(), notNullValue());
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Manager> list = repository.findAll();
+        assertThat(list, hasSize(1));
     }
 
     @Test
-    void insert_read() {
-        Manager manager1 = new Manager();
-        manager1.setUsername("antop@naver.com");
-        manager1.setPassword("password1");
-        managerRepository.save(manager1);
+    @DisplayName("새로운 관리자 데이터를 등록한다.")
+    void E6RA6() {
+        Manager manager = Manager.builder()
+                .username("manager")
+                .password("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS")
+                .build();
+        repository.save(manager);
 
-        Manager manager2 = new Manager();
-        manager2.setUsername("jm@naver.com");
-        manager2.setPassword("password2");
-        managerRepository.save(manager2);
+        Optional<Manager> optional = repository.findById(5L);
+        assertThat(optional.isPresent(), is(true));
+        Manager manager1 = optional.get();
+        assertThat(manager1.getUsername(), is("manager"));
+        assertThat(manager1.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS"));
+        assertThat(manager1.getLastLoginDateTime(), notNullValue());
 
-        Manager manager3 = new Manager();
-        manager3.setUsername("hi@naver.com");
-        manager3.setPassword("password3");
-        managerRepository.save(manager3);
-
-        List<Manager> managerList = managerRepository.findAll();
-
-        assertThat(managerList, hasSize(3));
-        assertThat(managerList, contains(manager1, manager2, manager3));
     }
 
     @Test
-    void insert_delete() {
-        Manager manager1 = new Manager();
-        manager1.setUsername("antop@naver.com");
-        manager1.setPassword("p@ssword1");
-        managerRepository.save(manager1);
+    @DisplayName("관리자데이트를 갱신한다.")
+    void O6G() {
+        repository.findById(1L).ifPresent(it -> {
+            it.setUsername("manager2");
+            it.setPassword("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS");
+        });
 
-        Manager manager2 = new Manager();
-        manager2.setUsername("jm@naver.com");
-        manager2.setPassword("password2");
-        managerRepository.save(manager2);
+        Optional<Manager> managerOptional = repository.findById(1L);
+        assertThat(managerOptional.isPresent(), is(true));
+        Manager manager = managerOptional.get();
+        assertThat(manager.getUsername(), is("manager2"));
+        assertThat(manager.getPassword(), is("{bcrypt}$2a$10$jSf5NBDRkzz9/IKc2GIjiOTynz/.5cMEt1wiSK0wYpn24ntqlKUBS"));
 
-        Manager manager3 = new Manager();
-        manager3.setUsername("hi@naver.com");
-        manager3.setPassword("password3");
-        managerRepository.save(manager3);
-
-        managerRepository.deleteAll();
-
-        assertThat(managerRepository.findAll(), IsEmptyCollection.empty());
     }
+
 }

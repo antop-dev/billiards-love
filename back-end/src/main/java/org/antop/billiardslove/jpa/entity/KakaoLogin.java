@@ -1,47 +1,74 @@
 package org.antop.billiardslove.jpa.entity;
 
-import lombok.*;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.antop.billiardslove.jpa.domain.KakaoProfile;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * 카카오 사용자 정보<br>
+ * https://developers.kakao.com/docs/latest/ko/user-mgmt/common#user-info
+ *
+ * @author jammini
+ */
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "TBL_KKO_LGN")
 public class KakaoLogin {
-
+    /**
+     * 카카오 아이디
+     */
     @Id
     @Column(name = "LGN_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
-
-    @Setter
-    @Column(name = "ACES_TKN")
-    private String accessToken;
-
-    @Setter
-    @Column(name = "NCK_NM")
-    private String nickname;
-
-    @Setter
-    @Embedded
-    private Profile profile;
-
-    @LastModifiedDate
+    /**
+     * 접속 일시
+     */
     @Column(name = "LST_CNCT_DT")
-    private LocalDateTime lastConnectDateTime;
+    private LocalDateTime connectedAt;
 
-    @Embeddable
-    public class Profile {
-        @Column(name = "PRFL_IMG_URL")
-        private String imgUrl;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "nickname", column = @Column(name = "NCK_NM")),
+            @AttributeOverride(name = "imgUrl", column = @Column(name = "PRFL_IMG_URL")),
+            @AttributeOverride(name = "thumbUrl", column = @Column(name = "PRFL_THMB_IMG_URL"))
+    })
+    private KakaoProfile profile;
 
-        @Column(name = "PRFL_THMB_IMG_URL")
-        private String thumbUrl;
+    /**
+     * 프로필을 변경한다.
+     *
+     * @param profile 변경할 새로운 프로필
+     */
+    public void changeProfile(KakaoProfile profile) {
+        this.profile = profile;
+    }
+
+    /**
+     * 접속함
+     *
+     * @param dateTime 접속 일시
+     */
+    public void connect(LocalDateTime dateTime) {
+        this.connectedAt = dateTime;
     }
 }

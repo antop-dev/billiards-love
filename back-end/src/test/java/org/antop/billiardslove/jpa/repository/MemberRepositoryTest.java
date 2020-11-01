@@ -3,17 +3,18 @@ package org.antop.billiardslove.jpa.repository;
 import org.antop.billiardslove.jpa.DataJpaTest;
 import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.antop.billiardslove.jpa.entity.Member;
-import org.hamcrest.collection.IsEmptyCollection;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @EnableJpaAuditing
 @DisplayName("회원 테스트")
@@ -25,78 +26,63 @@ class MemberRepositoryTest extends DataJpaTest {
     @Autowired
     private KakaoRepository kakaoRepository;
 
-    @AfterEach
-    void afterEach() {
-        memberRepository.deleteAll();
+    @Test
+    @DisplayName("회원 데이터를 조회한다.")
+    void AoEKf() {
+        Optional<Member> memberOptional = memberRepository.findById(2L);
+        assertThat(memberOptional.isPresent(), is(true));
+        Member member = memberOptional.get();
+        assertThat(member.getNickname(), is("띠용"));
+        assertThat(member.getHandicap(), is(20));
+        assertThat(member.getRegisterDateTime(), notNullValue());
+        assertThat(member.getLoginToken(), is("803fa52145da1c0cc9a748018a95d131"));
     }
 
     @Test
-    void insert() {
-        KakaoLogin kakaoLogin = new KakaoLogin();
-        kakaoLogin.setAccessToken("accessToken&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin);
+    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
+    void AE07R4() {
+        List<Member> list = memberRepository.findAll();
+        assertThat(list, hasSize(6));
+    }
 
-        Member member = new Member();
-        member.setLoginToken("LoginToken&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member.setKakaoLogin(kakaoLogin);
+    @Test
+    @DisplayName("회원 데이터를 등록한다.")
+    void OeDOf() {
+        Optional<KakaoLogin> kakaoLoginOptional = kakaoRepository.findById(1213141503L);
+
+        Member member = Member.builder()
+                .nickname("골드스푼")
+                .handicap(30)
+                .kakaoLogin(kakaoLoginOptional.get())
+                .loginToken("loginToken1")
+                .build();
         memberRepository.save(member);
 
-        assertThat(member.getId(), notNullValue());
+        Optional<Member> memberOptional = memberRepository.findById(7L);
+        assertThat(memberOptional.isPresent(), is(true));
+        Member member1 = memberOptional.get();
+        assertThat(member1.getNickname(), is("골드스푼"));
+        assertThat(member.getHandicap(), is(30));
         assertThat(member.getRegisterDateTime(), notNullValue());
-        assertThat(member.getKakaoLogin(), notNullValue());
-        assertThat(member.getLoginToken(), notNullValue());
-
+        assertThat(member.getLoginToken(), is("loginToken1"));
     }
 
     @Test
-    void insert_read() {
-        KakaoLogin kakaoLogin1 = new KakaoLogin();
-        kakaoLogin1.setAccessToken("accessToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin1);
+    @DisplayName("회원 프로필을 갱신한다.")
+    void J6l1Z() {
+        memberRepository.findById(3L).ifPresent(it -> {
+            it.setNickname("골드스푼");
+            it.setHandicap(30);
+            it.setLoginToken("loginTokenChange1");
+        });
 
-        Member member1 = new Member();
-        member1.setLoginToken("LoginToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member1.setKakaoLogin(kakaoLogin1);
-        memberRepository.save(member1);
-
-        KakaoLogin kakaoLogin2 = new KakaoLogin();
-        kakaoLogin2.setAccessToken("accessToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin2);
-
-        Member member2 = new Member();
-        member2.setLoginToken("LoginToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member2.setKakaoLogin(kakaoLogin2);
-        memberRepository.save(member2);
-
-        List<Member> memberList = memberRepository.findAll();
-
-        assertThat(memberList, hasSize(2));
-        assertThat(memberList, contains(member1, member2));
-
-    }
-
-    @Test
-    void insert_delete() {
-        KakaoLogin kakaoLogin1 = new KakaoLogin();
-        kakaoLogin1.setAccessToken("accessToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin1);
-
-        Member member1 = new Member();
-        member1.setLoginToken("LoginToken1&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member1.setKakaoLogin(kakaoLogin1);
-        memberRepository.save(member1);
-
-        KakaoLogin kakaoLogin2 = new KakaoLogin();
-        kakaoLogin2.setAccessToken("accessToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        kakaoRepository.save(kakaoLogin2);
-
-        Member member2 = new Member();
-        member2.setLoginToken("LoginToken2&eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
-        member2.setKakaoLogin(kakaoLogin2);
-        memberRepository.save(member2);
-
-        memberRepository.deleteAll();
-        assertThat(memberRepository.findAll(), IsEmptyCollection.empty());
+        Optional<Member> memberOptional = memberRepository.findById(3L);
+        assertThat(memberOptional.isPresent(), is(true));
+        Member member = memberOptional.get();
+        assertThat(member.getNickname(), is("골드스푼"));
+        assertThat(member.getHandicap(), is(30));
+        assertThat(member.getRegisterDateTime(), notNullValue());
+        assertThat(member.getLoginToken(), is("loginTokenChange1"));
     }
 
 }
