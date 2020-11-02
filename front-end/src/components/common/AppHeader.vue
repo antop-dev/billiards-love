@@ -7,7 +7,7 @@
       <div class="md-layout-item title-align-center">
         <span class="md-title">My Title</span>
       </div>
-      <div class="md-layout-item btn-align-right">
+      <div class="md-layout-item text-align-right">
         <close-button></close-button>
       </div>
     </div>
@@ -28,7 +28,7 @@ export default {
 .title-align-center {
   text-align: center;
 }
-.btn-align-right {
+.text-align-right {
   text-align: right;
 }
 </style>
