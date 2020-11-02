@@ -4,10 +4,10 @@
       <div class="md-layout-item">
         <back-button></back-button>
       </div>
-      <div class="md-layout-item title">
+      <div class="md-layout-item title-align-center">
         <span class="md-title">My Title</span>
       </div>
-      <div class="md-layout-item left-btn">
+      <div class="md-layout-item btn-align-right">
         <close-button></close-button>
       </div>
     </div>
@@ -25,10 +25,10 @@ export default {
 </script>
 
 <style scoped>
-.title {
+.title-align-center {
   text-align: center;
 }
-.left-btn {
+.btn-align-right {
   text-align: right;
 }
 </style>
