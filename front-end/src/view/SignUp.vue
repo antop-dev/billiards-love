@@ -10,7 +10,7 @@
           <label>대대 핸디</label>
           <md-input v-model="handy"></md-input>
         </md-field>
-        <div class="md-btn">
+        <div class="text-align-center">
           <md-button @click="confirm" class="md-raised">확인</md-button>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default {
 .md-layout {
   padding: 10px;
 }
-.md-btn {
+.text-align-center {
   text-align: center;
 }
 </style>
