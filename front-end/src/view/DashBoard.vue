@@ -6,13 +6,13 @@
   </div>
 </template>
 <script>
-import BoardContents from '../components/dashboard/BoardContents';
+import BoardContents from '@/dashboard/BoardContents';
 export default {
   name: 'DashBoard',
   components: { BoardContents },
   methods: {
     getDetail() {
-      this.$router.push('/game-status');
+      this.$router.push('/status/info');
     },
   },
 };

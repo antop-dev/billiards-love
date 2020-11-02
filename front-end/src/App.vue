@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AppHeader from './components/common/AppHeader';
+import AppHeader from '@/common/AppHeader';
 export default {
   components: { AppHeader },
   data() {

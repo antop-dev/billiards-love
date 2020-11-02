@@ -1,12 +1,14 @@
 <template>
   <div>
-    <game-tabs></game-tabs>
+    <div>
+      <game-tabs></game-tabs>
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import GameTabs from '../components/status/GameTabs';
+import GameTabs from '@/status/GameTabs';
 export default {
   name: 'GameStatus',
   components: { GameTabs },
