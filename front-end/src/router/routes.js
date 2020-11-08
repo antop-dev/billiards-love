@@ -1,13 +1,30 @@
-import Hello from '../view/Hello';
-import World from '../view/World';
+import SignUp from '../view/SignUp';
+import DashBoard from '../view/DashBoard';
+import GameStatus from '../view/GameStatus';
+import GameInfo from '../view/GameInfo';
+import GameRank from '../view/GameRank';
 
 export default [
   {
-    path: '/hello',
-    component: Hello,
+    path: '/sign-up',
+    component: SignUp,
   },
   {
-    path: '/world',
-    component: World,
+    path: '/dashboard',
+    component: DashBoard,
+  },
+  {
+    path: '/status',
+    component: GameStatus,
+    children: [
+      {
+        path: 'info',
+        component: GameInfo,
+      },
+      {
+        path: 'rank',
+        component: GameRank,
+      },
+    ],
   },
 ];
