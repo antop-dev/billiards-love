@@ -14,7 +14,7 @@ export default [
     component: DashBoard,
   },
   {
-    path: '/status',
+    path: '/contest',
     component: GameStatus,
     children: [
       {
