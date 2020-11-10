@@ -1,13 +1,13 @@
 <template>
   <md-toolbar class="md-primary">
     <div class="md-toolbar-row">
-      <div class="md-layout-item">
+      <div class="md-toolbar-section-start">
         <back-button></back-button>
       </div>
       <div class="md-layout-item title-align-center">
         <span class="md-title">My Title</span>
       </div>
-      <div class="md-layout-item text-align-right">
+      <div class="md-toolbar-section-end">
         <close-button></close-button>
       </div>
     </div>
