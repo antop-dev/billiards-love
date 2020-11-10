@@ -28,6 +28,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * 카카오 초기화 정보를 요청합니다
+     * @returns {Promise<*>}
+     */
     async kakaoInit() {
       // 핑거프린터 Key
       const deviceID = await FingerPrinter();
@@ -39,6 +43,7 @@ export default {
   },
   created() {
     const kakaoInfo = this.kakaoInit();
+    // 초기화 정보 저장
     this.$store.dispatch('saveInitRequestInfo', kakaoInfo);
   },
 };
