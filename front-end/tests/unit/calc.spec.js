@@ -1,5 +1,5 @@
 // 테스트 대상을 테스트 환경으로 가져옵니다.
-const { addOne } = require('@/calc.js')
+const {addOne} = require('@/calc.js')
 
 // Test 1
 test('인수가 숫자인 경우', () => {
