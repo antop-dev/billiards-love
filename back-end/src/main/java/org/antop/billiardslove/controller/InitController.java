@@ -39,9 +39,8 @@ public class InitController {
         if (StringUtils.isAnyBlank(deviceId, requestId)) {
             throw new EmptyException("Header is Null.");
         }
-        // 메소드로 뺸다.
-        StringBuilder s = new StringBuilder(requestId.replaceAll("[A-Z]", ""));
-        LocalDateTime dateTime = LocalDateTime.parse(s.reverse().toString(), DATE_TIME_FORMATTER);
+
+        LocalDateTime dateTime = decryption(requestId);
 
         if (Duration.between(dateTime, LocalDateTime.now()).toMinutes() > 1) {
             throw new TimeLimitException();
@@ -73,5 +72,17 @@ public class InitController {
      */
     private String generateKey() {
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+    /**
+     * X REQ ID 복호화
+     *@param requestId "X-REQUEST-ID"
+     * @return 복호화된 시간
+     */
+    private LocalDateTime decryption(String requestId){
+        StringBuilder s = new StringBuilder(requestId.replaceAll("[A-Z]", ""));
+        LocalDateTime dateTime = LocalDateTime.parse(s.reverse().toString(), DATE_TIME_FORMATTER);
+
+        return dateTime;
     }
 }
