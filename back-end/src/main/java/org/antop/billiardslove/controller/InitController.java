@@ -1,6 +1,7 @@
 package org.antop.billiardslove.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.antop.billiardslove.hadler.EmptyException;
 import org.antop.billiardslove.hadler.TimeLimitException;
 import org.antop.billiardslove.jpa.dto.LoginDto;
 import org.antop.billiardslove.jpa.entity.Init;
@@ -36,9 +37,9 @@ public class InitController {
     public InitResponse initAccount(@RequestHeader("X-DEVICE-ID") String deviceId, @RequestHeader("X-REQUEST-ID") String requestId) {
 
         if (StringUtils.isAnyBlank(deviceId, requestId)) {
-            throw new NullPointerException("Header Null");
+            throw new EmptyException("Header is Null.");
         }
-
+        // 메소드로 뺸다.
         StringBuilder s = new StringBuilder(requestId.replaceAll("[A-Z]", ""));
         LocalDateTime dateTime = LocalDateTime.parse(s.reverse().toString(), DATE_TIME_FORMATTER);
 
@@ -60,7 +61,7 @@ public class InitController {
     public LoginDto loginAccount(@RequestHeader("X-DEVICE-ID") String deviceId, @RequestHeader("X-APP-ID") String appId, @RequestBody KakaoLogin kakaoLogin) {
 
         if (StringUtils.isAnyBlank(deviceId, appId)) {
-            throw new NullPointerException("Header Null");
+            throw new EmptyException("Header is Null.");
         }
         return initService.login(deviceId, appId, kakaoLogin);
     }
