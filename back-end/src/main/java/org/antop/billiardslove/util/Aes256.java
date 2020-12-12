@@ -89,10 +89,10 @@ public class Aes256 {
      * @return 12바이트
      */
     private byte[] iv() {
-        byte[] IV = new byte[GCM_IV_LENGTH];
+        byte[] iv = new byte[GCM_IV_LENGTH];
         SecureRandom random = new SecureRandom();
-        random.nextBytes(IV);
-        return IV;
+        random.nextBytes(iv);
+        return iv;
     }
 
 }
