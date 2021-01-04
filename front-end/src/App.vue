@@ -8,7 +8,7 @@
         <router-view></router-view>
       </div>
       <div v-else>
-        <a @:click="kakaoLogin">
+        <a @click="kakaoLogin" style="cursor: pointer;">
           <img
             src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
             width="222"
