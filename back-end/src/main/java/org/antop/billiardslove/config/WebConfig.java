@@ -1,13 +1,13 @@
-package org.antop.billiardslove.context;
+package org.antop.billiardslove.config;
 
-import org.antop.billiardslove.context.filter.HttpLoggingFilter;
+import org.antop.billiardslove.config.filter.HttpLoggingFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfiguration implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     FilterRegistrationBean<HttpLoggingFilter> httpLoggingFilter() {
