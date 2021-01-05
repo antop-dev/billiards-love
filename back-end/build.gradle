@@ -53,6 +53,8 @@ dependencies {
 
     // https://github.com/DiUS/java-faker
     testImplementation "com.github.javafaker:javafaker:1.0.2"
+    // https://github.com/google/guava
+    implementation "com.google.guava:guava:30.1-jre"
 }
 
 test {
