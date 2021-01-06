@@ -1,7 +1,6 @@
 package org.antop.billiardslove.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.antop.billiardslove.api.InitApi.InitResponse;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
 import org.antop.billiardslove.util.Aes256;
