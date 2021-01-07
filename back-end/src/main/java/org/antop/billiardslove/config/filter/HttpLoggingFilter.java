@@ -1,4 +1,4 @@
-package org.antop.billiardslove.context.filter;
+package org.antop.billiardslove.config.filter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
