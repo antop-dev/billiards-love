@@ -30,7 +30,6 @@ const loginApi = class {
   loginExecute(body) {
     const header = {
       'X-DEVICE-ID': store.state.deviceId,
-      'X-APP-ID': store.state.loginRequestInfo.appId,
     };
     return this.#client
       .post('/v1/logged-in', body, header)
