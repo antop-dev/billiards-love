@@ -6,18 +6,16 @@ import store from './store';
 import FingerPrinter from './util/fingerPrint';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
+import '../public/index.css';
 
 Vue.use(VueMaterial);
 
 // 카카오 초기화 정보를 가져옵니다
 const initInfo = async () => {
+  store.state.accessToken = localStorage.getItem('access_token');
   // 최초의 로그인 정보를 로컬 스토리지에 가지고 있습니다.
-  store.state.token = localStorage.getItem('token');
   if (store.state.deviceId === null) {
     store.state.deviceId = await FingerPrinter();
-  }
-  if (store.state.requestId === null) {
-    store.state.requestId = 'flznptmxmid';
   }
 };
 
