@@ -3,10 +3,15 @@ import DashBoard from '../view/DashBoard';
 import GameStatus from '../view/GameStatus';
 import GameInfo from '../view/GameInfo';
 import GameRank from '../view/GameRank';
+import Login from '../view/Login';
 
 export default [
   {
-    path: '/sign-up',
+    path: '/login',
+    component: Login,
+  },
+  {
+    path: '/register',
     component: SignUp,
   },
   {
@@ -14,7 +19,7 @@ export default [
     component: DashBoard,
   },
   {
-    path: '/contest',
+    path: '/game',
     component: GameStatus,
     children: [
       {
