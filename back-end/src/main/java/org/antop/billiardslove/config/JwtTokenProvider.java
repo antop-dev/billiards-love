@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.properties.JwtProperties;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +24,11 @@ public class JwtTokenProvider {
      * 토큰생성
      *
      * @param deviceId   장비 아이디
-     * @param kakaoLogin 카카오 정보
      * @return JWT 토큰
      */
-    public String createToken(String deviceId, KakaoLogin kakaoLogin) {
-        Claims claims = Jwts.claims().setSubject(deviceId); // JWT payload 에 저장되는 정보단위
-        claims.put("kakaoLogin", kakaoLogin); // 정보는 key / value 쌍으로 저장된다.
+    public String createToken(Long deviceId) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(deviceId)); // JWT payload 에 저장되는 정보단위
+        //claims.put("kakaoLogin", kakaoLogin); // 정보는 key / value 쌍으로 저장된다.
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
