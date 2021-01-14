@@ -20,7 +20,7 @@ public class MemberDto {
     /**
      * 회원 핸디캡
      */
-    private final int handicap;
+    private final Integer handicap;
     /**
      * 회원 이미지 (카카오톡 프로필 썸네일)
      */

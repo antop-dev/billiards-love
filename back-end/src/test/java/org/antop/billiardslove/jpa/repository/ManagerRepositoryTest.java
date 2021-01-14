@@ -15,7 +15,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-@EnableJpaAuditing
 @DisplayName("관리자 테스트")
 class ManagerRepositoryTest extends DataJpaTest {
     @Autowired

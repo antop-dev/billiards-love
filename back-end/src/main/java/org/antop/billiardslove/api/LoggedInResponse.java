@@ -21,10 +21,10 @@ class LoggedInResponse {
     @Builder
     public LoggedInResponse(String token, MemberDto member) {
         this.token = token;
-        if (member != null) {
-            this.member = member;
+        if (member.getHandicap() != null) {
             registered = true;
         }
+        this.member = member;
     }
 
 }

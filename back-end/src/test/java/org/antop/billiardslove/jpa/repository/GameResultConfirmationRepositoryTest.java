@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("경기결과확정 테이블 테스트")
-@EnableJpaAuditing
 class GameResultConfirmationRepositoryTest extends DataJpaTest {
 
     @Autowired

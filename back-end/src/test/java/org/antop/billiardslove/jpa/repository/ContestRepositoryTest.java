@@ -19,7 +19,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 @DisplayName("대회 테스트")
-@EnableJpaAuditing
 class ContestRepositoryTest extends DataJpaTest {
 
     @Autowired

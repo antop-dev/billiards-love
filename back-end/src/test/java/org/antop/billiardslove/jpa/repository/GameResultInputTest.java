@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("경기결과입력 테스트")
-@EnableJpaAuditing
 class GameResultInputTest extends DataJpaTest {
     @Autowired
     private PlayerRepository playerRepository;
