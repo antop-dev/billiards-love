@@ -1,18 +1,22 @@
 <template>
-  <div class="board">
-    <board-contents @click.native="getDetail"></board-contents>
-    <board-contents></board-contents>
-    <board-contents></board-contents>
+  <div>
+    <app-header></app-header>
+    <div class="board">
+      <board-contents @click.native="getDetail"></board-contents>
+      <board-contents></board-contents>
+      <board-contents></board-contents>
+    </div>
   </div>
 </template>
 <script>
 import BoardContents from '@/dashboard/BoardContents';
+import AppHeader from '@/common/AppHeader';
 export default {
   name: 'DashBoard',
-  components: { BoardContents },
+  components: { BoardContents, AppHeader },
   methods: {
     getDetail() {
-      this.$router.push('/status/info');
+      this.$router.push('/game/info');
     },
   },
 };

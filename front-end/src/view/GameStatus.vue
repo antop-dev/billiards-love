@@ -13,6 +13,9 @@ export default {
   name: 'GameStatus',
   components: { GameTabs },
   methods: {},
+  created() {
+    this.$router.push('/game/info');
+  },
 };
 </script>
 
