@@ -75,18 +75,11 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KKO_LGN_ID")
     private KakaoLogin kakaoLogin;
-    /**
-     * 로그인 토큰
-     */
-    @Setter
-    @Column(name = "LGN_TKN")
-    private String loginToken;
 
     @Builder
-    public Member(String nickname, Integer handicap, KakaoLogin kakaoLogin, String loginToken) {
+    public Member(KakaoLogin kakaoLogin, String nickname, Integer handicap) {
+        this.kakaoLogin = kakaoLogin;
         this.nickname = nickname;
         this.handicap = handicap;
-        this.kakaoLogin = kakaoLogin;
-        this.loginToken = loginToken;
     }
 }

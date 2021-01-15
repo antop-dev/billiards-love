@@ -38,7 +38,6 @@ public class LoggedInService {
         return memberRepository.findByKakaoLogin(kakaoLogin).orElseGet(() -> memberRepository.save(Member.builder()
                 .nickname(profile.getNickname())
                 .kakaoLogin(kakaoLogin)
-                .loginToken("token")
                 .build()));
 
     }

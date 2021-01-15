@@ -16,15 +16,15 @@ class LoggedInResponse {
     /**
      * 회원
      */
-    private MemberDto member;
+    private final MemberDto member;
 
     @Builder
     public LoggedInResponse(String token, MemberDto member) {
         this.token = token;
+        this.member = member;
         if (member.getHandicap() != null) {
             registered = true;
         }
-        this.member = member;
     }
 
 }
