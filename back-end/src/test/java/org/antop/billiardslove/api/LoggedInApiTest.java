@@ -6,7 +6,6 @@ import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.repository.KakaoRepository;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
-import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,7 +16,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.IsJwtToken.isJwtToken;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -67,7 +69,7 @@ class LoggedInApiTest {
                 .andExpect(jsonPath("$.member", notNullValue()))
                 .andExpect(jsonPath("$.member.id", greaterThan(0)))
                 .andExpect(jsonPath("$.member.nickname", is(nickname)))
-                .andExpect(jsonPath("$.member.thumbnailUrl", is(thumbnailUrl)))
+                .andExpect(jsonPath("$.member.thumbnail", is(thumbnailUrl)))
                 .andExpect(jsonPath("$.member.handicap", nullValue()))
         ;
     }
@@ -120,11 +122,11 @@ class LoggedInApiTest {
                 .andExpect(jsonPath("$.token", isJwtToken(jwtProperties.getSecretKey())))
                 .andExpect(jsonPath("$.registered", is(true)))
                 .andExpect(jsonPath("$.member", notNullValue()))
-                .andExpect(jsonPath("$.member.id", NumberMatcher.is(member.getId())))
+                .andExpect(jsonPath("$.member.id", is(member.getId().intValue())))
                 // "Jack" → "Mr. Hong"
                 .andExpect(jsonPath("$.member.nickname", is(nickname)))
                 // width=100 → width=80
-                .andExpect(jsonPath("$.member.thumbnailUrl", is(thumbnailUrl)))
+                .andExpect(jsonPath("$.member.thumbnail", is(thumbnailUrl)))
                 .andExpect(jsonPath("$.member.handicap", is(member.getHandicap())))
         ;
     }

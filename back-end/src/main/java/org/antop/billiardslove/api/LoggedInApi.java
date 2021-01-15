@@ -30,7 +30,7 @@ public class LoggedInApi {
 
             MemberDto memberDto = MemberDto.builder()
                     .id(member.getId())
-                    .nickname(member.getNickname())
+                    .nickname(request.getProfile().getNickname())
                     .handicap(member.getHandicap())
                     .thumbnail(request.getProfile().getThumbnailUrl())
                     .build();
@@ -41,6 +41,7 @@ public class LoggedInApi {
         return LoggedInResponse.builder()
                 .token(token)
                 .member(MemberDto.builder()
+                        .id(member.getId())
                         .nickname(request.getProfile().getNickname())
                         .thumbnail(request.getProfile().getThumbnailUrl())
                         .build())
