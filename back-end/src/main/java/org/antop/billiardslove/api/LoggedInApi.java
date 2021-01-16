@@ -3,7 +3,7 @@ package org.antop.billiardslove.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.JwtTokenProvider;
-import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.antop.billiardslove.service.LoggedInService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,28 +24,22 @@ public class LoggedInApi {
 
         String token = jwtTokenProvider.createToken(request.getId());
 
-        Member member = loggedInService.join(request.getId(), request.getProfile());
-
-        if (member.getHandicap() != null) {
-
-            MemberDto memberDto = MemberDto.builder()
-                    .id(member.getId())
-                    .nickname(request.getProfile().getNickname())
-                    .handicap(member.getHandicap())
-                    .thumbnail(request.getProfile().getThumbnailUrl())
-                    .build();
-
-            return LoggedInResponse.builder().token(token).member(memberDto).build();
+        KakaoDto kakaoDto = KakaoDto.builder()
+                .id(request.getId())
+                .connectedAt(request.getConnectedAt())
+                .build();
+        // 사용자 동의 시 프로필 제공
+        if (request.getProfile().isNeedsAgreement()) {
+            kakaoDto.setNickname(request.getProfile().getNickname());
+            kakaoDto.setImageUrl(request.getProfile().getImageUrl());
+            kakaoDto.setThumbnailUrl(request.getProfile().getThumbnailUrl());
         }
 
-        return LoggedInResponse.builder()
-                .token(token)
-                .member(MemberDto.builder()
-                        .id(member.getId())
-                        .nickname(request.getProfile().getNickname())
-                        .thumbnail(request.getProfile().getThumbnailUrl())
-                        .build())
-                .build();
+        KakaoLogin kakaoLogin = loggedInService.getKakaoInfo(kakaoDto);
+        MemberDto memberDto = loggedInService.getMemberInfo(kakaoLogin, kakaoDto);
+
+        return LoggedInResponse.builder().token(token).member(memberDto).build();
+
     }
 
 }

@@ -23,12 +23,11 @@ public class JwtTokenProvider {
     /**
      * 토큰생성
      *
-     * @param deviceId   장비 아이디
+     * @param kakaoId 카카오톡 회원번호
      * @return JWT 토큰
      */
-    public String createToken(Long deviceId) {
-        Claims claims = Jwts.claims().setSubject(String.valueOf(deviceId)); // JWT payload 에 저장되는 정보단위
-        //claims.put("kakaoLogin", kakaoLogin); // 정보는 key / value 쌍으로 저장된다.
+    public String createToken(Long kakaoId) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(kakaoId)); // JWT payload 에 저장되는 정보단위
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
