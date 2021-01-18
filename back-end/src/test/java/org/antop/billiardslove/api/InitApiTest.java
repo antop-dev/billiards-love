@@ -3,7 +3,7 @@ package org.antop.billiardslove.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
-import org.antop.billiardslove.dto.out.InitResponse;
+import org.antop.billiardslove.dto.output.InitResponse;
 import org.antop.billiardslove.util.Aes256;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
