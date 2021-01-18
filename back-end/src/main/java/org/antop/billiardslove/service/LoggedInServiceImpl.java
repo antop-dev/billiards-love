@@ -1,8 +1,8 @@
 package org.antop.billiardslove.service;
 
 import lombok.RequiredArgsConstructor;
-import org.antop.billiardslove.api.KakaoDto;
-import org.antop.billiardslove.api.MemberDto;
+import org.antop.billiardslove.dto.KakaoDto;
+import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.jpa.domain.KakaoProfile;
 import org.antop.billiardslove.jpa.entity.KakaoLogin;
 import org.antop.billiardslove.jpa.entity.Member;
@@ -25,9 +25,9 @@ public class LoggedInServiceImpl implements LoggedInService {
      * @param kakaoDto 로그인된 카카오 정보
      * @return 카카오 사용자 정보
      */
-    public KakaoLogin getKakaoInfo(KakaoDto kakaoDto) {
+    public MemberDto registerMember(KakaoDto kakaoDto) {
 
-        return kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> kakaoRepository.save(KakaoLogin.builder()
+        KakaoLogin kakaoLogin = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> kakaoRepository.save(KakaoLogin.builder()
                 .id(kakaoDto.getId())
                 .connectedAt(LocalDateTime.now())
                 .profile(KakaoProfile.builder()
@@ -36,20 +36,26 @@ public class LoggedInServiceImpl implements LoggedInService {
                         .thumbUrl(kakaoDto.getThumbnailUrl())
                         .build())
                 .build()));
-    }
 
-    /**
-     * 회원 조회
-     *
-     * @param kakaoLogin 카카오 사용자 정보
-     * @param kakaoDto   로그인된 카카오 정보
-     * @return 회원 정보
-     */
-    public MemberDto getMemberInfo(KakaoLogin kakaoLogin, KakaoDto kakaoDto) {
+        if (!kakaoLogin.getProfile().getNickname().equals(kakaoDto.getNickname()) ||
+                !kakaoLogin.getProfile().getImgUrl().equals(kakaoDto.getImageUrl()) ||
+                !kakaoLogin.getProfile().getThumbUrl().equals(kakaoDto.getThumbnailUrl())) {
+            kakaoLogin.setProfile(KakaoProfile.builder()
+                    .nickname(kakaoDto.getNickname())
+                    .imgUrl(kakaoDto.getImageUrl())
+                    .thumbUrl(kakaoDto.getThumbnailUrl())
+                    .build());
+            kakaoRepository.save(kakaoLogin);
+        }
+
         Member member = memberRepository.findByKakaoLogin(kakaoLogin).orElseGet(() -> memberRepository.save(Member.builder()
                 .nickname(kakaoDto.getNickname())
                 .kakaoLogin(kakaoLogin)
                 .build()));
+
+        if (!member.getNickname().equals(kakaoDto.getNickname())) {
+            member.setNickname(kakaoDto.getNickname());
+        }
 
         return MemberDto.builder()
                 .id(member.getId())

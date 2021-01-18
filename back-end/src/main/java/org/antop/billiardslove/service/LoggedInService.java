@@ -1,11 +1,8 @@
 package org.antop.billiardslove.service;
 
-import org.antop.billiardslove.api.KakaoDto;
-import org.antop.billiardslove.api.MemberDto;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
+import org.antop.billiardslove.dto.KakaoDto;
+import org.antop.billiardslove.dto.MemberDto;
 
 public interface LoggedInService {
-    KakaoLogin getKakaoInfo(KakaoDto kakaoDto);
-
-    MemberDto getMemberInfo(KakaoLogin kakaoLogin, KakaoDto kakaoDto);
+    MemberDto registerMember(KakaoDto kakaoDto);
 }

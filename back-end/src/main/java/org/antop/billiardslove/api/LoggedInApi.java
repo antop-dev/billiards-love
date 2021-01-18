@@ -3,7 +3,10 @@ package org.antop.billiardslove.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.JwtTokenProvider;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
+import org.antop.billiardslove.dto.KakaoDto;
+import org.antop.billiardslove.dto.MemberDto;
+import org.antop.billiardslove.dto.in.LoggedInRequest;
+import org.antop.billiardslove.dto.out.LoggedInResponse;
 import org.antop.billiardslove.service.LoggedInService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,8 +38,7 @@ public class LoggedInApi {
             kakaoDto.setThumbnailUrl(request.getProfile().getThumbnailUrl());
         }
 
-        KakaoLogin kakaoLogin = loggedInService.getKakaoInfo(kakaoDto);
-        MemberDto memberDto = loggedInService.getMemberInfo(kakaoLogin, kakaoDto);
+        MemberDto memberDto = loggedInService.registerMember(kakaoDto);
 
         return LoggedInResponse.builder().token(token).member(memberDto).build();
 
