@@ -6,10 +6,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.properties.JwtProperties;
+import org.antop.billiardslove.util.TemporalUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -17,24 +19,23 @@ import java.util.Date;
 public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
 
-    // 토큰 유효시간 30분
-    private static final long tokenValidTime = 30 * 60 * 1000L;
-
     /**
      * 토큰생성
      *
-     * @param kakaoId 카카오톡 회원번호
+     * @param memberId 회원 아이디
      * @return JWT 토큰
      */
-    public String createToken(long kakaoId) {
-        Claims claims = Jwts.claims().setSubject(String.valueOf(kakaoId)); // JWT payload 에 저장되는 정보단위
-        Date now = new Date();
+    public String createToken(long memberId) {
+        Claims claims = Jwts.claims().setSubject("" + memberId); // JWT payload 에 저장되는 정보단위
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expiration = now.plus(jwtProperties.getDuration());
+
         return Jwts.builder()
-                .setClaims(claims) // 정보 저장
-                .setIssuedAt(now) // 토큰 발행 시간 정보
-                .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())  // 사용할 암호화 알고리즘과
-                // signature 에 들어갈 secret값 세팅
+                .setClaims(claims)
+                .setIssuedAt(TemporalUtil.toDate(now))
+                .setExpiration(TemporalUtil.toDate(expiration))
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
 
