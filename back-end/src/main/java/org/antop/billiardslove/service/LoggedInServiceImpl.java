@@ -9,29 +9,30 @@ import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.repository.KakaoRepository;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class LoggedInServiceImpl implements LoggedInService {
-
     private final KakaoRepository kakaoRepository;
     private final MemberRepository memberRepository;
 
-    public MemberDto registerMember(KakaoDto kakaoDto) {
-
-        KakaoLogin kakaoLogin = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> kakaoRepository.save(KakaoLogin.builder()
-                .id(kakaoDto.getId())
-                .connectedAt(LocalDateTime.now())
-                .profile(KakaoProfile.builder()
-                        .nickname(kakaoDto.getNickname())
-                        .imgUrl(kakaoDto.getImageUrl())
-                        .thumbUrl(kakaoDto.getThumbnailUrl())
-                        .build())
-                .build()));
+    public MemberDto loggedIn(KakaoDto kakaoDto) {
+        KakaoLogin kakaoLogin = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> {
+            KakaoLogin newLogin = KakaoLogin.builder()
+                    .id(kakaoDto.getId())
+                    .connectedAt(LocalDateTime.now())
+                    .profile(KakaoProfile.builder()
+                            .nickname(kakaoDto.getNickname())
+                            .imgUrl(kakaoDto.getImageUrl())
+                            .thumbUrl(kakaoDto.getThumbnailUrl())
+                            .build())
+                    .build();
+            return kakaoRepository.save(newLogin);
+        });
 
         kakaoLogin.changeProfile(KakaoProfile.builder()
                 .nickname(kakaoDto.getNickname())
@@ -39,11 +40,13 @@ public class LoggedInServiceImpl implements LoggedInService {
                 .thumbUrl(kakaoDto.getThumbnailUrl())
                 .build());
 
-        Member member = memberRepository.findByKakaoLogin(kakaoLogin).orElseGet(() -> memberRepository.save(Member.builder()
-                .kakaoLogin(kakaoLogin)
-                .build()));
-
-        member.setNickname(kakaoDto.getNickname());
+        Member member = memberRepository.findByKakaoLogin(kakaoLogin).orElseGet(() -> {
+            Member newMember = Member.builder()
+                    .nickname(kakaoDto.getNickname())
+                    .kakaoLogin(kakaoLogin)
+                    .build();
+            return memberRepository.save(newMember);
+        });
 
         return MemberDto.builder()
                 .id(member.getId())
@@ -52,4 +55,5 @@ public class LoggedInServiceImpl implements LoggedInService {
                 .handicap(member.getHandicap())
                 .build();
     }
+
 }

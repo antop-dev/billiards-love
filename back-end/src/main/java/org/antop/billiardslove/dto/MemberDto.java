@@ -12,7 +12,7 @@ public class MemberDto {
     /**
      * 회원 아이디
      */
-    private final Long id;
+    private final long id;
     /**
      * 회원 별명
      */

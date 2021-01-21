@@ -5,10 +5,10 @@ import org.antop.billiardslove.dto.MemberDto;
 
 public interface LoggedInService {
     /**
-     * 카카오 정보 조회
+     * 카카오톡 로그인 처리
      *
-     * @param kakaoDto 로그인된 카카오 정보
+     * @param kakaoDto 카카오 로그인 정보
      * @return 회원 정보
      */
-    MemberDto registerMember(KakaoDto kakaoDto);
+    MemberDto loggedIn(KakaoDto kakaoDto);
 }

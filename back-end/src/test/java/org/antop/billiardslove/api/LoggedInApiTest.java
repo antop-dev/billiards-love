@@ -16,10 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.IsJwtToken.isJwtToken;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -92,7 +89,7 @@ class LoggedInApiTest {
 
         Member member = Member.builder()
                 .kakaoLogin(kakaoLogin)
-                .nickname(kakaoLogin.getProfile().getNickname())
+                .nickname("Antop") // 이미 회원 닉네임은 정해짐
                 .handicap(30)
                 .build();
         memberRepository.saveAndFlush(member);
@@ -123,8 +120,7 @@ class LoggedInApiTest {
                 .andExpect(jsonPath("$.registered", is(true)))
                 .andExpect(jsonPath("$.member", notNullValue()))
                 .andExpect(jsonPath("$.member.id", is(member.getId().intValue())))
-                // "Jack" → "Mr. Hong"
-                .andExpect(jsonPath("$.member.nickname", is(nickname)))
+                .andExpect(jsonPath("$.member.nickname", is(member.getNickname())))
                 // width=100 → width=80
                 .andExpect(jsonPath("$.member.thumbnail", is(thumbnailUrl)))
                 .andExpect(jsonPath("$.member.handicap", is(member.getHandicap())))

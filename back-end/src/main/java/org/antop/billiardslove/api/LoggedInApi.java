@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.JwtTokenProvider;
 import org.antop.billiardslove.dto.KakaoDto;
-
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.service.LoggedInService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +20,6 @@ public class LoggedInApi {
 
     @PostMapping("/api/v1/logged-in")
     public LoggedInResponse loggedIn(@RequestBody LoggedInRequest request) {
-
-        String token = jwtTokenProvider.createToken(request.getId());
-
         KakaoDto kakaoDto = KakaoDto.builder()
                 .id(request.getId())
                 .nickname(request.getProfile().getNickname())
@@ -32,16 +28,19 @@ public class LoggedInApi {
                 .connectedAt(request.getConnectedAt())
                 .build();
 
-        MemberDto memberDto = loggedInService.registerMember(kakaoDto);
+        MemberDto member = loggedInService.loggedIn(kakaoDto);
 
-        org.antop.billiardslove.api.MemberDto memberDto1 = org.antop.billiardslove.api.MemberDto.builder()
-                .id(memberDto.getId())
-                .nickname(memberDto.getNickname())
-                .handicap(memberDto.getHandicap())
-                .thumbnail(memberDto.getThumbnail())
+        String token = jwtTokenProvider.createToken(member.getId());
+
+        return LoggedInResponse.builder()
+                .token(token)
+                .member(LoggedInResponse.Member.builder()
+                        .id(member.getId())
+                        .nickname(member.getNickname())
+                        .handicap(member.getHandicap())
+                        .thumbnail(member.getThumbnail())
+                        .build())
                 .build();
-
-        return LoggedInResponse.builder().token(token).member(memberDto1).build();
 
     }
 
