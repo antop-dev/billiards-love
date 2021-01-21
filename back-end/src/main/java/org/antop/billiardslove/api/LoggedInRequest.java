@@ -1,4 +1,4 @@
-package org.antop.billiardslove.dto.input;
+package org.antop.billiardslove.api;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

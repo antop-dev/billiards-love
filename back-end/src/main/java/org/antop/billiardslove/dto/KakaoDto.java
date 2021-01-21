@@ -20,16 +20,13 @@ public class KakaoDto {
     /**
      * 닉네임
      */
-    @Setter
     private String nickname;
     /**
      * 프로필 이미지 Url
      */
-    @Setter
     private String imageUrl;
     /**
      * 프로필 미리보기 Url
      */
-    @Setter
     private String thumbnailUrl;
 }

@@ -1,8 +1,7 @@
-package org.antop.billiardslove.dto.output;
+package org.antop.billiardslove.api;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.antop.billiardslove.dto.MemberDto;
 
 @Getter
 public class LoggedInResponse {

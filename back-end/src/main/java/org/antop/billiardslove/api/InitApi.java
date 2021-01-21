@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
-import org.antop.billiardslove.dto.output.InitResponse;
 import org.antop.billiardslove.util.Aes256;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

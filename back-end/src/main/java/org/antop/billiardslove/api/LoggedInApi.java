@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.JwtTokenProvider;
 import org.antop.billiardslove.dto.KakaoDto;
+
 import org.antop.billiardslove.dto.MemberDto;
-import org.antop.billiardslove.dto.input.LoggedInRequest;
-import org.antop.billiardslove.dto.output.LoggedInResponse;
 import org.antop.billiardslove.service.LoggedInService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,25 +21,27 @@ public class LoggedInApi {
 
     @PostMapping("/api/v1/logged-in")
     public LoggedInResponse loggedIn(@RequestBody LoggedInRequest request) {
-        log.debug("{}", request);
-        log.debug("LocalDateTime = {}", request.getConnectedAt());
 
         String token = jwtTokenProvider.createToken(request.getId());
 
         KakaoDto kakaoDto = KakaoDto.builder()
                 .id(request.getId())
+                .nickname(request.getProfile().getNickname())
+                .imageUrl(request.getProfile().getImageUrl())
+                .thumbnailUrl(request.getProfile().getThumbnailUrl())
                 .connectedAt(request.getConnectedAt())
                 .build();
-        // 사용자 동의 시 프로필 제공
-        if (request.getProfile().isNeedsAgreement()) {
-            kakaoDto.setNickname(request.getProfile().getNickname());
-            kakaoDto.setImageUrl(request.getProfile().getImageUrl());
-            kakaoDto.setThumbnailUrl(request.getProfile().getThumbnailUrl());
-        }
 
         MemberDto memberDto = loggedInService.registerMember(kakaoDto);
 
-        return LoggedInResponse.builder().token(token).member(memberDto).build();
+        org.antop.billiardslove.api.MemberDto memberDto1 = org.antop.billiardslove.api.MemberDto.builder()
+                .id(memberDto.getId())
+                .nickname(memberDto.getNickname())
+                .handicap(memberDto.getHandicap())
+                .thumbnail(memberDto.getThumbnail())
+                .build();
+
+        return LoggedInResponse.builder().token(token).member(memberDto1).build();
 
     }
 

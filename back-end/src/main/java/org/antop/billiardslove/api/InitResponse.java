@@ -1,4 +1,4 @@
-package org.antop.billiardslove.dto.output;
+package org.antop.billiardslove.api;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
