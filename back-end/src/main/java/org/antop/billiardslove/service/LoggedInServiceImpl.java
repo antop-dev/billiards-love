@@ -40,10 +40,10 @@ public class LoggedInServiceImpl implements LoggedInService {
                 .build());
 
         Member member = memberRepository.findByKakaoLogin(kakaoLogin).orElseGet(() -> memberRepository.save(Member.builder()
-                .nickname(kakaoDto.getNickname())
                 .kakaoLogin(kakaoLogin)
                 .build()));
 
+        member.setNickname(kakaoDto.getNickname());
 
         return MemberDto.builder()
                 .id(member.getId())
