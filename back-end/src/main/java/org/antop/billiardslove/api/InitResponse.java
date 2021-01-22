@@ -1,9 +1,10 @@
 package org.antop.billiardslove.api;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * 초기화 API 응답 클래스
@@ -12,18 +13,19 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @Builder
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class InitResponse {
     /**
      * AES256 암호화 키
      */
-    private final String secretKey;
+    private String secretKey;
     /**
      * 카카오 Javascript API 키
      */
-    private final String kakaoKey;
+    private String kakaoKey;
     /**
      * 구글 애드센스 키
      */
-    private final String adSenseKey;
+    private String adSenseKey;
 }

@@ -1,10 +1,12 @@
 package org.antop.billiardslove.api;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-class LoggedInResponse {
+public class LoggedInResponse {
     /**
      * JWT 토큰
      */
@@ -16,15 +18,36 @@ class LoggedInResponse {
     /**
      * 회원
      */
-    private MemberDto member;
+    private final Member member;
 
     @Builder
-    public LoggedInResponse(String token, MemberDto member) {
+    public LoggedInResponse(String token, Member member) {
         this.token = token;
-        if (member != null) {
-            this.member = member;
+        this.member = member;
+        if (member.getHandicap() != null) {
             registered = true;
         }
     }
 
+    @Getter
+    @Builder
+    @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+    static class Member {
+        /**
+         * 회원 아이디
+         */
+        private final Long id;
+        /**
+         * 회원 별명
+         */
+        private final String nickname;
+        /**
+         * 회원 핸디캡
+         */
+        private final Integer handicap;
+        /**
+         * 회원 이미지 (카카오톡 프로필 썸네일)
+         */
+        private final String thumbnail;
+    }
 }

@@ -1,4 +1,4 @@
-package org.antop.billiardslove.api;
+package org.antop.billiardslove.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @Builder
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDto {
     /**
      * 회원 아이디
@@ -20,7 +20,7 @@ public class MemberDto {
     /**
      * 회원 핸디캡
      */
-    private final int handicap;
+    private final Integer handicap;
     /**
      * 회원 이미지 (카카오톡 프로필 썸네일)
      */

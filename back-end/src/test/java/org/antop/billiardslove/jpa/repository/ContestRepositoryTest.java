@@ -7,7 +7,6 @@ import org.antop.billiardslove.jpa.entity.Manager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,7 +18,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 @DisplayName("대회 테스트")
-@EnableJpaAuditing
 class ContestRepositoryTest extends DataJpaTest {
 
     @Autowired

@@ -9,7 +9,6 @@ import org.antop.billiardslove.jpa.entity.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("경기결과확정 테이블 테스트")
-@EnableJpaAuditing
 class GameResultConfirmationRepositoryTest extends DataJpaTest {
 
     @Autowired

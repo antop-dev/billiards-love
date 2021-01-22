@@ -37,7 +37,7 @@ public class LoggedInRequest {
     @Getter
     @NoArgsConstructor
     @ToString
-    private static class Profile {
+    public static class Profile {
         /**
          * 닉네임
          */
