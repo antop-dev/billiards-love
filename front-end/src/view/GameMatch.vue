@@ -14,9 +14,11 @@
         <md-table-cell md-label="참가자명" md-sort-by="name">{{
           item.name
         }}</md-table-cell>
-        <md-table-cell md-label="결과" md-sort-by="result">{{
-          item.result
-        }}</md-table-cell>
+        <md-table-cell md-label="결과" md-sort-by="result">
+          <a href="#" @click="showSidepanel = !showSidepanel">{{
+            item.result
+          }}</a>
+        </md-table-cell>
         <md-table-cell md-label="확정" md-sort-by="confirm">{{
           item.confirm
         }}</md-table-cell>
@@ -30,6 +32,7 @@ export default {
   name: 'GameRank',
   data() {
     return {
+      showSidepanel: false,
       users: [
         {
           id: 1,
