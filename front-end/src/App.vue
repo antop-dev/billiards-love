@@ -67,6 +67,12 @@ export default {
           // this.$store.state.token = token;
           // 라우팅
           this.$store.state.accessToken = dat.access_token;
+          this.isLogin = true;
+          if (this.$route.query.redirect) {
+            this.$router.replace(this.$route.query.redirect);
+          } else {
+            this.$router.push('/register');
+          }
         },
         fail: e => {
           console.error(e);
@@ -80,12 +86,6 @@ export default {
     // 초기화 정보 저장
     if (this.$store.state.accessToken === null) {
       this.kakaoLogin();
-    }
-    this.isLogin = true;
-    if (this.$route.query.redirect) {
-      this.$router.replace(this.$route.query.redirect);
-    } else {
-      this.$router.push('/register');
     }
   },
 };
