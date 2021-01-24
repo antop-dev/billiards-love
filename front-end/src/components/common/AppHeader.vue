@@ -24,9 +24,9 @@ export default {
   name: 'AppHeader',
   props: {
     title: String,
-    closeBtn: Boolean,
-    backBtn: Boolean,
-    menuBtn: Boolean,
+    closeBtn: String,
+    backBtn: String,
+    menuBtn: String,
   },
   components: { CloseButton, BackButton, MenuButton },
 };

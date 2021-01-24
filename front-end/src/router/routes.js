@@ -18,11 +18,13 @@ export default [
     component: GameStatus,
     children: [
       {
-        path: 'info',
+        name: 'info',
+        path: ':id/info',
         component: GameInfo,
       },
       {
-        path: 'rank',
+        name: 'rank',
+        path: ':id/rank',
         component: GameRank,
       },
     ],

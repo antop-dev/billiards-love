@@ -26,7 +26,7 @@ export default {
     if (query) {
       // 아이디 받아오면 처리
       this.id = query.id;
-      this.$router.push('/game/info');
+      this.$router.push({ name: 'info', params: { id: this.id } });
     }
   },
 };
