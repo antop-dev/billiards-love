@@ -68,11 +68,6 @@ export default {
           // 라우팅
           this.$store.state.accessToken = dat.access_token;
           this.isLogin = true;
-          if (this.$route.query.redirect) {
-            this.$router.replace(this.$route.query.redirect);
-          } else {
-            this.$router.push('/register');
-          }
         },
         fail: e => {
           console.error(e);

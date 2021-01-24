@@ -11,12 +11,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (from.path === '/' && to.path === '/register') {
+  if (from.path === '/' && to.path === '/') {
+    next('/register');
+  } else {
     next();
-  } else if (from.path === '/' && to.path !== '/') {
-    next({ path: '/', query: { redirect: to.fullPath } });
   }
-  next();
 });
 
 export default router;
