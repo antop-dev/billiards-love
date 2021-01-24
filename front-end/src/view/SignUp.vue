@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header></app-header>
+    <app-header title="추가정보 입력"></app-header>
     <div>
       <md-field>
         <label>별명</label>

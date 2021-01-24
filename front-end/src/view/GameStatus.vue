@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- TODO Id -> title -->
+    <app-header :title="id" back-btn="true"></app-header>
     <div>
       <game-tabs></game-tabs>
     </div>
@@ -9,12 +11,23 @@
 
 <script>
 import GameTabs from '@/status/GameTabs';
+import AppHeader from '@/common/AppHeader';
 export default {
   name: 'GameStatus',
-  components: { GameTabs },
+  components: { AppHeader, GameTabs },
+  data() {
+    return {
+      id: '',
+    };
+  },
   methods: {},
   created() {
-    this.$router.push('/game/info');
+    let query = this.$route.query;
+    if (query) {
+      // 아이디 받아오면 처리
+      this.id = query.id;
+      this.$router.push('/game/info');
+    }
   },
 };
 </script>
