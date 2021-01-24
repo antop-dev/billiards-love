@@ -3,6 +3,7 @@ import DashBoard from '../view/DashBoard';
 import GameStatus from '../view/GameStatus';
 import GameInfo from '../view/GameInfo';
 import GameRank from '../view/GameRank';
+import GameMatch from '../view/GameMatch';
 
 export default [
   {
@@ -26,6 +27,11 @@ export default [
         name: 'rank',
         path: ':id/rank',
         component: GameRank,
+      },
+      {
+        name: 'match',
+        path: ':id/match',
+        component: GameMatch,
       },
     ],
   },
