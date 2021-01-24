@@ -58,30 +58,38 @@ export default {
       }
       // console.log(initKey);
     },
-    kakaoLogin() {
-      window.Kakao.Auth.login({
-        success: dat => {
-          // 토큰 호출
-          // const token = await LoginApi.loginExecute(dat);
-          // 토큰 저장
-          // this.$store.state.token = token;
-          // 라우팅
-          this.$store.state.accessToken = dat.access_token;
-          this.isLogin = true;
-        },
-        fail: e => {
-          console.error(e);
-        },
+    async kakaoLogin() {
+      const statusInfo = await new Promise(resolve => {
+        window.Kakao.Auth.getStatusInfo(statusObj => {
+          resolve(statusObj);
+        });
       });
+      if (statusInfo.status === 'not_connected') {
+        window.Kakao.Auth.login({
+          success: dat => {
+            // 토큰 호출
+            // const token = await LoginApi.loginExecute(dat);
+            // 토큰 저장
+            // this.$store.state.token = token;
+            // 라우팅
+            this.$store.state.accessToken = dat.access_token;
+            this.isLogin = true;
+          },
+          fail: e => {
+            console.error(e);
+          },
+        });
+      } else {
+        this.$store.state.accessToken = statusInfo.user.access_token;
+        this.isLogin = true;
+      }
     },
   },
   created() {
     // 최초로 카카오 초기화 합니다.
     this.kakaoInit();
     // 초기화 정보 저장
-    if (this.$store.state.accessToken === null) {
-      this.kakaoLogin();
-    }
+    this.kakaoLogin();
   },
 };
 </script>
