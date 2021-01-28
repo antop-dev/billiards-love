@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 @DisplayName("카카오 로그인 저장소 테스트")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)

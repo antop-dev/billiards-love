@@ -1,4 +1,4 @@
-package org.antop.billiardslove.config;
+package org.antop.billiardslove.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.properties.JwtProperties;
-import org.antop.billiardslove.security.JwtAuthenticationToken;
 import org.antop.billiardslove.util.TemporalUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;

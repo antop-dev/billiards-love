@@ -2,7 +2,7 @@ package org.antop.billiardslove.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.config.JwtTokenProvider;
+import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.service.LoggedInService;

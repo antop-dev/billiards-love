@@ -1,10 +1,6 @@
 package org.antop.billiardslove.api;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 초기화 API 응답 클래스

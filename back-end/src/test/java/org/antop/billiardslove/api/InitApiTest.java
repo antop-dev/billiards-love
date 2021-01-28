@@ -1,14 +1,12 @@
 package org.antop.billiardslove.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.antop.billiardslove.MockMvcBase;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
 import org.antop.billiardslove.util.Aes256;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.IsBase64.isBase64;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,11 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class InitApiTest {
-    @Autowired
-    private MockMvc mockMvc;
+public class InitApiTest extends MockMvcBase {
     @Autowired
     private ObjectMapper om;
     @Autowired

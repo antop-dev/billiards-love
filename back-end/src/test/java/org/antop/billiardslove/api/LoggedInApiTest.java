@@ -1,5 +1,6 @@
 package org.antop.billiardslove.api;
 
+import org.antop.billiardslove.MockMvcBase;
 import org.antop.billiardslove.config.properties.JwtProperties;
 import org.antop.billiardslove.jpa.domain.KakaoProfile;
 import org.antop.billiardslove.jpa.entity.KakaoLogin;
@@ -8,10 +9,7 @@ import org.antop.billiardslove.jpa.repository.KakaoRepository;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 
@@ -22,11 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-class LoggedInApiTest {
-    @Autowired
-    private MockMvc mockMvc;
+class LoggedInApiTest extends MockMvcBase {
     @Autowired
     private JwtProperties jwtProperties;
     @Autowired

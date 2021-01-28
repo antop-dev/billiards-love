@@ -1,7 +1,6 @@
-package org.antop.billiardslove.config.filter;
+package org.antop.billiardslove.config.security;
 
 import lombok.RequiredArgsConstructor;
-import org.antop.billiardslove.config.JwtTokenProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -24,8 +23,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
         // 유효한 토큰인지 확인합니다.
         if (token != null && jwtTokenProvider.validateToken(token)) {
-            System.out.println(jwtTokenProvider.getMemberPk(token));
-
             // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옵니다.
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             // SecurityContext 에 Authentication 객체를 저장합니다.

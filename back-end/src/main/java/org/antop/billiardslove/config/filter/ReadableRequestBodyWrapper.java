@@ -2,6 +2,7 @@ package org.antop.billiardslove.config.filter;
 
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -51,7 +52,7 @@ public class ReadableRequestBodyWrapper extends HttpServletRequestWrapper {
         }
 
         @Override
-        public int read(byte[] b) throws IOException {
+        public int read(@NonNull byte[] b) throws IOException {
             return is.read(b);
         }
 

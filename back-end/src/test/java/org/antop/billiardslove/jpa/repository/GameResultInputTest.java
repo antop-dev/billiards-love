@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 @DisplayName("경기결과입력 테스트")
 class GameResultInputTest extends DataJpaTest {
@@ -69,9 +67,7 @@ class GameResultInputTest extends DataJpaTest {
     @Test
     @DisplayName("경기결과입력 데이터를 갱신한다.")
     void J6l1Z() {
-        gameResultInputRepository.findById(12L).ifPresent(it -> {
-            it.setThirdResult(GameResultStatus.ABSTENTION);
-        });
+        gameResultInputRepository.findById(12L).ifPresent(it -> it.setThirdResult(GameResultStatus.ABSTENTION));
 
         Optional<GameResultInput> gameResultInputOptional = gameResultInputRepository.findById(12L);
         assertThat(gameResultInputOptional.isPresent(), is(true));

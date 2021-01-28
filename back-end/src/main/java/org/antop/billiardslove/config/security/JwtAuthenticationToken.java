@@ -1,4 +1,4 @@
-package org.antop.billiardslove.security;
+package org.antop.billiardslove.config.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,13 +18,13 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     /**
      * 회원 아이디
      */
-    private final Long memberId;
-    private final String jwtToken;
+    private final Long principal;
+    private final String credentials;
 
-    public JwtAuthenticationToken(Long memberId, String jwtToken) {
+    public JwtAuthenticationToken(Long principal, String credentials) {
         super(Collections.singletonList((GrantedAuthority) () -> JWT_AUTHORITY));
-        this.memberId = memberId;
-        this.jwtToken = jwtToken;
+        this.principal = principal;
+        this.credentials = credentials;
         setAuthenticated(true);
     }
 
@@ -33,7 +33,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
      */
     @Override
     public Long getPrincipal() {
-        return memberId;
+        return principal;
     }
 
     /**
@@ -41,7 +41,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
      */
     @Override
     public String getCredentials() {
-        return jwtToken;
+        return credentials;
     }
 
 }

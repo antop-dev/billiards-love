@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
@@ -23,11 +24,20 @@ import java.util.Enumeration;
 
 @Slf4j(topic = "http.logging")
 public class HttpLoggingFilter extends OncePerRequestFilter {
+    /**
+     * 뽑아낼 해더명들
+     */
+    public static final String[] HEADERS = new String[]{
+            "X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"
+    };
+    /**
+     * 알 수 없음 플래그
+     */
+    public static final String UNKNOWN_REMOTE = "unknown";
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         if (!log.isDebugEnabled()) {
             filterChain.doFilter(request, response);
@@ -152,18 +162,6 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
             log.debug("session[{}] = {}", name, session.getAttribute(name));
         }
     }
-
-    /**
-     * 뽑아낼 해더명들
-     */
-    public static final String[] HEADERS = new String[]{
-            "X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"
-    };
-
-    /**
-     * 알 수 없음 플래그
-     */
-    public static final String UNKNOWN_REMOTE = "unknown";
 
     /**
      * 웹서버를 타고 들어오는 경우 실제 클라이언트의 IP를 알아낸다.<br>
