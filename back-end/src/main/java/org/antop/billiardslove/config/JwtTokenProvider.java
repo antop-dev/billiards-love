@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.properties.JwtProperties;
+import org.antop.billiardslove.security.JwtAuthenticationToken;
 import org.antop.billiardslove.util.TemporalUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -40,12 +41,22 @@ public class JwtTokenProvider {
     }
 
     /**
+     * JWT 토큰에서 인증 정보 조회
+     *
+     * @param token 토큰
+     * @return Authentication
+     */
+    public JwtAuthenticationToken getAuthentication(String token) {
+        return new JwtAuthenticationToken(Long.valueOf(this.getMemberPk(token)), token);
+    }
+
+    /**
      * 토큰에서 회원 정보 추출
      *
      * @param token 토큰
      * @return 회원 정보
      */
-    public String getUserPk(String token) {
+    public String getMemberPk(String token) {
         return Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJws(token).getBody().getSubject();
     }
 
