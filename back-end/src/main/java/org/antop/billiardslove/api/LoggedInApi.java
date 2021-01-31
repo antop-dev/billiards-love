@@ -30,7 +30,7 @@ public class LoggedInApi {
 
         MemberDto member = loggedInService.loggedIn(kakaoDto);
 
-        String token = jwtTokenProvider.createToken(member.getId());
+        String token = jwtTokenProvider.createToken("" + member.getId());
 
         return LoggedInResponse.builder()
                 .token(token)

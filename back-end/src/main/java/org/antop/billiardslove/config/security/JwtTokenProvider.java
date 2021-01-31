@@ -7,10 +7,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.properties.JwtProperties;
 import org.antop.billiardslove.util.TemporalUtil;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -22,11 +20,11 @@ public class JwtTokenProvider {
     /**
      * 토큰생성
      *
-     * @param memberId 회원 아이디
+     * @param subject 토큰 제목
      * @return JWT 토큰
      */
-    public String createToken(long memberId) {
-        Claims claims = Jwts.claims().setSubject("" + memberId); // JWT payload 에 저장되는 정보단위
+    public String createToken(String subject) {
+        Claims claims = Jwts.claims().setSubject(subject); // JWT payload 에 저장되는 정보단위
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expiration = now.plus(jwtProperties.getDuration());
@@ -39,34 +37,15 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    /**
-     * JWT 토큰에서 인증 정보 조회
-     *
-     * @param token 토큰
-     * @return Authentication
-     */
-    public JwtAuthenticationToken getAuthentication(String token) {
-        return new JwtAuthenticationToken(Long.valueOf(this.getMemberPk(token)), token);
-    }
 
     /**
-     * 토큰에서 회원 정보 추출
+     * 토큰에서 Subject 추출
      *
      * @param token 토큰
      * @return 회원 정보
      */
-    public String getMemberPk(String token) {
+    public String getSubject(String token) {
         return Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJws(token).getBody().getSubject();
-    }
-
-    /**
-     * Header에서 AUTHORIZATION 추출
-     *
-     * @param request
-     * @return AUTHORIZATION
-     */
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(HttpHeaders.AUTHORIZATION);
     }
 
     /**

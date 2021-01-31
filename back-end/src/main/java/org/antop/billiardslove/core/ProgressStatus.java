@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * 대회 진행 상태
  *
- * @author
+ * @author jammini
  */
 @Getter
 @RequiredArgsConstructor

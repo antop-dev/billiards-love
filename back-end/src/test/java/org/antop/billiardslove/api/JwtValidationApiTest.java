@@ -52,7 +52,7 @@ class JwtValidationApiTest extends MockMvcBase {
         memberRepository.save(member);
 
         // 회원 아이디로 JWT 토큰 생성
-        String token = jwtTokenProvider.createToken(member.getId());
+        String token = jwtTokenProvider.createToken("" + member.getId());
 
         // API 호출
         mockMvc.perform(get("/jwt").header(HttpHeaders.AUTHORIZATION, token))
