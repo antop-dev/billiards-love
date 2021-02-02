@@ -14,4 +14,8 @@ public class Profiles {
      * 운영 환경 프로파일
      */
     public static final String PRODUCTION = "prod";
+    /**
+     * 테스트 환경 프로파일
+     */
+    public static final String TEST = "test";
 }

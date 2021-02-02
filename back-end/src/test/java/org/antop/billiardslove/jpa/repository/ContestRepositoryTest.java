@@ -34,8 +34,8 @@ class ContestRepositoryTest extends DataJpaTest {
         Contest contest = contestOptional.get();
         assertThat(contest.getTitle(), is("2019 리그전"));
         assertThat(contest.getDescription(), is("2020.01.01~"));
-        assertThat(contest.getStartDate(), is(LocalDate.of(2019, 01, 01)));
-        assertThat(contest.getStartTime(), is(LocalTime.of(00, 00, 00)));
+        assertThat(contest.getStartDate(), is(LocalDate.of(2019, 1, 1)));
+        assertThat(contest.getStartTime(), is(LocalTime.of(0, 0, 0)));
         assertThat(contest.getEndDate(), is(LocalDate.of(2019, 12, 30)));
         assertThat(contest.getEndTime(), is(LocalTime.of(23, 59, 59)));
         assertThat(contest.getMaximumParticipants(), is(64));
@@ -58,7 +58,7 @@ class ContestRepositoryTest extends DataJpaTest {
                 .title("코로나 리그전 2020")
                 .description("1등 상품 맥북")
                 .startDate(LocalDate.of(2020, 12, 25))
-                .startTime(LocalTime.of(10, 00))
+                .startTime(LocalTime.of(10, 0))
                 .endDate(LocalDate.of(2021, 1, 31))
                 .endTime(LocalTime.of(12, 0))
                 .maximumParticipants(16)
@@ -72,7 +72,7 @@ class ContestRepositoryTest extends DataJpaTest {
         assertThat(contest1.getTitle(), is("코로나 리그전 2020"));
         assertThat(contest1.getDescription(), is("1등 상품 맥북"));
         assertThat(contest1.getStartDate(), is(LocalDate.of(2020, 12, 25)));
-        assertThat(contest1.getStartTime(), is(LocalTime.of(10, 00)));
+        assertThat(contest1.getStartTime(), is(LocalTime.of(10, 0)));
         assertThat(contest1.getEndDate(), is(LocalDate.of(2021, 1, 31)));
         assertThat(contest1.getEndTime(), is(LocalTime.of(12, 0)));
         assertThat(contest1.getMaximumParticipants(), is(16));

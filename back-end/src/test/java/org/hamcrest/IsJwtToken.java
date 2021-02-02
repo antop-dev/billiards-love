@@ -15,6 +15,10 @@ public class IsJwtToken extends TypeSafeMatcher<String> {
         this.key = key;
     }
 
+    public static Matcher<String> isJwtToken(String key) {
+        return new IsJwtToken(key);
+    }
+
     @Override
     protected boolean matchesSafely(String item) {
         try {
@@ -28,9 +32,5 @@ public class IsJwtToken extends TypeSafeMatcher<String> {
     @Override
     public void describeTo(Description description) {
         description.appendText("JWT token string");
-    }
-
-    public static Matcher<String> isJwtToken(String key) {
-        return new IsJwtToken(key);
     }
 }

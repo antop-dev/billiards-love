@@ -2,7 +2,7 @@ package org.antop.billiardslove.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.config.JwtTokenProvider;
+import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.service.LoggedInService;
@@ -30,7 +30,7 @@ public class LoggedInApi {
 
         MemberDto member = loggedInService.loggedIn(kakaoDto);
 
-        String token = jwtTokenProvider.createToken(member.getId());
+        String token = jwtTokenProvider.createToken("" + member.getId());
 
         return LoggedInResponse.builder()
                 .token(token)

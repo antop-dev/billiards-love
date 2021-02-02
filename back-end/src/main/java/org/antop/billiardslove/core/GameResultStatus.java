@@ -32,7 +32,7 @@ public enum GameResultStatus {
      */
     HOLD("4");
 
-    private String status;
+    private final String status;
 
     public static GameResultStatus of(String code) {
         for (GameResultStatus o : values()) {
