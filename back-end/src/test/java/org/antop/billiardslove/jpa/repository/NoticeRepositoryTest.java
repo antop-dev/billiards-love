@@ -7,7 +7,6 @@ import org.antop.billiardslove.jpa.entity.Notice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @DisplayName("공지사항 테스트")
-@EnableJpaAuditing
 class NoticeRepositoryTest extends DataJpaTest {
 
     @Autowired

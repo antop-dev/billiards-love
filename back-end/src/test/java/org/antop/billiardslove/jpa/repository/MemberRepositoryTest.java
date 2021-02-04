@@ -6,7 +6,6 @@ import org.antop.billiardslove.jpa.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +15,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-@EnableJpaAuditing
 @DisplayName("회원 테스트")
 class MemberRepositoryTest extends DataJpaTest {
 
@@ -35,7 +33,6 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(member.getNickname(), is("띠용"));
         assertThat(member.getHandicap(), is(20));
         assertThat(member.getRegisterDateTime(), notNullValue());
-        assertThat(member.getLoginToken(), is("803fa52145da1c0cc9a748018a95d131"));
     }
 
     @Test
@@ -54,7 +51,6 @@ class MemberRepositoryTest extends DataJpaTest {
                 .nickname("골드스푼")
                 .handicap(30)
                 .kakaoLogin(kakaoLoginOptional.get())
-                .loginToken("loginToken1")
                 .build();
         memberRepository.save(member);
 
@@ -64,7 +60,6 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(member1.getNickname(), is("골드스푼"));
         assertThat(member.getHandicap(), is(30));
         assertThat(member.getRegisterDateTime(), notNullValue());
-        assertThat(member.getLoginToken(), is("loginToken1"));
     }
 
     @Test
@@ -73,7 +68,6 @@ class MemberRepositoryTest extends DataJpaTest {
         memberRepository.findById(3L).ifPresent(it -> {
             it.setNickname("골드스푼");
             it.setHandicap(30);
-            it.setLoginToken("loginTokenChange1");
         });
 
         Optional<Member> memberOptional = memberRepository.findById(3L);
@@ -82,7 +76,6 @@ class MemberRepositoryTest extends DataJpaTest {
         assertThat(member.getNickname(), is("골드스푼"));
         assertThat(member.getHandicap(), is(30));
         assertThat(member.getRegisterDateTime(), notNullValue());
-        assertThat(member.getLoginToken(), is("loginTokenChange1"));
     }
 
 }

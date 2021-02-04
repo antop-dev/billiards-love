@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.antop.billiardslove.jpa.domain.KakaoProfile;
 
@@ -46,6 +47,7 @@ public class KakaoLogin {
     @Column(name = "LST_CNCT_DT")
     private LocalDateTime connectedAt;
 
+    @Setter
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "nickname", column = @Column(name = "NCK_NM")),
