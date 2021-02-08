@@ -1,90 +1,75 @@
 package org.antop.billiardslove.jpa.repository;
 
-import org.antop.billiardslove.jpa.DataJpaTest;
+import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.exception.ContestNotFoundException;
+import org.antop.billiardslove.exception.MemberNotFountException;
+import org.antop.billiardslove.exception.PlayerNotFountException;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@DisplayName("선수 테스트")
-class PlayerRepositoryTest extends DataJpaTest {
-
+class PlayerRepositoryTest extends SpringBootBase {
     @Autowired
     private MemberRepository memberRepository;
-
     @Autowired
     private ContestRepository contestRepository;
-
     @Autowired
     private PlayerRepository playerRepository;
 
     @Test
-    @DisplayName("선수 데이터를 조회한다")
-    void select() {
-        Optional<Player> playerOptional = playerRepository.findById(1L);
-        assertThat(playerOptional.isPresent(), is(true));
-        Player player = playerOptional.get();
-        assertThat(player.getNumber(), is(1));
-        assertThat(player.getHandicap(), is(22));
-        assertThat(player.getRank(), is(1));
-        assertThat(player.getScore(), is(0));
+    void findById() {
+        try {
+            Player player1 = playerRepository.findById(1L).orElseThrow(PlayerNotFountException::new);
+            assertThat(player1.getHandicap(), is(22));
+            assertThat(player1.getRank(), is(150));
+
+            Player player2 = playerRepository.findById(2L).orElseThrow(PlayerNotFountException::new);
+            assertThat(player2.getHandicap(), is(24));
+            assertThat(player2.getRank(), is(40));
+
+            assertSame(player1.getContest(), player2.getContest());
+        } catch (PlayerNotFountException e) {
+            fail("member is null");
+        }
     }
 
     @Test
-    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
-    void AE07R4() {
+    void findAll() {
         List<Player> list = playerRepository.findAll();
-        assertThat(list, hasSize(6));
+        assertThat(list, hasSize(3));
     }
 
     @Test
-    @DisplayName("선수 데이터를 등록한다.")
-    void insert() {
-        Optional<Member> memberOptional = memberRepository.findById(1L);
-        Optional<Contest> contestOptional = contestRepository.findById(1L);
+    void save() {
+        Contest contest = contestRepository.findById(2L).orElseThrow(ContestNotFoundException::new);
+        Member member = memberRepository.findById(1L).orElseThrow(MemberNotFountException::new);
 
         Player player = Player.builder()
-                .contest(contestOptional.get())
-                .member(memberOptional.get())
+                .contest(contest)
+                .member(member)
+                .handicap(27)
                 .build();
+
         playerRepository.save(player);
 
-        Optional<Player> playerOptional = playerRepository.findById(7L);
-        assertThat(playerOptional.isPresent(), is(true));
-        Player player1 = playerOptional.get();
-        assertThat(player1.getNumber(), nullValue());
-        assertThat(player1.getHandicap(), is(0));
-        assertThat(player1.getRank(), nullValue());
-        assertThat(player1.getScore(), is(0));
-    }
-
-    @Test
-    @DisplayName("선수 데이터를 갱신한다.")
-    void J6l1Z() {
-        playerRepository.findById(1L).ifPresent(it -> {
-            it.setNumber(99);
-            it.setHandicap(30);
-            it.setRank(1);
-            it.setScore(3);
-        });
-
-        Optional<Player> playerOptional = playerRepository.findById(1L);
-        assertThat(playerOptional.isPresent(), is(true));
-        Player player = playerOptional.get();
-        assertThat(player.getNumber(), is(99));
-        assertThat(player.getHandicap(), is(30));
-        assertThat(player.getRank(), is(1));
-        assertThat(player.getScore(), is(3));
+        assertThat(player.getId(), notNullValue());
+        assertThat(player.getId(), greaterThan(0L));
+        assertThat(player.getNumber(), nullValue());
+        assertThat(player.getRank(), nullValue());
+        assertThat(player.getScore(), nullValue());
     }
 
 }

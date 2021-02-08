@@ -1,9 +1,8 @@
 package org.antop.billiardslove.api;
 
-import org.antop.billiardslove.MockMvcBase;
+import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
-import org.antop.billiardslove.jpa.domain.KakaoProfile;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
+import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.repository.KakaoRepository;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class JwtValidationApiTest extends MockMvcBase {
+class JwtValidationApiTest extends SpringBootBase {
     @Autowired
     private KakaoRepository kakaoRepository;
     @Autowired
@@ -33,10 +32,10 @@ class JwtValidationApiTest extends MockMvcBase {
     @Test
     void test() throws Exception {
         // 테스트에 사용할 회원 생성
-        KakaoLogin kakaoLogin = KakaoLogin.builder()
+        Kakao kakaoLogin = Kakao.builder()
                 .id(999999L)
                 .connectedAt(LocalDateTime.now())
-                .profile(KakaoProfile.builder()
+                .profile(Kakao.Profile.builder()
                         .nickname(faker.name().fullName())
                         .imgUrl("https://cataas.com/cat?width=200&height=200")
                         .thumbUrl("https://cataas.com/cat?width=100&height=100")
@@ -45,7 +44,7 @@ class JwtValidationApiTest extends MockMvcBase {
         kakaoRepository.save(kakaoLogin);
 
         final Member member = Member.builder()
-                .kakaoLogin(kakaoLogin)
+                .kakao(kakaoLogin)
                 .nickname(faker.name().fullName())
                 .handicap(21)
                 .build();

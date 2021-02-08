@@ -19,6 +19,9 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
      * 회원 아이디
      */
     private final Long principal;
+    /**
+     * JWT 토큰값
+     */
     private final String credentials;
 
     public JwtAuthenticationToken(Long principal, String credentials) {

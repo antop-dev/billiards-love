@@ -3,8 +3,8 @@ package org.antop.billiardslove.service;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
-import org.antop.billiardslove.jpa.domain.KakaoProfile;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
+import org.antop.billiardslove.jpa.entity.Kakao;
+import org.antop.billiardslove.jpa.entity.Kakao.Profile;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.repository.KakaoRepository;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
@@ -21,11 +21,11 @@ public class LoggedInServiceImpl implements LoggedInService {
     private final MemberRepository memberRepository;
 
     public MemberDto loggedIn(KakaoDto kakaoDto) {
-        KakaoLogin kakaoLogin = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> {
-            KakaoLogin newLogin = KakaoLogin.builder()
+        Kakao kakaoLogin = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> {
+            Kakao newLogin = Kakao.builder()
                     .id(kakaoDto.getId())
                     .connectedAt(LocalDateTime.now())
-                    .profile(KakaoProfile.builder()
+                    .profile(Profile.builder()
                             .nickname(kakaoDto.getNickname())
                             .imgUrl(kakaoDto.getImageUrl())
                             .thumbUrl(kakaoDto.getThumbnailUrl())
@@ -34,16 +34,16 @@ public class LoggedInServiceImpl implements LoggedInService {
             return kakaoRepository.save(newLogin);
         });
 
-        kakaoLogin.changeProfile(KakaoProfile.builder()
+        kakaoLogin.changeProfile(Profile.builder()
                 .nickname(kakaoDto.getNickname())
                 .imgUrl(kakaoDto.getImageUrl())
                 .thumbUrl(kakaoDto.getThumbnailUrl())
                 .build());
 
-        Member member = memberRepository.findByKakaoLogin(kakaoLogin).orElseGet(() -> {
+        Member member = memberRepository.findByKakao(kakaoLogin).orElseGet(() -> {
             Member newMember = Member.builder()
                     .nickname(kakaoDto.getNickname())
-                    .kakaoLogin(kakaoLogin)
+                    .kakao(kakaoLogin)
                     .build();
             return memberRepository.save(newMember);
         });
@@ -51,7 +51,7 @@ public class LoggedInServiceImpl implements LoggedInService {
         return MemberDto.builder()
                 .id(member.getId())
                 .nickname(member.getNickname())
-                .thumbnail(member.getKakaoLogin().getProfile().getThumbUrl())
+                .thumbnail(member.getKakao().getProfile().getThumbUrl())
                 .handicap(member.getHandicap())
                 .build();
     }

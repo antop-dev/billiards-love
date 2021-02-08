@@ -17,12 +17,9 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,11 +32,10 @@ import java.time.LocalTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "TBL_CNTS")
+@Table(name = "tbl_cnts")
 public class Contest {
     /**
      * 대회 아이디
@@ -53,90 +49,63 @@ public class Contest {
      * 대회명
      */
     @Setter
-    @Column(name = "CNTS_NM")
+    @Column(name = "cnts_nm")
     private String title;
     /**
      * 대회 설명
      */
     @Setter
-    @Column(name = "CNTS_DSCR")
+    @Column(name = "cnts_dscr")
     private String description;
     /**
      * 시작일
      */
     @Setter
-    @Column(name = "STRT_DATE")
+    @Column(name = "strt_date")
     private LocalDate startDate;
     /**
      * 시작시간
      */
     @Setter
-    @Column(name = "STRT_TIME")
+    @Column(name = "strt_time")
     private LocalTime startTime;
     /**
      * 종료일
      */
     @Setter
-    @Column(name = "END_DATE")
+    @Column(name = "end_date")
     private LocalDate endDate;
     /**
      * 종료시간
      */
     @Setter
-    @Column(name = "END_TIME")
+    @Column(name = "end_time")
     private LocalTime endTime;
     /**
      * 진행상태
      */
     @Setter
     @Convert(converter = ProgressStatusConverter.class)
-    @Column(name = "PRGR_STT")
+    @Column(name = "prgr_stt")
     private ProgressStatus progressStatus = ProgressStatus.ACCEPTING;
     /**
-     * 최대 참가 인원<br>
-     * 0일 경우 무제한
+     * 최대 참가 인원
      */
     @Setter
-    @Column(name = "MAX_PRTC_PRSN")
-    private int maximumParticipants = 0;
-    /**
-     * 등록 관리자 아이디
-     */
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RGST_MNGR_ID")
-    private Manager registrationUser;
-    /**
-     * 등록 일시
-     */
+    @Column(name = "max_prtc_prsn")
+    private Integer maximumParticipants;
+
     @CreatedDate
-    @Column(name = "RGST_DT")
-    private LocalDateTime registerDateTime;
-    /**
-     * 수정 관리자 아이디
-     */
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MDFY_MNGR_ID")
-    private Manager modifyUser;
-    /**
-     * 수정 일시
-     */
+    @Column(name = "rgst_dt")
+    private LocalDateTime created;
+
     @LastModifiedDate
-    @Column(name = "MDFY_DT")
-    private LocalDateTime modifyDateTime;
+    @Column(name = "mdfy_dt")
+    private LocalDateTime modified;
 
     @Builder
-    public Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, int maximumParticipants, Manager registrationUser, Manager modifyUser) {
+    private Contest(String title) {
         this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.maximumParticipants = maximumParticipants;
-        this.registrationUser = registrationUser;
-        this.modifyUser = modifyUser;
     }
 
 }

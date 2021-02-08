@@ -1,7 +1,7 @@
 package org.antop.billiardslove.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.antop.billiardslove.MockMvcBase;
+import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
 import org.antop.billiardslove.util.Aes256;
@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class InitApiTest extends MockMvcBase {
+public class InitApiTest extends SpringBootBase {
     @Autowired
     private ObjectMapper om;
     @Autowired
