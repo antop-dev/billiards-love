@@ -1,10 +1,10 @@
 package org.antop.billiardslove.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.antop.billiardslove.MockMvcBase;
+import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
-import org.antop.billiardslove.util.Aes256;
+import org.antop.billiardslove.util.Aes256Util;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class InitApiTest extends MockMvcBase {
+public class InitApiTest extends SpringBootBase {
     @Autowired
     private ObjectMapper om;
     @Autowired
@@ -36,8 +36,8 @@ public class InitApiTest extends MockMvcBase {
 
         InitResponse response = om.readValue(jsonString, InitResponse.class);
         String secretKey = response.getSecretKey();
-        assertThat(Aes256.decrypt(response.getKakaoKey(), secretKey), is(kakaoProperties.getJavaScriptKey()));
-        assertThat(Aes256.decrypt(response.getAdSenseKey(), secretKey), is(googleProperties.getAdSenseKey()));
+        assertThat(Aes256Util.decrypt(response.getKakaoKey(), secretKey), is(kakaoProperties.getJavaScriptKey()));
+        assertThat(Aes256Util.decrypt(response.getAdSenseKey(), secretKey), is(googleProperties.getAdSenseKey()));
     }
 
 }

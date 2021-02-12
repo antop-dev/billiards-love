@@ -1,139 +1,83 @@
-CREATE TABLE TBL_MMBR
+create table tbl_mmbr
 (
-    MMBR_ID     BIGINT AUTO_INCREMENT,
-    MMBR_NCK_NM VARCHAR(50) NULL,
-    MMBR_HNDC   TINYINT     NULL,
-    RGST_DT     DATETIME    NOT NULL,
-    MDFY_DT     DATETIME    NULL,
-    KKO_LGN_ID  BIGINT      NOT NULL,
-    PRIMARY KEY (MMBR_ID)
+    mmbr_id     bigint      not null auto_increment comment '회원 아이디',
+    mmbr_nck_nm varchar(50) null comment '회원 별명',
+    mmbr_hndc   tinyint     null comment '핸디탭',
+    rgst_dt     datetime    not null comment '등록일시',
+    mdfy_dt     datetime    null comment '수정일시',
+    kko_lgn_id  bigint      not null comment '카카오톡 로그인 아이디',
+    mgnr_yn     char(1)     not null default 'N' comment '관리자 여부',
+    primary key (mmbr_id)
 );
 
-CREATE TABLE TBL_CNTS
+create table tbl_kko_lgn
 (
-    CNTS_ID       BIGINT AUTO_INCREMENT,
-    CNTS_NM       VARCHAR(100) NOT NULL,
-    CNTS_DSCR     TEXT         NULL,
-    STRT_DATE     DATE         NULL     DEFAULT NULL,
-    STRT_TIME     TIME         NULL,
-    END_DATE      DATE         NOT NULL DEFAULT NULL,
-    END_TIME      TIME         NULL,
-    PRGR_STT      CHAR(1)      NOT NULL,
-    MAX_PRTC_PRSN INT          NULL,
-    RGST_MNGR_ID  BIGINT       NOT NULL,
-    RGST_DT       DATETIME     NOT NULL,
-    MDFY_MNGR_ID  BIGINT       NULL,
-    MDFY_DT       DATETIME     NULL,
-    PRIMARY KEY (CNTS_ID)
+    lgn_id            bigint       not null comment '카카오톡 로그인 아이디',
+    lst_cnct_dt       datetime     not null comment '마지막 접속일시',
+    nck_nm            varchar(255) not null comment '카카오톡 별명',
+    prfl_img_url      varchar(255) null comment '프로파일 이미지',
+    prfl_thmb_img_url varchar(255) null comment '프로파일 썸네일 이미지',
+    primary key (lgn_id)
 );
 
-CREATE TABLE TBL_PLYR
+create table tbl_cnts
 (
-    PLYR_ID   BIGINT AUTO_INCREMENT,
-    CNTS_ID   BIGINT  NOT NULL,
-    MMBR_ID   BIGINT  NOT NULL,
-    PLYR_NO   INT     NULL,
-    PRTC_HNDC TINYINT NULL,
-    PLYR_RNKN INT     NULL,
-    PLYR_SCR  INT     NULL,
-    PRIMARY KEY (PLYR_ID)
+    cnts_id       bigint       not null auto_increment comment '대회 아이디',
+    cnts_nm       varchar(100) not null comment '대회명',
+    cnts_dscr     text         null comment '대회 설명',
+    strt_date     date         null comment '시작 일자',
+    strt_time     time         null comment '시작 시간',
+    end_date      date         null comment '종료 일자',
+    end_time      time         null comment '종료 시간',
+    prgr_stt      char(1)      not null comment '진행 상태',
+    max_prtc_prsn int          null comment '최대 참가인원',
+    rgst_dt       datetime     not null default now() comment '등록 일시',
+    mdfy_dt       datetime     null comment '수정 일시',
+    primary key (cnts_id)
 );
 
-CREATE TABLE TBL_GAME_RSLT_INPT
+create table tbl_plyr
 (
-    GAME_RSLT_INPT_ID BIGINT AUTO_INCREMENT,
-    PLYR_ID           BIGINT   NOT NULL,
-    OPNN_PLYR_ID      BIGINT   NOT NULL,
-    FRST_RSLT         CHAR(1)  NOT NULL DEFAULT '0',
-    SCND_RSLT         CHAR(1)  NOT NULL DEFAULT '0',
-    THRD_RSLT         CHAR(1)  NOT NULL DEFAULT '0',
-    INPT_DT           DATETIME NULL,
-    PRIMARY KEY (GAME_RSLT_INPT_ID)
+    plyr_id   bigint  not null auto_increment comment '선수 아이디',
+    cnts_id   bigint  not null comment '대회 아이디',
+    mmbr_id   bigint  not null comment '회원 아이디',
+    plyr_no   int     null comment '선수 번호',
+    prtc_hndc tinyint null comment '선수 핸디캡',
+    plyr_rnkn int     null comment '순위',
+    plyr_scr  int     null comment '점수',
+    primary key (plyr_id)
 );
 
-CREATE TABLE TBL_GAME_RSLT_CNFR
+create table tbl_mtc
 (
-    GAME_RSLT_CNFR_ID BIGINT AUTO_INCREMENT,
-    PLYR_ID           BIGINT   NOT NULL,
-    PLYR_INPT_ID      BIGINT   NOT NULL,
-    OPNN_PLYR_ID      BIGINT   NOT NULL,
-    OPNN_PLYR_INPT_ID BIGINT   NOT NULL,
-    FRST_RSLT         CHAR(1)  NOT NULL DEFAULT '0',
-    SCND_RSLT         CHAR(1)  NOT NULL DEFAULT '0',
-    THRD_RSLT         CHAR(1)  NOT NULL DEFAULT '0',
-    CNFR_MNGR_ID      BIGINT   NOT NULL,
-    CNFR_DT           DATETIME NOT NULL,
-    PRIMARY KEY (GAME_RSLT_CNFR_ID)
+    mtc_id          bigint   not null auto_increment comment '매칭 아이디',
+    cnts_id         bigint   not null comment '대회 아이디',
+    plyr1_id        bigint   not null comment '왼쪽 선수 아이디',
+    plyr2_id        bigint   not null comment '오른쪽 선수 아이디',
+    plyr1_rslt_inpt char(3)  not null default '   ' comment '왼쪽 선수 결과 입력',
+    plyr2_rslt_inpt char(3)  not null default '   ' comment '오른쪽 선수 결과 입력',
+    cnfr_mmbr_id    bigint   not null comment '확정한 맴버 아이디',
+    cnfr_dt         datetime not null comment '확정 일시'
 );
 
-CREATE TABLE TBL_MNGR
-(
-    MNGR_ID     BIGINT AUTO_INCREMENT,
-    LGN_ID      VARCHAR(100) NOT NULL,
-    LGN_BOX     VARCHAR(255) NOT NULL,
-    LAST_LGN_DT DATETIME     NULL,
-    PRIMARY KEY (MNGR_ID)
-);
 
-CREATE TABLE TBL_NTC
-(
-    NTC_ID       BIGINT AUTO_INCREMENT,
-    NTC_TTL      VARCHAR(255) NOT NULL,
-    NTC_CNTN     TEXT         NOT NULL,
-    TRGT_CNTS_ID BIGINT       NULL,
-    CAN_SKIP     CHAR(1)      NOT NULL DEFAULT 'N',
-    RGST_MNGR_ID BIGINT       NOT NULL,
-    RGST_DT      DATETIME     NOT NULL,
-    MDFY_MNGR_ID BIGINT       NULL,
-    MDFY_DT      DATETIME     NULL,
-    PRIMARY KEY (NTC_ID)
-);
+alter table tbl_mmbr
+    add foreign key (kko_lgn_id) references tbl_kko_lgn (lgn_id);
 
-CREATE TABLE TBL_KKO_LGN
-(
-    LGN_ID            BIGINT,
-    LST_CNCT_DT       DATETIME     NOT NULL,
-    NCK_NM            VARCHAR(255) NULL,
-    PRFL_IMG_URL      VARCHAR(255) NULL,
-    PRFL_THMB_IMG_URL VARCHAR(255) NULL,
-    PRIMARY KEY (LGN_ID)
-);
+alter table tbl_plyr
+    add foreign key (cnts_id) references tbl_cnts (cnts_id);
 
-ALTER TABLE TBL_MMBR
-    ADD FOREIGN KEY (KKO_LGN_ID) REFERENCES TBL_KKO_LGN (LGN_ID);
+alter table tbl_plyr
+    add foreign key (mmbr_id) references tbl_mmbr (mmbr_id);
 
-ALTER TABLE TBL_PLYR
-    ADD FOREIGN KEY (CNTS_ID) REFERENCES TBL_CNTS (CNTS_ID);
+alter table tbl_mtc
+    add foreign key (cnts_id) references tbl_cnts (cnts_id);
 
-ALTER TABLE TBL_PLYR
-    ADD FOREIGN KEY (MMBR_ID) REFERENCES TBL_MMBR (MMBR_ID);
+alter table tbl_mtc
+    add foreign key (plyr1_id) references tbl_plyr (plyr_id);
 
-ALTER TABLE TBL_GAME_RSLT_CNFR
-    ADD FOREIGN KEY (PLYR_ID) REFERENCES TBL_PLYR (PLYR_ID);
+alter table tbl_mtc
+    add foreign key (plyr2_id) references tbl_plyr (plyr_id);
 
-ALTER TABLE TBL_GAME_RSLT_CNFR
-    ADD FOREIGN KEY (PLYR_INPT_ID) REFERENCES TBL_GAME_RSLT_INPT (GAME_RSLT_INPT_ID);
-
-ALTER TABLE TBL_GAME_RSLT_CNFR
-    ADD FOREIGN KEY (OPNN_PLYR_INPT_ID) REFERENCES TBL_GAME_RSLT_INPT (GAME_RSLT_INPT_ID);
-
-ALTER TABLE TBL_GAME_RSLT_CNFR
-    ADD FOREIGN KEY (OPNN_PLYR_ID) REFERENCES TBL_PLYR (PLYR_ID);
-
-ALTER TABLE TBL_GAME_RSLT_CNFR
-    ADD FOREIGN KEY (CNFR_MNGR_ID) REFERENCES TBL_MNGR (MNGR_ID);
-
-ALTER TABLE TBL_NTC
-    ADD FOREIGN KEY (TRGT_CNTS_ID) REFERENCES TBL_CNTS (CNTS_ID);
-
-ALTER TABLE TBL_NTC
-    ADD FOREIGN KEY (RGST_MNGR_ID) REFERENCES TBL_MNGR (MNGR_ID);
-
-ALTER TABLE TBL_NTC
-    ADD FOREIGN KEY (MDFY_MNGR_ID) REFERENCES TBL_MNGR (MNGR_ID);
-
-ALTER TABLE TBL_CNTS
-    ADD FOREIGN KEY (RGST_MNGR_ID) REFERENCES TBL_MNGR (MNGR_ID);
-
-ALTER TABLE TBL_CNTS
-    ADD FOREIGN KEY (MDFY_MNGR_ID) REFERENCES TBL_MNGR (MNGR_ID);
+alter table tbl_mtc
+    add foreign key (cnfr_mmbr_id) references tbl_mmbr (mmbr_id);

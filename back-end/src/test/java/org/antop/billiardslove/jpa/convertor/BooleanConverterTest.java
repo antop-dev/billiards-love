@@ -23,4 +23,5 @@ class BooleanConverterTest {
         assertThat(converter.convertToEntityAttribute("n"), is(false));
         assertThat(converter.convertToEntityAttribute(null), is(false));
     }
+
 }

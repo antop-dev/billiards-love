@@ -8,11 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.antop.billiardslove.jpa.domain.KakaoProfile;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,45 +32,63 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "TBL_KKO_LGN")
-public class KakaoLogin {
+@Table(name = "tbl_kko_lgn")
+public class Kakao {
     /**
      * 카카오 아이디
      */
     @Id
-    @Column(name = "LGN_ID")
+    @Column(name = "lgn_id")
     @EqualsAndHashCode.Include
     private Long id;
     /**
      * 접속 일시
      */
-    @Column(name = "LST_CNCT_DT")
+    @Setter
+    @Column(name = "lst_cnct_dt")
     private LocalDateTime connectedAt;
 
     @Setter
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "nickname", column = @Column(name = "NCK_NM")),
-            @AttributeOverride(name = "imgUrl", column = @Column(name = "PRFL_IMG_URL")),
-            @AttributeOverride(name = "thumbUrl", column = @Column(name = "PRFL_THMB_IMG_URL"))
+            @AttributeOverride(name = "nickname", column = @Column(name = "nck_nm")),
+            @AttributeOverride(name = "imgUrl", column = @Column(name = "prfl_img_url")),
+            @AttributeOverride(name = "thumbUrl", column = @Column(name = "prfl_thmb_img_url"))
     })
-    private KakaoProfile profile;
+    private Profile profile;
 
     /**
      * 프로필을 변경한다.
      *
      * @param profile 변경할 새로운 프로필
      */
-    public void changeProfile(KakaoProfile profile) {
+    public void changeProfile(Profile profile) {
         this.profile = profile;
     }
 
     /**
-     * 접속함
+     * 카카오 프로파일
      *
-     * @param dateTime 접속 일시
+     * @author antop
      */
-    public void connect(LocalDateTime dateTime) {
-        this.connectedAt = dateTime;
+    @Embeddable
+    @Getter
+    @ToString
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    @Builder
+    public static class Profile {
+        /**
+         * 닉네임
+         */
+        private String nickname;
+        /**
+         * 프로필 이미지 URL, 640px * 640px 또는 480px * 480px
+         */
+        private String imgUrl;
+        /**
+         * 프로필 미리보기 이미지 URL, 110px * 110px 또는 100px * 100px
+         */
+        private String thumbUrl;
     }
 }
