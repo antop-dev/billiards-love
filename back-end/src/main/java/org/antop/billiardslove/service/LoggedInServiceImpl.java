@@ -11,8 +11,6 @@ import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -20,30 +18,30 @@ public class LoggedInServiceImpl implements LoggedInService {
     private final KakaoRepository kakaoRepository;
     private final MemberRepository memberRepository;
 
-    public MemberDto loggedIn(KakaoDto kakaoDto) {
-        Kakao kakaoLogin = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> {
-            Kakao newLogin = Kakao.builder()
+    public MemberDto loggedIn(final KakaoDto kakaoDto) {
+        Kakao kakao = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> {
+            Kakao newKakao = Kakao.builder()
                     .id(kakaoDto.getId())
-                    .connectedAt(LocalDateTime.now())
+                    .connectedAt(kakaoDto.getConnectedAt())
                     .profile(Profile.builder()
                             .nickname(kakaoDto.getNickname())
                             .imgUrl(kakaoDto.getImageUrl())
                             .thumbUrl(kakaoDto.getThumbnailUrl())
                             .build())
                     .build();
-            return kakaoRepository.save(newLogin);
+            return kakaoRepository.save(newKakao);
         });
 
-        kakaoLogin.changeProfile(Profile.builder()
+        kakao.changeProfile(Profile.builder()
                 .nickname(kakaoDto.getNickname())
                 .imgUrl(kakaoDto.getImageUrl())
                 .thumbUrl(kakaoDto.getThumbnailUrl())
                 .build());
 
-        Member member = memberRepository.findByKakao(kakaoLogin).orElseGet(() -> {
+        Member member = memberRepository.findByKakao(kakao).orElseGet(() -> {
             Member newMember = Member.builder()
-                    .nickname(kakaoDto.getNickname())
-                    .kakao(kakaoLogin)
+                    .nickname(kakao.getProfile().getNickname())
+                    .kakao(kakao)
                     .build();
             return memberRepository.save(newMember);
         });

@@ -80,15 +80,14 @@ public class Member {
      * 카카오 로그인 아이디
      */
     @ToString.Exclude
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "kko_lgn_id")
     private Kakao kakao;
 
     @Builder
-    public Member(Kakao kakao, String nickname, int handicap) {
+    public Member(Kakao kakao, String nickname) {
         this.kakao = kakao;
         this.nickname = nickname;
-        this.handicap = handicap;
     }
 
 }

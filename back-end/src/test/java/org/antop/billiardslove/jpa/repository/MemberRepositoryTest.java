@@ -3,7 +3,6 @@ package org.antop.billiardslove.jpa.repository;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +17,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
-@DisplayName("회원 테스트")
 class MemberRepositoryTest extends SpringBootBase {
     @Autowired
     private MemberRepository repository;
@@ -72,7 +70,6 @@ class MemberRepositoryTest extends SpringBootBase {
 
         Member member = Member.builder()
                 .nickname("골드스푼")
-                .handicap(30)
                 .kakao(kakao)
                 .build();
         repository.save(member);

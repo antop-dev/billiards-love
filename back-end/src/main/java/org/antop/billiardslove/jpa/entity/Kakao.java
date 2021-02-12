@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "tbl_kko_lgn")
-@AttributeOverride(name = "id", column = @Column(name = "lgn_id"))
 public class Kakao {
     /**
      * 카카오 아이디

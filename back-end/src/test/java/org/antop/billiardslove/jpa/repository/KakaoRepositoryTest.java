@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,8 +34,7 @@ class KakaoRepositoryTest extends SpringBootBase {
 
     @Test
     void findAll() {
-        List<Kakao> kakaos = repository.findAll();
-        assertThat(kakaos, hasSize(3));
+        assertThat(repository.findAll(), hasSize(4));
     }
 
     @Test

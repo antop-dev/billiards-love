@@ -34,11 +34,13 @@ class PlayerRepositoryTest extends SpringBootBase {
         try {
             Player player1 = playerRepository.findById(1L).orElseThrow(PlayerNotFountException::new);
             assertThat(player1.getHandicap(), is(22));
-            assertThat(player1.getRank(), is(150));
+            assertThat(player1.getRank(), is(1));
+            assertThat(player1.getScore(), is(150));
 
             Player player2 = playerRepository.findById(2L).orElseThrow(PlayerNotFountException::new);
             assertThat(player2.getHandicap(), is(24));
-            assertThat(player2.getRank(), is(40));
+            assertThat(player2.getRank(), is(2));
+            assertThat(player2.getScore(), is(40));
 
             assertSame(player1.getContest(), player2.getContest());
         } catch (PlayerNotFountException e) {

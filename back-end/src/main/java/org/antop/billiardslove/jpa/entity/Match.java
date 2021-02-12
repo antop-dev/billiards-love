@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.jpa.convertor.MatchResultConverter;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.regex.MatchResult;
+import java.util.Arrays;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -74,11 +72,14 @@ public class Match {
     /**
      * 확정 정보
      */
-    @AttributeOverrides({
-            @AttributeOverride(name = "manger", column = @Column(name = "cnfr_mmbr_id")),
-            @AttributeOverride(name = "confirmAt", column = @Column(name = "cnfr_dt"))
-    })
-    private Confirm confirm;
+    @Getter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cnfr_mmbr_id")
+    private Member manager;
+
+    @Getter
+    @Column(name = "cnfr_dt")
+    private LocalDateTime confirmAt;
 
     @Builder
     private Match(Contest contest, Player player1, Player player2) {
@@ -132,10 +133,8 @@ public class Match {
         if (!manager.isManager()) {
             throw new IllegalArgumentException("not manager.");
         }
-        this.confirm = Confirm.builder()
-                .manger(manager)
-                .confirmAt(LocalDateTime.now())
-                .build();
+        this.manager = manager;
+        this.confirmAt = LocalDateTime.now();
     }
 
     /**
@@ -177,15 +176,6 @@ public class Match {
         }
     }
 
-    @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    @Builder
-    @Embeddable
-    public static class Confirm {
-        private Member manger;
-        private LocalDateTime confirmAt;
-    }
 
     /**
      * 한 경기의 결과
@@ -210,21 +200,19 @@ public class Match {
         /**
          * 진행의사 있음
          */
-        HOPE("H"),
+        HOLD("H"),
         /**
          * 입력되지 않음
          */
-        NONE(" ");
+        NONE("N");
 
         private final String code;
 
         public static Result of(String code) {
-            for (Result v : values()) {
-                if (v.getCode().equals(code)) {
-                    return v;
-                }
-            }
-            throw new IllegalArgumentException("'" + code + "' not found.");
+            return Arrays.stream(values())
+                    .filter(it -> it.code.equals(code))
+                    .findFirst()
+                    .orElseThrow(IllegalAccessError::new);
         }
     }
 

@@ -1,7 +1,7 @@
 package org.antop.billiardslove.api;
 
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.constant.Profiles;
+import org.antop.billiardslove.config.Profiles;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

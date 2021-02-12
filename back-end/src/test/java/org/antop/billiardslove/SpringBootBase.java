@@ -1,7 +1,7 @@
 package org.antop.billiardslove;
 
 import com.github.javafaker.Faker;
-import org.antop.billiardslove.constant.Profiles;
+import org.antop.billiardslove.config.Profiles;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,7 @@ import java.util.Locale;
 @AutoConfigureTestEntityManager
 @OverrideAutoConfiguration(enabled = true)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:test-h2.sql")
 public abstract class SpringBootBase {
     /**
      * 로깅
@@ -66,7 +68,7 @@ public abstract class SpringBootBase {
         flush();
     }
 
-    final void flush() {
+    protected final void flush() {
         log.info("before flush...");
         em.flush();
         log.info("after flush...");

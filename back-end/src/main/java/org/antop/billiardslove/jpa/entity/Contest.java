@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.antop.billiardslove.core.ProgressStatus;
-import org.antop.billiardslove.jpa.convertor.ProgressStatusConverter;
+import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 /**
  * 대회 정보
@@ -85,9 +86,9 @@ public class Contest {
      * 진행상태
      */
     @Setter
-    @Convert(converter = ProgressStatusConverter.class)
+    @Convert(converter = ContestStateConverter.class)
     @Column(name = "prgr_stt")
-    private ProgressStatus progressStatus = ProgressStatus.ACCEPTING;
+    private State state = State.ACCEPTING;
     /**
      * 최대 참가 인원
      */
@@ -106,6 +107,45 @@ public class Contest {
     @Builder
     private Contest(String title) {
         this.title = title;
+    }
+
+    /**
+     * 대회 진행 상태
+     *
+     * @author jammini
+     */
+    @Getter
+    @RequiredArgsConstructor
+    public enum State {
+        /**
+         * 준비중
+         */
+        PREPARING("0"),
+        /**
+         * 접수중 (시작하지 않음)
+         */
+        ACCEPTING("1"),
+        /**
+         * 진행중
+         */
+        PROCEEDING("2"),
+        /**
+         * 중지됨
+         */
+        STOPPED("3"),
+        /**
+         * 종료
+         */
+        END("4");
+
+        private final String code;
+
+        public static State of(String code) {
+            return Arrays.stream(values())
+                    .filter(it -> it.code.equals(code))
+                    .findFirst()
+                    .orElseThrow(IllegalArgumentException::new);
+        }
     }
 
 }

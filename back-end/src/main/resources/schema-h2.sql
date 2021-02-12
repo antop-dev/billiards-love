@@ -27,7 +27,7 @@ create table tbl_cnts
     cnts_dscr     text         null comment '대회 설명',
     strt_date     date         null comment '시작 일자',
     strt_time     time         null comment '시작 시간',
-    end_date      date         not null comment '종료 일자',
+    end_date      date         null comment '종료 일자',
     end_time      time         null comment '종료 시간',
     prgr_stt      char(1)      not null comment '진행 상태',
     max_prtc_prsn int          null comment '최대 참가인원',

@@ -10,5 +10,5 @@ public interface LoggedInService {
      * @param kakaoDto 카카오 로그인 정보
      * @return 회원 정보
      */
-    MemberDto loggedIn(KakaoDto kakaoDto);
+    MemberDto loggedIn(final KakaoDto kakaoDto);
 }
