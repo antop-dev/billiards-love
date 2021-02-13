@@ -2,7 +2,6 @@ package org.antop.billiardslove.config;
 
 import io.sentry.spring.SentryExceptionResolver;
 import io.sentry.spring.SentryServletContextInitializer;
-import org.antop.billiardslove.constant.Profiles;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
