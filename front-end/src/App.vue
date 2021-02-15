@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <div class="md-layout md-gutter md-alignment-center-center">
+    <div>
       <!-- 초기화가 되어있나 안되어있나-->
       <div v-if="isInit">
         <div v-if="!isLogin">
@@ -28,6 +28,7 @@
 
 <script>
 import LoginApi from './api/login.api';
+import aes256 from './util/aes256';
 
 export default {
   data() {
@@ -47,7 +48,11 @@ export default {
         // 초기화
         const initKey = await LoginApi.requestInitKey();
         this.isInit = true;
-        window.Kakao.init(initKey.kakaoKey);
+        const kakaoInitKey = aes256.decrypt(
+          initKey.kakaoKey,
+          initKey.secretKey,
+        );
+        window.Kakao.init(kakaoInitKey);
         this.kakaoLogin();
       } catch (e) {
         console.error('error :: ', e);

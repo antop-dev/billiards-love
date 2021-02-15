@@ -37,7 +37,7 @@ export default {
   components: { BoardContents, AppHeader },
   methods: {
     getDetail(id) {
-      this.$router.push({ path: '/game', query: { id } });
+      this.$router.push({ path: '/match/:id', query: { id } });
     },
   },
 };

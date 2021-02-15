@@ -13,7 +13,7 @@
         md-label="순위표"
       ></md-tab>
       <md-tab
-        :to="{ name: 'match', params: { id } }"
+        :to="{ name: 'chart', params: { id } }"
         id="match"
         md-label="대진표"
       ></md-tab>

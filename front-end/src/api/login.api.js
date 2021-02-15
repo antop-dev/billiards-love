@@ -18,12 +18,8 @@ const loginApi = class {
    * @returns data: { "appId" : "","encodedId" :"", "kakaoKey": ""}
    */
   requestInitKey() {
-    const header = {
-      'X-DEVICE-ID': store.state.deviceId,
-      'X-REQUEST-ID': store.state.requestId, // TODO 약속된 키
-    };
     return this.#client
-      .get('/v1/init', {}, header)
+      .post('http://localhost:8080/api/v1/init', {})
       .then(({ data }) => data || {});
   }
 

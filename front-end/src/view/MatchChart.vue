@@ -24,12 +24,15 @@
         }}</md-table-cell>
       </md-table-row>
     </md-table>
+    <match-result hidden></match-result>
   </div>
 </template>
 
 <script>
+import MatchResult from './MatchResult';
 export default {
   name: 'GameRank',
+  components: { MatchResult },
   data() {
     return {
       showSidepanel: false,
