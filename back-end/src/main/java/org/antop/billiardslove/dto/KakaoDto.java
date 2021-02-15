@@ -2,7 +2,6 @@ package org.antop.billiardslove.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -20,13 +19,13 @@ public class KakaoDto {
     /**
      * 닉네임
      */
-    private String nickname;
+    private final String nickname;
     /**
      * 프로필 이미지 Url
      */
-    private String imageUrl;
+    private final String imageUrl;
     /**
      * 프로필 미리보기 Url
      */
-    private String thumbnailUrl;
+    private final String thumbnailUrl;
 }

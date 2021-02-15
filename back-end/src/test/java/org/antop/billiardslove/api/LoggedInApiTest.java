@@ -1,32 +1,24 @@
 package org.antop.billiardslove.api;
 
+import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.properties.JwtProperties;
-import org.antop.billiardslove.jpa.domain.KakaoProfile;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
-import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.repository.KakaoRepository;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.time.LocalDateTime;
 
 import static org.hamcrest.IsJwtToken.isJwtToken;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-class LoggedInApiTest {
-    @Autowired
-    private MockMvc mockMvc;
+class LoggedInApiTest extends SpringBootBase {
     @Autowired
     private JwtProperties jwtProperties;
     @Autowired
@@ -35,7 +27,7 @@ class LoggedInApiTest {
     private MemberRepository memberRepository;
 
     /**
-     * 처음 로그인(+회원 가입) 했거나 추가 회원정보를 아직 입력하지 않은 상태
+     * 처음 로그인한다.
      */
     @Test
     void firstLogin() throws Exception {
@@ -76,33 +68,14 @@ class LoggedInApiTest {
      */
     @Test
     void reLogin() throws Exception {
-        KakaoLogin kakaoLogin = KakaoLogin.builder()
-                .id(111L)
-                .connectedAt(LocalDateTime.now().minusDays(30))
-                .profile(KakaoProfile.builder()
-                        .nickname("Jack")
-                        .thumbUrl("https://cataas.com/cat?width=160&height=100")
-                        .imgUrl("https://cataas.com/cat?width=160&height=200")
-                        .build())
-                .build();
-        kakaoRepository.saveAndFlush(kakaoLogin);
-
-        Member member = Member.builder()
-                .kakaoLogin(kakaoLogin)
-                .nickname("Antop") // 이미 회원 닉네임은 정해짐
-                .handicap(30)
-                .build();
-        memberRepository.saveAndFlush(member);
-
         // request
-        String nickname = "Mr. Hong";
-        String thumbnailUrl = "https://cataas.com/cat?width=80&height=80";
+        String thumbnailUrl = "https://bar";
         String requestBody = "{\n" +
-                "  \"id\": 111,\n" +
+                "  \"id\": 1,\n" +
                 "  \"connectedAt\": \"2020-11-17T15:45:04Z\",\n" +
                 "  \"profile\": {\n" +
-                "    \"nickname\": \"" + nickname + "\",\n" +
-                "    \"imageUrl\": \"https://cataas.com/cat?width=200&height=200\",\n" +
+                "    \"nickname\": \"Antop™\",\n" +
+                "    \"imageUrl\": \"https://foo\",\n" +
                 "    \"thumbnailUrl\": \"" + thumbnailUrl + "\",\n" +
                 "    \"needsAgreement\": true\n" +
                 "  }\n" +
@@ -112,18 +85,17 @@ class LoggedInApiTest {
                 .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON)
         )
-                // logging
                 .andDo(print())
-                // verify
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token", isJwtToken(jwtProperties.getSecretKey())))
                 .andExpect(jsonPath("$.registered", is(true)))
                 .andExpect(jsonPath("$.member", notNullValue()))
-                .andExpect(jsonPath("$.member.id", is(member.getId().intValue())))
-                .andExpect(jsonPath("$.member.nickname", is(member.getNickname())))
+                .andExpect(jsonPath("$.member.id", is(1)))
+                // 회원의 별명은 유지된다.
+                .andExpect(jsonPath("$.member.nickname", is("안탑")))
                 // width=100 → width=80
                 .andExpect(jsonPath("$.member.thumbnail", is(thumbnailUrl)))
-                .andExpect(jsonPath("$.member.handicap", is(member.getHandicap())))
+                .andExpect(jsonPath("$.member.handicap", is(22)))
         ;
     }
 

@@ -12,13 +12,13 @@ public class LoggedInResponse {
      */
     private final String token;
     /**
-     * 추가정보 등록 여부
-     */
-    private boolean registered;
-    /**
      * 회원
      */
     private final Member member;
+    /**
+     * 추가정보 등록 여부
+     */
+    private boolean registered;
 
     @Builder
     public LoggedInResponse(String token, Member member) {

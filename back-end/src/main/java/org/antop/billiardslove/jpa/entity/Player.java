@@ -28,13 +28,13 @@ import javax.persistence.Table;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "TBL_PLYR")
+@Table(name = "tbl_plyr")
 public class Player {
     /**
      * 선수 아이디
      */
     @Id
-    @Column(name = "PLYR_ID")
+    @Column(name = "plyr_id")
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,47 +43,44 @@ public class Player {
      */
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CNTS_ID")
+    @JoinColumn(name = "cnts_id")
     private Contest contest;
     /**
      * 회원 아이디
      */
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MMBR_ID")
+    @JoinColumn(name = "mmbr_id")
     private Member member;
     /**
      * 선수 번호
      */
     @Setter
-    @Column(name = "PLYR_NO")
+    @Column(name = "plyr_no")
     private Integer number;
     /**
      * 참가 핸디캡
      */
     @Setter
-    @Column(name = "PRTC_HNDC")
+    @Column(name = "prtc_hndc")
     private int handicap = 0;
     /**
      * 순위
      */
     @Setter
-    @Column(name = "PLYR_RNKN")
+    @Column(name = "plyr_rnkn")
     private Integer rank;
     /**
      * 점수
      */
     @Setter
-    @Column(name = "PLYR_SCR")
-    private int score = 0;
+    @Column(name = "plyr_scr")
+    private Integer score;
 
     @Builder
-    public Player(Contest contest, Member member, Integer number, int handicap, Integer rank, int score) {
+    private Player(Contest contest, Member member, int handicap) {
         this.contest = contest;
         this.member = member;
-        this.number = number;
         this.handicap = handicap;
-        this.rank = rank;
-        this.score = score;
     }
 }

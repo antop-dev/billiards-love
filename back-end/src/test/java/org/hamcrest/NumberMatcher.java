@@ -15,6 +15,10 @@ public class NumberMatcher extends TypeSafeMatcher<Number> {
         this.value = value;
     }
 
+    public static NumberMatcher is(Number number) {
+        return new NumberMatcher(number.doubleValue());
+    }
+
     @Override
     public void describeTo(Description description) {
         description.appendText("compare number");
@@ -23,10 +27,6 @@ public class NumberMatcher extends TypeSafeMatcher<Number> {
     @Override
     protected boolean matchesSafely(Number item) {
         return value.equals(item);
-    }
-
-    public static NumberMatcher is(Number number) {
-        return new NumberMatcher(number.doubleValue());
     }
 
 }
