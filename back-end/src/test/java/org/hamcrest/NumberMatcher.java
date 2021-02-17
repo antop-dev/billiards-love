@@ -1,5 +1,8 @@
 package org.hamcrest;
 
+import java.math.BigDecimal;
+import java.util.Objects;
+
 /**
  * JSON 값 비교 시 타입(Integer/Double/Long 등등) 구분 없이 비교하기 위해서 사용한다.<br>
  * 예를 들어 { "n": 111 } 의 경우 비교시에 Integer 형을 사용하고 실제 클래스에서는 Long 형을 사용할 경우<br>
@@ -16,17 +19,20 @@ public class NumberMatcher extends TypeSafeMatcher<Number> {
     }
 
     public static NumberMatcher is(Number number) {
-        return new NumberMatcher(number.doubleValue());
+        return new NumberMatcher(Objects.requireNonNull(number));
     }
 
     @Override
     public void describeTo(Description description) {
-        description.appendText("compare number");
+        description.appendText(value.toString());
     }
 
     @Override
     protected boolean matchesSafely(Number item) {
-        return value.equals(item);
+        if (item == null) return false;
+        BigDecimal x = new BigDecimal(value.toString());
+        BigDecimal y = new BigDecimal(item.toString());
+        return x.compareTo(y) == 0;
     }
 
 }
