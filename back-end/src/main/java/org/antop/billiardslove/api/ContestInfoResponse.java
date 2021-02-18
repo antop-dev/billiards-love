@@ -18,31 +18,31 @@ public class ContestInfoResponse {
     /**
      * 대회 아이디
      */
-    private Long id;
+    private final Long id;
     /**
      * 대회명
      */
-    private String name;
+    private final String name;
     /**
      * 대회 설명
      */
-    private String description;
+    private final String description;
     /**
      * 시작 일시
      */
-    private Start start;
+    private final Start start;
     /**
      * 종료 일시
      */
-    private End end;
+    private final End end;
     /**
      * 진행 상태
      */
-    private State state;
+    private final State state;
     /**
      * 최대 참가 인원
      */
-    private Integer maximumParticipants;
+    private final Integer maximumParticipants;
 
     @Builder
     public ContestInfoResponse(Long id, String name, String description, Start start, End end, State state, Integer maximumParticipants) {

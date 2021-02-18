@@ -16,19 +16,19 @@ public class ContestRankResponse {
     /**
      * 순위
      */
-    private Integer rank;
+    private final Integer rank;
     /**
      * 참가자
      */
-    private Participant participant;
+    private final Participant participant;
     /**
      * 진행률
      */
-    private Integer progress;
+    private final Integer progress;
     /**
      * 점수
      */
-    private Integer score;
+    private final Integer score;
 
     @Builder
     public ContestRankResponse(Integer rank, Participant participant, Integer progress, Integer score) {

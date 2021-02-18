@@ -2,7 +2,6 @@ package org.antop.billiardslove.api;
 
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
-import org.antop.billiardslove.jpa.repository.ContestRepository;
 import org.hamcrest.collection.IsCollectionWithSize;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,6 @@ class ContestApiTest extends SpringBootBase {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    private ContestRepository repository;
 
     @Test
     void informationApi() throws Exception {

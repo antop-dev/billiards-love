@@ -12,43 +12,43 @@ public class ContestDto {
     /**
      * 대회 아이디
      */
-    private Long id;
+    private final Long id;
     /**
      * 대회명
      */
-    private String name;
+    private final String name;
     /**
      * 대회 설명
      */
-    private String description;
+    private final String description;
     /**
      * 시작일
      */
-    private LocalDate startDate;
+    private final LocalDate startDate;
     /**
      * 시작시간
      */
-    private LocalTime startTime;
+    private final LocalTime startTime;
     /**
      * 종료일
      */
-    private LocalDate endDate;
+    private final LocalDate endDate;
     /**
      * 종료시간
      */
-    private LocalTime endTime;
+    private final LocalTime endTime;
     /**
      * 상태 코드
      */
-    private String code;
+    private final String code;
     /**
      * 상태명
      */
-    private String state;
+    private final String state;
     /**
      * 최대 참가 인원
      */
-    private Integer maximumParticipants;
+    private final Integer maximumParticipants;
 
     @Builder
     public ContestDto(Long id, String name, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, String code, String state, Integer maximumParticipants) {
