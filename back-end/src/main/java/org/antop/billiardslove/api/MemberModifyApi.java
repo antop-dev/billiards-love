@@ -34,7 +34,7 @@ public class MemberModifyApi {
     private final MemberModifyService service;
 
     @PostMapping("/api/v1/member")
-    Response modify(@RequestBody @Valid Request request,
+    public Response modify(@RequestBody @Valid Request request,
                     @AuthenticationPrincipal Long memberId,
                     @SessionAttribute(Constants.SECRET_KEY) String secretKey) {
         String nickname = Aes256Util.decrypt(request.getNickname(), secretKey);
