@@ -118,17 +118,17 @@ public class Contest {
     @RequiredArgsConstructor
     public enum State {
         /**
-         * 준비중
+         * 진행중
          */
-        PREPARING("0"),
+        PROCEEDING("0"),
         /**
          * 접수중 (시작하지 않음)
          */
         ACCEPTING("1"),
         /**
-         * 진행중
+         * 준비중
          */
-        PROCEEDING("2"),
+        PREPARING("2"),
         /**
          * 중지됨
          */

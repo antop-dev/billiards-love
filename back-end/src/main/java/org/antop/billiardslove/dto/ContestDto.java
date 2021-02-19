@@ -49,18 +49,4 @@ public class ContestDto {
      * 최대 참가 인원
      */
     private final Integer maximumParticipants;
-
-    @Builder
-    public ContestDto(Long id, String name, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, String code, String state, Integer maximumParticipants) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.code = code;
-        this.state = state;
-        this.maximumParticipants = maximumParticipants;
-    }
 }

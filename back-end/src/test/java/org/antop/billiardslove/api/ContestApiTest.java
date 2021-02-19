@@ -2,11 +2,11 @@ package org.antop.billiardslove.api;
 
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
-import org.hamcrest.collection.IsCollectionWithSize;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,7 +36,7 @@ class ContestApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.end.endDate", is("2021-12-30")))
                 .andExpect(jsonPath("$.end.endTime", is("23:59:59")))
                 .andExpect(jsonPath("$.state.code", is("2")))
-                .andExpect(jsonPath("$.state.name", is("PROCEEDING"))) // 상태명이 나와야 함.
+                .andExpect(jsonPath("$.state.name", is("PREPARING")))
                 .andExpect(jsonPath("$.maximumParticipants", is(32)))
         ;
     }
@@ -51,7 +51,7 @@ class ContestApiTest extends SpringBootBase {
                 .andDo(print())
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$..id", IsCollectionWithSize.hasSize(2)))
+                .andExpect(jsonPath("$", hasSize(2)))
         ;
     }
 
@@ -65,7 +65,7 @@ class ContestApiTest extends SpringBootBase {
                 .andDo(print())
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$..rank", IsCollectionWithSize.hasSize(3)))
+                .andExpect(jsonPath("$", hasSize(5)))
         ;
 
     }

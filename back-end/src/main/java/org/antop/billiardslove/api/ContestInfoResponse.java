@@ -1,6 +1,7 @@
 package org.antop.billiardslove.api;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import java.time.LocalTime;
  * @author jammini
  */
 @Getter
+@AllArgsConstructor
+@Builder
 public class ContestInfoResponse {
     /**
      * 대회 아이디
@@ -43,17 +46,6 @@ public class ContestInfoResponse {
      * 최대 참가 인원
      */
     private final Integer maximumParticipants;
-
-    @Builder
-    public ContestInfoResponse(Long id, String name, String description, Start start, End end, State state, Integer maximumParticipants) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.start = start;
-        this.end = end;
-        this.state = state;
-        this.maximumParticipants = maximumParticipants;
-    }
 
     @Getter
     @Builder

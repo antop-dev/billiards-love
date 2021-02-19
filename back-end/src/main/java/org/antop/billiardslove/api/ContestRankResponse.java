@@ -1,6 +1,7 @@
 package org.antop.billiardslove.api;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
  * @author jammini
  */
 @Getter
+@AllArgsConstructor
+@Builder
 public class ContestRankResponse {
 
     /**
@@ -29,14 +32,6 @@ public class ContestRankResponse {
      * 점수
      */
     private final Integer score;
-
-    @Builder
-    public ContestRankResponse(Integer rank, Participant participant, Integer progress, Integer score) {
-        this.rank = rank;
-        this.participant = participant;
-        this.progress = progress;
-        this.score = score;
-    }
 
     @Getter
     @Builder
