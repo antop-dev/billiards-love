@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
-import org.antop.billiardslove.util.Aes256;
+import org.antop.billiardslove.util.Aes256Util;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,12 +22,12 @@ public class InitApi {
 
     @PostMapping("api/v1/init")
     public InitResponse init() {
-        String secretKey = Aes256.generateKey();
+        String secretKey = Aes256Util.generateKey();
 
         return InitResponse.builder()
                 .secretKey(secretKey)
-                .kakaoKey(Aes256.encrypt(kakaoProperties.getJavaScriptKey(), secretKey))
-                .adSenseKey(Aes256.encrypt(googleProperties.getAdSenseKey(), secretKey))
+                .kakaoKey(Aes256Util.encrypt(kakaoProperties.getJavaScriptKey(), secretKey))
+                .adSenseKey(Aes256Util.encrypt(googleProperties.getAdSenseKey(), secretKey))
                 .build();
     }
 

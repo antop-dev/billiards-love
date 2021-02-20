@@ -19,7 +19,7 @@ public class LoggedInApi {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/api/v1/logged-in")
-    public LoggedInResponse loggedIn(@RequestBody LoggedInRequest request) {
+    public LoggedInResponse loggedIn(@RequestBody final LoggedInRequest request) {
         KakaoDto kakaoDto = KakaoDto.builder()
                 .id(request.getId())
                 .nickname(request.getProfile().getNickname())

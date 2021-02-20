@@ -7,11 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
@@ -34,13 +37,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "TBL_MMBR")
+@Table(name = "tbl_mmbr")
 public class Member {
     /**
      * 회원 아이디
      */
     @Id
-    @Column(name = "MMBR_ID")
+    @Column(name = "mmbr_id")
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,38 +51,43 @@ public class Member {
      * 별명
      */
     @Setter
-    @Column(name = "MMBR_NCK_NM")
+    @Column(name = "mmbr_nck_nm")
     private String nickname;
     /**
      * 핸디캡
      */
     @Setter
-    @Column(name = "MMBR_HNDC")
+    @Column(name = "mmbr_hndc")
     private Integer handicap;
     /**
      * 등록 일시
      */
     @CreatedDate
-    @Column(name = "RGST_DT")
-    private LocalDateTime registerDateTime;
+    @Column(name = "rgst_dt")
+    private LocalDateTime created;
     /**
      * 수정 일시
      */
     @LastModifiedDate
-    @Column(name = "MDFY_DT")
-    private LocalDateTime modifyDateTime;
+    @Column(name = "mdfy_dt")
+    private LocalDateTime modified;
+
+    @Convert(converter = BooleanConverter.class)
+    @Column(name = "mgnr_yn")
+    private boolean manager;
+
     /**
      * 카카오 로그인 아이디
      */
     @ToString.Exclude
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "KKO_LGN_ID")
-    private KakaoLogin kakaoLogin;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "kko_lgn_id")
+    private Kakao kakao;
 
     @Builder
-    public Member(KakaoLogin kakaoLogin, String nickname, Integer handicap) {
-        this.kakaoLogin = kakaoLogin;
+    public Member(Kakao kakao, String nickname) {
+        this.kakao = kakao;
         this.nickname = nickname;
-        this.handicap = handicap;
     }
+
 }

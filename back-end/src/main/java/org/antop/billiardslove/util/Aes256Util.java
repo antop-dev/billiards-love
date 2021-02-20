@@ -21,7 +21,7 @@ import java.util.Base64;
  * @author antop
  */
 @UtilityClass
-public class Aes256 {
+public class Aes256Util {
     /**
      * IV(initialization vector) 길이
      */

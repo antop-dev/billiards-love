@@ -1,81 +1,81 @@
 package org.antop.billiardslove.jpa.repository;
 
-import org.antop.billiardslove.jpa.DataJpaTest;
-import org.antop.billiardslove.jpa.entity.KakaoLogin;
+import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
-@DisplayName("회원 테스트")
-class MemberRepositoryTest extends DataJpaTest {
-
+class MemberRepositoryTest extends SpringBootBase {
     @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    private KakaoRepository kakaoRepository;
+    private MemberRepository repository;
 
     @Test
-    @DisplayName("회원 데이터를 조회한다.")
-    void AoEKf() {
-        Optional<Member> memberOptional = memberRepository.findById(2L);
-        assertThat(memberOptional.isPresent(), is(true));
-        Member member = memberOptional.get();
-        assertThat(member.getNickname(), is("띠용"));
-        assertThat(member.getHandicap(), is(20));
-        assertThat(member.getRegisterDateTime(), notNullValue());
+    void findManager() {
+        Optional<Member> optional = repository.findById(1L);
+        assertThat(optional.isPresent(), is(true));
+
+        optional.ifPresent(member -> {
+            assertThat(member.getKakao(), notNullValue());
+            assertThat(member.getNickname(), is("안탑"));
+            assertThat(member.getHandicap(), is(22));
+            assertThat(member.getCreated(), notNullValue());
+            assertThat(member.getModified(), nullValue());
+            assertThat(member.isManager(), is(true));
+        });
     }
 
     @Test
-    @DisplayName("데이터베이스 스텁을 통해 SQL문이 정상적으로 잘 들어갔는지 사이즈 체크")
-    void AE07R4() {
-        List<Member> list = memberRepository.findAll();
-        assertThat(list, hasSize(6));
+    void findNotManager() {
+        Optional<Member> optional = repository.findById(2L);
+        assertThat(optional.isPresent(), is(true));
+
+        optional.ifPresent(member -> {
+            assertThat(member.getKakao(), notNullValue());
+            assertThat(member.getNickname(), is("띠용"));
+            assertThat(member.getHandicap(), is(20));
+            assertThat(member.getCreated(), notNullValue());
+            assertThat(member.getModified(), notNullValue());
+            assertThat(member.isManager(), is(false));
+        });
     }
 
     @Test
-    @DisplayName("회원 데이터를 등록한다.")
-    void OeDOf() {
-        Optional<KakaoLogin> kakaoLoginOptional = kakaoRepository.findById(1213141503L);
+    void findAll() {
+        List<Member> members = repository.findAll();
+        assertThat(members, hasSize(3));
+    }
+
+    @Test
+    void save() {
+        Kakao kakao = Kakao.builder()
+                .id(9999999L)
+                .profile(Kakao.Profile.builder()
+                        .nickname("도금수푼?")
+                        .imgUrl("foo")
+                        .thumbUrl("bar").build())
+                .connectedAt(LocalDateTime.now())
+                .build();
 
         Member member = Member.builder()
                 .nickname("골드스푼")
-                .handicap(30)
-                .kakaoLogin(kakaoLoginOptional.get())
+                .kakao(kakao)
                 .build();
-        memberRepository.save(member);
+        repository.save(member);
 
-        Optional<Member> memberOptional = memberRepository.findById(7L);
-        assertThat(memberOptional.isPresent(), is(true));
-        Member member1 = memberOptional.get();
-        assertThat(member1.getNickname(), is("골드스푼"));
-        assertThat(member.getHandicap(), is(30));
-        assertThat(member.getRegisterDateTime(), notNullValue());
-    }
-
-    @Test
-    @DisplayName("회원 프로필을 갱신한다.")
-    void J6l1Z() {
-        memberRepository.findById(3L).ifPresent(it -> {
-            it.setNickname("골드스푼");
-            it.setHandicap(30);
-        });
-
-        Optional<Member> memberOptional = memberRepository.findById(3L);
-        assertThat(memberOptional.isPresent(), is(true));
-        Member member = memberOptional.get();
-        assertThat(member.getNickname(), is("골드스푼"));
-        assertThat(member.getHandicap(), is(30));
-        assertThat(member.getRegisterDateTime(), notNullValue());
+        assertThat(member.getId(), notNullValue());
+        assertThat(member.getId(), greaterThan(0L));
     }
 
 }
