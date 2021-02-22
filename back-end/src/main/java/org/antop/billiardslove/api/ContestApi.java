@@ -3,7 +3,7 @@ package org.antop.billiardslove.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.jpa.entity.Player;
+import org.antop.billiardslove.dto.ContestRank;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +26,7 @@ public class ContestApi {
     @GetMapping("/api/v1/contest/{id}")
     public ContestInfoResponse InformationApi(@PathVariable(name = "id") long id) {
 
-        ContestDto contest = contestService.getContestInfo(id);
+        ContestDto contest = contestService.getContest(id);
 
         return contestInfoResponse(contest);
     }
@@ -34,7 +34,7 @@ public class ContestApi {
     @GetMapping("/api/v1/contests")
     public List<ContestInfoResponse> listApi() {
 
-        List<ContestDto> contestList = contestService.getContestList();
+        List<ContestDto> contestList = contestService.getAllContests();
 
         return contestList.stream().map(this::contestInfoResponse).collect(Collectors.toList());
     }
@@ -42,14 +42,14 @@ public class ContestApi {
     @GetMapping("/api/v1/contest/{id}/rank")
     public List<ContestRankResponse> rankApi(@PathVariable(name = "id") long id) {
 
-        List<Player> contestList = contestService.getContestRank(id);
+        List<ContestRank> contestRankList = contestService.getRanks(id);
 
-        return contestList.stream().map(o -> ContestRankResponse.builder()
+        return contestRankList.stream().map(o -> ContestRankResponse.builder()
                 .rank(o.getRank())
                 .participant(ContestRankResponse.Participant.builder()
-                        .id(o.getMember().getId())
-                        .name(o.getMember().getNickname())
-                        .handicap(o.getMember().getHandicap())
+                        .id(o.getParticipant().getId())
+                        .name(o.getParticipant().getName())
+                        .handicap(o.getParticipant().getHandicap())
                         .build())
                 .progress(0)
                 .score(o.getScore()).build()).collect(Collectors.toList());
