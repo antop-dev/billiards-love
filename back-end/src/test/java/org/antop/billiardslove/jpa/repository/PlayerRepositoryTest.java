@@ -51,7 +51,7 @@ class PlayerRepositoryTest extends SpringBootBase {
     @Test
     void findAll() {
         List<Player> list = playerRepository.findAll();
-        assertThat(list, hasSize(3));
+        assertThat(list, hasSize(5));
     }
 
     @Test
