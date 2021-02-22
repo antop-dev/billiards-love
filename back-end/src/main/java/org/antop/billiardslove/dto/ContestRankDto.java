@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @AllArgsConstructor
 @Builder
-public class ContestRank {
+public class ContestRankDto {
 
     /**
      * 순위

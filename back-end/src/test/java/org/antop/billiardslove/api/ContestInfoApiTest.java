@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class ContestApiTest extends SpringBootBase {
+class ContestInfoApiTest extends SpringBootBase {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
@@ -55,18 +55,4 @@ class ContestApiTest extends SpringBootBase {
         ;
     }
 
-    @Test
-    void rankApi() throws Exception {
-        // request
-        String token = jwtTokenProvider.createToken("2");
-        // action
-        mockMvc.perform(get("/api/v1/contest/1/rank").header(HttpHeaders.AUTHORIZATION, token))
-                // logging
-                .andDo(print())
-                // verify
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(5)))
-        ;
-
-    }
 }
