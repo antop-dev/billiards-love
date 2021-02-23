@@ -143,6 +143,7 @@ public class Match {
      * @author antop
      */
     @Getter
+    @EqualsAndHashCode
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public static class MatchResult {
         /**

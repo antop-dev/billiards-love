@@ -7,17 +7,28 @@ import org.antop.billiardslove.exception.MemberNotFountException;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class MemberServiceImpl implements PrincipalProvider {
+@Transactional
+public class MemberServiceImpl implements PrincipalProvider, MemberModifyService {
     private final MemberRepository repository;
 
+    @Transactional(readOnly = true)
     @Override
     public String getPrincipal(Object id) {
         Member member = repository.findById(Long.valueOf(id.toString()))
                 .orElseThrow(MemberNotFountException::new);
         return member.getId().toString();
     }
+
+    @Override
+    public void modify(long id, String nickname, int handicap) {
+        Member member = repository.findById(id).orElseThrow(MemberNotFountException::new);
+        member.setNickname(nickname);
+        member.setHandicap(handicap);
+    }
+
 }

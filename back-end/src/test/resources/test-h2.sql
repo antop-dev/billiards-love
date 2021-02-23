@@ -43,6 +43,11 @@ insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, 
 values (2, 1, 2, 2, 24, 2, 40);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
 values (3, 1, 3, 3, 26, 3, 10);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
+values (4, 1, 3, 3, 28, 20);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
+values (5, 1, 3, 3, 30, 30);
+
 /** 2022 대회 - 모집중 (CNTS_ID = 3) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt)
