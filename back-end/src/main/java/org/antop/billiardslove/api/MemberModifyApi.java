@@ -35,8 +35,8 @@ public class MemberModifyApi {
 
     @PostMapping("/api/v1/member")
     public Response modify(@RequestBody @Valid Request request,
-                    @AuthenticationPrincipal Long memberId,
-                    @SessionAttribute(Constants.SECRET_KEY) String secretKey) {
+                           @AuthenticationPrincipal Long memberId,
+                           @SessionAttribute(Constants.SECRET_KEY) String secretKey) {
         String nickname = Aes256Util.decrypt(request.getNickname(), secretKey);
         Integer handicap = request.getHandicap();
 

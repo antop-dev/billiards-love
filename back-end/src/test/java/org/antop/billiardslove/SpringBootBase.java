@@ -1,5 +1,6 @@
 package org.antop.billiardslove;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.antop.billiardslove.config.Profiles;
 import org.junit.jupiter.api.AfterEach;
@@ -51,6 +52,9 @@ public abstract class SpringBootBase {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     /**
      * JPA
