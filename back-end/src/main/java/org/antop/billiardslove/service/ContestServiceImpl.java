@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.ContestRankDto;
 import org.antop.billiardslove.exception.ContestNotFoundException;
+import org.antop.billiardslove.exception.MemberNotFountException;
 import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.jpa.repository.ContestRepository;
+import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.antop.billiardslove.jpa.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,8 @@ import java.util.stream.Collectors;
 public class ContestServiceImpl implements ContestService {
     private final ContestRepository contestRepository;
     private final PlayerRepository playerRepository;
+
+    private final MemberRepository memberRepository;
 
     @Override
     public ContestDto getContest(long id) {
@@ -40,6 +45,28 @@ public class ContestServiceImpl implements ContestService {
         Contest contest = contestRepository.findById(id).orElseThrow(ContestNotFoundException::new);
         List<Player> list = playerRepository.findByContestOrderByRankAsc(contest);
         return list.stream().map(this::contestRankDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getParticipationCheck(long contestId, long memberId) {
+        Contest contest = contestRepository.findById(contestId).orElseThrow(ContestNotFoundException::new);
+        if (contest.getState() != Contest.State.ACCEPTING) {
+            return "참가할 수 없는 대회입니다.";
+        }
+        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFountException::new);
+
+        Player player = playerRepository.findByMember(member);
+
+        if (player != null) {
+            return "이미 참가한 대회입니다.";
+        }
+        playerRepository.save(Player.builder()
+                .contest(contest)
+                .member(member)
+                .handicap(member.getHandicap())
+                .build());
+
+        return "";
     }
 
     private ContestDto contestDto(Contest contest) {

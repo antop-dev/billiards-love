@@ -29,4 +29,12 @@ public interface ContestService {
      */
     List<ContestRankDto> getRanks(long id);
 
+    /**
+     * 댜회 참가
+     *
+     * @param contestId 대회 아이디
+     * @param memberId  회원 아이디
+     * @return 참가 가능 체크
+     */
+    String getParticipationCheck(long contestId, long memberId);
 }

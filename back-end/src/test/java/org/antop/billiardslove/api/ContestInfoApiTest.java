@@ -35,8 +35,8 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.start.startTime", is("00:00:00")))
                 .andExpect(jsonPath("$.end.endDate", is("2021-12-30")))
                 .andExpect(jsonPath("$.end.endTime", is("23:59:59")))
-                .andExpect(jsonPath("$.state.code", is("2")))
-                .andExpect(jsonPath("$.state.name", is("PREPARING")))
+                .andExpect(jsonPath("$.state.code", is("0")))
+                .andExpect(jsonPath("$.state.name", is("PROCEEDING")))
                 .andExpect(jsonPath("$.maximumParticipants", is(32)))
         ;
     }
