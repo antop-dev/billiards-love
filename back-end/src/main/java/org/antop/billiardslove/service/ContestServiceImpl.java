@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.ContestRankDto;
+import org.antop.billiardslove.exception.AlreadyParticipationException;
+import org.antop.billiardslove.exception.CantParticipationException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
-import org.antop.billiardslove.exception.MemberNotFountException;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.jpa.repository.ContestRepository;
-import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.antop.billiardslove.jpa.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 public class ContestServiceImpl implements ContestService {
     private final ContestRepository contestRepository;
     private final PlayerRepository playerRepository;
-
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+    private final PlayerService playerService;
 
     @Override
     public ContestDto getContest(long id) {
@@ -48,25 +48,22 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
-    public String getParticipationCheck(long contestId, long memberId) {
+    public void participate(long contestId, long memberId, int handicap) throws CantParticipationException, AlreadyParticipationException {
         Contest contest = contestRepository.findById(contestId).orElseThrow(ContestNotFoundException::new);
-        if (contest.getState() != Contest.State.ACCEPTING) {
-            return "참가할 수 없는 대회입니다.";
+        if (!contest.isAccepting()) {
+            throw new CantParticipationException();
         }
-        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFountException::new);
-
-        Player player = playerRepository.findByMember(member);
+        Member member = memberService.getMember(memberId);
+        Player player = playerService.getPlayer(memberId);
 
         if (player != null) {
-            return "이미 참가한 대회입니다.";
+            throw new AlreadyParticipationException();
         }
         playerRepository.save(Player.builder()
                 .contest(contest)
                 .member(member)
-                .handicap(member.getHandicap())
+                .handicap(handicap)
                 .build());
-
-        return "";
     }
 
     private ContestDto contestDto(Contest contest) {

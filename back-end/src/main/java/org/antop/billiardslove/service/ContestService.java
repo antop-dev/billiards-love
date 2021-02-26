@@ -2,6 +2,8 @@ package org.antop.billiardslove.service;
 
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.ContestRankDto;
+import org.antop.billiardslove.exception.AlreadyParticipationException;
+import org.antop.billiardslove.exception.CantParticipationException;
 
 import java.util.List;
 
@@ -30,11 +32,12 @@ public interface ContestService {
     List<ContestRankDto> getRanks(long id);
 
     /**
-     * 댜회 참가
+     * 대회 참가
      *
      * @param contestId 대회 아이디
      * @param memberId  회원 아이디
-     * @return 참가 가능 체크
+     * @throws CantParticipationException    대회 접수를 할 수 없는 상태인 경우
+     * @throws AlreadyParticipationException 이미 참여한 대회인 경우
      */
-    String getParticipationCheck(long contestId, long memberId);
+    void participate(long contestId, long memberId, int handicap) throws CantParticipationException, AlreadyParticipationException;
 }

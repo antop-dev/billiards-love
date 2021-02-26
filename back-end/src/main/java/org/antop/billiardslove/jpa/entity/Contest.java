@@ -109,6 +109,10 @@ public class Contest {
         this.title = title;
     }
 
+    public boolean isAccepting() {
+        return state == State.ACCEPTING;
+    }
+
     /**
      * 대회 진행 상태
      *

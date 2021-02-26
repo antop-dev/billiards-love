@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,8 +23,17 @@ class ContestParticipationApiTest extends SpringBootBase {
     void normalResponseApi() throws Exception {
         // request
         String token = jwtTokenProvider.createToken("4");
+        int handicap = 30;
+
+        String requestBody = "{\n" +
+                "  \"handicap\": " + handicap + "\n" +
+                "}";
+
         // action
-        mockMvc.perform(post("/api/v1/contest/2/participate").header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(post("/api/v1/contest/2/participate")
+                .content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
                 // logging
                 .andDo(print())
                 // verify
@@ -35,8 +45,16 @@ class ContestParticipationApiTest extends SpringBootBase {
     void reParticipationApi() throws Exception {
         // request
         String token = jwtTokenProvider.createToken("4");
+        int handicap = 30;
+
+        String requestBody = "{\n" +
+                "  \"handicap\": " + handicap + "\n" +
+                "}";
         // action
-        mockMvc.perform(post("/api/v1/contest/1/participate").header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(post("/api/v1/contest/1/participate")
+                .content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
                 // logging
                 .andDo(print())
                 // verify
@@ -51,8 +69,16 @@ class ContestParticipationApiTest extends SpringBootBase {
     void participationApi() throws Exception {
         // request
         String token = jwtTokenProvider.createToken("2");
+        int handicap = 30;
+
+        String requestBody = "{\n" +
+                "  \"handicap\": " + handicap + "\n" +
+                "}";
         // action
-        mockMvc.perform(post("/api/v1/contest/2/participate").header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(post("/api/v1/contest/2/participate")
+                .content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
                 // logging
                 .andDo(print())
                 // verify
