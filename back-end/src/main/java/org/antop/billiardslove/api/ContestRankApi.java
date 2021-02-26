@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.dto.ContestRankDto;
+import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,22 +20,21 @@ import java.util.stream.Collectors;
 public class ContestRankApi {
     private final ContestService contestService;
 
-    @GetMapping("/api/v1/contest/{id}/rank")
-    public List<ContestRank> ranks(@PathVariable(name = "id") long contestId) {
-        List<ContestRankDto> ranks = contestService.getRanks(contestId);
+    @GetMapping("/api/v1/contest/{id}/ranks")
+    public List<Rank> ranks(@PathVariable(name = "id") long contestId) {
+        List<Player> ranks = contestService.getRanks(contestId);
         return ranks.stream().map(this::convert).collect(Collectors.toList());
     }
 
-    private ContestRank convert(ContestRankDto dto) {
-        ContestRankDto.Participant participant = dto.getParticipant();
-        return ContestRank.builder()
-                .rank(dto.getRank())
-                .progress(dto.getProgress())
-                .score(dto.getScore())
-                .participant(ContestRank.Participant.builder()
-                        .id(participant.getId())
-                        .name(participant.getName())
-                        .handicap(participant.getHandicap())
+    private Rank convert(Player p) {
+        return Rank.builder()
+                .rank(p.getRank())
+                .progress(0) // TODO: 진행률
+                .score(p.getScore())
+                .participant(Rank.Participant.builder()
+                        .id(p.getMember().getId())
+                        .name(p.getMember().getNickname())
+                        .handicap(p.getHandicap())
                         .build())
                 .build();
     }
@@ -48,7 +47,7 @@ public class ContestRankApi {
     @Getter
     @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
     @Builder
-    static class ContestRank {
+    static class Rank {
         /**
          * 순위
          */

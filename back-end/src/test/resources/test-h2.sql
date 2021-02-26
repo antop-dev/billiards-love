@@ -13,7 +13,7 @@ alter table tbl_mmbr
 alter table tbl_plyr
     alter column plyr_id bigint auto_increment (4);
 alter table tbl_cnts
-    alter column cnts_id bigint auto_increment (3);
+    alter column cnts_id bigint auto_increment (6);
 /* 카카오 로그인 목록 */
 insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_img_url)
 values (1, now(), '안정용', 'https://picsum.photos/640', 'https://picsum.photos/110');
@@ -30,13 +30,12 @@ insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, mdfy_dt, kko_lgn
 VALUES (2, '띠용', 20, now(), now(), 2);
 insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, kko_lgn_id)
 values (3, '잼미니', 25, NOW(), 3);
-/** 2021 대회 - 진행중 (CNTS_ID = 1) */
+/** 진행중인 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt)
 values (1, '2021 리그전', '2021.01.01~', parsedatetime('20210101', 'yyyyMMdd'), PARSEDATETIME('000000', 'HHmmss'),
-        parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '2', 32,
+        parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '0', 32,
         parsedatetime('20191112151145', 'yyyyMMddHHmmss'));
-
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
 values (1, 1, 1, 1, 22, 1, 150);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
@@ -47,10 +46,25 @@ insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
 values (4, 1, 3, 3, 28, 20);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
 values (5, 1, 3, 3, 30, 30);
-
-/** 2022 대회 - 모집중 (CNTS_ID = 3) */
+/** 접수중인 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt)
 values (2, '2022 리그전', '2021.05.01~', parsedatetime('20210101', 'yyyyMMdd'), parsedatetime('000000', 'HHmmss'),
-        parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), '0', 128,
+        parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), '1', 128,
         parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
+/** 준비중인 대회 (1) */
+insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
+                      rgst_dt, mdfy_dt)
+values (3, '준비중인 대회 (1)', null, null, null, null, null, '2', null, now(), now());
+/** 준비중인 대회 (2) */
+insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
+                      rgst_dt, mdfy_dt)
+values (4, '준비중인 대회 (2)', null, parsedatetime('20210801', 'yyyyMMdd'), null, null, null, '2', null, now(), now());
+/** 중지된 대회 */
+insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
+                      rgst_dt, mdfy_dt)
+values (5, '중지된 대회', null, null, null, null, null, '3', null, now(), now());
+/** 종료된 대회 */
+insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
+                      rgst_dt, mdfy_dt)
+values (6, '종료된 대회', null, null, null, null, null, '4', null, now(), now());

@@ -1,7 +1,7 @@
 package org.antop.billiardslove.service;
 
-import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.dto.ContestRankDto;
+import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.entity.Player;
 
 import java.util.List;
 
@@ -12,14 +12,14 @@ public interface ContestService {
      * @param id 대회 아이디
      * @return 대회 정보
      */
-    ContestDto getContest(long id);
+    Contest getContest(long id);
 
     /**
      * 대회 목록 조회
      *
      * @return 대회 목록
      */
-    List<ContestDto> getAllContests();
+    List<Contest> getAllContests();
 
     /**
      * 대회 순위 정보 조회
@@ -27,6 +27,6 @@ public interface ContestService {
      * @param id 대회 아이디
      * @return 대회 참여 플레이어
      */
-    List<ContestRankDto> getRanks(long id);
+    List<Player> getRanks(long id);
 
 }
