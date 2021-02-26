@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.dto.ContestDto;
+import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,33 +29,34 @@ public class ContestInfoApi {
     private final ContestService contestService;
 
     @GetMapping("/api/v1/contest/{id}")
-    public Contest info(@PathVariable(name = "id") long id) {
-        ContestDto contest = contestService.getContest(id);
+    public ContestDto info(@PathVariable(name = "id") long id) {
+        Contest contest = contestService.getContest(id);
         return convert(contest);
     }
 
     @GetMapping("/api/v1/contests")
-    public List<Contest> list() {
-        List<ContestDto> contests = contestService.getAllContests();
+    public List<ContestDto> list() {
+        List<Contest> contests = contestService.getAllContests();
         return contests.stream().map(this::convert).collect(Collectors.toList());
     }
 
-    private Contest convert(ContestDto dto) {
-        return Contest.builder()
+    private ContestDto convert(Contest dto) {
+        return ContestDto.builder()
                 .id(dto.getId())
-                .name(dto.getName())
+                .name(dto.getTitle())
                 .description(dto.getDescription())
-                .start(Contest.Start.builder()
+                .start(ContestDto.Start.builder()
                         .startDate(dto.getStartDate())
                         .startTime(dto.getStartTime())
                         .build())
-                .end(Contest.End.builder()
+                .end(ContestDto.End.builder()
                         .endDate(dto.getEndDate())
                         .endTime(dto.getEndTime())
                         .build())
-                .state(Contest.State.builder()
-                        .code(dto.getCode())
-                        .name(dto.getState())
+                .state(ContestDto.State.builder()
+                        .code(dto.getState().getCode())
+                        // TODO: 이름 찾아야 한다.
+                        .name(dto.getState().name())
                         .build())
                 .maximumParticipants(dto.getMaximumParticipants())
                 .build();
@@ -69,7 +70,7 @@ public class ContestInfoApi {
     @Getter
     @AllArgsConstructor
     @Builder
-    static class Contest {
+    static class ContestDto {
         /**
          * 대회 아이디
          */
@@ -98,6 +99,10 @@ public class ContestInfoApi {
          * 최대 참가 인원
          */
         private final Integer maximumParticipants;
+        /**
+         * 조회한 회원의 참가 여부
+         */
+        private final boolean participation;
 
         @Getter
         @Builder
