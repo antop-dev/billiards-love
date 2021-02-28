@@ -34,6 +34,7 @@ import java.util.Arrays;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tbl_cnts")
@@ -42,7 +43,7 @@ public class Contest {
      * 대회 아이디
      */
     @Id
-    @Column(name = "CNTS_ID")
+    @Column(name = "cnts_id")
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

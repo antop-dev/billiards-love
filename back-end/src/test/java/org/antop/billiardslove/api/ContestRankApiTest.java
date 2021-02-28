@@ -22,7 +22,7 @@ class ContestRankApiTest extends SpringBootBase {
         // request
         String token = jwtTokenProvider.createToken("2");
         // action
-        mockMvc.perform(get("/api/v1/contest/1/rank").header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(get("/api/v1/contest/1/ranks").header(HttpHeaders.AUTHORIZATION, token))
                 // logging
                 .andDo(print())
                 // verify

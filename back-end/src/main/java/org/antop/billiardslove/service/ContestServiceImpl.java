@@ -2,8 +2,6 @@ package org.antop.billiardslove.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.dto.ContestRankDto;
 import org.antop.billiardslove.exception.AlreadyParticipationException;
 import org.antop.billiardslove.exception.CantParticipationException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,22 +26,19 @@ public class ContestServiceImpl implements ContestService {
     private final PlayerService playerService;
 
     @Override
-    public ContestDto getContest(long id) {
-        Contest contest = contestRepository.findById(id).orElseThrow(ContestNotFoundException::new);
-        return contestDto(contest);
+    public Contest getContest(long id) {
+        return contestRepository.findById(id).orElseThrow(ContestNotFoundException::new);
     }
 
     @Override
-    public List<ContestDto> getAllContests() {
-        List<Contest> contestList = contestRepository.findAllByOrderByStateAsc();
-        return contestList.stream().map(this::contestDto).collect(Collectors.toList());
+    public List<Contest> getAllContests() {
+        return contestRepository.findAllOrdered();
     }
 
     @Override
-    public List<ContestRankDto> getRanks(long id) {
+    public List<Player> getRanks(long id) {
         Contest contest = contestRepository.findById(id).orElseThrow(ContestNotFoundException::new);
-        List<Player> list = playerRepository.findByContestOrderByRankAsc(contest);
-        return list.stream().map(this::contestRankDto).collect(Collectors.toList());
+        return playerRepository.findByContestOrderByRankAsc(contest);
     }
 
     @Override
@@ -66,32 +60,4 @@ public class ContestServiceImpl implements ContestService {
                 .build());
     }
 
-    private ContestDto contestDto(Contest contest) {
-        return ContestDto.builder()
-                .id(contest.getId())
-                .name(contest.getTitle())
-                .description(contest.getDescription())
-                .startDate(contest.getStartDate())
-                .startTime(contest.getStartTime())
-                .endDate(contest.getEndDate())
-                .endTime(contest.getEndTime())
-                .code(contest.getState().getCode())
-                .state(contest.getState().name())
-                .maximumParticipants(contest.getMaximumParticipants())
-                .build();
-
-    }
-
-    private ContestRankDto contestRankDto(Player o) {
-        return ContestRankDto.builder()
-                .rank(o.getRank())
-                .participant(ContestRankDto.Participant.builder()
-                        .id(o.getMember().getId())
-                        .name(o.getMember().getNickname())
-                        .handicap(o.getMember().getHandicap())
-                        .build())
-                // TODO: 진행률 계산
-                .progress(0)
-                .score(o.getScore()).build();
-    }
 }

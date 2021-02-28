@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
@@ -62,7 +63,15 @@ class ContestRepositoryTest extends SpringBootBase {
             flush();
             assertThat(contest.getModified(), notNullValue());
         });
-
     }
 
+    @Test
+    void findAllWithPlayers() {
+        List<Contest> contests = repository.findAllOrdered();
+        // 시작일이 입력된 "준비중인 대회 (2)"가 "준비중인 대회 (1)"보다 위에 있어야 한다.
+        assertThat(contests.get(2).getId(), is(4L));
+        assertThat(contests.get(2).getTitle(), is("준비중인 대회 (2)"));
+        assertThat(contests.get(3).getId(), is(3L));
+        assertThat(contests.get(3).getTitle(), is("준비중인 대회 (1)"));
+    }
 }
