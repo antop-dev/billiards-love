@@ -45,7 +45,8 @@ create table tbl_plyr
     prtc_hndc tinyint null comment '선수 핸디캡',
     plyr_rnkn int     null comment '순위',
     plyr_scr  int     null comment '점수',
-    primary key (plyr_id)
+    primary key (plyr_id),
+    unique (cnts_id, mmbr_id, plyr_no)
 );
 
 create table tbl_mtc
