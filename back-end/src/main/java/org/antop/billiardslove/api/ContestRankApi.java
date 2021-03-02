@@ -5,14 +5,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,8 +26,16 @@ public class ContestRankApi {
 
     @GetMapping("/api/v1/contest/{id}/ranks")
     public List<Rank> ranks(@PathVariable(name = "id") long contestId) {
-        List<Player> ranks = contestService.getRanks(contestId);
-        return ranks.stream().map(this::convert).collect(Collectors.toList());
+        Contest contest = contestService.getContest(contestId);
+
+        Comparator<Player> compare = Comparator
+                .comparing((Player p) -> ofNullable(p.getRank()).orElse(Integer.MAX_VALUE))
+                .thenComparing((Player p) -> ofNullable(p.getNumber()).orElse(Integer.MAX_VALUE));
+
+        return contest.getPlayers().stream()
+                .sorted(compare)
+                .map(this::convert)
+                .collect(Collectors.toList());
     }
 
     private Rank convert(Player p) {

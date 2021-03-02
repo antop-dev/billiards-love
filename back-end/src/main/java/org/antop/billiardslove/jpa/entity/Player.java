@@ -83,4 +83,5 @@ public class Player {
         this.member = member;
         this.handicap = handicap;
     }
+
 }

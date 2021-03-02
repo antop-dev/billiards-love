@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class MemberServiceImpl implements PrincipalProvider, MemberModifyService {
+public class MemberServiceImpl implements PrincipalProvider, MemberModifyService, MemberService {
     private final MemberRepository repository;
 
     @Transactional(readOnly = true)
@@ -31,4 +31,8 @@ public class MemberServiceImpl implements PrincipalProvider, MemberModifyService
         member.setHandicap(handicap);
     }
 
+    @Override
+    public Member getMember(long id) {
+        return repository.findById(id).orElseThrow(MemberNotFountException::new);
+    }
 }

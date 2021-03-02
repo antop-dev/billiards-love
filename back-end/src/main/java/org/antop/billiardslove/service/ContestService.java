@@ -1,7 +1,6 @@
 package org.antop.billiardslove.service;
 
 import org.antop.billiardslove.jpa.entity.Contest;
-import org.antop.billiardslove.jpa.entity.Player;
 
 import java.util.List;
 
@@ -22,11 +21,12 @@ public interface ContestService {
     List<Contest> getAllContests();
 
     /**
-     * 대회 순위 정보 조회
+     * 대회 참가<br>
+     * 회원의 핸디캡과 대회 참가할 때 핸디캡은 다를 수 있다.
      *
-     * @param id 대회 아이디
-     * @return 대회 참여 플레이어
+     * @param contestId 대회 아이디
+     * @param memberId  회원 아이디
+     * @param handicap  참가 핸디캡
      */
-    List<Player> getRanks(long id);
-
+    void participate(long contestId, long memberId, int handicap);
 }

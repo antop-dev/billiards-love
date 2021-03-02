@@ -54,7 +54,7 @@ class MemberRepositoryTest extends SpringBootBase {
     @Test
     void findAll() {
         List<Member> members = repository.findAll();
-        assertThat(members, hasSize(3));
+        assertThat(members, hasSize(4));
     }
 
     @Test

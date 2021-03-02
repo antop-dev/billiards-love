@@ -8,23 +8,29 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.antop.billiardslove.exception.AlreadyParticipationException;
 import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 대회 정보
@@ -96,18 +102,60 @@ public class Contest {
     @Setter
     @Column(name = "max_prtc_prsn")
     private Integer maximumParticipants;
-
+    /**
+     * 등록 일시
+     */
     @CreatedDate
     @Column(name = "rgst_dt")
     private LocalDateTime created;
-
+    /**
+     * 마지막 수정 일시
+     */
     @LastModifiedDate
     @Column(name = "mdfy_dt")
     private LocalDateTime modified;
+    /**
+     * 참가자 목록
+     */
+    @ToString.Exclude
+    @OneToMany(mappedBy = "contest", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Player> players = new ArrayList<>();
 
     @Builder
     private Contest(String title) {
         this.title = title;
+    }
+
+    /**
+     * 접수중 상태 여부
+     *
+     * @return 접수중
+     */
+    public boolean isAccepting() {
+        return state == State.ACCEPTING;
+    }
+
+    /**
+     * 대회에 회원을 참가시킨다.
+     *
+     * @param member   회원
+     * @param handicap 참가 핸디캡
+     * @throws org.antop.billiardslove.exception.MemberNotFountException 회원을 찾을 수 없을 경우
+     * @throws AlreadyParticipationException                             이미 참여한 경우
+     */
+    public void participate(final Member member, final int handicap) {
+        // 이미 참가한 회원인지 확인
+        if (players.stream().anyMatch(it -> it.getMember() == member)) {
+            throw new AlreadyParticipationException();
+        }
+
+        Player player = Player.builder()
+                .contest(this)
+                .member(member)
+                .handicap(handicap)
+                .build();
+
+        players.add(player);
     }
 
     /**
