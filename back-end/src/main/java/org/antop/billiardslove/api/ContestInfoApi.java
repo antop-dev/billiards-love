@@ -7,7 +7,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.service.ContestService;
+import org.antop.billiardslove.service.MemberService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,38 +30,42 @@ import java.util.stream.Collectors;
 @RestController
 public class ContestInfoApi {
     private final ContestService contestService;
+    private final MemberService memberService;
 
     @GetMapping("/api/v1/contest/{id}")
-    public ContestDto info(@PathVariable(name = "id") long id) {
-        Contest contest = contestService.getContest(id);
-        return convert(contest);
+    public ContestDto info(@PathVariable(name = "id") long contestId, @AuthenticationPrincipal Long memberId) {
+        Member member = memberService.getMember(memberId);
+        Contest contest = contestService.getContest(contestId);
+        return convert(contest, member);
     }
 
     @GetMapping("/api/v1/contests")
-    public List<ContestDto> list() {
+    public List<ContestDto> list(@AuthenticationPrincipal Long memberId) {
+        Member member = memberService.getMember(memberId);
         List<Contest> contests = contestService.getAllContests();
-        return contests.stream().map(this::convert).collect(Collectors.toList());
+        return contests.stream().map(c -> convert(c, member)).collect(Collectors.toList());
     }
 
-    private ContestDto convert(Contest dto) {
+    private ContestDto convert(final Contest contest, final Member member) {
         return ContestDto.builder()
-                .id(dto.getId())
-                .name(dto.getTitle())
-                .description(dto.getDescription())
+                .id(contest.getId())
+                .name(contest.getTitle())
+                .description(contest.getDescription())
                 .start(ContestDto.Start.builder()
-                        .startDate(dto.getStartDate())
-                        .startTime(dto.getStartTime())
+                        .startDate(contest.getStartDate())
+                        .startTime(contest.getStartTime())
                         .build())
                 .end(ContestDto.End.builder()
-                        .endDate(dto.getEndDate())
-                        .endTime(dto.getEndTime())
+                        .endDate(contest.getEndDate())
+                        .endTime(contest.getEndTime())
                         .build())
                 .state(ContestDto.State.builder()
-                        .code(dto.getState().getCode())
+                        .code(contest.getState().getCode())
                         // TODO: 이름 찾아야 한다.
-                        .name(dto.getState().name())
+                        .name(contest.getState().name())
                         .build())
-                .maximumParticipants(dto.getMaximumParticipants())
+                .maximumParticipants(contest.getMaximumParticipants())
+                .participation(contest.isParticipated(member))
                 .build();
     }
 

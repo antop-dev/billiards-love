@@ -145,7 +145,7 @@ public class Contest {
      */
     public void participate(final Member member, final int handicap) {
         // 이미 참가한 회원인지 확인
-        if (players.stream().anyMatch(it -> it.getMember() == member)) {
+        if (isParticipated(member)) {
             throw new AlreadyParticipationException();
         }
 
@@ -156,6 +156,15 @@ public class Contest {
                 .build();
 
         players.add(player);
+    }
+
+    /**
+     * 회원이 대회에 참여한 상태인지 여부
+     * @param member 회원 정보
+     * @return {@code true} 이미 참여
+     */
+    public boolean isParticipated(Member member) {
+        return players.stream().anyMatch(it -> it.getMember() == member);
     }
 
     /**

@@ -32,7 +32,7 @@ public class MemberServiceImpl implements PrincipalProvider, MemberModifyService
     }
 
     @Override
-    public Member getMember(long id) {
-        return repository.findById(id).orElseThrow(MemberNotFountException::new);
+    public Member getMember(long memberId) {
+        return repository.findById(memberId).orElseThrow(MemberNotFountException::new);
     }
 }
