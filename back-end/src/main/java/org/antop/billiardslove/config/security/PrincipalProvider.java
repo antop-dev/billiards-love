@@ -1,5 +1,8 @@
 package org.antop.billiardslove.config.security;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * 인증 주체를 받아오는 인터페이스
  *
@@ -13,6 +16,19 @@ public interface PrincipalProvider {
      * @param id 고유 식별자
      * @return 인증 주체
      */
-    String getPrincipal(Object id);
+    Principal getPrincipal(Object id);
+
+    @RequiredArgsConstructor
+    @Getter
+    class Principal {
+        /**
+         * Principal 값
+         */
+        private final long value;
+        /**
+         * 관리자 여부
+         */
+        private final boolean manager;
+    }
 
 }

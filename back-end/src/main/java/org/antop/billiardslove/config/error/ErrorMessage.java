@@ -24,8 +24,8 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public static ErrorMessage of(int code, String message) {
-        return new ErrorMessage(code, message);
+    public static ErrorMessage of(HttpStatus status, String message) {
+        return new ErrorMessage(status.value(), message);
     }
 
     public static ErrorMessage badRequest(String message) {
@@ -38,6 +38,10 @@ public class ErrorMessage {
 
     public static ErrorMessage internalServerError(String message) {
         return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
+    }
+
+    public static ErrorMessage forbidden(String message) {
+        return new ErrorMessage(HttpStatus.FORBIDDEN.value(), message);
     }
 
 }

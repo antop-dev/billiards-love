@@ -3,7 +3,7 @@ package org.antop.billiardslove.config.security;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collections;
+import java.util.Collection;
 
 /**
  * JWT 인증 토큰
@@ -14,18 +14,23 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     /**
      * 기본 롤
      */
-    public static final String JWT_AUTHORITY = "ROLE_USER";
+    public static final String ROLE_USER = "ROLE_USER";
+    /**
+     * 관리자 롤
+     */
+    public static final String ROLE_MANAGER = "ROLE_MANAGER";
+
     /**
      * 회원 아이디
      */
-    private final Long principal;
+    private final long principal;
     /**
      * JWT 토큰값
      */
     private final String credentials;
 
-    public JwtAuthenticationToken(Long principal, String credentials) {
-        super(Collections.singletonList((GrantedAuthority) () -> JWT_AUTHORITY));
+    public JwtAuthenticationToken(long principal, String credentials, Collection<GrantedAuthority> authorities) {
+        super(authorities);
         this.principal = principal;
         this.credentials = credentials;
         setAuthenticated(true);

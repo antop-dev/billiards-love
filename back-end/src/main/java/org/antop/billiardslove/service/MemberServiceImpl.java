@@ -18,10 +18,10 @@ public class MemberServiceImpl implements PrincipalProvider, MemberModifyService
 
     @Transactional(readOnly = true)
     @Override
-    public String getPrincipal(Object id) {
+    public Principal getPrincipal(Object id) {
         Member member = repository.findById(Long.valueOf(id.toString()))
                 .orElseThrow(MemberNotFountException::new);
-        return member.getId().toString();
+        return new Principal(member.getId(), member.isManager());
     }
 
     @Override
