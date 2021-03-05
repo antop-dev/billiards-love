@@ -2,8 +2,11 @@
   <div class="page-container">
     <div>
       <!-- 초기화가 되어있나 안되어있나-->
-      <div v-if="isInit">
-        <div v-if="!isLogin">
+      <div v-if="showLoading">
+        <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
+      </div>
+      <div v-else>
+        <div v-if="!this.$store.state.isLogin">
           <md-content>
             <a @click="kakaoLogin" href="#">
               <img
@@ -17,11 +20,6 @@
           <router-view></router-view>
         </div>
       </div>
-      <div v-else>
-        <div>
-          <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -33,8 +31,7 @@ import aes256 from './util/aes256';
 export default {
   data() {
     return {
-      isInit: false,
-      isLogin: false,
+      showLoading: true,
     };
   },
   methods: {
@@ -47,7 +44,6 @@ export default {
       try {
         // 초기화
         const initKey = await LoginApi.requestInitKey();
-        this.isInit = true;
         const kakaoInitKey = aes256.decrypt(
           initKey.kakaoKey,
           initKey.secretKey,
@@ -56,6 +52,8 @@ export default {
         this.kakaoLogin();
       } catch (e) {
         console.error('error :: ', e);
+      } finally {
+        this.showLoading = false;
       }
       // console.log(initKey);
     },
@@ -66,17 +64,22 @@ export default {
         });
       });
       if (statusInfo.status === 'not_connected') {
+        this.$store.state.isLogin = false;
         window.Kakao.Auth.login({
-          success: () => {
-            this.isLogin = true;
+          success: async dat => {
+            await this.executeLogin(dat);
           },
           fail: e => {
             console.error(e);
           },
         });
       } else {
-        this.isLogin = true;
+        this.$store.state.isLogin = true;
       }
+    },
+    async executeLogin(dat) {
+      this.$store.state.isLogin = true;
+      this.$store.state.token = await LoginApi.executeLogin(dat);
     },
   },
   created() {

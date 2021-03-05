@@ -7,8 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    deviceId: null,
-    accessToken: null,
+    isLogin: false,
   },
   mutations,
   actions,
