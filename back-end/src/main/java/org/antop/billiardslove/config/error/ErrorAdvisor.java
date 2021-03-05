@@ -8,6 +8,7 @@ import org.antop.billiardslove.exception.MemberNotFountException;
 import org.antop.billiardslove.exception.PlayerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -60,7 +61,7 @@ public class ErrorAdvisor {
     }
 
     /**
-     * @Valid 검사 예외
+     * {@link javax.validation.Valid} 검사 예외
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -69,7 +70,7 @@ public class ErrorAdvisor {
     }
 
     /**
-     * @Valid 검사 예외
+     * {@link javax.validation.Valid} 검사 예외
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
@@ -88,6 +89,15 @@ public class ErrorAdvisor {
             sb.append(")");
         }
         return ErrorMessage.badRequest(sb.toString());
+    }
+
+    /**
+     * 권한 없음 에러 처리
+     */
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccessDeniedException.class)
+    ErrorMessage forbidden(Exception e) {
+        return ErrorMessage.forbidden("권한이 없습니다.");
     }
 
     /**

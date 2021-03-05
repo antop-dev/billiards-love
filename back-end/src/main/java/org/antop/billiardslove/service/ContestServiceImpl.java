@@ -44,4 +44,12 @@ public class ContestServiceImpl implements ContestService {
         contest.participate(member, handicap);
     }
 
+    @Transactional
+    @Override
+    public Contest open(long contestId) {
+        Contest contest = getContest(contestId);
+        contest.setState(Contest.State.ACCEPTING);
+        return contest;
+    }
+
 }

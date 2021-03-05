@@ -29,4 +29,13 @@ public interface ContestService {
      * @param handicap  참가 핸디캡
      */
     void participate(long contestId, long memberId, int handicap);
+
+    /**
+     * 대회 개최(?)
+     *
+     * @param contestId 대회 아이디
+     * @return 수정된 대회 정보
+     * @throws org.antop.billiardslove.exception.ContestNotFoundException 대회를 찾을 수 없을 경우
+     */
+    Contest open(long contestId);
 }
