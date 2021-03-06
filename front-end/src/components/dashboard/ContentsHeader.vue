@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     gameStatus: () => {
-      console.log(this.isOpen);
       if (this.isOpen) {
         return 'md-transparent';
       }

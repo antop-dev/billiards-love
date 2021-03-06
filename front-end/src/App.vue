@@ -55,7 +55,6 @@ export default {
       } finally {
         this.showLoading = false;
       }
-      // console.log(initKey);
     },
     async kakaoLogin() {
       const statusInfo = await new Promise(resolve => {

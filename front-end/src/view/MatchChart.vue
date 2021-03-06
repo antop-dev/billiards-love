@@ -1,6 +1,7 @@
 <template>
   <div>
     <md-table
+      hidden
       v-model="users"
       md-sort="rank"
       md-sort-order="asc"
