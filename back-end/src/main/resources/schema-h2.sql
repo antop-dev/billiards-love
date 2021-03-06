@@ -55,10 +55,10 @@ create table tbl_mtc
     cnts_id         bigint   not null comment '대회 아이디',
     plyr1_id        bigint   not null comment '왼쪽 선수 아이디',
     plyr2_id        bigint   not null comment '오른쪽 선수 아이디',
-    plyr1_rslt_inpt char(3)  not null default '   ' comment '왼쪽 선수 결과 입력',
-    plyr2_rslt_inpt char(3)  not null default '   ' comment '오른쪽 선수 결과 입력',
-    cnfr_mmbr_id    bigint   not null comment '확정한 맴버 아이디',
-    cnfr_dt         datetime not null comment '확정 일시'
+    plyr1_rslt_inpt char(3)  not null default 'NNN' comment '왼쪽 선수 결과 입력',
+    plyr2_rslt_inpt char(3)  not null default 'NNN' comment '오른쪽 선수 결과 입력',
+    cnfr_mmbr_id    bigint   null comment '확정한 맴버 아이디',
+    cnfr_dt         datetime null comment '확정 일시'
 );
 
 

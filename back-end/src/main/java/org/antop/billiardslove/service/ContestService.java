@@ -38,4 +38,11 @@ public interface ContestService {
      * @throws org.antop.billiardslove.exception.ContestNotFoundException 대회를 찾을 수 없을 경우
      */
     Contest open(long contestId);
+
+    /**
+     * 대회 시작
+     *
+     * @param contestId 대회 아이디
+     */
+    void start(long contestId);
 }
