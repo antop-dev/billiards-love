@@ -58,10 +58,10 @@ public class ContestServiceImpl implements ContestService {
     @Override
     public void start(long contestId) {
         Contest contest = getContest(contestId);
-        contest.setState(Contest.State.PROCEEDING);
         if (!contest.canStart()) {
             throw new CantStartContestStateException();
         }
+        contest.setState(Contest.State.PROCEEDING);
 
         List<Player> players = contest.getPlayers();
         for (int i = 0; i < players.size(); i++) {
