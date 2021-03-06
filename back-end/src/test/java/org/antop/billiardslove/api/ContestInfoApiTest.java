@@ -54,7 +54,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(6)))
                 .andExpect(jsonPath("$[0].participation", is(true)))
-                .andExpect(jsonPath("$[1].participation", is(false)))
+                .andExpect(jsonPath("$[1].participation", is(true)))
                 .andExpect(jsonPath("$[2].participation", is(false)))
                 .andExpect(jsonPath("$[3].participation", is(false)))
                 .andExpect(jsonPath("$[4].participation", is(false)))

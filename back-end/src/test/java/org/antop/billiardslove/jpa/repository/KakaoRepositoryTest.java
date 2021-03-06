@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -30,11 +29,6 @@ class KakaoRepositoryTest extends SpringBootBase {
             assertThat(kakao.getProfile().getThumbUrl(), is("https://picsum.photos/110"));
         });
 
-    }
-
-    @Test
-    void findAll() {
-        assertThat(repository.findAll(), hasSize(4));
     }
 
     @Test
