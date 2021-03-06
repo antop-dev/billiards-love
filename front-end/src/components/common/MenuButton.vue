@@ -2,7 +2,7 @@
   <div>
     <md-button class="md-icon-button">
       <span style="cursor:pointer;" class="material-icons">
-        keyboard_arrow_left
+        menu
       </span>
     </md-button>
   </div>
@@ -10,8 +10,7 @@
 
 <script>
 export default {
-  name: 'Back',
-  methods: {},
+  name: 'Menu',
 };
 </script>
 

@@ -1,12 +1,13 @@
 import SignUp from '../view/SignUp';
 import DashBoard from '../view/DashBoard';
-import GameStatus from '../view/GameStatus';
-import GameInfo from '../view/GameInfo';
-import GameRank from '../view/GameRank';
+import MatchStatus from '../view/MatchStatus';
+import MatchInfo from '../view/MatchInfo';
+import MatchRank from '../view/MatchRank';
+import MatchChart from '../view/MatchChart';
 
 export default [
   {
-    path: '/sign-up',
+    path: '/register',
     component: SignUp,
   },
   {
@@ -14,16 +15,23 @@ export default [
     component: DashBoard,
   },
   {
-    path: '/contest',
-    component: GameStatus,
+    path: '/match/:id',
+    component: MatchStatus,
     children: [
       {
-        path: 'info',
-        component: GameInfo,
+        name: 'info',
+        path: '/info',
+        component: MatchInfo,
       },
       {
-        path: 'rank',
-        component: GameRank,
+        name: 'rank',
+        path: '/rank',
+        component: MatchRank,
+      },
+      {
+        name: 'chart',
+        path: '/chart',
+        component: MatchChart,
       },
     ],
   },

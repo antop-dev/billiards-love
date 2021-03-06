@@ -1,6 +1,4 @@
 import HttpClient from './client';
-import store from '../store';
-
 /**
  * 로그인 API
  * @type {loginApi}
@@ -18,22 +16,12 @@ const loginApi = class {
    * @returns data: { "appId" : "","encodedId" :"", "kakaoKey": ""}
    */
   requestInitKey() {
-    const header = {
-      'X-DEVICE-ID': store.state.deviceId,
-      'X-REQUEST-ID': store.state.requestId, // TODO 약속된 키
-    };
-    return this.#client
-      .get('/v1/init', {}, header)
-      .then(({ data }) => data || {});
+    return this.#client.post('/api/v1/init', {}).then(({ data }) => data || {});
   }
 
-  loginExecute(body) {
-    const header = {
-      'X-DEVICE-ID': store.state.deviceId,
-      'X-APP-ID': store.state.loginRequestInfo.appId,
-    };
+  executeLogin(body) {
     return this.#client
-      .post('/v1/logged-in', body, header)
+      .post('/api/v1/logged-in', body)
       .then(({ data }) => data.token || {});
   }
 };

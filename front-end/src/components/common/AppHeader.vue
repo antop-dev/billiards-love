@@ -2,13 +2,14 @@
   <md-toolbar class="md-primary">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start">
-        <back-button></back-button>
+        <back-button v-if="backBtn"></back-button>
+        <menu-button v-if="menuBtn"></menu-button>
       </div>
       <div class="md-layout-item title-align-center">
-        <span class="md-title">My Title</span>
+        <span class="md-title">{{ title }}</span>
       </div>
       <div class="md-toolbar-section-end">
-        <close-button></close-button>
+        <close-button v-if="closeBtn"></close-button>
       </div>
     </div>
   </md-toolbar>
@@ -17,10 +18,17 @@
 <script>
 import CloseButton from './CloseButton';
 import BackButton from './BackButton';
+import MenuButton from './MenuButton';
 
 export default {
   name: 'AppHeader',
-  components: { CloseButton, BackButton },
+  props: {
+    title: String,
+    closeBtn: String,
+    backBtn: String,
+    menuBtn: String,
+  },
+  components: { CloseButton, BackButton, MenuButton },
 };
 </script>
 

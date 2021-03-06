@@ -1,12 +1,12 @@
 <template>
   <div class="contents">
     <md-content class="md-elevation-2">
-      <ContentsHeader></ContentsHeader>
+      <ContentsHeader :title="title" :isOpen="isOpen"></ContentsHeader>
       <div>
         <md-list class="md-double-line">
           <md-list-item>
             <div class="md-list-item-text">
-              <h1>1위</h1>
+              <h1>{{ rank }}위</h1>
             </div>
             <md-button class="md-list-action">
               <md-icon>arrow_upward</md-icon>
@@ -21,6 +21,11 @@
 import ContentsHeader from './ContentsHeader';
 export default {
   name: 'BoardContents',
+  props: {
+    title: String,
+    isOpen: Boolean,
+    rank: Number,
+  },
   components: { ContentsHeader },
 };
 </script>
@@ -28,5 +33,6 @@ export default {
 <style scoped>
 .contents {
   padding: 6px;
+  cursor: pointer;
 }
 </style>

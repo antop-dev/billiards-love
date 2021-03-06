@@ -1,8 +1,8 @@
 <template>
   <div class="viewport">
-    <md-toolbar class="md-accent" :md-elevation="0">
+    <md-toolbar :class="gameStatus" :md-elevation="0">
       <span class="material-icons">polymer</span>
-      <span class="md-subheading">8월 챔프전</span>
+      <span class="md-subheading">{{ title }}</span>
     </md-toolbar>
   </div>
 </template>
@@ -10,6 +10,18 @@
 <script>
 export default {
   name: 'ContentsHeader',
+  props: {
+    title: String,
+    isOpen: Boolean,
+  },
+  methods: {
+    gameStatus: () => {
+      if (this.isOpen) {
+        return 'md-transparent';
+      }
+      return 'md-accent';
+    },
+  },
 };
 </script>
 
