@@ -9,9 +9,9 @@ from tbl_mmbr;
 delete
 from tbl_kko_lgn;
 alter table tbl_mmbr
-    alter column mmbr_id bigint auto_increment (5);
+    alter column mmbr_id bigint auto_increment (6);
 alter table tbl_plyr
-    alter column plyr_id bigint auto_increment (7);
+    alter column plyr_id bigint auto_increment (10);
 alter table tbl_cnts
     alter column cnts_id bigint auto_increment (6);
 /* 카카오 로그인 목록 */
@@ -23,6 +23,8 @@ insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_im
 values (3, now(), '김정민', 'https://picsum.photos/640', 'https://picsum.photos/110');
 insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_img_url)
 values (4, now(), '홍길동', 'https://picsum.photos/640', 'https://picsum.photos/110');
+insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_img_url)
+values (5, now(), '성춘향', 'https://picsum.photos/640', 'https://picsum.photos/110');
 /* 회원 목록 */
 insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, kko_lgn_id, mgnr_yn)
 values (1, '안탑', 22, now(), 1, 'Y');
@@ -32,6 +34,8 @@ insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, kko_lgn_id)
 values (3, '잼미니', 25, NOW(), 3);
 insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, kko_lgn_id)
 values (4, '인디', 30, NOW(), 4);
+insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, kko_lgn_id)
+values (5, '춘향이', 15, NOW(), 5);
 /** 진행중인 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt)
@@ -56,6 +60,12 @@ values (2, '2022 리그전', '2021.05.01~', parsedatetime('20210101', 'yyyyMMdd'
         parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
 values (6, 2, 4, null, 30, null);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
+values (7, 2, 1, null, 23, null);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
+values (8, 2, 2, null, 21, null);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
+values (9, 2, 3, null, 28, null);
 /** 준비중인 대회 (1) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)

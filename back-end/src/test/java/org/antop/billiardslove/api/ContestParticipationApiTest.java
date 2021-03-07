@@ -26,7 +26,7 @@ class ContestParticipationApiTest extends SpringBootBase {
     @Test
     void participate() throws Exception {
         // request
-        String token = jwtTokenProvider.createToken("2");
+        String token = jwtTokenProvider.createToken("5");
         int handicap = 30;
         String requestBody = objectMapper.writeValueAsString(Collections.singletonMap("handicap", handicap));
         // action

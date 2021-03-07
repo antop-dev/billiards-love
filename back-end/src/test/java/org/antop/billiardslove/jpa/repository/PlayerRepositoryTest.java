@@ -10,13 +10,11 @@ import org.antop.billiardslove.jpa.entity.Player;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
@@ -48,12 +46,6 @@ class PlayerRepositoryTest extends SpringBootBase {
         } catch (PlayerNotFoundException e) {
             fail("member is null");
         }
-    }
-
-    @Test
-    void findAll() {
-        List<Player> list = playerRepository.findAll();
-        assertThat(list, hasSize(6));
     }
 
     @Test

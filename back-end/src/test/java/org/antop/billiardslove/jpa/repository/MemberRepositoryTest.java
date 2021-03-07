@@ -7,12 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
@@ -49,12 +47,6 @@ class MemberRepositoryTest extends SpringBootBase {
             assertThat(member.getModified(), notNullValue());
             assertThat(member.isManager(), is(false));
         });
-    }
-
-    @Test
-    void findAll() {
-        List<Member> members = repository.findAll();
-        assertThat(members, hasSize(4));
     }
 
     @Test
