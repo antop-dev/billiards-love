@@ -1,5 +1,6 @@
 package org.antop.billiardslove.service;
 
+import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.jpa.entity.Contest;
 
 import java.util.List;
@@ -38,4 +39,12 @@ public interface ContestService {
      * @throws org.antop.billiardslove.exception.ContestNotFoundException 대회를 찾을 수 없을 경우
      */
     Contest open(long contestId);
+
+    /**
+     * 대회 등록
+     *
+     * @param contestDto 입력된 대회 정보
+     * @return 등록된 대회 정보
+     */
+    Contest registration(ContestDto contestDto);
 }

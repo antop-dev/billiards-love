@@ -2,6 +2,7 @@ package org.antop.billiardslove.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
@@ -11,6 +12,9 @@ import org.antop.billiardslove.jpa.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -52,4 +56,26 @@ public class ContestServiceImpl implements ContestService {
         return contest;
     }
 
+    @Override
+    public Contest registration(ContestDto contestDto) {
+        Contest contest = Contest.builder()
+                .title(contestDto.getTitle())
+                .description(contestDto.getDescription())
+                .startDate(stringToLocalDate(contestDto.getStartDate()))
+                .startTime(stringToLocalTime(contestDto.getStartTime()))
+                .endDate(stringToLocalDate(contestDto.getEndDate()))
+                .endTime(stringToLocalTime(contestDto.getEndTime()))
+                .maximumParticipants(contestDto.getMaximumParticipants())
+                .build();
+        return contestRepository.save(contest);
+    }
+
+    private LocalDate stringToLocalDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
+    }
+
+    private LocalTime stringToLocalTime(String time) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("HHmmss");
+        return LocalTime.parse(time, format);
+    }
 }

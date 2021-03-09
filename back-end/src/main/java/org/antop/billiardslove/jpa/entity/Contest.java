@@ -122,8 +122,14 @@ public class Contest {
     private final List<Player> players = new ArrayList<>();
 
     @Builder
-    private Contest(String title) {
+    private Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, Integer maximumParticipants) {
         this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.maximumParticipants = maximumParticipants;
     }
 
     /**
@@ -160,6 +166,7 @@ public class Contest {
 
     /**
      * 회원이 대회에 참여한 상태인지 여부
+     *
      * @param member 회원 정보
      * @return {@code true} 이미 참여
      */
