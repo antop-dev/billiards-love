@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.antop.billiardslove.jpa.convertor.MatchResultConverter;
 
 import javax.persistence.Column;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 @Entity
 @Table(name = "tbl_mtc")
 public class Match {
@@ -39,6 +41,7 @@ public class Match {
     @Getter
     @ManyToOne
     @JoinColumn(name = "cnts_id")
+    @ToString.Exclude
     private Contest contest;
 
     /**
@@ -46,6 +49,7 @@ public class Match {
      */
     @ManyToOne
     @JoinColumn(name = "plyr1_id")
+    @ToString.Exclude
     private Player player1;
 
     /**
@@ -53,6 +57,7 @@ public class Match {
      */
     @ManyToOne
     @JoinColumn(name = "plyr2_id")
+    @ToString.Exclude
     private Player player2;
 
     /**
@@ -138,6 +143,25 @@ public class Match {
     }
 
     /**
+     * 상대 참가자를 찾는다.
+     *
+     * @param player 나 자신
+     * @return 상대 참가자
+     */
+    public Player getOpponent(Player player) {
+        return player1 == player ? player2 : player1;
+    }
+
+    /**
+     * 관리자에 의해 확정이 된 경기인지 여부
+     *
+     * @return {@code 확정됨}
+     */
+    public boolean isConfirmed() {
+        return manager != null && confirmAt != null;
+    }
+
+    /**
      * 입력된 결과
      *
      * @author antop
@@ -174,6 +198,11 @@ public class Match {
 
         public static MatchResult of(Result first, Result second, Result third) {
             return new MatchResult(first, second, third);
+        }
+
+        @Override
+        public String toString() {
+            return Arrays.toString(toArray());
         }
     }
 

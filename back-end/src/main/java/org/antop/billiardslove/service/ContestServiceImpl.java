@@ -10,6 +10,7 @@ import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.jpa.repository.ContestRepository;
+import org.antop.billiardslove.jpa.repository.MatchRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ import java.util.List;
 public class ContestServiceImpl implements ContestService {
     private final ContestRepository contestRepository;
     private final MemberService memberService;
-    private final MatchSaveService matchSaveService;
+    private final MatchRepository matchRepository;
 
     @Override
     public Contest getContest(long id) {
@@ -79,7 +80,7 @@ public class ContestServiceImpl implements ContestService {
                         .player2(opponent)
                         .build();
 
-                matchSaveService.save(match);
+                matchRepository.save(match);
             }
         }
 
