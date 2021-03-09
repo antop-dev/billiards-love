@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
+import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.jpa.repository.ContestRepository;
-import org.antop.billiardslove.jpa.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +25,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ContestServiceImpl implements ContestService {
     private final ContestRepository contestRepository;
-    private final PlayerRepository playerRepository;
     private final MemberService memberService;
+    private final MatchSaveService matchSaveService;
 
     @Override
     public Contest getContest(long id) {
@@ -78,4 +80,35 @@ public class ContestServiceImpl implements ContestService {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("HHmmss");
         return LocalTime.parse(time, format);
     }
+    @Transactional
+    @Override
+    public void start(long contestId) {
+        Contest contest = getContest(contestId);
+        if (!contest.canStart()) {
+            throw new CantStartContestStateException();
+        }
+        contest.setState(Contest.State.PROCEEDING);
+
+        List<Player> players = contest.getPlayers();
+        for (int i = 0; i < players.size(); i++) {
+            Player me = players.get(i);
+            me.setScore(0);
+            me.setNumber(i + 1);
+            me.setRank(i + 1);
+
+            for (int j = i + 1; j < players.size(); j++) {
+                Player opponent = players.get(j);
+
+                Match match = Match.builder()
+                        .contest(contest)
+                        .player1(me)
+                        .player2(opponent)
+                        .build();
+
+                matchSaveService.save(match);
+            }
+        }
+
+    }
+
 }

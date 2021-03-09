@@ -47,4 +47,11 @@ public interface ContestService {
      * @return 등록된 대회 정보
      */
     Contest registration(ContestDto contestDto);
+
+    /**
+     * 대회 시작
+     *
+     * @param contestId 대회 아이디
+     */
+    void start(long contestId);
 }

@@ -95,7 +95,7 @@ public class Contest {
     @Setter
     @Convert(converter = ContestStateConverter.class)
     @Column(name = "prgr_stt")
-    private State state = State.ACCEPTING;
+    private State state = State.PREPARING;
     /**
      * 최대 참가 인원
      */
@@ -172,6 +172,15 @@ public class Contest {
      */
     public boolean isParticipated(Member member) {
         return players.stream().anyMatch(it -> it.getMember() == member);
+    }
+
+    /**
+     * 대회를 시작(재시작)할 수 있는 지 여부
+     *
+     * @return {@code true} 시작(재시작) 가능
+     */
+    public boolean canStart() {
+        return state == State.ACCEPTING || state == State.STOPPED;
     }
 
     /**
