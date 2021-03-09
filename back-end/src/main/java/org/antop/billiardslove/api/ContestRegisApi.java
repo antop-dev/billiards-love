@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.antop.billiardslove.config.security.JwtAuthenticationToken;
 import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.exception.ForbiddenException;
 import org.antop.billiardslove.jpa.entity.Contest;
-import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.service.ContestService;
-import org.antop.billiardslove.service.MemberService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,17 +29,10 @@ import java.time.format.DateTimeFormatter;
 @RestController
 public class ContestRegisApi {
     private final ContestService contestService;
-    private final MemberService memberService;
 
+    @Secured(JwtAuthenticationToken.ROLE_MANAGER)
     @PostMapping("/api/v1/contest")
-    public Response registration(@RequestBody ContestRegisRequest request,
-                                 @AuthenticationPrincipal Long memberId) {
-
-        Member member = memberService.getMember(memberId);
-        if (!member.isManager()) {
-            // 403 권한 에러
-            throw new ForbiddenException();
-        }
+    public Response registration(@RequestBody ContestRegisRequest request) {
         ContestDto contestDto = ContestDto.builder()
                 .title(request.getName())
                 .description(request.getDescription())
