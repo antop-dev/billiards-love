@@ -2,7 +2,7 @@ package org.antop.billiardslove.config.filter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -93,7 +93,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         if (buf.length != 0) {
             try {
                 json = new String(buf, 0, buf.length, StandardCharsets.UTF_8);
-                json = System.lineSeparator() + gson.toJson(gson.fromJson(json, JsonObject.class));
+                json = System.lineSeparator() + gson.toJson(gson.fromJson(json, JsonElement.class));
             } catch (JsonSyntaxException e) {
                 json = "[NOT JSON]";
             }
@@ -113,7 +113,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         String body = request.getRequestBody();
         if (StringUtils.isNotBlank(body)) {
             try {
-                json = System.lineSeparator() + gson.toJson(gson.fromJson(body, JsonObject.class));
+                json = System.lineSeparator() + gson.toJson(gson.fromJson(body, JsonElement.class));
             } catch (JsonSyntaxException e) {
                 json = body;
             }

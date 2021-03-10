@@ -3,7 +3,6 @@ package org.antop.billiardslove.api;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.antop.billiardslove.service.ContestService;
-import org.antop.billiardslove.service.MatchSaveService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,8 +24,6 @@ class ContestStartApiTest extends SpringBootBase {
     private JwtTokenProvider jwtTokenProvider;
     @SpyBean
     private ContestService contestService;
-    @SpyBean
-    private MatchSaveService matchSaveService;
 
     @Test
     void start() throws Exception {
@@ -42,8 +38,6 @@ class ContestStartApiTest extends SpringBootBase {
                 .andExpect(status().isOk());
         // contestService.open({contestId}) 를 한번만 호출 했는지 검사
         verify(contestService, times(1)).start(anyLong());
-        // 4명의 참가자일 때 6개의 경기(Match)가 만들어져야 한다.
-        verify(matchSaveService, times(6)).save(any());
     }
 
     /**

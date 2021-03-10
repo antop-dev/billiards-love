@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.antop.billiardslove.exception.AlreadyParticipationException;
+import org.antop.billiardslove.exception.PlayerNotFoundException;
 import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -175,6 +176,20 @@ public class Contest {
      */
     public boolean canStart() {
         return state == State.ACCEPTING || state == State.STOPPED;
+    }
+
+    /**
+     * 회원정보로 이 대회에 참가한 참가자 정보를 찾는다.
+     *
+     * @param member 회원 정보
+     * @return {@link Player} 참가자 정보
+     * @throws PlayerNotFoundException 참가자를 찾지 못했을 경우
+     */
+    public Player getPlayer(Member member) {
+        return players.stream()
+                .filter(p -> p.getMember() == member)
+                .findFirst()
+                .orElseThrow(PlayerNotFoundException::new);
     }
 
     /**

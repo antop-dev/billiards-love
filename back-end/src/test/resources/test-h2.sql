@@ -10,10 +10,12 @@ delete
 from tbl_kko_lgn;
 alter table tbl_mmbr
     alter column mmbr_id bigint auto_increment (6);
-alter table tbl_plyr
-    alter column plyr_id bigint auto_increment (10);
 alter table tbl_cnts
     alter column cnts_id bigint auto_increment (6);
+alter table tbl_plyr
+    alter column plyr_id bigint auto_increment (6);
+alter table tbl_mtc
+    alter column cnts_id bigint auto_increment (11);
 /* 카카오 로그인 목록 */
 insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_img_url)
 values (1, now(), '안정용', 'https://picsum.photos/640', 'https://picsum.photos/110');
@@ -42,6 +44,7 @@ insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_dat
 values (1, '2021 리그전', '2021.01.01~', parsedatetime('20210101', 'yyyyMMdd'), PARSEDATETIME('000000', 'HHmmss'),
         parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '0', 32,
         parsedatetime('20191112151145', 'yyyyMMddHHmmss'));
+/* 참가자 목록 */
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
 values (1, 1, 1, 1, 22, 1, 150);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
@@ -49,9 +52,30 @@ values (2, 1, 2, 2, 24, 2, 40);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
 values (3, 1, 3, 3, 26, 3, 10);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (4, 1, 3, 4, 28, 20);
+values (4, 1, 4, 4, 28, 20);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (5, 1, 3, 5, 30, 30);
+values (5, 1, 5, 5, 30, 30);
+/* 경기 목록 */
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (1, 1, 1, 2, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (2, 1, 1, 3, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (3, 1, 1, 4, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (4, 1, 1, 5, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (5, 1, 2, 3, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (6, 1, 2, 4, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (7, 1, 2, 5, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (8, 1, 3, 4, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (9, 1, 3, 5, 'NNN', 'NNN', null, null);
+insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
+values (10, 1, 4, 5, 'NNN', 'NNN', null, null);
 /** 접수중인 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt)
