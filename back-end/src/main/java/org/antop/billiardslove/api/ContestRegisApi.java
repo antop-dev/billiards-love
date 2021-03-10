@@ -1,8 +1,10 @@
 package org.antop.billiardslove.api;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * 대회 등록 API
@@ -32,7 +33,7 @@ public class ContestRegisApi {
 
     @Secured(JwtAuthenticationToken.ROLE_MANAGER)
     @PostMapping("/api/v1/contest")
-    public Response registration(@RequestBody ContestRegisRequest request) {
+    public Response registration(@RequestBody Request request) {
         ContestDto contestDto = ContestDto.builder()
                 .title(request.getName())
                 .description(request.getDescription())
@@ -43,19 +44,19 @@ public class ContestRegisApi {
                 .maximumParticipants(request.getMaximumParticipants())
                 .build();
 
-        Contest contest = contestService.registration(contestDto);
+        Contest contest = contestService.register(contestDto);
 
         return Response.builder()
                 .id(contest.getId())
                 .name(contest.getTitle())
                 .description(contest.getDescription())
                 .start(Start.builder()
-                        .startDate(localDateToString(contest.getStartDate()))
-                        .startTime(localTimeToString(contest.getStartTime()))
+                        .startDate(contest.getStartDate())
+                        .startTime(contest.getStartTime())
                         .build())
                 .end(End.builder()
-                        .endDate(localDateToString(contest.getEndDate()))
-                        .endTime(localTimeToString(contest.getEndTime()))
+                        .endDate(contest.getEndDate())
+                        .endTime(contest.getEndTime())
                         .build())
                 .state(State.builder()
                         .code(contest.getState().getCode())
@@ -65,6 +66,60 @@ public class ContestRegisApi {
                 .build();
     }
 
+    /**
+     * 대회 정보 요청
+     *
+     * @author jammini
+     */
+    @Getter
+    @NoArgsConstructor
+    @ToString
+    static class Request {
+        /**
+         * 대회명
+         */
+        private String name;
+        /**
+         * 대회 설명
+         */
+        private String description;
+        /**
+         * 시작 일시
+         */
+        private Start start;
+        /**
+         * 종료 일시
+         */
+        private End end;
+        /**
+         * 최대 참가 인원
+         */
+        private Integer maximumParticipants;
+
+        @Getter
+        static class Start {
+            /**
+             * 시작일
+             */
+            private String startDate;
+            /**
+             * 시작시간
+             */
+            private String startTime;
+        }
+
+        @Getter
+        static class End {
+            /**
+             * 종료일
+             */
+            private String endDate;
+            /**
+             * 종료시간
+             */
+            private String endTime;
+        }
+    }
 
     /**
      * 대회 정보 응답
@@ -113,11 +168,13 @@ public class ContestRegisApi {
         /**
          * 시작일
          */
-        private final String startDate;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        private final LocalDate startDate;
         /**
          * 시작시간
          */
-        private final String startTime;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
+        private final LocalTime startTime;
     }
 
     @Getter
@@ -126,11 +183,13 @@ public class ContestRegisApi {
         /**
          * 종료일
          */
-        private final String endDate;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        private final LocalDate endDate;
         /**
          * 종료시간
          */
-        private final String endTime;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
+        private final LocalTime endTime;
     }
 
     @Getter
@@ -144,13 +203,5 @@ public class ContestRegisApi {
          * 상태명
          */
         private final String name;
-    }
-
-    private String localDateToString(LocalDate date) {
-        return date.format(DateTimeFormatter.BASIC_ISO_DATE);
-    }
-
-    private String localTimeToString(LocalTime time) {
-        return time.format(DateTimeFormatter.ISO_LOCAL_TIME);
     }
 }

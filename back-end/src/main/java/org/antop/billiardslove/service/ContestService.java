@@ -46,7 +46,7 @@ public interface ContestService {
      * @param contestDto 입력된 대회 정보
      * @return 등록된 대회 정보
      */
-    Contest registration(ContestDto contestDto);
+    Contest register(ContestDto contestDto);
 
     /**
      * 대회 시작

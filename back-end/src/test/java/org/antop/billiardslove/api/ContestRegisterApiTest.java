@@ -5,6 +5,7 @@ import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.hamcrest.Matchers.is;
@@ -14,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class ContestRegisApiTest extends SpringBootBase {
+class ContestRegisterApiTest extends SpringBootBase {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
@@ -94,6 +95,8 @@ class ContestRegisApiTest extends SpringBootBase {
                 .andDo(print())
                 // verify
                 .andExpect(status().isForbidden()) // 403 에러
+                .andExpect(jsonPath("$.code", is(HttpStatus.FORBIDDEN.value())))
+                .andExpect(jsonPath("$.message", is("권한이 없습니다.")))
         ;
     }
 }

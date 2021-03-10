@@ -59,7 +59,7 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
-    public Contest registration(ContestDto contestDto) {
+    public Contest register(ContestDto contestDto) {
         Contest contest = Contest.builder()
                 .title(contestDto.getTitle())
                 .description(contestDto.getDescription())
@@ -80,6 +80,7 @@ public class ContestServiceImpl implements ContestService {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("HHmmss");
         return LocalTime.parse(time, format);
     }
+
     @Transactional
     @Override
     public void start(long contestId) {
