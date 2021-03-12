@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    jwt_token: null,
   },
   mutations,
   actions,

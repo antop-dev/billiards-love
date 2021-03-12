@@ -57,28 +57,35 @@ export default {
       }
     },
     async kakaoLogin() {
-      const statusInfo = await new Promise(resolve => {
-        window.Kakao.Auth.getStatusInfo(statusObj => {
-          resolve(statusObj);
-        });
-      });
+      const statusInfo = await this.getUserInfo();
       if (statusInfo.status === 'not_connected') {
         this.$store.state.isLogin = false;
         window.Kakao.Auth.login({
-          success: async dat => {
-            await this.executeLogin(dat);
+          success: async () => {
+            // 사용자 정보 입력
+            await this.executeLogin(await this.getUserInfo());
           },
           fail: e => {
             console.error(e);
           },
         });
       } else {
-        this.$store.state.isLogin = true;
+        await this.executeLogin(statusInfo);
       }
     },
     async executeLogin(dat) {
       this.$store.state.isLogin = true;
-      this.$store.state.token = await LoginApi.executeLogin(dat);
+      // 토큰이 없으면 로그인
+      if (this.$store.state.jwt_token === null) {
+        this.$store.state.jwt_token = await LoginApi.executeLogin(dat);
+      }
+    },
+    async getUserInfo() {
+      return await new Promise(resolve => {
+        window.Kakao.Auth.getStatusInfo(statusObj => {
+          resolve(statusObj.user);
+        });
+      });
     },
   },
   created() {

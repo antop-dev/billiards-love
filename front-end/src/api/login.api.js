@@ -19,9 +19,20 @@ const loginApi = class {
     return this.#client.post('/api/v1/init', {}).then(({ data }) => data || {});
   }
 
-  executeLogin(body) {
+  executeLogin(userInfo) {
+    const info = {
+      id: userInfo.id,
+      connectedAt: userInfo.connected_at,
+      profile: {
+        nickname: userInfo.kakao_account.profile.nickname,
+        imageUrl: userInfo.kakao_account.profile.profile_image_url,
+        thumbnailUrl: userInfo.kakao_account.profile.thumbnail_image_url,
+        needsAgreement: userInfo.kakao_account.profile_needs_agreement,
+      },
+    };
+    console.log(info);
     return this.#client
-      .post('/api/v1/logged-in', body)
+      .post('/api/v1/logged-in', info)
       .then(({ data }) => data.token || {});
   }
 };
