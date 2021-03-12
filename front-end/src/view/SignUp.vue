@@ -32,6 +32,11 @@ export default {
       this.$router.push('/dashboard');
     },
   },
+  created() {
+    if (this.$store.state.login_info.registered) {
+      this.$router.push('/dashboard');
+    }
+  },
 };
 </script>
 

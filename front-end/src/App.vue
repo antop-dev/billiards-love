@@ -79,6 +79,10 @@ export default {
         this.$store.state.login_info = await LoginApi.executeLogin(dat);
       }
       this.$store.state.isLogin = true;
+
+      if (!this.$store.state.login_info.registered) {
+        this.$router.push('/register');
+      }
     },
     async getUserInfo() {
       return await new Promise(resolve => {
