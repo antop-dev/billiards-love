@@ -6,7 +6,7 @@
         <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
       </div>
       <div v-else>
-        <div v-if="!this.$store.state.isLogin">
+        <div v-if="this.$store.state.isLogin">
           <md-content>
             <a @click="kakaoLogin" href="#">
               <img
@@ -59,7 +59,7 @@ export default {
     async kakaoLogin() {
       const statusInfo = await this.getUserInfo();
       if (statusInfo.status === 'not_connected') {
-        this.$store.state.isLogin = false;
+        this.$store.state.isLogin = true;
         window.Kakao.Auth.login({
           success: async () => {
             // 사용자 정보 입력
@@ -78,7 +78,7 @@ export default {
       if (this.$store.state.login_info.token === null) {
         this.$store.state.login_info = await LoginApi.executeLogin(dat);
       }
-      this.$store.state.isLogin = true;
+      this.$store.state.isLogin = false;
 
       if (!this.$store.state.login_info.registered) {
         this.$router.push('/register');
