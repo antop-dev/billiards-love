@@ -2,6 +2,7 @@ package org.antop.billiardslove.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
@@ -53,6 +54,20 @@ public class ContestServiceImpl implements ContestService {
         Contest contest = getContest(contestId);
         contest.setState(Contest.State.ACCEPTING);
         return contest;
+    }
+
+    @Override
+    public Contest register(ContestDto contestDto) {
+        Contest contest = Contest.builder()
+                .title(contestDto.getTitle())
+                .description(contestDto.getDescription())
+                .startDate(contestDto.getStartDate())
+                .startTime(contestDto.getStartTime())
+                .endDate(contestDto.getEndDate())
+                .endTime(contestDto.getEndTime())
+                .maximumParticipants(contestDto.getMaximumParticipants())
+                .build();
+        return contestRepository.save(contest);
     }
 
     @Transactional
