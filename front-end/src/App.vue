@@ -74,11 +74,11 @@ export default {
       }
     },
     async executeLogin(dat) {
-      this.$store.state.isLogin = true;
       // 토큰이 없으면 로그인
-      if (this.$store.state.jwt_token === null) {
-        this.$store.state.jwt_token = await LoginApi.executeLogin(dat);
+      if (this.$store.state.login_info.token === null) {
+        this.$store.state.login_info = await LoginApi.executeLogin(dat);
       }
+      this.$store.state.isLogin = true;
     },
     async getUserInfo() {
       return await new Promise(resolve => {

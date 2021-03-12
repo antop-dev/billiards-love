@@ -30,10 +30,9 @@ const loginApi = class {
         needsAgreement: userInfo.kakao_account.profile_needs_agreement,
       },
     };
-    console.log(info);
     return this.#client
       .post('/api/v1/logged-in', info)
-      .then(({ data }) => data.token || {});
+      .then(({ data }) => data || {});
   }
 };
 

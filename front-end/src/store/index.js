@@ -8,7 +8,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isLogin: false,
-    jwt_token: null,
+    login_info: {
+      token: '',
+      registered: false,
+      member: {
+        handicap: '',
+        id: '',
+        nickname: '',
+        thumbnail: '',
+      },
+    },
   },
   mutations,
   actions,
