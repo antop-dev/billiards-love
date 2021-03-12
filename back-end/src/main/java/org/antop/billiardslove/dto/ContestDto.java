@@ -3,6 +3,9 @@ package org.antop.billiardslove.dto;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Getter
 @Builder
 public class ContestDto {
@@ -17,19 +20,19 @@ public class ContestDto {
     /**
      * 시작일
      */
-    private final String startDate;
+    private final LocalDate startDate;
     /**
      * 시작시간
      */
-    private final String startTime;
+    private final LocalTime startTime;
     /**
      * 종료일
      */
-    private final String endDate;
+    private final LocalDate endDate;
     /**
      * 종료시간
      */
-    private final String endTime;
+    private final LocalTime endTime;
     /**
      * 상태 코드
      */

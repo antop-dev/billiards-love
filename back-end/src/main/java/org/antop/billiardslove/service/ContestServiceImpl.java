@@ -63,22 +63,13 @@ public class ContestServiceImpl implements ContestService {
         Contest contest = Contest.builder()
                 .title(contestDto.getTitle())
                 .description(contestDto.getDescription())
-                .startDate(stringToLocalDate(contestDto.getStartDate()))
-                .startTime(stringToLocalTime(contestDto.getStartTime()))
-                .endDate(stringToLocalDate(contestDto.getEndDate()))
-                .endTime(stringToLocalTime(contestDto.getEndTime()))
+                .startDate(contestDto.getStartDate())
+                .startTime(contestDto.getStartTime())
+                .endDate(contestDto.getEndDate())
+                .endTime(contestDto.getEndTime())
                 .maximumParticipants(contestDto.getMaximumParticipants())
                 .build();
         return contestRepository.save(contest);
-    }
-
-    private LocalDate stringToLocalDate(String date) {
-        return LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
-    }
-
-    private LocalTime stringToLocalTime(String time) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("HHmmss");
-        return LocalTime.parse(time, format);
     }
 
     @Transactional

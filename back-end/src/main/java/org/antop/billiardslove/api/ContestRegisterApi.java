@@ -28,12 +28,13 @@ import java.time.LocalTime;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class ContestRegisApi {
+public class ContestRegisterApi {
     private final ContestService contestService;
 
     @Secured(JwtAuthenticationToken.ROLE_MANAGER)
     @PostMapping("/api/v1/contest")
     public Response registration(@RequestBody Request request) {
+
         ContestDto contestDto = ContestDto.builder()
                 .title(request.getName())
                 .description(request.getDescription())
@@ -101,11 +102,13 @@ public class ContestRegisApi {
             /**
              * 시작일
              */
-            private String startDate;
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+            private LocalDate startDate;
             /**
              * 시작시간
              */
-            private String startTime;
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmmss")
+            private LocalTime startTime;
         }
 
         @Getter
@@ -113,11 +116,13 @@ public class ContestRegisApi {
             /**
              * 종료일
              */
-            private String endDate;
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+            private LocalDate endDate;
             /**
              * 종료시간
              */
-            private String endTime;
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmmss")
+            private LocalTime endTime;
         }
     }
 
@@ -168,12 +173,12 @@ public class ContestRegisApi {
         /**
          * 시작일
          */
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
         private final LocalDate startDate;
         /**
          * 시작시간
          */
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmmss")
         private final LocalTime startTime;
     }
 
@@ -183,12 +188,12 @@ public class ContestRegisApi {
         /**
          * 종료일
          */
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
         private final LocalDate endDate;
         /**
          * 종료시간
          */
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HHmmss")
         private final LocalTime endTime;
     }
 
