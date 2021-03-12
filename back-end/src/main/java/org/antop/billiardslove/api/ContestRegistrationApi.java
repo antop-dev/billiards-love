@@ -28,12 +28,12 @@ import java.time.LocalTime;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class ContestRegisterApi {
+public class ContestRegistrationApi {
     private final ContestService contestService;
 
     @Secured(JwtAuthenticationToken.ROLE_MANAGER)
     @PostMapping("/api/v1/contest")
-    public Response registration(@RequestBody Request request) {
+    public Response register(@RequestBody Request request) {
 
         ContestDto contestDto = ContestDto.builder()
                 .title(request.getName())

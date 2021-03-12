@@ -34,14 +34,6 @@ public class ContestDto {
      */
     private final LocalTime endTime;
     /**
-     * 상태 코드
-     */
-    private final String code;
-    /**
-     * 상태명
-     */
-    private final String name;
-    /**
      * 최대 참가 인원
      */
     private final Integer maximumParticipants;
