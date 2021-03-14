@@ -6,7 +6,7 @@
         <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
       </div>
       <div v-else>
-        <div v-if="this.$store.state.isLogin">
+        <div v-if="showLoginButton">
           <md-content>
             <a @click="kakaoLogin" href="#">
               <img
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       showLoading: true,
+      showLoginButton: false,
     };
   },
   methods: {
@@ -49,7 +50,6 @@ export default {
           initKey.secretKey,
         );
         window.Kakao.init(kakaoInitKey);
-        this.kakaoLogin();
       } catch (e) {
         console.error('error :: ', e);
       } finally {
@@ -58,12 +58,13 @@ export default {
     },
     async kakaoLogin() {
       const statusInfo = await this.getUserInfo();
+      console.log(statusInfo);
       if (statusInfo.status === 'not_connected') {
-        this.$store.state.isLogin = true;
+        this.showLoginButton = true;
         window.Kakao.Auth.login({
           success: async () => {
             // 사용자 정보 입력
-            await this.executeLogin(await this.getUserInfo());
+            await this.executeLogin(await this.getUserInfo().user);
           },
           fail: e => {
             console.error(e);
@@ -78,7 +79,7 @@ export default {
       if (this.$store.state.login_info.token === null) {
         this.$store.state.login_info = await LoginApi.executeLogin(dat);
       }
-      this.$store.state.isLogin = false;
+      this.showLoginButton = false;
 
       if (!this.$store.state.login_info.registered) {
         this.$router.push('/register');
@@ -87,14 +88,15 @@ export default {
     async getUserInfo() {
       return await new Promise(resolve => {
         window.Kakao.Auth.getStatusInfo(statusObj => {
-          resolve(statusObj.user);
+          resolve(statusObj);
         });
       });
     },
   },
-  created() {
+  async created() {
     // 최초로 카카오 초기화 합니다.
-    this.kakaoInit();
+    await this.kakaoInit();
+    await this.kakaoLogin();
   },
 };
 </script>
