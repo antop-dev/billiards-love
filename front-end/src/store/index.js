@@ -17,6 +17,7 @@ export default new Vuex.Store({
         thumbnail: '',
       },
     },
+    secret_key: '',
   },
   mutations,
   actions,
