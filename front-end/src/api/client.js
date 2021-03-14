@@ -11,7 +11,7 @@ const HttpClient = axios.create({
 
 HttpClient.interceptors.request.use(
   config => {
-    config.headers['Authorization'] = 'Bearer ' + store.state.login_info.token;
+    config.headers['Authorization'] = store.state.login_info.token;
     return config;
   },
   function(error) {
