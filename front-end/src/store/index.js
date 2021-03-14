@@ -7,7 +7,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isLogin: false,
+    login_info: {
+      token: '',
+      registered: false,
+      member: {
+        handicap: '',
+        id: '',
+        nickname: '',
+        thumbnail: '',
+      },
+    },
   },
   mutations,
   actions,
