@@ -1,4 +1,5 @@
 import HttpClient from './client';
+// import store from '../store';
 /**
  * 로그인 API
  * @type {loginApi}
@@ -8,7 +9,6 @@ const loginApi = class {
   constructor(client) {
     this.#client = client;
   }
-
   /**
    * 카카오 초기화 정보를 요청합니다.
    * @param deviceID 방문자 식별갓
@@ -32,6 +32,11 @@ const loginApi = class {
     };
     return this.#client
       .post('/api/v1/logged-in', info)
+      .then(({ data }) => data || {});
+  }
+  registerMember(input) {
+    return this.#client
+      .post('/api/v1/member', input)
       .then(({ data }) => data || {});
   }
 };

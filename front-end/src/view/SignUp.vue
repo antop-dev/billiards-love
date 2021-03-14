@@ -8,7 +8,7 @@
       </md-field>
       <md-field>
         <label>대대 핸디</label>
-        <md-input v-model="handy"></md-input>
+        <md-input v-model="handicap"></md-input>
       </md-field>
       <div class="text-align-center">
         <md-button @click="confirm" class="md-raised">확인</md-button>
@@ -18,18 +18,29 @@
 </template>
 <script>
 import AppHeader from '@/common/AppHeader';
+import loginApi from '../api/login.api';
+import aes256 from '../util/aes256';
+
 export default {
   name: 'SignUp',
   components: { AppHeader },
   data() {
     return {
       nickname: '',
-      handy: '',
+      handicap: '',
     };
   },
   methods: {
-    confirm() {
-      this.$router.push('/dashboard');
+    async confirm() {
+      try {
+        await loginApi.registerMember({
+          nickname: aes256.encrypt(this.nickname, this.$store.state.secret_key),
+          handicap: this.handicap,
+        });
+        this.$router.push('/dashboard');
+      } catch (e) {
+        console.error('error::', e);
+      }
     },
   },
   created() {

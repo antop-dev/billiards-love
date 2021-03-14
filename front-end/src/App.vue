@@ -45,9 +45,10 @@ export default {
       try {
         // 초기화
         const initKey = await LoginApi.requestInitKey();
+        this.$store.state.secret_key = initKey.secretKey;
         const kakaoInitKey = aes256.decrypt(
           initKey.kakaoKey,
-          initKey.secretKey,
+          this.$store.state.secret_key,
         );
         window.Kakao.init(kakaoInitKey);
       } catch (e) {
@@ -58,13 +59,12 @@ export default {
     },
     async kakaoLogin() {
       const statusInfo = await this.getUserInfo();
-      console.log(statusInfo);
       if (statusInfo.status === 'not_connected') {
         this.showLoginButton = true;
         window.Kakao.Auth.login({
           success: async () => {
             // 사용자 정보 입력
-            await this.executeLogin(await this.getUserInfo().user);
+            await this.executeLogin(await this.getUserInfo());
           },
           fail: e => {
             console.error(e);
@@ -76,12 +76,13 @@ export default {
     },
     async executeLogin(dat) {
       // 토큰이 없으면 로그인
-      if (this.$store.state.login_info.token === null) {
-        this.$store.state.login_info = await LoginApi.executeLogin(dat);
+      if (this.$store.state.login_info.token === '') {
+        const loginInfo = await LoginApi.executeLogin(dat.user);
+        this.$store.commit('SAVE_LOGIN_REQUEST_INFO', loginInfo);
       }
-      this.showLoginButton = false;
 
       if (!this.$store.state.login_info.registered) {
+        this.showLoginButton = false;
         this.$router.push('/register');
       }
     },
