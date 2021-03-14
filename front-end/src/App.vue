@@ -59,7 +59,6 @@ export default {
     },
     async kakaoLogin() {
       const statusInfo = await this.getUserInfo();
-      console.log(statusInfo);
       if (statusInfo.status === 'not_connected') {
         this.showLoginButton = true;
         window.Kakao.Auth.login({
@@ -79,11 +78,11 @@ export default {
       // 토큰이 없으면 로그인
       if (this.$store.state.login_info.token === '') {
         const loginInfo = await LoginApi.executeLogin(dat.user);
-        this.showLoginButton = false;
         this.$store.commit('SAVE_LOGIN_REQUEST_INFO', loginInfo);
       }
 
       if (!this.$store.state.login_info.registered) {
+        this.showLoginButton = false;
         this.$router.push('/register');
       }
     },

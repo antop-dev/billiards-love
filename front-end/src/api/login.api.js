@@ -1,5 +1,5 @@
 import HttpClient from './client';
-import store from '../store';
+// import store from '../store';
 /**
  * 로그인 API
  * @type {loginApi}
@@ -35,17 +35,8 @@ const loginApi = class {
       .then(({ data }) => data || {});
   }
   registerMember(input) {
-    // 등록 정보
-    const info = {
-      request: {
-        ...input,
-      },
-      memberId: store.state.login_info.member.id,
-      secretKey: store.state.secret_key,
-    };
-    console.log(store.state.login_info.token);
     return this.#client
-      .post('/api/v1/member', info)
+      .post('/api/v1/member', input)
       .then(({ data }) => data || {});
   }
 };

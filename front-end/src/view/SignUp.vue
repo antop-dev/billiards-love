@@ -19,6 +19,7 @@
 <script>
 import AppHeader from '@/common/AppHeader';
 import loginApi from '../api/login.api';
+import aes256 from '../util/aes256';
 
 export default {
   name: 'SignUp',
@@ -33,7 +34,7 @@ export default {
     async confirm() {
       try {
         await loginApi.registerMember({
-          nickname: this.nickname,
+          nickname: aes256.encrypt(this.nickname, this.$store.state.secret_key),
           handicap: this.handicap,
         });
         this.$router.push('/dashboard');
