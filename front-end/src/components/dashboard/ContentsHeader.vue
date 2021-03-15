@@ -1,6 +1,6 @@
 <template>
   <div class="viewport">
-    <md-toolbar :class="gameStatus" :md-elevation="0">
+    <md-toolbar :class="gameStatus()" :md-elevation="0">
       <div v-if="isNoData">
         <span class="md-subheading">{{ title }}</span>
       </div>
@@ -17,15 +17,18 @@ export default {
   name: 'ContentsHeader',
   props: {
     title: String,
-    isOpen: Boolean,
+    state: String,
     isNoData: String,
   },
   methods: {
-    gameStatus: () => {
-      if (this.isOpen) {
+    gameStatus: function() {
+      if (this.state === '0' || this.state === '1') {
+        return 'md-primary';
+      } else if (this.state === '3' || this.state === '4') {
+        return 'md-accent';
+      } else {
         return 'md-transparent';
       }
-      return 'md-accent';
     },
   },
 };

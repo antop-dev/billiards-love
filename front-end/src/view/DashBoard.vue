@@ -13,8 +13,7 @@
         >
           <board-contents
             :title="content.name"
-            :isOpen="content.isOpen"
-            :rank="content.rank"
+            :state="content.state.code"
             @click.native="getDetail(content.id)"
           ></board-contents>
         </div>
