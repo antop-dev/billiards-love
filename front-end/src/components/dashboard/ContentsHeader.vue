@@ -1,8 +1,13 @@
 <template>
   <div class="viewport">
     <md-toolbar :class="gameStatus" :md-elevation="0">
-      <span class="material-icons">polymer</span>
-      <span class="md-subheading">{{ title }}</span>
+      <div v-if="isNoData">
+        <span class="md-subheading">{{ title }}</span>
+      </div>
+      <div v-else>
+        <span class="material-icons">polymer</span>
+        <span class="md-subheading">{{ title }}</span>
+      </div>
     </md-toolbar>
   </div>
 </template>
@@ -13,6 +18,7 @@ export default {
   props: {
     title: String,
     isOpen: Boolean,
+    isNoData: String,
   },
   methods: {
     gameStatus: () => {

@@ -53,8 +53,6 @@ export default {
         window.Kakao.init(kakaoInitKey);
       } catch (e) {
         console.error('error :: ', e);
-      } finally {
-        this.showLoading = false;
       }
     },
     async kakaoLogin() {
@@ -81,9 +79,12 @@ export default {
         this.$store.commit('SAVE_LOGIN_REQUEST_INFO', loginInfo);
       }
 
+      this.showLoginButton = false;
+      this.showLoading = false;
       if (!this.$store.state.login_info.registered) {
-        this.showLoginButton = false;
-        this.$router.push('/register');
+        await this.$router.push('/register');
+      } else {
+        await this.$router.push('/dashboard');
       }
     },
     async getUserInfo() {
