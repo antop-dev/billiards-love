@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <md-content class="md-elevation-2">
-      <ContentsHeader :title="title" :isOpen="isOpen"></ContentsHeader>
+      <ContentsHeader :title="title" :state="state"></ContentsHeader>
       <div>
         <md-list class="md-double-line">
           <md-list-item>
@@ -23,8 +23,8 @@ export default {
   name: 'BoardContents',
   props: {
     title: String,
-    isOpen: Boolean,
     rank: Number,
+    state: String,
   },
   components: { ContentsHeader },
 };
