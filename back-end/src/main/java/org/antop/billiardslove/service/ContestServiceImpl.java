@@ -3,6 +3,8 @@ package org.antop.billiardslove.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
+import org.antop.billiardslove.exception.AlreadyContestEndException;
+import org.antop.billiardslove.exception.AlreadyContestProgressException;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
@@ -99,6 +101,27 @@ public class ContestServiceImpl implements ContestService {
             }
         }
 
+    }
+
+    @Override
+    public Contest modify(long contestId, ContestDto contestDto) {
+        Contest contest = contestRepository.findById(contestId).orElseThrow(ContestNotFoundException::new);
+
+        // 준비중, 접수중, 중지 상태에서만 변경 가능
+        if (contest.getState().name().equals("PROCEEDING")) {
+            throw new AlreadyContestProgressException();
+        } else if (contest.getState().name().equals("END")) {
+            throw new AlreadyContestEndException();
+        }
+        contest.setTitle(contestDto.getTitle());
+        contest.setDescription(contestDto.getDescription());
+        contest.setStartDate(contestDto.getStartDate());
+        contest.setStartTime(contestDto.getStartTime());
+        contest.setEndDate(contestDto.getEndDate());
+        contest.setEndTime(contestDto.getEndTime());
+        contest.setMaximumParticipants(contestDto.getMaximumParticipants());
+
+        return contest;
     }
 
 }

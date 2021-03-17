@@ -54,4 +54,13 @@ public interface ContestService {
      * @param contestId 대회 아이디
      */
     void start(long contestId);
+
+    /**
+     * 대회 정보 수정
+     *
+     * @param contestId  수정할 아이디
+     * @param contestDto 수정 정보
+     * @return 수정된 대회 정보
+     */
+    Contest modify(long contestId, ContestDto contestDto);
 }
