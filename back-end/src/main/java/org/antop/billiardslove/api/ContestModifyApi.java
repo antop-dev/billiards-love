@@ -45,15 +45,15 @@ public class ContestModifyApi {
                 .id(contest.getId())
                 .name(contest.getTitle())
                 .description(contest.getDescription())
-                .start(ContestRegistrationApi.Start.builder()
+                .start(Start.builder()
                         .startDate(contest.getStartDate())
                         .startTime(contest.getStartTime())
                         .build())
-                .end(ContestRegistrationApi.End.builder()
+                .end(End.builder()
                         .endDate(contest.getEndDate())
                         .endTime(contest.getEndTime())
                         .build())
-                .state(ContestRegistrationApi.State.builder()
+                .state(State.builder()
                         .code(contest.getState().getCode())
                         .name(contest.getState().name())
                         .build())
@@ -62,7 +62,7 @@ public class ContestModifyApi {
     }
 
     /**
-     * 대회 정보 요청
+     * 대회 수정 요청
      *
      * @author jammini
      */
@@ -81,11 +81,11 @@ public class ContestModifyApi {
         /**
          * 시작 일시
          */
-        private ContestRegistrationApi.Request.Start start;
+        private Start start;
         /**
          * 종료 일시
          */
-        private ContestRegistrationApi.Request.End end;
+        private End end;
         /**
          * 최대 참가 인원
          */
@@ -121,7 +121,7 @@ public class ContestModifyApi {
     }
 
     /**
-     * 대회 정보 응답
+     * 대회 수정 응답
      *
      * @author jammini
      */
@@ -145,15 +145,15 @@ public class ContestModifyApi {
         /**
          * 시작 일시
          */
-        private final ContestRegistrationApi.Start start;
+        private final Start start;
         /**
          * 종료 일시
          */
-        private final ContestRegistrationApi.End end;
+        private final End end;
         /**
          * 진행 상태
          */
-        private final ContestRegistrationApi.State state;
+        private final State state;
         /**
          * 최대 참가 인원
          */
