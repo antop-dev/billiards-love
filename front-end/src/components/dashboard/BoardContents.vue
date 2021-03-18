@@ -5,8 +5,7 @@
       <div>
         <div class="md-layout md-gutter">
           <div
-            class="md-layout-item md-layout md-gutter
-            md-alignment-center-center"
+            class="md-layout-item md-layout md-gutter md-alignment-center-center md-size-30"
           >
             <div class="md-layout-item">
               <h1>{{ rank }}위</h1>
@@ -17,7 +16,7 @@
           </div>
           <div
             class="md-layout-item md-layout md-gutter
-            md-alignment-center-center"
+            md-alignment-center-right"
           >
             <md-content>
               <span>210 점</span>
