@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,6 +24,54 @@ class ContestStateApiTest extends SpringBootBase {
     private JwtTokenProvider jwtTokenProvider;
     @SpyBean
     private ContestService contestService;
+
+    @Test
+    void open() throws Exception {
+        long contestId = 3;
+        String token = jwtTokenProvider.createToken("1"); // 관리자
+        mockMvc.perform(post("/api/v1/contest/" + contestId + "/open")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
+                // logging
+                .andDo(print())
+                // verify
+                .andExpect(status().isOk());
+        // contestService.open() 를 한번만 호출 했는지 검사
+        verify(contestService, times(1)).open(contestId);
+    }
+
+    @Test
+    void start() throws Exception {
+        long contestId = 2; // 접수중인 대회
+        String token = jwtTokenProvider.createToken("1"); // 관리자
+        mockMvc.perform(post("/api/v1/contest/" + contestId + "/start")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
+                // logging
+                .andDo(print())
+                // verify
+                .andExpect(status().isOk());
+        // contestService.open({contestId}) 를 한번만 호출 했는지 검사
+        verify(contestService, times(1)).start(anyLong());
+    }
+
+    /**
+     * 대회 상태가 접수중/중지인 대회에서만 시작이 가능하다.<br>
+     */
+    @Test
+    void canNotStart() throws Exception {
+        long contestId = 1; // 진행중인 대회
+        String token = jwtTokenProvider.createToken("1");
+        mockMvc.perform(post("/api/v1/contest/" + contestId + "/start")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
+                .andDo(print())
+                // verify
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
+                .andExpect(jsonPath("$.message", is("대회를 시작할 수 없는 상태입니다.")))
+        ;
+    }
 
     @Test
     void stop() throws Exception {
@@ -48,6 +97,37 @@ class ContestStateApiTest extends SpringBootBase {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
                 .andExpect(jsonPath("$.message", is("대회를 중지할 수 없는 상태입니다.")))
+        ;
+    }
+
+    @Test
+    void end() throws Exception {
+        long contestId = 2; // 접수중인 대회
+        String token = jwtTokenProvider.createToken("1"); // 관리자
+        mockMvc.perform(post("/api/v1/contest/" + contestId + "/end")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
+                // logging
+                .andDo(print())
+                // verify
+                .andExpect(status().isOk());
+        // contestService.open({contestId}) 를 한번만 호출 했는지 검사
+        verify(contestService, times(1)).end(contestId);
+    }
+
+    @Test
+    void alreadyEnd() throws Exception {
+        long contestId = 6; // 종료된 대회
+        String token = jwtTokenProvider.createToken("1"); // 관리자
+        mockMvc.perform(post("/api/v1/contest/" + contestId + "/end")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token))
+                // logging
+                .andDo(print())
+                // verify
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(400)))
+                .andExpect(jsonPath("$.message", is("이미 종료된 대회입니다.")))
         ;
     }
 
