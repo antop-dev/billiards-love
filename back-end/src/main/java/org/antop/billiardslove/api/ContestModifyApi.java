@@ -1,30 +1,24 @@
 package org.antop.billiardslove.api;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.security.JwtAuthenticationToken;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 대회 등록 API
- *
- * @author jammini
- */
-@Slf4j
 @RequiredArgsConstructor
 @RestController
-public class ContestRegistrationApi {
+public class ContestModifyApi {
     private final ContestService contestService;
 
     @Secured(JwtAuthenticationToken.ROLE_MANAGER)
-    @PostMapping("/api/v1/contest")
-    public ContestResponse register(@RequestBody ContestRegistrationRequest request) {
+    @PutMapping("/api/v1/contest/{id}")
+    public ContestResponse modify(@PathVariable(name = "id") long contestId, @RequestBody ContestModifyRequest request) {
 
         ContestDto contestDto = ContestDto.builder()
                 .title(request.getName())
@@ -36,7 +30,7 @@ public class ContestRegistrationApi {
                 .maximumParticipants(request.getMaximumParticipants())
                 .build();
 
-        Contest contest = contestService.register(contestDto);
+        Contest contest = contestService.modify(contestId, contestDto);
 
         return ContestResponse.builder()
                 .id(contest.getId())
