@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <md-content class="md-elevation-2">
+    <md-content class="md-elevation-5">
       <ContentsHeader :title="title" :state="state"></ContentsHeader>
       <div>
         <md-list class="md-double-line">
