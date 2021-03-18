@@ -2,6 +2,7 @@ package org.antop.billiardslove.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.api.InitApi.Response;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
 import org.antop.billiardslove.util.Aes256Util;
@@ -34,7 +35,7 @@ public class InitApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.adSenseKey", isBase64()))
                 .andReturn().getResponse().getContentAsString();
 
-        InitResponse response = om.readValue(jsonString, InitResponse.class);
+        Response response = om.readValue(jsonString, Response.class);
         String secretKey = response.getSecretKey();
         assertThat(Aes256Util.decrypt(response.getKakaoKey(), secretKey), is(kakaoProperties.getJavaScriptKey()));
         assertThat(Aes256Util.decrypt(response.getAdSenseKey(), secretKey), is(googleProperties.getAdSenseKey()));
