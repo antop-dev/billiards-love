@@ -69,4 +69,11 @@ public interface ContestService {
      * @param contestId 대회 아이디
      */
     void stop(long contestId);
+
+    /**
+     * 대회 종료
+     *
+     * @param contestId 대회 아이디
+     */
+    void end(long contestId);
 }

@@ -1,7 +1,9 @@
 package org.antop.billiardslove.config.error;
 
 import lombok.extern.slf4j.Slf4j;
+import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.AlreadyParticipationException;
+import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.CantStopContestStateException;
@@ -46,7 +48,10 @@ public class ErrorAdvisor {
             AlreadyParticipationException.class,
             CantParticipateContestStateException.class,
             CantStartContestStateException.class,
-            CantStopContestStateException.class
+            CantStopContestStateException.class,
+            CantStartContestStateException.class,
+            CantEndContestStateException.class,
+            AlreadyContestEndException.class
     })
     ErrorMessage badRequest(Exception e) {
         return ErrorMessage.badRequest(e.getMessage());

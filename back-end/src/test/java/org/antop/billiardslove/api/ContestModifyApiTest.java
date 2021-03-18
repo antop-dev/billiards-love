@@ -129,8 +129,8 @@ class ContestModifyApiTest extends SpringBootBase {
                 // logging
                 .andDo(print())
                 // verify
-                .andExpect(status().isInternalServerError()) // 500 에러
-                .andExpect(jsonPath("$.code", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
+                .andExpect(status().isBadRequest()) // 400 에러
+                .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
                 .andExpect(jsonPath("$.message", is("이미 종료된 대회입니다.")))
         ;
     }

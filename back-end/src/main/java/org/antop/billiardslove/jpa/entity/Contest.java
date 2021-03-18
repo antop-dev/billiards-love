@@ -208,6 +208,24 @@ public class Contest {
     }
 
     /**
+     * 종료 상태인지 여부
+     *
+     * @return {@code true} 종료
+     */
+    public boolean isEnd() {
+        return state == State.END;
+    }
+
+    /**
+     * 종료할 수 있는 지 여부
+     *
+     * @return {@code true} 종료 가능
+     */
+    public boolean canEnd() {
+        return !isEnd();
+    }
+
+    /**
      * 대회 진행 상태
      *
      * @author jammini
