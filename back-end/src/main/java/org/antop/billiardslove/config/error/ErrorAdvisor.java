@@ -6,6 +6,7 @@ import org.antop.billiardslove.exception.AlreadyParticipationException;
 import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
+import org.antop.billiardslove.exception.CantStopContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
 import org.antop.billiardslove.exception.MemberNotFountException;
 import org.antop.billiardslove.exception.PlayerNotFoundException;
@@ -46,6 +47,8 @@ public class ErrorAdvisor {
     @ExceptionHandler({
             AlreadyParticipationException.class,
             CantParticipateContestStateException.class,
+            CantStartContestStateException.class,
+            CantStopContestStateException.class
             CantStartContestStateException.class,
             CantEndContestStateException.class,
             AlreadyContestEndException.class
@@ -102,7 +105,7 @@ public class ErrorAdvisor {
      */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
-    ErrorMessage forbidden(Exception e) {
+    ErrorMessage forbidden() {
         return ErrorMessage.forbidden("권한이 없습니다.");
     }
 

@@ -185,6 +185,15 @@ public class Contest {
     }
 
     /**
+     * 대회를 중지할 수 있는지 여부
+     *
+     * @return {@code true} 중지 가능
+     */
+    public boolean canStop() {
+        return state == State.PROCEEDING;
+    }
+
+    /**
      * 회원정보로 이 대회에 참가한 참가자 정보를 찾는다.
      *
      * @param member 회원 정보

@@ -8,6 +8,7 @@ import org.antop.billiardslove.exception.AlreadyContestProgressException;
 import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
+import org.antop.billiardslove.exception.CantStopContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Contest.State;
@@ -124,6 +125,16 @@ public class ContestServiceImpl implements ContestService {
         contest.setMaximumParticipants(contestDto.getMaximumParticipants());
 
         return contest;
+    }
+
+    @Transactional
+    @Override
+    public void stop(long contestId) {
+        Contest contest = getContest(contestId);
+        if (!contest.canStop()) {
+            throw new CantStopContestStateException();
+        }
+        contest.setState(Contest.State.STOPPED);
     }
 
     @Transactional

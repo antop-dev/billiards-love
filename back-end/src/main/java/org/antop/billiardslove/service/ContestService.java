@@ -65,6 +65,12 @@ public interface ContestService {
     Contest modify(long contestId, ContestDto contestDto);
 
     /**
+     * 대회 중지
+     * @param contestId 대회 아이디
+     */
+    void stop(long contestId);
+
+    /**
      * 대회 종료
      *
      * @param contestId 대회 아이디
