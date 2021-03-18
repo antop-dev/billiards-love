@@ -20,17 +20,17 @@ export default [
     children: [
       {
         name: 'info',
-        path: '/info',
+        path: 'info',
         component: MatchInfo,
       },
       {
         name: 'rank',
-        path: '/rank',
+        path: 'rank',
         component: MatchRank,
       },
       {
         name: 'chart',
-        path: '/chart',
+        path: 'chart',
         component: MatchChart,
       },
     ],
