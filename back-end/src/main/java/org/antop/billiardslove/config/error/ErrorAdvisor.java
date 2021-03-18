@@ -48,7 +48,7 @@ public class ErrorAdvisor {
             AlreadyParticipationException.class,
             CantParticipateContestStateException.class,
             CantStartContestStateException.class,
-            CantStopContestStateException.class
+            CantStopContestStateException.class,
             CantStartContestStateException.class,
             CantEndContestStateException.class,
             AlreadyContestEndException.class
