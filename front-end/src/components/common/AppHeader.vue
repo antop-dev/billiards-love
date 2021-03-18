@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .title-align-center {
   text-align: center;
 }
