@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.AlreadyContestProgressException;
+import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.entity.Contest.State;
 import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
@@ -54,7 +56,7 @@ public class ContestServiceImpl implements ContestService {
     @Override
     public Contest open(long contestId) {
         Contest contest = getContest(contestId);
-        contest.setState(Contest.State.ACCEPTING);
+        contest.setState(State.ACCEPTING);
         return contest;
     }
 
@@ -79,7 +81,7 @@ public class ContestServiceImpl implements ContestService {
         if (!contest.canStart()) {
             throw new CantStartContestStateException();
         }
-        contest.setState(Contest.State.PROCEEDING);
+        contest.setState(State.PROCEEDING);
 
         List<Player> players = contest.getPlayers();
         for (int i = 0; i < players.size(); i++) {
@@ -122,6 +124,20 @@ public class ContestServiceImpl implements ContestService {
         contest.setMaximumParticipants(contestDto.getMaximumParticipants());
 
         return contest;
+    }
+
+    @Transactional
+    @Override
+    public void end(long contestId) {
+        Contest contest = getContest(contestId);
+        if (contest.isEnd()) {
+            throw new AlreadyContestEndException();
+        }
+        if (!contest.canEnd()) {
+            throw new CantEndContestStateException();
+        }
+
+        contest.setState(State.END);
     }
 
 }
