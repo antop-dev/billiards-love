@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <app-header title="대시보드" menu-btn="true"></app-header>
     <div v-if="showLoading">
       <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
@@ -73,6 +73,6 @@ export default {
 
 <style scoped>
 .board {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 </style>

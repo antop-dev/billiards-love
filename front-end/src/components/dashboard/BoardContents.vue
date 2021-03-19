@@ -1,18 +1,32 @@
 <template>
   <div class="contents">
-    <md-content class="md-elevation-2">
+    <md-content class="md-elevation-5">
       <ContentsHeader :title="title" :state="state"></ContentsHeader>
       <div>
-        <md-list class="md-double-line">
-          <md-list-item>
-            <div class="md-list-item-text">
+        <div class="md-layout md-gutter">
+          <div
+            class="md-layout-item md-layout md-gutter md-alignment-center-center md-size-30"
+          >
+            <div class="md-layout-item">
               <h1>{{ rank }}위</h1>
             </div>
-            <md-button class="md-list-action">
-              <md-icon>arrow_upward</md-icon>
-            </md-button>
-          </md-list-item>
-        </md-list>
+            <div class="md-layout-item">
+              <md-icon class="md-size-2x">arrow_upward</md-icon>
+            </div>
+          </div>
+          <div
+            class="md-layout-item md-layout md-gutter
+            md-alignment-center-right"
+          >
+            <md-content>
+              <span>210 점</span>
+              <br />
+              <span>89%</span>
+              <br />
+              <span>(110 / 220)</span>
+            </md-content>
+          </div>
+        </div>
       </div>
     </md-content>
   </div>
@@ -27,6 +41,9 @@ export default {
     state: String,
   },
   components: { ContentsHeader },
+  created() {
+    this.rank = 1;
+  },
 };
 </script>
 
@@ -34,5 +51,8 @@ export default {
 .contents {
   padding: 6px;
   cursor: pointer;
+}
+.md-layout {
+  padding: 10px;
 }
 </style>
