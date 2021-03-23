@@ -36,7 +36,7 @@ public class ContestRegistrationRequest {
     /**
      * 최대 참가 인원
      */
-    private Integer maximumParticipants;
+    private Integer maxJoiner;
 
     @Getter
     static class Start {

@@ -37,8 +37,8 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.end.endTime", is("23:59:59")))
                 .andExpect(jsonPath("$.state.code", is("0")))
                 .andExpect(jsonPath("$.state.name", is("PROCEEDING")))
-                .andExpect(jsonPath("$.maximumParticipants", is(32)))
-                .andExpect(jsonPath("$.participation", is(true)))
+                .andExpect(jsonPath("$.maxJoiner", is(32)))
+                .andExpect(jsonPath("$.joined", is(true)))
         ;
     }
 
@@ -53,12 +53,12 @@ class ContestInfoApiTest extends SpringBootBase {
                 // verify
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(6)))
-                .andExpect(jsonPath("$[0].participation", is(true)))
-                .andExpect(jsonPath("$[1].participation", is(true)))
-                .andExpect(jsonPath("$[2].participation", is(false)))
-                .andExpect(jsonPath("$[3].participation", is(false)))
-                .andExpect(jsonPath("$[4].participation", is(false)))
-                .andExpect(jsonPath("$[5].participation", is(false)))
+                .andExpect(jsonPath("$[0].joined", is(true)))
+                .andExpect(jsonPath("$[1].joined", is(true)))
+                .andExpect(jsonPath("$[2].joined", is(false)))
+                .andExpect(jsonPath("$[3].joined", is(false)))
+                .andExpect(jsonPath("$[4].joined", is(false)))
+                .andExpect(jsonPath("$[5].joined", is(false)))
         ;
     }
 

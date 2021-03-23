@@ -36,5 +36,5 @@ public class ContestDto {
     /**
      * 최대 참가 인원
      */
-    private final Integer maximumParticipants;
+    private final Integer maxJoiner;
 }

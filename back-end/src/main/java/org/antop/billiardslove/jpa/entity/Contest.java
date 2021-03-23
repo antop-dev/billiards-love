@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.antop.billiardslove.exception.AlreadyParticipationException;
+import org.antop.billiardslove.exception.AlreadyJoinException;
 import org.antop.billiardslove.exception.PlayerNotFoundException;
 import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.springframework.data.annotation.CreatedDate;
@@ -102,7 +102,7 @@ public class Contest {
      */
     @Setter
     @Column(name = "max_prtc_prsn")
-    private Integer maximumParticipants;
+    private Integer maxJoiner;
     /**
      * 등록 일시
      */
@@ -123,14 +123,14 @@ public class Contest {
     private final List<Player> players = new ArrayList<>();
 
     @Builder
-    private Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, Integer maximumParticipants) {
+    private Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, Integer maxJoiner) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
-        this.maximumParticipants = maximumParticipants;
+        this.maxJoiner = maxJoiner;
     }
 
     /**
@@ -148,12 +148,12 @@ public class Contest {
      * @param member   회원
      * @param handicap 참가 핸디캡
      * @throws org.antop.billiardslove.exception.MemberNotFountException 회원을 찾을 수 없을 경우
-     * @throws AlreadyParticipationException                             이미 참여한 경우
+     * @throws AlreadyJoinException                             이미 참여한 경우
      */
-    public void participate(final Member member, final int handicap) {
+    public void join(final Member member, final int handicap) {
         // 이미 참가한 회원인지 확인
-        if (isParticipated(member)) {
-            throw new AlreadyParticipationException();
+        if (isJoined(member)) {
+            throw new AlreadyJoinException();
         }
 
         Player player = Player.builder()
@@ -171,7 +171,7 @@ public class Contest {
      * @param member 회원 정보
      * @return {@code true} 이미 참여
      */
-    public boolean isParticipated(Member member) {
+    public boolean isJoined(Member member) {
         return players.stream().anyMatch(it -> it.getMember() == member);
     }
 
@@ -223,6 +223,10 @@ public class Contest {
      */
     public boolean canEnd() {
         return !isEnd();
+    }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
     }
 
     /**

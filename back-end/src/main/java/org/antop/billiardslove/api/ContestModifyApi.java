@@ -27,7 +27,7 @@ public class ContestModifyApi {
                 .startTime(request.getStart().getStartTime())
                 .endDate(request.getEnd().getEndDate())
                 .endTime(request.getEnd().getEndTime())
-                .maximumParticipants(request.getMaximumParticipants())
+                .maxJoiner(request.getMaxJoiner())
                 .build();
 
         Contest contest = contestService.modify(contestId, contestDto);
@@ -48,7 +48,7 @@ public class ContestModifyApi {
                         .code(contest.getState().getCode())
                         .name(contest.getState().name())
                         .build())
-                .maximumParticipants(contest.getMaximumParticipants())
+                .maxJoiner(contest.getMaxJoiner())
                 .build();
     }
 }

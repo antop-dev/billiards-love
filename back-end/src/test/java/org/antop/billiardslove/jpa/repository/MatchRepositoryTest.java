@@ -27,7 +27,7 @@ class MatchRepositoryTest extends SpringBootBase {
         Contest contest = contestRepository.findById(1L).orElseThrow(ContestNotFoundException::new);
         Member member = memberRepository.findById(2L).orElseThrow(MemberNotFountException::new);
 
-        List<Match> matches = matchRepository.findParticipated(contest, member);
+        List<Match> matches = matchRepository.findJoinedIn(contest, member);
         assertThat(matches, hasSize(4));
     }
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,19 +19,27 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class ContestParticipationApi {
-
+public class ContestJoiningApi {
     private final ContestService contestService;
 
-    @PostMapping("/api/v1/contest/{id}/participate")
-    public void participationCheck(@PathVariable(name = "id") long contestId,
-                                   @AuthenticationPrincipal Long memberId,
-                                   @RequestBody Request request) {
-        contestService.participate(contestId, memberId, request.getHandicap());
+    @PostMapping("/api/v1/contest/{id}/join")
+    public void join(@PathVariable(name = "id") long contestId,
+                     @AuthenticationPrincipal Long memberId,
+                     @RequestBody JoiningRequest request) {
+        contestService.join(contestId, memberId, request.getHandicap());
     }
 
+    @DeleteMapping("/api/v1/contest/{id}/join")
+    public void cancelJoining(@PathVariable(name = "id") long contestId,
+                              @AuthenticationPrincipal Long memberId) {
+        contestService.cancelJoin(contestId, memberId);
+    }
+
+    /**
+     * 대회 참가 신청 요청
+     */
     @Getter
-    static class Request {
+    static class JoiningRequest {
         /**
          * 참가 핸디캡
          */

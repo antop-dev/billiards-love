@@ -15,6 +15,6 @@ public interface MatchRepositoryCustom {
      * @param member  회원 정보
      * @return 경기 목록
      */
-    List<Match> findParticipated(Contest contest, Member member);
+    List<Match> findJoinedIn(Contest contest, Member member);
 
 }

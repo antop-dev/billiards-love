@@ -64,8 +64,8 @@ public class ContestInfoApi {
                         // TODO: 이름 찾아야 한다.
                         .name(contest.getState().name())
                         .build())
-                .maximumParticipants(contest.getMaximumParticipants())
-                .participation(contest.isParticipated(member))
+                .maxJoiner(contest.getMaxJoiner())
+                .joined(contest.isJoined(member))
                 .build();
     }
 
@@ -105,11 +105,11 @@ public class ContestInfoApi {
         /**
          * 최대 참가 인원
          */
-        private final Integer maximumParticipants;
+        private final Integer maxJoiner;
         /**
          * 조회한 회원의 참가 여부
          */
-        private final boolean participation;
+        private final boolean joined;
 
         @Getter
         @Builder

@@ -33,7 +33,7 @@ public class ContestRegistrationApi {
                 .startTime(request.getStart().getStartTime())
                 .endDate(request.getEnd().getEndDate())
                 .endTime(request.getEnd().getEndTime())
-                .maximumParticipants(request.getMaximumParticipants())
+                .maxJoiner(request.getMaxJoiner())
                 .build();
 
         Contest contest = contestService.register(contestDto);
@@ -54,7 +54,7 @@ public class ContestRegistrationApi {
                         .code(contest.getState().getCode())
                         .name(contest.getState().name())
                         .build())
-                .maximumParticipants(contest.getMaximumParticipants())
+                .maxJoiner(contest.getMaxJoiner())
                 .build();
     }
 }

@@ -29,7 +29,7 @@ public interface ContestService {
      * @param memberId  회원 아이디
      * @param handicap  참가 핸디캡
      */
-    void participate(long contestId, long memberId, int handicap);
+    void join(long contestId, long memberId, int handicap);
 
     /**
      * 대회 개최(?)
@@ -66,6 +66,7 @@ public interface ContestService {
 
     /**
      * 대회 중지
+     *
      * @param contestId 대회 아이디
      */
     void stop(long contestId);
@@ -76,4 +77,12 @@ public interface ContestService {
      * @param contestId 대회 아이디
      */
     void end(long contestId);
+
+    /**
+     * 대회 참가를 취소한다.
+     *
+     * @param contestId 대회 아이디
+     * @param memberId  회워 아이디
+     */
+    void cancelJoin(long contestId, long memberId);
 }
