@@ -74,7 +74,7 @@ public class ContestInfoApi {
                 .startTime(request.getStart().getStartTime())
                 .endDate(request.getEnd().getEndDate())
                 .endTime(request.getEnd().getEndTime())
-                .maximumParticipants(request.getMaximumParticipants())
+                .maxJoiner(request.getMaxJoiner())
                 .build();
 
         Contest contest = contestService.register(contestDto);
@@ -95,7 +95,7 @@ public class ContestInfoApi {
                 .startTime(request.getStart().getStartTime())
                 .endDate(request.getEnd().getEndDate())
                 .endTime(request.getEnd().getEndTime())
-                .maximumParticipants(request.getMaximumParticipants())
+                .maxJoiner(request.getMaxJoiner())
                 .build();
 
         Contest contest = contestService.modify(contestId, contestDto);
@@ -110,7 +110,7 @@ public class ContestInfoApi {
                 .start(dateAndTime(contest.getStartDate(), contest.getStartTime()))
                 .end(dateAndTime(contest.getEndDate(), contest.getEndTime()))
                 .state(codeAndName(contest.getState().getCode(), contest.getState().name()))
-                .maximumParticipants(contest.getMaximumParticipants())
+                .maxJoiner(contest.getMaxJoiner())
                 .build();
     }
 
@@ -245,7 +245,7 @@ public class ContestInfoApi {
         /**
          * 최대 참가 인원
          */
-        private Integer maximumParticipants;
+        private Integer maxJoiner;
 
         @Getter
         static class Start {

@@ -85,7 +85,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 "    \"endDate\": \"20211231\",\n" +
                 "    \"endTime\": \"235959\"\n" +
                 "  },\n" +
-                "  \"maximumParticipants\": 32\n" +
+                "  \"maxJoiner\": 32\n" +
                 "}";
 
         // action
@@ -109,7 +109,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.state", notNullValue()))
                 .andExpect(jsonPath("$.state.code", notNullValue()))
                 .andExpect(jsonPath("$.state.name", notNullValue()))
-                .andExpect(jsonPath("$.maximumParticipants", is(32)))
+                .andExpect(jsonPath("$.maxJoiner", is(32)))
         ;
     }
 
@@ -131,7 +131,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 "    \"endDate\": \"20211231\",\n" +
                 "    \"endTime\": \"235959\"\n" +
                 "  },\n" +
-                "  \"maximumParticipants\": 32\n" +
+                "  \"maxJoiner\": 32\n" +
                 "}";
 
         // action
@@ -166,7 +166,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 "    \"endDate\": \"20211231\",\n" +
                 "    \"endTime\": \"235959\"\n" +
                 "  },\n" +
-                "  \"maximumParticipants\": 64\n" +
+                "  \"maxJoiner\": 64\n" +
                 "}";
 
         // action
@@ -190,7 +190,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.state", notNullValue()))
                 .andExpect(jsonPath("$.state.code", notNullValue()))
                 .andExpect(jsonPath("$.state.name", notNullValue()))
-                .andExpect(jsonPath("$.maximumParticipants", is(64)))
+                .andExpect(jsonPath("$.maxJoiner", is(64)))
         ;
     }
 
@@ -212,7 +212,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 "    \"endDate\": \"20211231\",\n" +
                 "    \"endTime\": \"235959\"\n" +
                 "  },\n" +
-                "  \"maximumParticipants\": 64\n" +
+                "  \"maxJoiner\": 64\n" +
                 "}";
 
         // action
@@ -247,7 +247,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 "    \"endDate\": \"20211231\",\n" +
                 "    \"endTime\": \"235959\"\n" +
                 "  },\n" +
-                "  \"maximumParticipants\": 64\n" +
+                "  \"maxJoiner\": 64\n" +
                 "}";
 
         // action
