@@ -31,7 +31,7 @@ public class MatchServiceImpl implements MatchSaveService, MatchGetService {
         Member member = memberService.getMember(memberId);
 
         Player player = contest.getPlayer(member);
-        List<Match> matches = matchRepository.findParticipated(contest, member);
+        List<Match> matches = matchRepository.findJoinedIn(contest, member);
 
         return MyMatch.builder()
                 .player(player)

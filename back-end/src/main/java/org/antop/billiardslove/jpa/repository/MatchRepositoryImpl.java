@@ -19,7 +19,7 @@ public class MatchRepositoryImpl extends QuerydslRepositorySupport implements Ma
     }
 
     @Override
-    public List<Match> findParticipated(Contest contest, Member member) {
+    public List<Match> findJoinedIn(Contest contest, Member member) {
         QPlayer player1 =new QPlayer("p1");
         QPlayer player2 = new QPlayer("p2");
 

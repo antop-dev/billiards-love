@@ -5,8 +5,8 @@ package org.antop.billiardslove.exception;
  *
  * @author jammini
  */
-public class AlreadyParticipationException extends RuntimeException {
-    public AlreadyParticipationException() {
+public class AlreadyJoinException extends RuntimeException {
+    public AlreadyJoinException() {
         super("이미 참가한 대회입니다.");
     }
 }

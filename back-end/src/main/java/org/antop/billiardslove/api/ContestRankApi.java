@@ -43,7 +43,7 @@ public class ContestRankApi {
                 .rank(p.getRank())
                 .progress(0) // TODO: 진행률
                 .score(p.getScore())
-                .participant(Rank.Participant.builder()
+                .joiner(Rank.Joiner.builder()
                         .id(p.getMember().getId())
                         .name(p.getMember().getNickname())
                         .handicap(p.getHandicap())
@@ -67,7 +67,7 @@ public class ContestRankApi {
         /**
          * 참가자
          */
-        private final Participant participant;
+        private final Joiner joiner;
         /**
          * 진행률
          */
@@ -80,7 +80,7 @@ public class ContestRankApi {
         @Getter
         @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
         @Builder
-        static class Participant {
+        static class Joiner {
             /**
              * 참가자 아이디
              */

@@ -74,7 +74,7 @@ public class ContestInfoApi {
                 .startTime(request.getStart().getStartTime())
                 .endDate(request.getEnd().getEndDate())
                 .endTime(request.getEnd().getEndTime())
-                .maximumParticipants(request.getMaximumParticipants())
+                .maxJoiner(request.getMaxJoiner())
                 .build();
 
         Contest contest = contestService.register(contestDto);
@@ -95,7 +95,7 @@ public class ContestInfoApi {
                 .startTime(request.getStart().getStartTime())
                 .endDate(request.getEnd().getEndDate())
                 .endTime(request.getEnd().getEndTime())
-                .maximumParticipants(request.getMaximumParticipants())
+                .maxJoiner(request.getMaxJoiner())
                 .build();
 
         Contest contest = contestService.modify(contestId, contestDto);
@@ -110,7 +110,7 @@ public class ContestInfoApi {
                 .start(dateAndTime(contest.getStartDate(), contest.getStartTime()))
                 .end(dateAndTime(contest.getEndDate(), contest.getEndTime()))
                 .state(codeAndName(contest.getState().getCode(), contest.getState().name()))
-                .maximumParticipants(contest.getMaximumParticipants())
+                .maxJoiner(contest.getMaxJoiner())
                 .build();
     }
 
@@ -122,8 +122,8 @@ public class ContestInfoApi {
                 .start(dateAndTime(contest.getStartDate(), contest.getStartTime()))
                 .end(dateAndTime(contest.getEndDate(), contest.getEndTime()))
                 .state(codeAndName(contest.getState().getCode(), contest.getState().name()))
-                .maximumParticipants(contest.getMaximumParticipants())
-                .participation(contest.isParticipated(member))
+                .maxJoiner(contest.getMaxJoiner())
+                .joined(contest.isJoined(member))
                 .build();
     }
 
@@ -171,7 +171,7 @@ public class ContestInfoApi {
         /**
          * 최대 참가 인원
          */
-        private final Integer maximumParticipants;
+        private final Integer maxJoiner;
 
     }
 
@@ -186,7 +186,7 @@ public class ContestInfoApi {
         /**
          * 조회한 회원의 참가 여부
          */
-        private final boolean participation;
+        private final boolean joined;
     }
 
     @Getter
@@ -245,7 +245,7 @@ public class ContestInfoApi {
         /**
          * 최대 참가 인원
          */
-        private Integer maximumParticipants;
+        private Integer maxJoiner;
 
         @Getter
         static class Start {

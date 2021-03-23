@@ -35,7 +35,7 @@ class ContestRepositoryTest extends SpringBootBase {
             assertThat(contest.getEndDate(), is(LocalDate.of(2021, 12, 30)));
             assertThat(contest.getEndTime(), is(LocalTime.of(23, 59, 59)));
             assertThat(contest.getState(), is(State.PROCEEDING));
-            assertThat(contest.getMaximumParticipants(), is(32));
+            assertThat(contest.getMaxJoiner(), is(32));
             assertThat(contest.getCreated(), is(LocalDateTime.of(2019, 11, 12, 15, 11, 45)));
             assertThat(contest.getModified(), nullValue());
         });

@@ -5,8 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.AlreadyContestProgressException;
+import org.antop.billiardslove.exception.CanNotCancelJoinException;
+import org.antop.billiardslove.exception.CanNotJoinContestStateException;
 import org.antop.billiardslove.exception.CantEndContestStateException;
-import org.antop.billiardslove.exception.CantParticipateContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.CantStopContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
@@ -43,14 +44,14 @@ public class ContestServiceImpl implements ContestService {
 
     @Transactional
     @Override
-    public void participate(long contestId, long memberId, int handicap) {
+    public void join(long contestId, long memberId, int handicap) {
         Contest contest = getContest(contestId);
         if (!contest.isAccepting()) {
-            throw new CantParticipateContestStateException();
+            throw new CanNotJoinContestStateException();
         }
 
         Member member = memberService.getMember(memberId);
-        contest.participate(member, handicap);
+        contest.join(member, handicap);
     }
 
     @Transactional
@@ -70,7 +71,7 @@ public class ContestServiceImpl implements ContestService {
                 .startTime(contestDto.getStartTime())
                 .endDate(contestDto.getEndDate())
                 .endTime(contestDto.getEndTime())
-                .maximumParticipants(contestDto.getMaximumParticipants())
+                .maxJoiner(contestDto.getMaxJoiner())
                 .build();
         return contestRepository.save(contest);
     }
@@ -122,7 +123,7 @@ public class ContestServiceImpl implements ContestService {
         contest.setStartTime(contestDto.getStartTime());
         contest.setEndDate(contestDto.getEndDate());
         contest.setEndTime(contestDto.getEndTime());
-        contest.setMaximumParticipants(contestDto.getMaximumParticipants());
+        contest.setMaxJoiner(contestDto.getMaxJoiner());
 
         return contest;
     }
@@ -149,6 +150,19 @@ public class ContestServiceImpl implements ContestService {
         }
 
         contest.setState(State.END);
+    }
+
+    @Transactional
+    @Override
+    public void cancelJoin(long contestId, long memberId) {
+        Contest contest = getContest(contestId);
+        if (!contest.isAccepting()) {
+            throw new CanNotCancelJoinException();
+        }
+        Member member = memberService.getMember(memberId);
+
+        Player player = contest.getPlayer(member);
+        contest.removePlayer(player);
     }
 
 }
