@@ -1,4 +1,4 @@
-name: Test Front-End (Java) with SonarCloud
+name: Test Back-End (Java) with SonarCloud
 
 on:
   # Trigger analysis when pushing in master or pull requests, and when creating
@@ -20,7 +20,8 @@ jobs:
       - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
-          java-version: 8
+          java-version: '8'
+          distribution: 'adopt'
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
