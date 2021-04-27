@@ -135,9 +135,7 @@ public class Match {
      * @param manager 매니저 권한의 맴버
      */
     public void decide(Member manager) {
-        if (!manager.isManager()) {
-            throw new IllegalArgumentException("not manager.");
-        }
+        if (!manager.isManager()) throw new IllegalArgumentException("not manager");
         this.manager = manager;
         this.confirmAt = LocalDateTime.now();
     }
@@ -149,7 +147,7 @@ public class Match {
      * @return 상대 참가자
      */
     public Player getOpponent(Player player) {
-        return player1 == player ? player2 : player1;
+        return player == player1 ? player2 : player1;
     }
 
     /**
