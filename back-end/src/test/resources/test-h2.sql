@@ -57,7 +57,7 @@ insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
 values (5, 1, 5, 5, 30, 30);
 /* 경기 목록 */
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
-values (1, 1, 1, 2, 'NNN', 'NNN', null, null);
+values (1, 1, 1, 2, 'WWL', 'LLW', 1, parsedatetime('20210102171202', 'yyyyMMddHHmmss'));
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
 values (2, 1, 1, 3, 'NNN', 'NNN', null, null);
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
@@ -65,7 +65,7 @@ values (3, 1, 1, 4, 'NNN', 'NNN', null, null);
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
 values (4, 1, 1, 5, 'NNN', 'NNN', null, null);
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
-values (5, 1, 2, 3, 'NNN', 'NNN', null, null);
+values (5, 1, 2, 3, 'LLL', 'WWW', null, null);
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
 values (6, 1, 2, 4, 'NNN', 'NNN', null, null);
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
