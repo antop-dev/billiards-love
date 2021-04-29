@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.antop.billiardslove.exception.PlayerNotFoundException;
 import org.antop.billiardslove.jpa.convertor.MatchResultConverter;
 
 import javax.persistence.Column;
@@ -109,7 +110,7 @@ public class Match {
         } else if (player == player2) {
             matchResult2 = new MatchResult(first, second, third);
         } else {
-            throw new IllegalArgumentException("player not found.");
+            throw new PlayerNotFoundException();
         }
     }
 

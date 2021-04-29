@@ -3,6 +3,8 @@ package org.antop.billiardslove.service;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.dto.MatchDto;
 import org.antop.billiardslove.exception.MatchNotFoundException;
+import org.antop.billiardslove.exception.NotJoinedMatchException;
+import org.antop.billiardslove.exception.PlayerNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)
-public class MatchServiceImpl implements MatchSaveService, MatchGetService {
+public class MatchServiceImpl implements MatchSaveService, MatchGetService, MatchResultService {
     private final ContestService contestService;
     private final MemberService memberService;
     private final MatchRepository matchRepository;
@@ -69,5 +71,18 @@ public class MatchServiceImpl implements MatchSaveService, MatchGetService {
                         .build())
                 .closed(match.isConfirmed())
                 .build();
+    }
+
+    @Transactional
+    @Override
+    public void enter(long matchId, long memberId, Match.Result[] results) {
+        Match match = matchRepository.findById(matchId).orElseThrow(MatchNotFoundException::new);
+        Member member = memberService.getMember(memberId);
+        try {
+            Player player = match.getContest().getPlayer(member);
+            match.enterResult(player, results[0], results[1], results[2]);
+        } catch (PlayerNotFoundException e) {
+            throw new NotJoinedMatchException();
+        }
     }
 }
