@@ -3,12 +3,14 @@ package org.antop.billiardslove.config.error;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.AlreadyJoinException;
-import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CanNotJoinContestStateException;
+import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.CantStopContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
+import org.antop.billiardslove.exception.MatchNotFoundException;
 import org.antop.billiardslove.exception.MemberNotFountException;
+import org.antop.billiardslove.exception.NotJoinedMatchException;
 import org.antop.billiardslove.exception.PlayerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -37,7 +39,8 @@ public class ErrorAdvisor {
     @ExceptionHandler({
             ContestNotFoundException.class,
             MemberNotFountException.class,
-            PlayerNotFoundException.class
+            PlayerNotFoundException.class,
+            MatchNotFoundException.class
     })
     ErrorMessage notFound(Exception e) {
         return ErrorMessage.notFound(e.getMessage());
@@ -51,7 +54,8 @@ public class ErrorAdvisor {
             CantStopContestStateException.class,
             CantStartContestStateException.class,
             CantEndContestStateException.class,
-            AlreadyContestEndException.class
+            AlreadyContestEndException.class,
+            NotJoinedMatchException.class
     })
     ErrorMessage badRequest(Exception e) {
         return ErrorMessage.badRequest(e.getMessage());
