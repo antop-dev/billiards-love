@@ -11,8 +11,10 @@ import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.security.JwtAuthenticationToken;
 import org.antop.billiardslove.dto.ContestDto;
+import org.antop.billiardslove.dto.PlayerDto;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.service.ContestService;
 import org.antop.billiardslove.service.MemberService;
 import org.springframework.security.access.annotation.Secured;
@@ -45,10 +47,10 @@ public class ContestInfoApi {
      * 대회 정보 한건 조회
      */
     @GetMapping("/api/v1/contest/{id}")
-    public ContestInfoVo info(@PathVariable(name = "id") long contestId, @AuthenticationPrincipal Long memberId) {
+    public ContestDetailVo info(@PathVariable(name = "id") long contestId, @AuthenticationPrincipal Long memberId) {
         final Member member = memberService.getMember(memberId);
         Contest contest = contestService.getContest(contestId);
-        return convert(contest, member);
+        return convertDetail(contest, member);
     }
 
     /**
@@ -127,6 +129,28 @@ public class ContestInfoApi {
                 .build();
     }
 
+    private ContestDetailVo convertDetail(final Contest contest, final Member member) {
+        Player player = contest.getPlayer(member);
+        return ContestDetailVo.builder()
+                .id(contest.getId())
+                .name(contest.getTitle())
+                .description(contest.getDescription())
+                .start(dateAndTime(contest.getStartDate(), contest.getStartTime()))
+                .end(dateAndTime(contest.getEndDate(), contest.getEndTime()))
+                .state(codeAndName(contest.getState().getCode(), contest.getState().name()))
+                .maxJoiner(contest.getMaxJoiner())
+                .joined(contest.isJoined(member))
+                .player(PlayerDto.builder()
+                        .id(player.getId())
+                        .handicap(player.getHandicap())
+                        .number(player.getNumber())
+                        .nickname(player.getMember().getNickname())
+                        .rank(player.getRank())
+                        .score(player.getScore())
+                        .build())
+                .build();
+    }
+
     private DateAndTime dateAndTime(LocalDate date, LocalTime time) {
         return DateAndTime.builder().date(date).time(time).build();
     }
@@ -187,6 +211,12 @@ public class ContestInfoApi {
          * 조회한 회원의 참가 여부
          */
         private final boolean joined;
+    }
+
+    @Getter
+    @SuperBuilder
+    static class ContestDetailVo extends ContestInfoVo {
+        private final PlayerDto player;
     }
 
     @Getter

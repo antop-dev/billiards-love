@@ -44,6 +44,14 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.state.name", is("PROCEEDING")))
                 .andExpect(jsonPath("$.maxJoiner", is(32)))
                 .andExpect(jsonPath("$.joined", is(true)))
+                .andExpect(jsonPath("$.player.id", is(2)))
+                // 회원의 핸디탭은 20인데 참가는 24로 했다.
+                .andExpect(jsonPath("$.player.id", is(2)))
+                .andExpect(jsonPath("$.player.number", is(2)))
+                .andExpect(jsonPath("$.player.nickname", is("띠용")))
+                .andExpect(jsonPath("$.player.handicap", is(24)))
+                .andExpect(jsonPath("$.player.rank", is(2)))
+                .andExpect(jsonPath("$.player.score", is(40)))
         ;
     }
 
