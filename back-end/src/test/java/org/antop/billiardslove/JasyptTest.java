@@ -12,12 +12,12 @@ public class JasyptTest {
     /**
      * 암복호화에 사용되는 키
      */
-    private final static String PASSWORD = "";
+    private final static String PASSWORD = "abcdefg";
     /**
      * 암호화 하려는 값<br>
      * 암호화 한 값은 application.properties 에서 "ENC(암호화된 값)"으로 사용된다.
      */
-    private final static String[] PLAIN_TEXTS = {""};
+    private final static String[] PLAIN_TEXTS = {"hello world!"};
 
     @Test
     void generate() {
