@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * 선수 정보
@@ -34,23 +35,25 @@ public class Player {
      * 선수 아이디
      */
     @Id
-    @Column(name = "plyr_id")
+    @Column(name = "plyr_id", unique = true)
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 대회 아이디
      */
+    @NotNull
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cnts_id")
+    @JoinColumn(name = "cnts_id", unique = true)
     private Contest contest;
     /**
      * 회원 아이디
      */
+    @NotNull
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mmbr_id")
+    @JoinColumn(name = "mmbr_id", unique = true)
     private Member member;
     /**
      * 선수 번호

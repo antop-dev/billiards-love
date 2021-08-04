@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -30,6 +31,9 @@ import java.util.Arrays;
 @Entity
 @Table(name = "tbl_mtc")
 public class Match {
+    /**
+     * 매칭 아이디
+     */
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +41,9 @@ public class Match {
     private Long id;
 
     /**
-     * 대회
+     * 대회 아이디
      */
+    @NotNull
     @Getter
     @ManyToOne
     @JoinColumn(name = "cnts_id")
@@ -46,16 +51,18 @@ public class Match {
     private Contest contest;
 
     /**
-     * 선수1
+     * 선수1 아이디
      */
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "plyr1_id")
     @ToString.Exclude
     private Player player1;
 
     /**
-     * 선수2
+     * 선수2 아이디
      */
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "plyr2_id")
     @ToString.Exclude
@@ -64,25 +71,30 @@ public class Match {
     /**
      * 선수1이 입력한 경기 결과
      */
+    @NotNull
     @Convert(converter = MatchResultConverter.class)
-    @Column(name = "plyr1_rslt_inpt")
+    @Column(name = "plyr1_rslt_inpt", columnDefinition = "varchar(3) default 'NNN'")
     private MatchResult matchResult1;
 
     /**
      * 선수2가 입력한 경기 결과
      */
+    @NotNull
     @Convert(converter = MatchResultConverter.class)
-    @Column(name = "plyr2_rslt_inpt")
+    @Column(name = "plyr2_rslt_inpt", columnDefinition = "varchar(3) default 'NNN'")
     private MatchResult matchResult2;
 
     /**
-     * 확정 정보
+     * 확정 멤버 아이디
      */
     @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cnfr_mmbr_id")
     private Member manager;
 
+    /**
+     * 확정 일시
+     */
     @Getter
     @Column(name = "cnfr_dt")
     private LocalDateTime confirmAt;

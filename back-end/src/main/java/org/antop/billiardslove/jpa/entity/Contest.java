@@ -26,6 +26,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -57,8 +58,9 @@ public class Contest {
     /**
      * 대회명
      */
+    @NotNull
     @Setter
-    @Column(name = "cnts_nm")
+    @Column(name = "cnts_nm", columnDefinition = "varchar(100)")
     private String title;
     /**
      * 대회 설명
@@ -93,6 +95,7 @@ public class Contest {
     /**
      * 진행상태
      */
+    @NotNull
     @Setter
     @Convert(converter = ContestStateConverter.class)
     @Column(name = "prgr_stt")
@@ -106,8 +109,9 @@ public class Contest {
     /**
      * 등록 일시
      */
+    @NotNull
     @CreatedDate
-    @Column(name = "rgst_dt")
+    @Column(name = "rgst_dt", columnDefinition = "timestamp default current_timestamp on update current_timestamp")
     private LocalDateTime created;
     /**
      * 마지막 수정 일시
