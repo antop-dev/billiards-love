@@ -21,7 +21,7 @@
             <md-content>
               <span>210 점</span>
               <br />
-              <span>89%</span>
+              <span>{{ progress }}%</span>
               <br />
               <span>(110 / 220)</span>
             </md-content>
@@ -32,17 +32,43 @@
   </div>
 </template>
 <script>
+import ContestApi from '../../api/contest.api';
 import ContentsHeader from './ContentsHeader';
 export default {
   name: 'BoardContents',
+  components: { ContentsHeader },
   props: {
+    id: Number,
     title: String,
-    rank: Number,
     state: String,
   },
-  components: { ContentsHeader },
+  data() {
+    return {
+      rank: 1,
+      participant: {
+        id: '',
+        name: '',
+        handicap: '',
+      },
+      progress: '',
+      score: '',
+    };
+  },
+  methods: {
+    setRank(rankInfo) {
+      this.rank = rankInfo.rank;
+      this.participant = rankInfo.participant;
+      this.progress = rankInfo.progress;
+      this.score = rankInfo.score;
+    },
+  },
   created() {
-    this.rank = 1;
+    try {
+      const inquireRank = ContestApi.inquire_rank(this.id);
+      this.setRank(inquireRank);
+    } catch (e) {
+      console.log(e);
+    }
   },
 };
 </script>
