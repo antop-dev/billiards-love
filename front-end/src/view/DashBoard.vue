@@ -12,6 +12,7 @@
           v-bind:key="content.id"
         >
           <board-contents
+            :id="content.id"
             :title="content.name"
             :state="content.state.code"
             @click.native="getDetail(content.id)"
@@ -21,13 +22,18 @@
       <div v-else>
         <no-data></no-data>
       </div>
+      <md-speed-dial class="md-bottom-right">
+        <md-speed-dial-target>
+          <md-icon>add</md-icon>
+        </md-speed-dial-target>
+      </md-speed-dial>
     </div>
   </div>
 </template>
 <script>
 import BoardContents from '@/dashboard/BoardContents';
 import AppHeader from '@/common/AppHeader';
-import ContestApi from '../api/contest.api';
+// import ContestApi from '../api/contest.api';
 import NoData from '@/dashboard/NoData';
 
 export default {
@@ -36,7 +42,7 @@ export default {
     return {
       showLoading: true,
       contentsList: [
-        /*{
+        {
           id: 1,
           name: '2021 리그전',
           description: '2021.01.01~',
@@ -54,7 +60,7 @@ export default {
           },
           maximumParticipants: 32,
           participation: false,
-        },*/
+        },
       ],
     };
   },
@@ -65,7 +71,7 @@ export default {
     },
   },
   async created() {
-    this.contentsList = await ContestApi.inquire();
+    // this.contentsList = await ContestApi.inquire();
     this.showLoading = false;
   },
 };
