@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author antop
  */
-public class JasyptTest {
+class JasyptTest {
     /**
      * 암복호화에 사용되는 키
      */
@@ -20,7 +20,7 @@ public class JasyptTest {
     private final static String[] PLAIN_TEXTS = {"hello world!"};
 
     @Test
-    void generate() {
+    void encryptPlainText() {
         StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
         encryptor.setPassword(PASSWORD);
 
