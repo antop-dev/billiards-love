@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -29,13 +30,18 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "tbl_plyr")
+@Table(name = "tbl_plyr", uniqueConstraints= {
+        @UniqueConstraint(
+                columnNames = {"plyr_id", "cnts_id", "mmbr_id"}
+        )
+    }
+)
 public class Player {
     /**
      * 선수 아이디
      */
     @Id
-    @Column(name = "plyr_id", unique = true)
+    @Column(name = "plyr_id")
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,7 +51,7 @@ public class Player {
     @NotNull
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cnts_id", unique = true)
+    @JoinColumn(name = "cnts_id")
     private Contest contest;
     /**
      * 회원 아이디
@@ -53,7 +59,7 @@ public class Player {
     @NotNull
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mmbr_id", unique = true)
+    @JoinColumn(name = "mmbr_id")
     private Member member;
     /**
      * 선수 번호

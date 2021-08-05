@@ -73,16 +73,16 @@ public class Match {
      */
     @NotNull
     @Convert(converter = MatchResultConverter.class)
-    @Column(name = "plyr1_rslt_inpt", columnDefinition = "varchar(3) default 'NNN'")
-    private MatchResult matchResult1;
+    @Column(name = "plyr1_rslt_inpt")
+    private MatchResult matchResult1 = MatchResult.NONE;
 
     /**
      * 선수2가 입력한 경기 결과
      */
     @NotNull
     @Convert(converter = MatchResultConverter.class)
-    @Column(name = "plyr2_rslt_inpt", columnDefinition = "varchar(3) default 'NNN'")
-    private MatchResult matchResult2;
+    @Column(name = "plyr2_rslt_inpt")
+    private MatchResult matchResult2 = MatchResult.NONE;
 
     /**
      * 확정 멤버 아이디

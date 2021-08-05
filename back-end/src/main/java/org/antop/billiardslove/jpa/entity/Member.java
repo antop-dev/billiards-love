@@ -52,7 +52,7 @@ public class Member {
      * 별명
      */
     @Setter
-    @Column(name = "mmbr_nck_nm", columnDefinition = "varchar(50)")
+    @Column(name = "mmbr_nck_nm", length = 50)
     private String nickname;
     /**
      * 핸디캡
@@ -79,8 +79,8 @@ public class Member {
      */
     @NotNull
     @Convert(converter = BooleanConverter.class)
-    @Column(name = "mgnr_yn", columnDefinition = "boolean default false")
-    private boolean manager;
+    @Column(name = "mgnr_yn")
+    private boolean manager = false;
 
     /**
      * 카카오 로그인 아이디

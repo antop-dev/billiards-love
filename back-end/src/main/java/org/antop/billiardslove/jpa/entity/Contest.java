@@ -111,7 +111,7 @@ public class Contest {
      */
     @NotNull
     @CreatedDate
-    @Column(name = "rgst_dt", columnDefinition = "timestamp default current_timestamp on update current_timestamp")
+    @Column(name = "rgst_dt")
     private LocalDateTime created;
     /**
      * 마지막 수정 일시
