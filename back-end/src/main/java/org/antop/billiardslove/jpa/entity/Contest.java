@@ -60,7 +60,7 @@ public class Contest {
      */
     @NotNull
     @Setter
-    @Column(name = "cnts_nm", columnDefinition = "varchar(100)")
+    @Column(name = "cnts_nm", length = 100)
     private String title;
     /**
      * 대회 설명
