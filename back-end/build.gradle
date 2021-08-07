@@ -41,7 +41,7 @@ dependencies {
     // https://github.com/candrews/log4jdbc-spring-boot-starter/
     implementation "com.integralblue:log4jdbc-spring-boot-starter:2.0.0"
     // https://mariadb.com/kb/en/about-mariadb-connector-j/
-    runtimeOnly "org.mariadb.jdbc:mariadb-java-client:2.6.2"
+    implementation "org.mariadb.jdbc:mariadb-java-client:2.6.2"
     // https://commons.apache.org/proper/commons-io/
     implementation "commons-io:commons-io:2.8.0"
     // https://commons.apache.org/proper/commons-lang/
