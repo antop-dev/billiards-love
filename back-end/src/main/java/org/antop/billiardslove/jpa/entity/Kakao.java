@@ -17,6 +17,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -44,6 +45,7 @@ public class Kakao {
     /**
      * 접속 일시
      */
+    @NotNull
     @Setter
     @Column(name = "lst_cnct_dt")
     private LocalDateTime connectedAt;
@@ -51,7 +53,7 @@ public class Kakao {
     @Setter
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "nickname", column = @Column(name = "nck_nm")),
+            @AttributeOverride(name = "nickname", column = @Column(name = "nck_nm", nullable = false)),
             @AttributeOverride(name = "imgUrl", column = @Column(name = "prfl_img_url")),
             @AttributeOverride(name = "thumbUrl", column = @Column(name = "prfl_thmb_img_url"))
     })
