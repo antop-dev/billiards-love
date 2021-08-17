@@ -1,4 +1,4 @@
-create table tbl_mmbr
+create table if not exists tbl_mmbr
 (
     mmbr_id     bigint      not null auto_increment comment '회원 아이디',
     mmbr_nck_nm varchar(50) null comment '회원 별명',
@@ -10,7 +10,7 @@ create table tbl_mmbr
     primary key (mmbr_id)
 );
 
-create table tbl_kko_lgn
+create table if not exists tbl_kko_lgn
 (
     lgn_id            bigint       not null comment '카카오톡 로그인 아이디',
     lst_cnct_dt       datetime     not null comment '마지막 접속일시',
@@ -20,7 +20,7 @@ create table tbl_kko_lgn
     primary key (lgn_id)
 );
 
-create table tbl_cnts
+create table if not exists tbl_cnts
 (
     cnts_id       bigint       not null auto_increment comment '대회 아이디',
     cnts_nm       varchar(100) not null comment '대회명',
@@ -36,7 +36,7 @@ create table tbl_cnts
     primary key (cnts_id)
 );
 
-create table tbl_plyr
+create table if not exists tbl_plyr
 (
     plyr_id   bigint  not null auto_increment comment '선수 아이디',
     cnts_id   bigint  not null comment '대회 아이디',
@@ -49,7 +49,7 @@ create table tbl_plyr
     unique (cnts_id, mmbr_id, plyr_no)
 );
 
-create table tbl_mtc
+create table if not exists tbl_mtc
 (
     mtc_id          bigint   not null auto_increment comment '매칭 아이디',
     cnts_id         bigint   not null comment '대회 아이디',
@@ -61,24 +61,3 @@ create table tbl_mtc
     cnfr_dt         datetime null comment '확정 일시',
     primary key (mtc_id)
 );
-
-alter table tbl_mmbr
-    add foreign key (kko_lgn_id) references tbl_kko_lgn (lgn_id);
-
-alter table tbl_plyr
-    add foreign key (cnts_id) references tbl_cnts (cnts_id);
-
-alter table tbl_plyr
-    add foreign key (mmbr_id) references tbl_mmbr (mmbr_id);
-
-alter table tbl_mtc
-    add foreign key (cnts_id) references tbl_cnts (cnts_id);
-
-alter table tbl_mtc
-    add foreign key (plyr1_id) references tbl_plyr (plyr_id);
-
-alter table tbl_mtc
-    add foreign key (plyr2_id) references tbl_plyr (plyr_id);
-
-alter table tbl_mtc
-    add foreign key (cnfr_mmbr_id) references tbl_mmbr (mmbr_id);

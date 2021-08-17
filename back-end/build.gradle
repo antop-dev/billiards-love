@@ -27,18 +27,13 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation "io.jsonwebtoken:jjwt:0.9.1"
     implementation "com.querydsl:querydsl-jpa"
     implementation "com.querydsl:querydsl-apt"
     compileOnly "org.projectlombok:lombok"
     developmentOnly "org.springframework.boot:spring-boot-devtools"
-    runtimeOnly "com.h2database:h2"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     annotationProcessor "org.projectlombok:lombok"
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
-    }
-    testImplementation "org.springframework.security:spring-security-test"
     // https://docs.sentry.io/clients/java/integrations/#spring
     implementation "io.sentry:sentry-spring:1.7.30"
     // https://github.com/ulisesbocchio/jasypt-spring-boot/issues
@@ -55,18 +50,30 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
     // https://commons.apache.org/proper/commons-codec/
     implementation "commons-codec:commons-codec:1.15"
+    // https://github.com/google/guava
+    implementation "com.google.guava:guava:30.1-jre"
+    // querydsl
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties["querydsl.version"]}:jpa"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    // java.lang.NoClassDefFoundError (javax.annotation.Generated) 발생 대응
+    /**
+     * https://github.com/ulisesbocchio/jasypt-spring-boot
+     */
+    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:2.1.2"
+    /**
+     * test
+     */
     // https://github.com/DiUS/java-faker
     testImplementation "com.github.javafaker:javafaker:1.0.2"
     // https://github.com/npathai/hamcrest-optional
     testImplementation "com.github.npathai:hamcrest-optional:2.0.0"
-    // https://github.com/google/guava
-    implementation "com.google.guava:guava:30.1-jre"
-    // querydsl
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
-    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
-    // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
-    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
-    // java.lang.NoClassDefFoundError (javax.annotation.Generated) 발생 대응
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+    testImplementation "org.springframework.security:spring-security-test"
+    testImplementation "com.h2database:h2"
 }
 
 test {
