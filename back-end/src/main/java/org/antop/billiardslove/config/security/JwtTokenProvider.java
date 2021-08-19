@@ -6,7 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.properties.JwtProperties;
-import org.antop.billiardslove.util.TemporalUtil;
+import org.antop.billiardslove.util.TemporalUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -31,8 +31,8 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(TemporalUtil.toDate(now))
-                .setExpiration(TemporalUtil.toDate(expiration))
+                .setIssuedAt(TemporalUtils.toDate(now))
+                .setExpiration(TemporalUtils.toDate(expiration))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }

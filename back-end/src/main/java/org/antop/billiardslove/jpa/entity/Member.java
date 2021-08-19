@@ -26,6 +26,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 회원 정보
@@ -34,7 +35,6 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -95,6 +95,19 @@ public class Member {
     public Member(Kakao kakao, String nickname) {
         this.kakao = kakao;
         this.nickname = nickname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }

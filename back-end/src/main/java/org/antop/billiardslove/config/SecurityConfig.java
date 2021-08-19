@@ -5,6 +5,7 @@ import org.antop.billiardslove.config.error.ErrorHandlerFilter;
 import org.antop.billiardslove.config.security.JwtAuthenticationFilter;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.antop.billiardslove.config.security.PrincipalProvider;
+import org.antop.billiardslove.constants.Profiles;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

@@ -1,4 +1,4 @@
-package org.antop.billiardslove.config;
+package org.antop.billiardslove.constants;
 
 /**
  * 두가지 개발환경을 사용한다.

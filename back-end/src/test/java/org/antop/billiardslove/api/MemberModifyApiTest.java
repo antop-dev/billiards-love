@@ -1,8 +1,8 @@
 package org.antop.billiardslove.api;
 
-import org.antop.billiardslove.Constants;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
+import org.antop.billiardslove.constants.Security;
 import org.antop.billiardslove.util.Aes256Util;
 import org.hamcrest.Aes256Matcher;
 import org.hamcrest.NumberMatcher;
@@ -40,7 +40,7 @@ class MemberModifyApiTest extends SpringBootBase {
 
         mockMvc.perform(
                 post("/api/v1/member")
-                        .sessionAttr(Constants.SECRET_KEY, secretKey)
+                        .sessionAttr(Security.SECRET_KEY, secretKey)
                         .header(HttpHeaders.AUTHORIZATION, token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)

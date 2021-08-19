@@ -1,4 +1,4 @@
-package org.antop.billiardslove.jpa.repository;
+package org.antop.billiardslove.dao;
 
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.jpa.entity.Contest;
@@ -18,13 +18,13 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
-class ContestRepositoryTest extends SpringBootBase {
+class ContestDaoTest extends SpringBootBase {
     @Autowired
-    private ContestRepository repository;
+    private ContestDao dao;
 
     @Test
     void findById() {
-        Optional<Contest> optional = repository.findById(1L);
+        Optional<Contest> optional = dao.findById(1L);
         assertThat(optional, isPresent());
 
         optional.ifPresent(contest -> {
@@ -46,19 +46,19 @@ class ContestRepositoryTest extends SpringBootBase {
         Contest contest = Contest.builder()
                 .title("코로나 리그전 2020")
                 .build();
-        repository.save(contest);
+        dao.save(contest);
         assertThat(contest.getId(), notNullValue());
     }
 
     @Test
     void change() {
-        Optional<Contest> optional = repository.findById(2L);
+        Optional<Contest> optional = dao.findById(2L);
         assertThat(optional, isPresent());
 
         optional.ifPresent(contest -> {
             contest.setTitle("2020 리그전 - 2");
             contest.setDescription("2020년 2번째 리그전 코로나로 인해 종료");
-            contest.setState(State.END);
+            contest.end();
 
             flush();
             assertThat(contest.getModified(), notNullValue());
@@ -67,7 +67,7 @@ class ContestRepositoryTest extends SpringBootBase {
 
     @Test
     void findAllWithPlayers() {
-        List<Contest> contests = repository.findAllOrdered();
+        List<Contest> contests = dao.findAllOrdered();
         // 시작일이 입력된 "준비중인 대회 (2)"가 "준비중인 대회 (1)"보다 위에 있어야 한다.
         assertThat(contests.get(2).getId(), is(4L));
         assertThat(contests.get(2).getTitle(), is("준비중인 대회 (2)"));

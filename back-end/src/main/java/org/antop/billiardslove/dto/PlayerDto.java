@@ -17,7 +17,7 @@ public class PlayerDto {
     /**
      * 참가자 번호
      */
-    private final long number;
+    private final Integer number;
     /**
      * 참가자 핸디캡
      */

@@ -8,31 +8,30 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.antop.billiardslove.exception.AlreadyJoinException;
-import org.antop.billiardslove.exception.PlayerNotFoundException;
+import lombok.experimental.FieldNameConstants;
+import org.antop.billiardslove.exception.AlreadyContestEndException;
+import org.antop.billiardslove.exception.CantEndContestStateException;
+import org.antop.billiardslove.exception.CantStartContestStateException;
+import org.antop.billiardslove.exception.CantStopContestStateException;
 import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * 대회 정보
@@ -42,7 +41,7 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@FieldNameConstants
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tbl_cnts")
@@ -96,7 +95,6 @@ public class Contest {
      * 진행상태
      */
     @NotNull
-    @Setter
     @Convert(converter = ContestStateConverter.class)
     @Column(name = "prgr_stt")
     private State state = State.PREPARING;
@@ -119,12 +117,6 @@ public class Contest {
     @LastModifiedDate
     @Column(name = "mdfy_dt")
     private LocalDateTime modified;
-    /**
-     * 참가자 목록
-     */
-    @ToString.Exclude
-    @OneToMany(mappedBy = "contest", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Player> players = new ArrayList<>();
 
     @Builder
     private Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, Integer maxJoiner) {
@@ -147,39 +139,6 @@ public class Contest {
     }
 
     /**
-     * 대회에 회원을 참가시킨다.
-     *
-     * @param member   회원
-     * @param handicap 참가 핸디캡
-     * @throws org.antop.billiardslove.exception.MemberNotFountException 회원을 찾을 수 없을 경우
-     * @throws AlreadyJoinException                             이미 참여한 경우
-     */
-    public void join(final Member member, final int handicap) {
-        // 이미 참가한 회원인지 확인
-        if (isJoined(member)) {
-            throw new AlreadyJoinException();
-        }
-
-        Player player = Player.builder()
-                .contest(this)
-                .member(member)
-                .handicap(handicap)
-                .build();
-
-        players.add(player);
-    }
-
-    /**
-     * 회원이 대회에 참여한 상태인지 여부
-     *
-     * @param member 회원 정보
-     * @return {@code true} 이미 참여
-     */
-    public boolean isJoined(Member member) {
-        return players.stream().anyMatch(it -> it.getMember() == member);
-    }
-
-    /**
      * 대회를 시작(재시작)할 수 있는 지 여부
      *
      * @return {@code true} 시작(재시작) 가능
@@ -195,20 +154,6 @@ public class Contest {
      */
     public boolean canStop() {
         return state == State.PROCEEDING;
-    }
-
-    /**
-     * 회원정보로 이 대회에 참가한 참가자 정보를 찾는다.
-     *
-     * @param member 회원 정보
-     * @return {@link Player} 참가자 정보
-     * @throws PlayerNotFoundException 참가자를 찾지 못했을 경우
-     */
-    public Player getPlayer(Member member) {
-        return players.stream()
-                .filter(p -> p.getMember() == member)
-                .findFirst()
-                .orElseThrow(PlayerNotFoundException::new);
     }
 
     /**
@@ -229,8 +174,44 @@ public class Contest {
         return !isEnd();
     }
 
-    public void removePlayer(Player player) {
-        players.remove(player);
+    /**
+     * 대회 중지
+     */
+    public void stop() {
+        if (!canStop()) {
+            throw new CantStopContestStateException();
+        }
+        state = State.STOPPED;
+    }
+
+    /**
+     * 대회 시작
+     */
+    public void start() {
+        if (!canStart()) {
+            throw new CantStartContestStateException();
+        }
+        state = State.PROCEEDING;
+    }
+
+    /**
+     * 대회 종료
+     */
+    public void end() {
+        if (isEnd()) {
+            throw new AlreadyContestEndException();
+        }
+        if (!canEnd()) {
+            throw new CantEndContestStateException();
+        }
+        state = State.END;
+    }
+
+    /**
+     * 접수 시작
+     */
+    public void open() {
+        state = State.ACCEPTING;
     }
 
     /**
@@ -271,5 +252,19 @@ public class Contest {
                     .orElseThrow(IllegalArgumentException::new);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contest contest = (Contest) o;
+        return Objects.equals(id, contest.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 
 }

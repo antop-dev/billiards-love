@@ -2,7 +2,7 @@ package org.antop.billiardslove;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-import org.antop.billiardslove.config.Profiles;
+import org.antop.billiardslove.constants.Profiles;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;

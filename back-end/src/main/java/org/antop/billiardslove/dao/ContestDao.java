@@ -1,8 +1,11 @@
-package org.antop.billiardslove.jpa.repository;
+package org.antop.billiardslove.dao;
 
-import com.querydsl.jpa.JPQLQuery;
+import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.repository.ContestRepository;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,28 +15,35 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.antop.billiardslove.jpa.entity.QContest.contest;
-import static org.antop.billiardslove.jpa.entity.QPlayer.player;
 
-public class ContestRepositoryImpl extends QuerydslRepositorySupport implements ContestRepositoryCustom {
+@Slf4j
+@Repository
+@Transactional(readOnly = true)
+public class ContestDao extends QuerydslRepositorySupport {
+    private final ContestRepository repository;
 
-    public ContestRepositoryImpl() {
+    public ContestDao(ContestRepository repository) {
         super(Contest.class);
+        this.repository = repository;
     }
 
-    @Override
-    public Optional<Contest> findByIdWithFetch(long contestId) {
-        JPQLQuery<Contest> query = from(contest)
-                .leftJoin(contest.players, player)
-                .fetchJoin()
-                .where(contest.id.eq(contestId));
-        return Optional.ofNullable(query.fetchOne());
+    /**
+     * 대회 정보 조회
+     *
+     * @param contestId 대회 아이디
+     * @return 대회 엔티티
+     */
+    public Optional<Contest> findById(long contestId) {
+        return repository.findById(contestId);
     }
 
-    @Override
+    /**
+     * 정렬하여 조회한다.
+     *
+     * @return 대회 목록
+     */
     public List<Contest> findAllOrdered() {
         List<Contest> fetch = from(contest)
-                .leftJoin(contest.players, player)
-                .fetchJoin()
                 .orderBy(contest.state.asc(),
                         // NULL을 정렬에서 아래로 보낸다.
                         contest.startDate.coalesce(LocalDate.of(9999, 12, 31)).asc(),
@@ -41,6 +51,11 @@ public class ContestRepositoryImpl extends QuerydslRepositorySupport implements 
                         contest.created.desc())
                 .fetch();
         return new ArrayList<>(new LinkedHashSet<>(fetch));
+    }
+
+    @Transactional
+    public Contest save(Contest contest) {
+        return repository.save(contest);
     }
 
 }

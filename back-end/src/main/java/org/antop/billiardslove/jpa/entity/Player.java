@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * 선수 정보
@@ -27,14 +28,13 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "tbl_plyr", uniqueConstraints= {
+@Table(name = "tbl_plyr", uniqueConstraints = {
         @UniqueConstraint(
                 columnNames = {"plyr_id", "cnts_id", "mmbr_id"}
         )
-    }
+}
 )
 public class Player {
     /**
@@ -93,4 +93,16 @@ public class Player {
         this.handicap = handicap;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(id, player.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
