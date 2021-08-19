@@ -6,6 +6,9 @@ package org.antop.billiardslove.constants;
  * @author antop
  */
 public class Profiles {
+    private Profiles() {
+    }
+
     /**
      * 로컬 환경 프로파일 (default)
      */

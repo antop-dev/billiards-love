@@ -6,6 +6,7 @@ import org.antop.billiardslove.config.security.JwtAuthenticationToken;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.ContestNotFoundException;
 import org.antop.billiardslove.service.ContestService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -48,9 +51,10 @@ public class ContestInfoApi {
      */
     @Secured(JwtAuthenticationToken.ROLE_MANAGER)
     @PostMapping("/api/v1/contest")
-    public ContestDto register(@RequestBody ContestDto dto) {
-        // TODO(안정용): 201 응답
-        return contestService.register(dto);
+    public ResponseEntity<ContestDto> register(@RequestBody ContestDto dto, UriComponentsBuilder builder) {
+        ContestDto contest = contestService.register(dto);
+        URI uri = builder.replacePath("/api/v1/contest/{id}").buildAndExpand(contest.getId()).toUri();
+        return ResponseEntity.created(uri).body(contest);
     }
 
     /**
@@ -60,8 +64,7 @@ public class ContestInfoApi {
     @PutMapping("/api/v1/contest/{id}")
     public ContestDto modify(@PathVariable(name = "id") long contestId,
                              @RequestBody ContestDto dto) {
-        ContestDto modify = contestService.modify(contestId, dto);
-        return modify;
+        return contestService.modify(contestId, dto);
     }
 
 }

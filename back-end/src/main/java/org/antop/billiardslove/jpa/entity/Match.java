@@ -192,7 +192,7 @@ public class Match {
         /**
          * 결과가 입력되지 않은 경기 결과
          */
-        public final static MatchResult NONE = MatchResult.of(Result.NONE, Result.NONE, Result.NONE);
+        public static final MatchResult NONE = MatchResult.of(Result.NONE, Result.NONE, Result.NONE);
         /**
          * 첫번째 경기
          */

@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * 스프링 시큐리티 유틸리티
  */
 public class SecurityUtils {
+    private SecurityUtils() {
+    }
 
     /**
      * 현재 로그인된 회원의 아이디를 가져온다.

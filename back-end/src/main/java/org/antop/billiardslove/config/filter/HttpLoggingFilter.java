@@ -27,7 +27,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
     /**
      * 뽑아낼 해더명들
      */
-    public static final String[] HEADERS = new String[]{
+    private static final String[] HEADERS = new String[]{
             "X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"
     };
     /**
@@ -181,4 +181,3 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
     }
 
 }
-
