@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.antop.billiardslove.exception.PlayerNotFoundException;
+import org.antop.billiardslove.exception.NotJoinedMatchException;
 import org.antop.billiardslove.jpa.convertor.MatchResultConverter;
 
 import javax.persistence.Column;
@@ -104,43 +104,35 @@ public class Match {
         this.contest = contest;
         this.player1 = player1;
         this.player2 = player2;
-        this.matchResult1 = MatchResult.NONE;
-        this.matchResult2 = MatchResult.NONE;
     }
 
     /**
      * 해당 선수의 매칭 결과를 입력한다.
      *
-     * @param player 선수
-     * @param first  첫번째 경기 결과
-     * @param second 두번째 경기 결과
-     * @param third  세번째 경기 결과
+     * @param memberId 회원 아이디
+     * @param first    첫번째 경기 결과
+     * @param second   두번째 경기 결과
+     * @param third    세번째 경기 결과
      */
-    public void enterResult(Player player, Result first, Result second, Result third) {
+    public void enterResult(long memberId, Result first, Result second, Result third) {
+        Player player = getMe(memberId);
         if (player == player1) {
             matchResult1 = new MatchResult(first, second, third);
         } else if (player == player2) {
             matchResult2 = new MatchResult(first, second, third);
-        } else {
-            throw new PlayerNotFoundException();
         }
     }
 
     /**
      * 해당 선수의 매칭 결과를 조회한다.
      *
-     * @param player 선수
+     * @param memberId 회원 아이디
      * @return {@link MatchResult}
      */
-    public MatchResult getMatchResult(Player player) {
-        if (player == player1) {
-            return matchResult1;
-        } else if (player == player2) {
-            return matchResult2;
-        } else {
-            throw new IllegalArgumentException("player not found.");
-        }
+    public MatchResult getMatchResult(long memberId) {
+        return getMe(memberId) == player1 ? matchResult1 : matchResult2;
     }
+
 
     /**
      * 경기 결과를 확정 짓는다.
@@ -154,13 +146,29 @@ public class Match {
     }
 
     /**
+     * 나를 찾는다.
+     *
+     * @param memberId 회원 아이디
+     * @return 내 참가자 정보
+     */
+    public Player getMe(long memberId) {
+        if (player1.getMember().getId() == memberId) {
+            return player1;
+        } else if (player2.getMember().getId() == memberId) {
+            return player2;
+        } else {
+            throw new NotJoinedMatchException();
+        }
+    }
+
+    /**
      * 상대 참가자를 찾는다.
      *
-     * @param player 나 자신
+     * @param memberId 회원 아이디
      * @return 상대 참가자
      */
-    public Player getOpponent(Player player) {
-        return player == player1 ? player2 : player1;
+    public Player getOpponent(long memberId) {
+        return getMe(memberId) == player1 ? player2 : player1;
     }
 
     /**
@@ -184,7 +192,7 @@ public class Match {
         /**
          * 결과가 입력되지 않은 경기 결과
          */
-        public final static MatchResult NONE = MatchResult.of(Result.NONE, Result.NONE, Result.NONE);
+        public static final MatchResult NONE = MatchResult.of(Result.NONE, Result.NONE, Result.NONE);
         /**
          * 첫번째 경기
          */

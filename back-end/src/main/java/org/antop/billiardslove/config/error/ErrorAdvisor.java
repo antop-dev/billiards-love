@@ -43,6 +43,7 @@ public class ErrorAdvisor {
             MatchNotFoundException.class
     })
     ErrorMessage notFound(Exception e) {
+        log.debug("404 Response", e);
         return ErrorMessage.notFound(e.getMessage());
     }
 

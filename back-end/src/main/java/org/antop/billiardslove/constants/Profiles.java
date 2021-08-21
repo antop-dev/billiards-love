@@ -1,4 +1,4 @@
-package org.antop.billiardslove.config;
+package org.antop.billiardslove.constants;
 
 /**
  * 두가지 개발환경을 사용한다.
@@ -6,6 +6,9 @@ package org.antop.billiardslove.config;
  * @author antop
  */
 public class Profiles {
+    private Profiles() {
+    }
+
     /**
      * 로컬 환경 프로파일 (default)
      */

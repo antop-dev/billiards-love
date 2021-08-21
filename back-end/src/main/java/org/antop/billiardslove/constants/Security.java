@@ -1,11 +1,14 @@
-package org.antop.billiardslove;
+package org.antop.billiardslove.constants;
 
 /**
- * 내부에서 사용되는 상수들 모음
+ * 암호화 관련 상수 모음
  *
  * @author antop
  */
-public class Constants {
+public class Security {
+    private Security() {
+    }
+
     /**
      * 세션에 저장되는 [AES256 암호화 키] 키
      */

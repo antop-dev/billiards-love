@@ -8,8 +8,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.Constants;
-import org.antop.billiardslove.service.MemberModifyService;
+import org.antop.billiardslove.constants.Security;
+import org.antop.billiardslove.service.MemberService;
 import org.antop.billiardslove.util.Aes256Util;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +31,12 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 @RestController
 public class MemberModifyApi {
-    private final MemberModifyService service;
+    private final MemberService service;
 
     @PostMapping("/api/v1/member")
     public Response modify(@RequestBody @Valid Request request,
                            @AuthenticationPrincipal Long memberId,
-                           @SessionAttribute(Constants.SECRET_KEY) String secretKey) {
+                           @SessionAttribute(Security.SECRET_KEY) String secretKey) {
         String nickname = Aes256Util.decrypt(request.getNickname(), secretKey);
         Integer handicap = request.getHandicap();
 
