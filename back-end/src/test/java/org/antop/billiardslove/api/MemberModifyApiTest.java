@@ -35,8 +35,7 @@ class MemberModifyApiTest extends SpringBootBase {
         // 요청 JSON
         MemberModifyApi.Request request = new MemberModifyApi.Request(Aes256Util.encrypt(nickname, secretKey), handicap);
         String json = objectMapper.writeValueAsString(request);
-
-        System.out.println("asd = " + json);
+        
         mockMvc.perform(
                 post("/api/v1/member")
                         .sessionAttr(Security.SECRET_KEY, secretKey)
