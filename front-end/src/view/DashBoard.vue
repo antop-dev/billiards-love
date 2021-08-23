@@ -13,8 +13,8 @@
         >
           <board-contents
             :id="content.id"
-            :title="content.name"
-            :state="content.state.code"
+            :title="content.title"
+            :state="content.stateCode"
             @click.native="getDetail(content.id)"
           ></board-contents>
         </div>
@@ -33,7 +33,7 @@
 <script>
 import BoardContents from '@/dashboard/BoardContents';
 import AppHeader from '@/common/AppHeader';
-// import ContestApi from '../api/contest.api';
+import ContestApi from '../api/contest.api';
 import NoData from '@/dashboard/NoData';
 
 export default {
@@ -71,7 +71,8 @@ export default {
     },
   },
   async created() {
-    // this.contentsList = await ContestApi.inquire();
+    this.contentsList = await ContestApi.inquire();
+
     this.showLoading = false;
   },
 };

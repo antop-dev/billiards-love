@@ -1,8 +1,11 @@
 <template>
-  <div class="page-container">
+  <div>
+    <!-- 초기화가 되어있나 안되어있나-->
     <div>
-      <!-- 초기화가 되어있나 안되어있나-->
-      <div v-if="showLoading">
+      <div
+        v-if="showLoading"
+        class="md-layout md-gutter md-alignment-center-center"
+      >
         <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
       </div>
       <div v-else>
@@ -103,7 +106,4 @@ export default {
 };
 </script>
 
-<style>
-.md-alignment-center-center {
-}
-</style>
+<style></style>
