@@ -33,11 +33,9 @@ class MemberModifyApiTest extends SpringBootBase {
         String nickname = faker.name().fullName();
         int handicap = 30;
         // 요청 JSON
-        String json = "{\n" +
-                "  \"nickname\": \"" + Aes256Util.encrypt(nickname, secretKey) + "\",\n" +
-                "  \"handicap\": " + handicap + "\n" +
-                "}";
-
+        MemberModifyApi.Request request = new MemberModifyApi.Request(Aes256Util.encrypt(nickname, secretKey), handicap);
+        String json = objectMapper.writeValueAsString(request);
+        
         mockMvc.perform(
                 post("/api/v1/member")
                         .sessionAttr(Security.SECRET_KEY, secretKey)

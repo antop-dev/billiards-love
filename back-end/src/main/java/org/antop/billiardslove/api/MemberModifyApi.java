@@ -27,7 +27,6 @@ import javax.validation.constraints.NotNull;
  *
  * @author antop
  */
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class MemberModifyApi {
@@ -39,8 +38,6 @@ public class MemberModifyApi {
                            @SessionAttribute(Security.SECRET_KEY) String secretKey) {
         String nickname = Aes256Util.decrypt(request.getNickname(), secretKey);
         Integer handicap = request.getHandicap();
-
-        log.debug("memberId = {}, nickname = {}, handicap = {}", memberId, nickname, handicap);
 
         service.modify(memberId, nickname, handicap);
 
