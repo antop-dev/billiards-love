@@ -29,7 +29,7 @@ export default {
     };
   },
   created() {
-    this.id = this.$route.params.id;
+    this.id = this.$store.state.match_detail.id;
   },
 };
 </script>

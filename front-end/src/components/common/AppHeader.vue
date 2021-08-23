@@ -8,7 +8,7 @@
       <div class="md-layout-item title-align-center">
         <span class="md-title">{{ title }}</span>
       </div>
-      <div class="md-toolbar-section-end">
+      <div class="md-toolbar-section-end text-align-right">
         <close-button v-if="closeBtn"></close-button>
       </div>
     </div>
