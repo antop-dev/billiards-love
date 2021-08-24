@@ -26,5 +26,5 @@ jobs:
         run: chmod +x gradlew
         working-directory: back-end
       - name: Build with Gradle
-        run: ./gradlew --console verbos build
+        run: ./gradlew --console verbose build
         working-directory: back-end
