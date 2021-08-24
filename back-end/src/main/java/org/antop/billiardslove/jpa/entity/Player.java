@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,13 +30,13 @@ import java.util.Objects;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@FieldNameConstants
 @Entity
 @Table(name = "tbl_plyr", uniqueConstraints = {
         @UniqueConstraint(
                 columnNames = {"plyr_id", "cnts_id", "mmbr_id"}
         )
-}
-)
+})
 public class Player {
     /**
      * 선수 아이디

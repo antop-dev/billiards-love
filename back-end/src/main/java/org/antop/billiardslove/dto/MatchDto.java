@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.antop.billiardslove.jpa.entity.Match;
+import lombok.experimental.FieldNameConstants;
 
 /**
  * 경기 정보 데이터
@@ -15,6 +15,7 @@ import org.antop.billiardslove.jpa.entity.Match;
 @Getter
 @ToString
 @Builder
+@FieldNameConstants
 public class MatchDto {
     /**
      * 경기 아이디
@@ -23,11 +24,11 @@ public class MatchDto {
     /**
      * 상대 선수 정보
      */
-    private final Opponent opponent;
+    private final PlayerDto opponent;
     /**
      * 경기 결과 (크기: 3)
      */
-    private final Match.Result[] result;
+    private final String[] result;
     /**
      * 확정 여부
      */
