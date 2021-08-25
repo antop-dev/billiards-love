@@ -1,12 +1,12 @@
 package org.antop.billiardslove.service;
 
 import lombok.RequiredArgsConstructor;
+import org.antop.billiardslove.dao.KakaoDao;
+import org.antop.billiardslove.dao.MemberDao;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
-import org.antop.billiardslove.jpa.repository.KakaoRepository;
-import org.antop.billiardslove.jpa.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class LoggedInService {
-    private final KakaoRepository kakaoRepository;
-    private final MemberRepository memberRepository;
+    private final KakaoDao kakaoDao;
+    private final MemberDao memberDao;
+    private final MemberService memberService;
 
     /**
      * 카카오톡 로그인 처리
@@ -24,7 +25,7 @@ public class LoggedInService {
      * @return 회원 정보
      */
     public MemberDto loggedIn(final KakaoDto kakaoDto) {
-        Kakao kakao = kakaoRepository.findById(kakaoDto.getId()).orElseGet(() -> {
+        Kakao kakao = kakaoDao.findById(kakaoDto.getId()).orElseGet(() -> {
             Kakao newKakao = Kakao.builder()
                     .id(kakaoDto.getId())
                     .connectedAt(kakaoDto.getConnectedAt())
@@ -34,7 +35,7 @@ public class LoggedInService {
                             .thumbUrl(kakaoDto.getThumbnailUrl())
                             .build())
                     .build();
-            return kakaoRepository.save(newKakao);
+            return kakaoDao.save(newKakao);
         });
 
         kakao.changeProfile(Kakao.Profile.builder()
@@ -43,19 +44,13 @@ public class LoggedInService {
                 .thumbUrl(kakaoDto.getThumbnailUrl())
                 .build());
 
-        Member member = memberRepository.findByKakao(kakao).orElseGet(() -> {
+        Member member = memberDao.findByKakao(kakao).orElseGet(() -> {
             Member newMember = Member.builder()
                     .nickname(kakao.getProfile().getNickname())
                     .kakao(kakao)
                     .build();
-            return memberRepository.save(newMember);
+            return memberDao.save(newMember);
         });
-
-        return MemberDto.builder()
-                .id(member.getId())
-                .nickname(member.getNickname())
-                .thumbnail(member.getKakao().getProfile().getThumbUrl())
-                .handicap(member.getHandicap())
-                .build();
+        return memberService.convert(member);
     }
 }

@@ -51,7 +51,7 @@ public class MemberService implements PrincipalProvider {
         return memberDao.findById(memberId).map(this::convert);
     }
 
-    private MemberDto convert(Member member) {
+    public MemberDto convert(Member member) {
         return MemberDto.builder()
                 .id(member.getId())
                 .nickname(member.getNickname())
