@@ -1,15 +1,14 @@
 package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.antop.billiardslove.exception.NotJoinedMatchException;
 import org.antop.billiardslove.jpa.convertor.MatchResultConverter;
+import org.antop.billiardslove.model.MatchResult;
+import org.antop.billiardslove.model.Outcome;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -23,11 +22,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Objects;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 @Entity
 @Table(name = "tbl_mtc")
 public class Match {
@@ -114,12 +111,12 @@ public class Match {
      * @param second   두번째 경기 결과
      * @param third    세번째 경기 결과
      */
-    public void enterResult(long memberId, Result first, Result second, Result third) {
+    public void enterResult(long memberId, Outcome first, Outcome second, Outcome third) {
         Player player = getMe(memberId);
         if (player == player1) {
-            matchResult1 = new MatchResult(first, second, third);
+            matchResult1 = MatchResult.of(first, second, third);
         } else if (player == player2) {
-            matchResult2 = new MatchResult(first, second, third);
+            matchResult2 = MatchResult.of(first, second, third);
         }
     }
 
@@ -127,7 +124,7 @@ public class Match {
      * 해당 선수의 매칭 결과를 조회한다.
      *
      * @param memberId 회원 아이디
-     * @return {@link MatchResult}
+     * @return 경기 결과
      */
     public MatchResult getMatchResult(long memberId) {
         return getMe(memberId) == player1 ? matchResult1 : matchResult2;
@@ -180,89 +177,17 @@ public class Match {
         return manager != null && confirmAt != null;
     }
 
-    /**
-     * 입력된 결과
-     *
-     * @author antop
-     */
-    @Getter
-    @EqualsAndHashCode
-    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class MatchResult {
-        /**
-         * 결과가 입력되지 않은 경기 결과
-         */
-        public static final MatchResult NONE = MatchResult.of(Result.NONE, Result.NONE, Result.NONE);
-        /**
-         * 첫번째 경기
-         */
-        private final Result first;
-        /**
-         * 두번째 경기
-         */
-        private final Result second;
-        /**
-         * 세번째 경기
-         */
-        private final Result third;
-
-        /**
-         * 배열로 리턴
-         *
-         * @return 크기 3의 배열
-         */
-        public Result[] toArray() {
-            return new Result[]{first, second, third};
-        }
-
-        public static MatchResult of(Result first, Result second, Result third) {
-            return new MatchResult(first, second, third);
-        }
-
-        @Override
-        public String toString() {
-            return Arrays.toString(toArray());
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return Objects.equals(id, match.id);
     }
 
-
-    /**
-     * 한 경기의 결과
-     *
-     * @author antop
-     */
-    @AllArgsConstructor
-    @Getter
-    public enum Result {
-        /**
-         * 승
-         */
-        WIN("W"),
-        /**
-         * 패
-         */
-        LOSE("L"),
-        /**
-         * 기권
-         */
-        ABSTENTION("A"),
-        /**
-         * 진행의사 있음
-         */
-        HOLD("H"),
-        /**
-         * 입력되지 않음
-         */
-        NONE("N");
-
-        private final String code;
-
-        public static Result of(String code) {
-            return Arrays.stream(values())
-                    .filter(it -> it.code.equals(code))
-                    .findFirst()
-                    .orElseThrow(IllegalAccessError::new);
-        }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }
