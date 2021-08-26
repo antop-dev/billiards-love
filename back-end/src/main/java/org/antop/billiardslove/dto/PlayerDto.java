@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 @Getter
 @Builder
 @RequiredArgsConstructor
 @ToString
+@FieldNameConstants
 public class PlayerDto {
     /**
      * 참가자 아이디

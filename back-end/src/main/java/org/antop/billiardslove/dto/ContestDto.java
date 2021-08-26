@@ -2,12 +2,16 @@ package org.antop.billiardslove.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
 @Builder
+@ToString
+@FieldNameConstants
 public class ContestDto {
     /**
      * 대회 아이디

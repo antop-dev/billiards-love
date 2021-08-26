@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.constants.Security;
 import org.antop.billiardslove.service.MemberService;
 import org.antop.billiardslove.util.Aes256Util;

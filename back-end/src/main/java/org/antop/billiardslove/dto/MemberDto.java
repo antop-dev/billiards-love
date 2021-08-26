@@ -4,10 +4,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 
 @Getter
 @Builder
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@FieldNameConstants
 public class MemberDto {
     /**
      * 회원 아이디

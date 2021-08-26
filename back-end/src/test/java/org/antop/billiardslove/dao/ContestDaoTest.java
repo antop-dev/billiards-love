@@ -2,7 +2,7 @@ package org.antop.billiardslove.dao;
 
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.jpa.entity.Contest;
-import org.antop.billiardslove.jpa.entity.Contest.State;
+import org.antop.billiardslove.model.ContestState;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,7 +34,7 @@ class ContestDaoTest extends SpringBootBase {
             assertThat(contest.getStartTime(), is(LocalTime.of(0, 0, 0)));
             assertThat(contest.getEndDate(), is(LocalDate.of(2021, 12, 30)));
             assertThat(contest.getEndTime(), is(LocalTime.of(23, 59, 59)));
-            assertThat(contest.getState(), is(State.PROCEEDING));
+            assertThat(contest.getState(), is(ContestState.PROCEEDING));
             assertThat(contest.getMaxJoiner(), is(32));
             assertThat(contest.getCreated(), is(LocalDateTime.of(2019, 11, 12, 15, 11, 45)));
             assertThat(contest.getModified(), nullValue());
