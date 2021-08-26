@@ -7,6 +7,7 @@ import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.mapper.KakaoMapper;
 import org.antop.billiardslove.mapper.MemberMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ public class LoggedInService {
     private final KakaoDao kakaoDao;
     private final MemberDao memberDao;
     private final MemberMapper memberMapper;
+    private final KakaoMapper kakaoMapper;
 
     /**
      * 카카오톡 로그인 처리
@@ -26,18 +28,7 @@ public class LoggedInService {
      * @return 회원 정보
      */
     public MemberDto loggedIn(final KakaoDto kakaoDto) {
-        Kakao kakao = kakaoDao.findById(kakaoDto.getId()).orElseGet(() -> {
-            Kakao newKakao = Kakao.builder()
-                    .id(kakaoDto.getId())
-                    .connectedAt(kakaoDto.getConnectedAt())
-                    .profile(Kakao.Profile.builder()
-                            .nickname(kakaoDto.getNickname())
-                            .imgUrl(kakaoDto.getImageUrl())
-                            .thumbUrl(kakaoDto.getThumbnailUrl())
-                            .build())
-                    .build();
-            return kakaoDao.save(newKakao);
-        });
+        Kakao kakao = kakaoDao.findById(kakaoDto.getId()).orElseGet(() -> kakaoDao.save(kakaoMapper.toEntity(kakaoDto)));
 
         kakao.changeProfile(Kakao.Profile.builder()
                 .nickname(kakaoDto.getNickname())
