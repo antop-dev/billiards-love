@@ -7,6 +7,7 @@ import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.mapper.MemberMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoggedInService {
     private final KakaoDao kakaoDao;
     private final MemberDao memberDao;
-    private final MemberService memberService;
+    private final MemberMapper memberMapper;
 
     /**
      * 카카오톡 로그인 처리
@@ -51,6 +52,6 @@ public class LoggedInService {
                     .build();
             return memberDao.save(newMember);
         });
-        return memberService.convert(member);
+        return memberMapper.toDto(member);
     }
 }
