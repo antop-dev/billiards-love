@@ -1,29 +1,29 @@
 <template>
   <div>
-    <!-- 초기화가 되어있나 안되어있나-->
-    <div>
-      <div
-        v-if="showLoading"
-        class="md-layout md-gutter md-alignment-center-center"
-      >
-        <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
+    <v-app>
+      <div v-if="showLoading" class="text-center">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="purple"
+          indeterminate
+        ></v-progress-circular>
       </div>
       <div v-else>
         <div v-if="showLoginButton">
-          <md-content>
-            <a @click="kakaoLogin" href="#">
-              <img
-                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-                width="222"
-              />
-            </a>
-          </md-content>
+          <a @click="kakaoLogin" href="#">
+            <img
+              src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              width="222"
+            />
+          </a>
         </div>
-        <div v-else>
+        <v-main v-else>
           <router-view></router-view>
-        </div>
+        </v-main>
       </div>
-    </div>
+    </v-app>
+    <!-- 초기화가 되어있나 안되어있나-->
   </div>
 </template>
 
