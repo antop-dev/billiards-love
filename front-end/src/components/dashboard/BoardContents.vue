@@ -1,25 +1,23 @@
 <template>
-  <v-card style="display: block" class="contents">
+  <v-card color="#385F73" dark class="contents">
     <ContentsHeader :title="title" :state="state"></ContentsHeader>
-    <div class="md-layout md-gutter" v-if="!showLoading">
+    <div v-if="!showLoading">
       <v-col cols="12">
-        <v-card color="#385F73" dark>
-          <v-row>
-            <v-card-title class="text-h5">
-              {{ rank }}위
-              <v-icon large color="orange darken-2"
-                >mdi-arrow-up-bold-box-outline</v-icon
-              >
-            </v-card-title>
-          </v-row>
-          <v-row justify="end">
-            <span> 점</span>
-            <br />
-            <span>{{ progress }}%</span>
-            <br />
-            <span></span>
-          </v-row>
-        </v-card>
+        <v-row>
+          <v-card-title class="text-h5">
+            {{ rank }}위
+            <v-icon large color="orange darken-2"
+              >mdi-arrow-up-bold-box-outline</v-icon
+            >
+          </v-card-title>
+        </v-row>
+        <v-row justify="end">
+          <span> 점</span>
+          <br />
+          <span>{{ progress }}%</span>
+          <br />
+          <span></span>
+        </v-row>
       </v-col>
       <!--<div
         class="md-layout-item md-layout md-gutter md-alignment-center-center md-size-30"
