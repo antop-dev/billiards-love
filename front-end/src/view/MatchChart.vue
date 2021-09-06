@@ -1,48 +1,43 @@
 <template>
   <div>
-    <md-table
-      hidden
-      v-model="users"
-      md-sort="rank"
-      md-sort-order="asc"
-      md-card
-      md-fixed-header
-    >
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="번호" md-sort-by="no" md-numeric>{{
-          item.opponent.no
-        }}</md-table-cell>
-        <md-table-cell md-label="참가자명" md-sort-by="name">{{
-          item.opponent.nickname
-        }}</md-table-cell>
-        <md-table-cell md-label="결과" md-sort-by="result">
-          <a href="#" @click="showResult">{{ renderResult(item.result) }}</a>
-        </md-table-cell>
-        <md-table-cell md-label="확정" md-sort-by="confirm">{{
-          item.closed
-        }}</md-table-cell>
-      </md-table-row>
-    </md-table>
-    <md-drawer
-      class="md-bottom"
-      md-permanent="full"
-      :md-active.sync="showSidepanel"
-    >
-      <match-result match_id=""></match-result>
-    </md-drawer>
-    <md-button id="test"></md-button>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-center">
+              번호
+            </th>
+            <th class="text-left">
+              참가자명
+            </th>
+            <th class="text-left">
+              결과
+            </th>
+            <th class="text-left">
+              확정
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in users" :key="item.id">
+            <td class="text-center">{{ item.opponent.no }}</td>
+            <td>{{ item.opponent.nickname }}</td>
+            <td><a href="#" @click="showResult(true)">test</a></td>
+            <td>{{ item.closed }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
 <script>
 import MatchApi from '../api/match.api';
-import MatchResult from './MatchResult';
 export default {
   name: 'GameRank',
-  components: { MatchResult },
   data() {
     return {
-      showSidepanel: false,
+      showDialog: false,
       users: [
         {
           id: 3823,
@@ -54,37 +49,34 @@ export default {
           result: ['WIN', 'LOSE', 'LOSE'],
           closed: true,
         },
-        {
-          id: 3824,
-          opponent: {
-            no: 3,
-            id: 312,
-            nickname: '배트맨',
-          },
-          result: ['NONE', 'NONE', 'NONE'],
-          closed: false,
-        },
       ],
     };
   },
   methods: {
-    showResult() {
-      if (this.showSidepanel) {
-        this.showSidepanel = false;
+    showResult(toggle) {
+      if (toggle) {
+        this.showDialog = true;
       } else {
-        this.showSidepanel = true;
+        this.showDialog = false;
       }
-      //
     },
-    renderResult(arr) {
-      if (!Array.isArray(arr)) throw 'invalid Arr';
-    },
-    async created() {
-      // RankApi.inquire();
-      const id = this.$store.state.match_detail.id;
-      const matches = await MatchApi.inquire_all(id);
-      console.log(matches);
-    },
+  },
+  async created() {
+    // RankApi.inquire();
+    const id = this.$store.state.match_detail.id;
+    this.users = await MatchApi.inquire_all(id);
+    this.users = [
+      {
+        id: 3823,
+        opponent: {
+          no: 2,
+          id: 312,
+          nickname: '홍길동',
+        },
+        result: ['WIN', 'LOSE', 'LOSE'],
+        closed: true,
+      },
+    ];
   },
 };
 </script>

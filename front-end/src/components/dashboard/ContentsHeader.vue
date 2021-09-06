@@ -7,10 +7,6 @@
         <v-btn elevation="2" :class="gameStatus()">{{ stateMsg }}</v-btn>
       </div>
     </v-toolbar>
-    <!-- <md-toolbar:md-elevation="3">
-
-
-    </md-toolbar>-->
   </div>
 </template>
 

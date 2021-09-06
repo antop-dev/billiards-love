@@ -1,34 +1,43 @@
 <template>
   <div>
-    <md-table
-      v-model="users"
-      md-sort="rank"
-      md-sort-order="asc"
-      md-card
-      md-fixed-header
-    >
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Rank" md-sort-by="rank" md-numeric>{{
-          item.rank
-        }}</md-table-cell>
-        <md-table-cell md-label="참가자" md-sort-by="name">{{
-          item.name
-        }}</md-table-cell>
-        <md-table-cell md-label="핸디" md-sort-by="handy" md-numeric>{{
-          item.handy
-        }}</md-table-cell>
-        <md-table-cell md-label="진행률" md-sort-by="progress">{{
-          item.progress
-        }}</md-table-cell>
-        <md-table-cell md-label="점수" md-sort-by="point">{{
-          item.point
-        }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">
+              Rank
+            </th>
+            <th class="text-left">
+              참가자
+            </th>
+            <th class="text-left">
+              핸디
+            </th>
+            <th class="text-left">
+              진행률
+            </th>
+            <th class="text-left">
+              점수
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in users" :key="item.id">
+            <td>{{ item.rank }}</td>
+            <td>{{ item.nickname }}</td>
+            <td>{{ item.handicap }}</td>
+            <td>{{ item.progress }}</td>
+            <td>{{ item.number }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
 <script>
+import ContestApi from '../api/contest.api';
+
 export default {
   name: 'GameRank',
   data() {
@@ -36,38 +45,22 @@ export default {
       users: [
         {
           id: 1,
+          number: 1,
+          handicap: 22,
+          nickname: '안탑',
           rank: 1,
-          name: '김형익',
-          handy: 0,
-          progress: 20,
-          point: 2000,
-        },
-        {
-          id: 2,
-          rank: 2,
-          name: '김띠용',
-          handy: 100,
-          progress: 20,
-          point: 190,
-        },
-        {
-          id: 3,
-          rank: 3,
-          name: '안탑',
-          handy: 0,
-          progress: 0,
-          point: 1000,
-        },
-        {
-          id: 4,
-          rank: 4,
-          name: '골드스푼',
-          handy: 0,
-          progress: 20,
-          point: 300,
+          score: 150,
         },
       ],
     };
+  },
+  async created() {
+    try {
+      const inquireRank = await ContestApi.inquire_rank(this.$route.params.id);
+      this.users = inquireRank;
+    } catch (e) {
+      console.log(e);
+    }
   },
 };
 </script>
