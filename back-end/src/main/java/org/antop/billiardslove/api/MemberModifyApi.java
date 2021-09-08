@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import org.antop.billiardslove.constants.Security;
 import org.antop.billiardslove.service.MemberService;
 import org.antop.billiardslove.util.Aes256Util;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -36,7 +36,7 @@ public class MemberModifyApi {
                            @AuthenticationPrincipal Long memberId,
                            @SessionAttribute(Security.SECRET_KEY) String secretKey) {
         String nickname = Aes256Util.decrypt(request.getNickname(), secretKey);
-        Integer handicap = request.getHandicap();
+        int handicap = request.getHandicap();
 
         service.modify(memberId, nickname, handicap);
 
@@ -54,21 +54,20 @@ public class MemberModifyApi {
      */
     @Getter
     @ToString
+    @FieldNameConstants
     static class Request {
         /**
          * 회원 별명
          */
-        @NotBlank
         private final String nickname;
         /**
          * 핸디캡
          */
-        @NotNull
         @Min(1)
-        private final Integer handicap;
+        private final int handicap;
 
         @JsonCreator
-        public Request(@JsonProperty String nickname, @JsonProperty @NotNull Integer handicap) {
+        public Request(@JsonProperty String nickname, @JsonProperty @NotNull int handicap) {
             this.nickname = nickname;
             this.handicap = handicap;
         }
@@ -83,6 +82,7 @@ public class MemberModifyApi {
     @ToString
     @AllArgsConstructor
     @Builder
+    @FieldNameConstants
     static class Response {
         /**
          * 회원 아이디
@@ -92,17 +92,11 @@ public class MemberModifyApi {
         /**
          * 회원 별명
          */
-        @NotBlank
         private final String nickname;
-        /**
-         * 프로필 썸네임
-         */
-        private final String thumbnail;
         /**
          * 핸디캡
          */
-        @NotNull
-        private final Integer handicap;
+        private final int handicap;
     }
 
 }

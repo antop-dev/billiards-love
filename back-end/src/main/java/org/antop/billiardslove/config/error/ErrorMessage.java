@@ -1,6 +1,7 @@
 package org.antop.billiardslove.config.error;
 
 import lombok.Getter;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
  * @author antop
  */
 @Getter
+@FieldNameConstants
 public class ErrorMessage {
     /**
      * 에러 코드 (HTTP STATUS CODE)

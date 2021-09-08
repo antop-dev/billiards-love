@@ -1,7 +1,10 @@
 package org.antop.billiardslove.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -39,10 +42,16 @@ public class ContestJoiningApi {
      * 대회 참가 신청 요청
      */
     @Getter
+    @FieldNameConstants
     static class JoiningRequest {
         /**
          * 참가 핸디캡
          */
-        private int handicap;
+        private final int handicap;
+
+        @JsonCreator
+        public JoiningRequest(@JsonProperty int handicap) {
+            this.handicap = handicap;
+        }
     }
 }

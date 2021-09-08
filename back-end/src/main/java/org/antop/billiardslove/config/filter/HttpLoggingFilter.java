@@ -39,7 +39,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        if (!log.isDebugEnabled()) {
+        if (!log.isDebugEnabled() || !request.getRequestURI().startsWith("/api")) {
             filterChain.doFilter(request, response);
             return;
         }

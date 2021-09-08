@@ -34,22 +34,4 @@ public class MatchDto {
      */
     private final boolean closed;
 
-    @Builder
-    @Getter
-    @RequiredArgsConstructor
-    public static class Opponent {
-        /**
-         * 선수 아이디
-         */
-        private final long id;
-        /**
-         * 선수 번호
-         */
-        private final long number;
-        /**
-         * 선수 별명
-         */
-        private final String nickname;
-    }
-
 }

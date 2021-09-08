@@ -5,15 +5,19 @@ import com.github.javafaker.Faker;
 import org.antop.billiardslove.constants.Profiles;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,12 +31,14 @@ import java.util.Locale;
  * @author antop
  */
 @SpringBootTest
+@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
+@AutoConfigureRestDocs(uriPort = 9000)
 @ActiveProfiles(Profiles.TEST)
 @Transactional
 @AutoConfigureMockMvc
 @AutoConfigureDataJpa
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:test-h2.sql")
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, RestDocsConfig.class})
 public abstract class SpringBootBase {
     /**
      * 로깅

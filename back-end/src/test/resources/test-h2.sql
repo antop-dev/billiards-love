@@ -95,7 +95,7 @@ values (9, 2, 3, null, 28, null);
 /** 준비중인 대회 (1) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (3, '준비중인 대회 (1)', null, null, null, null, null, '2', null, now(), now());
+values (3, '준비중인 대회 (1)', null, now(), null, now(), null, '2', null, now(), now());
 /** 준비중인 대회 (2) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
@@ -103,8 +103,8 @@ values (4, '준비중인 대회 (2)', null, parsedatetime('20210801', 'yyyyMMdd'
 /** 중지된 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (5, '중지된 대회', null, null, null, null, null, '3', null, now(), now());
+values (5, '중지된 대회', null, parsedatetime('20210101', 'yyyyMMdd'), null, null, null, '3', null, now(), now());
 /** 종료된 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (6, '종료된 대회', null, null, null, null, null, '4', null, now(), now());
+values (6, '종료된 대회', null, parsedatetime('20200101', 'yyyyMMdd'), null, null, null, '4', null, now(), now());

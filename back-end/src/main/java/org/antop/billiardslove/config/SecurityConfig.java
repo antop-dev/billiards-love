@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/api/v*/init", "/api/v*/logged-in");
+        web.ignoring().antMatchers("/api/v*/init", "/api/v*/logged-in", "/", "/index.html", "/swagger-*/**", "/v*/api-docs/**");
     }
 
     @Override

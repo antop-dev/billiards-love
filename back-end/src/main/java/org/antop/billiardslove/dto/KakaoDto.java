@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Getter
-@Builder
 @FieldNameConstants
 public class KakaoDto {
     /**
@@ -30,4 +31,17 @@ public class KakaoDto {
      * 프로필 미리보기 Url
      */
     private final String thumbnailUrl;
+
+    @Builder
+    public KakaoDto(Long id, ZonedDateTime connectedAt, String nickname, String imageUrl, String thumbnailUrl) {
+        this(id, connectedAt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime(), nickname, imageUrl, thumbnailUrl);
+    }
+
+    public KakaoDto(Long id, LocalDateTime connectedAt, String nickname, String imageUrl, String thumbnailUrl) {
+        this.id = id;
+        this.connectedAt = connectedAt;
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }

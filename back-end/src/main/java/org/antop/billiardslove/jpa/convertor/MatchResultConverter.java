@@ -4,6 +4,7 @@ import org.antop.billiardslove.model.MatchResult;
 import org.antop.billiardslove.model.Outcome;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  *
  * @author antop
  */
+@Converter
 public class MatchResultConverter implements AttributeConverter<MatchResult, String> {
     @Override
     public String convertToDatabaseColumn(MatchResult attribute) {
