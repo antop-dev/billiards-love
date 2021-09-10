@@ -1,16 +1,28 @@
 package org.antop.billiardslove.api;
 
+import org.antop.billiardslove.RestDocsUtils.Attributes;
+import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
+import org.antop.billiardslove.dto.MatchDto;
+import org.antop.billiardslove.dto.PlayerDto;
 import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 
+import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static org.antop.billiardslove.dto.MatchDto.Fields.OPPONENT;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -27,10 +39,29 @@ class MatchApiTest extends SpringBootBase {
         // 생성한 JWT 토큰
         String token = jwtTokenProvider.createToken("" + memberId);
 
-        mockMvc.perform(get("/api/v1/contest/" + contestId + "/matches")
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/contest/{id}/matches", contestId)
+                        .header(HttpHeaders.AUTHORIZATION, token)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
+                // document
+                .andDo(document("matches",
+                        requestHeaders(RestDocsUtils.jwtToken()),
+                        pathParameters(
+                                parameterWithName("id").description("대회 아이디").attributes(Attributes.type(JsonFieldType.NUMBER))
+                        ),
+                        responseFields(
+                                fieldWithPath("[]." + MatchDto.Fields.ID).description("경기 아이디"),
+                                fieldWithPath("[]." + MatchDto.Fields.RESULT).description("경기 결과"),
+                                fieldWithPath("[]." + MatchDto.Fields.CLOSED).description("확정 여부 +\ntrue : 수정 불가"),
+                                fieldWithPath("[]." + OPPONENT).description("선수 정보"),
+                                fieldWithPath("[]." + OPPONENT + "." + PlayerDto.Fields.ID).description("선수 아이디"),
+                                fieldWithPath("[]." + OPPONENT + "." + PlayerDto.Fields.NICKNAME).description("별명"),
+                                fieldWithPath("[]." + OPPONENT + "." + PlayerDto.Fields.HANDICAP).description("선수 아이디"),
+                                fieldWithPath("[]." + OPPONENT + "." + PlayerDto.Fields.NUMBER).description("선수 번호").optional(),
+                                fieldWithPath("[]." + OPPONENT + "." + PlayerDto.Fields.RANK).description("순위").optional(),
+                                fieldWithPath("[]." + OPPONENT + "." + PlayerDto.Fields.SCORE).description("점수").optional()
+                        )
+                ))
                 .andExpect(jsonPath("$", hasSize(4)))
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].opponent.id", is(1)))
@@ -53,10 +84,31 @@ class MatchApiTest extends SpringBootBase {
         // 생성한 JWT 토큰
         String token = jwtTokenProvider.createToken("" + memberId);
 
-        mockMvc.perform(get("/api/v1/match/" + matchId)
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/match/{id}", matchId)
+                        .header(HttpHeaders.AUTHORIZATION, token)
+                        .contentType(MediaType.APPLICATION_JSON))
+                // logging
                 .andDo(print())
+                // document
+                .andDo(document("match",
+                        requestHeaders(RestDocsUtils.jwtToken()),
+                        pathParameters(
+                                parameterWithName("id").description("경기 아이디").attributes(Attributes.type(JsonFieldType.NUMBER))
+                        ),
+                        responseFields(
+                                fieldWithPath(MatchDto.Fields.ID).description("경기 아이디"),
+                                fieldWithPath(MatchDto.Fields.RESULT).description("경기 결과"),
+                                fieldWithPath(MatchDto.Fields.CLOSED).description("확정 여부 +\ntrue : 수정 불가"),
+                                fieldWithPath(OPPONENT).description("선수 정보"),
+                                fieldWithPath(OPPONENT + "." + PlayerDto.Fields.ID).description("선수 아이디"),
+                                fieldWithPath(OPPONENT + "." + PlayerDto.Fields.NICKNAME).description("별명"),
+                                fieldWithPath(OPPONENT + "." + PlayerDto.Fields.HANDICAP).description("선수 아이디"),
+                                fieldWithPath(OPPONENT + "." + PlayerDto.Fields.NUMBER).description("선수 번호").optional(),
+                                fieldWithPath(OPPONENT + "." + PlayerDto.Fields.RANK).description("순위").optional(),
+                                fieldWithPath(OPPONENT + "." + PlayerDto.Fields.SCORE).description("점수").optional()
+                        )
+                ))
+                // verify
                 .andExpect(jsonPath("$.id", NumberMatcher.is(matchId)))
                 .andExpect(jsonPath("$.opponent.id", is(2)))
                 .andExpect(jsonPath("$.opponent.number", is(2)))

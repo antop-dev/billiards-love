@@ -82,7 +82,7 @@ public class Member {
     @NotNull
     @Convert(converter = BooleanConverter.class)
     @Column(name = "mgnr_yn")
-    private boolean manager = false;
+    private boolean manager;
 
     /**
      * 카카오 로그인 아이디
