@@ -373,8 +373,8 @@ class ContestInfoApiTest extends SpringBootBase {
                 // document
                 .andDo(RestDocsUtils.error("error-already-contest-progress"))
                 // verify
-                .andExpect(status().isInternalServerError()) // 500 에러
-                .andExpect(jsonPath("$.code", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(400)))
                 .andExpect(jsonPath("$.message", is("이미 진행된 대회입니다.")))
         ;
     }

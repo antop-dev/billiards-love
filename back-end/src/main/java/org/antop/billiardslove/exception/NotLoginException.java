@@ -1,7 +1,7 @@
 package org.antop.billiardslove.exception;
 
 /**
- * 회원이 참여하지 않은 경기에 접근한 경우
+ * 회원이 로그인하지 않은 경우
  *
  * @author antop
  */

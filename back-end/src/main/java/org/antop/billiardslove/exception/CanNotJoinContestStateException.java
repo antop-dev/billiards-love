@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class CanNotJoinContestStateException extends RuntimeException {
+public class CanNotJoinContestStateException extends BadRequestException {
     public CanNotJoinContestStateException() {
         super("대회에 참가할 수 없는 상태입니다.");
     }

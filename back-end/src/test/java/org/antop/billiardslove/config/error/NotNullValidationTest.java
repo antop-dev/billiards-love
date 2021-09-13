@@ -39,7 +39,7 @@ class NotNullValidationTest extends SpringBootBase {
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must not be null (input : null)")));
+                .andExpect(jsonPath("$.message", is("값을 입력해주세요!")));
     }
 
     @Test
@@ -65,7 +65,7 @@ class NotNullValidationTest extends SpringBootBase {
         }
 
         static class Request {
-            @NotNull
+            @NotNull(message = "값을 입력해주세요!")
             private String value;
 
             public String getValue() {
