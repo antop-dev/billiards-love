@@ -42,16 +42,7 @@ export default {
   name: 'GameRank',
   data() {
     return {
-      users: [
-        {
-          id: 1,
-          number: 1,
-          handicap: 22,
-          nickname: '안탑',
-          rank: 1,
-          score: 150,
-        },
-      ],
+      users: [],
     };
   },
   async created() {

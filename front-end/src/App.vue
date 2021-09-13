@@ -22,6 +22,16 @@
           <router-view></router-view>
         </v-main>
       </div>
+      <v-snackbar v-model="snackbar" top="true">
+        {{ text }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+      <v-btn @click="snackbar = true">테스트</v-btn>
     </v-app>
     <!-- 초기화가 되어있나 안되어있나-->
   </div>
@@ -34,6 +44,8 @@ import aes256 from './util/aes256';
 export default {
   data() {
     return {
+      text: 'TEST!!',
+      snackbar: false,
       showLoading: true,
       showLoginButton: false,
     };

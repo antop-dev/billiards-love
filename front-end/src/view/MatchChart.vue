@@ -18,11 +18,11 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="users.length > 0">
           <tr v-for="item in users" :key="item.id">
             <td class="text-center">{{ item.opponent.no }}</td>
             <td>{{ item.opponent.nickname }}</td>
-            <td><a href="#" @click="showResult(true)">test</a></td>
+            <td><match-result value="test"></match-result></td>
             <td>{{ item.closed }}</td>
           </tr>
         </tbody>
@@ -33,8 +33,10 @@
 
 <script>
 import MatchApi from '../api/match.api';
+import MatchResult from './MatchResult';
 export default {
   name: 'GameRank',
+  components: { MatchResult },
   data() {
     return {
       showDialog: false,
@@ -52,31 +54,12 @@ export default {
       ],
     };
   },
-  methods: {
-    showResult(toggle) {
-      if (toggle) {
-        this.showDialog = true;
-      } else {
-        this.showDialog = false;
-      }
-    },
-  },
+  methods: {},
   async created() {
     // RankApi.inquire();
     const id = this.$store.state.match_detail.id;
-    this.users = await MatchApi.inquire_all(id);
-    this.users = [
-      {
-        id: 3823,
-        opponent: {
-          no: 2,
-          id: 312,
-          nickname: '홍길동',
-        },
-        result: ['WIN', 'LOSE', 'LOSE'],
-        closed: true,
-      },
-    ];
+    const users = await MatchApi.inquire_all(id);
+    console.log(users);
   },
 };
 </script>

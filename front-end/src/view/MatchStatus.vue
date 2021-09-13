@@ -4,7 +4,7 @@
     <div>
       <v-sheet>
         <v-container>
-          <v-card>
+          <v-card min-height="200">
             <router-view></router-view>
           </v-card>
         </v-container>
