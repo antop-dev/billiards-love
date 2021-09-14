@@ -5,7 +5,6 @@ import org.antop.billiardslove.RestDocsUtils.Attributes;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.dto.PlayerDto;
 import org.antop.billiardslove.model.ContestState;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +21,9 @@ import static org.antop.billiardslove.dto.ContestDto.Fields.DESCRIPTION;
 import static org.antop.billiardslove.dto.ContestDto.Fields.END_DATE;
 import static org.antop.billiardslove.dto.ContestDto.Fields.END_TIME;
 import static org.antop.billiardslove.dto.ContestDto.Fields.MAX_JOINER;
-import static org.antop.billiardslove.dto.ContestDto.Fields.PLAYER;
 import static org.antop.billiardslove.dto.ContestDto.Fields.START_DATE;
 import static org.antop.billiardslove.dto.ContestDto.Fields.START_TIME;
-import static org.antop.billiardslove.dto.ContestDto.Fields.STATE_CODE;
-import static org.antop.billiardslove.dto.ContestDto.Fields.STATE_NAME;
 import static org.antop.billiardslove.dto.ContestDto.Fields.TITLE;
-import static org.antop.billiardslove.dto.PlayerDto.Fields.HANDICAP;
-import static org.antop.billiardslove.dto.PlayerDto.Fields.NICKNAME;
-import static org.antop.billiardslove.dto.PlayerDto.Fields.NUMBER;
-import static org.antop.billiardslove.dto.PlayerDto.Fields.RANK;
-import static org.antop.billiardslove.dto.PlayerDto.Fields.SCORE;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
@@ -69,25 +60,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andDo(document("contest-info",
                         pathParameters(parameterWithName("id").description("대회 아이디").attributes(Attributes.type(JsonFieldType.NUMBER))),
                         requestHeaders(RestDocsUtils.jwtToken()),
-                        responseFields(
-                                fieldWithPath(ContestDto.Fields.ID).description("대회 아이디"),
-                                fieldWithPath(TITLE).description("대회명"),
-                                fieldWithPath(DESCRIPTION).description("대회 설명").optional(),
-                                fieldWithPath(START_DATE).description("시작 날짜"),
-                                fieldWithPath(START_TIME).description("시작 시간").optional(),
-                                fieldWithPath(END_DATE).description("종료 날짜").optional(),
-                                fieldWithPath(END_TIME).description("종료 시간").optional(),
-                                fieldWithPath(STATE_CODE).description("상태 코드"),
-                                fieldWithPath(STATE_NAME).description("상태명"),
-                                fieldWithPath(MAX_JOINER).description("최대 참가자 수").optional(),
-                                fieldWithPath(PLAYER).description("내 선수 정보").optional(),
-                                fieldWithPath(PLAYER + "." + PlayerDto.Fields.ID).description("선수 아이디"),
-                                fieldWithPath(PLAYER + "." + NICKNAME).description("선수 별명"),
-                                fieldWithPath(PLAYER + "." + NUMBER).description("선수 번호 (참가 번호)").optional(),
-                                fieldWithPath(PLAYER + "." + HANDICAP).description("참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.").optional(),
-                                fieldWithPath(PLAYER + "." + RANK).description("순위").optional(),
-                                fieldWithPath(PLAYER + "." + SCORE).description("점수").optional()
-                        )
+                        responseFields(RestDocsUtils.FieldsSnippet.contestWithPlayer())
                 ))
                 // verify
                 .andExpect(status().isOk())
@@ -123,25 +96,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andDo(print())
                 .andDo(document("contest-list",
                         requestHeaders(RestDocsUtils.jwtToken()),
-                        responseFields(
-                                fieldWithPath("[]." + ContestDto.Fields.ID).description("대회 아이디"),
-                                fieldWithPath("[]." + TITLE).description("대회명"),
-                                fieldWithPath("[]." + DESCRIPTION).description("대회 설명").optional(),
-                                fieldWithPath("[]." + START_DATE).description("시작 날짜"),
-                                fieldWithPath("[]." + START_TIME).description("시작 시간").optional(),
-                                fieldWithPath("[]." + END_DATE).description("종료 날짜").optional(),
-                                fieldWithPath("[]." + END_TIME).description("종료 시간").optional(),
-                                fieldWithPath("[]." + STATE_CODE).description("상태 코드"),
-                                fieldWithPath("[]." + STATE_NAME).description("상태명"),
-                                fieldWithPath("[]." + MAX_JOINER).description("최대 참가자 수").optional(),
-                                fieldWithPath("[]." + PLAYER).description("내 선수 정보").optional(),
-                                fieldWithPath("[]." + PLAYER + "." + PlayerDto.Fields.ID).description("선수 아이디"),
-                                fieldWithPath("[]." + PLAYER + "." + NICKNAME).description("선수 별명"),
-                                fieldWithPath("[]." + PLAYER + "." + NUMBER).description("선수 번호 (참가 번호)").optional(),
-                                fieldWithPath("[]." + PLAYER + "." + HANDICAP).description("참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.").optional(),
-                                fieldWithPath("[]." + PLAYER + "." + RANK).description("순위").optional(),
-                                fieldWithPath("[]." + PLAYER + "." + SCORE).description("점수").optional()
-                        )
+                        responseFields(RestDocsUtils.FieldsSnippet.contestsWithPlayer())
                 ))
                 // verify
                 .andExpect(status().isOk())
@@ -190,18 +145,7 @@ class ContestInfoApiTest extends SpringBootBase {
                                 fieldWithPath(END_TIME).description("종료 시간").optional(),
                                 fieldWithPath(MAX_JOINER).description("최대 참가자 수").optional()
                         ),
-                        responseFields(
-                                fieldWithPath(ContestDto.Fields.ID).description("대회 아이디"),
-                                fieldWithPath(TITLE).description("대회명"),
-                                fieldWithPath(DESCRIPTION).description("대회 설명").optional(),
-                                fieldWithPath(START_DATE).description("시작 날짜"),
-                                fieldWithPath(START_TIME).description("시작 시간").optional(),
-                                fieldWithPath(END_DATE).description("종료 날짜").optional(),
-                                fieldWithPath(END_TIME).description("종료 시간").optional(),
-                                fieldWithPath(STATE_CODE).description("상태 코드"),
-                                fieldWithPath(STATE_NAME).description("상태명"),
-                                fieldWithPath(MAX_JOINER).description("최대 참가자 수").optional()
-                        )
+                        responseFields(RestDocsUtils.FieldsSnippet.contest())
                 ))
                 // verify
                 .andExpect(status().isCreated())
@@ -289,18 +233,7 @@ class ContestInfoApiTest extends SpringBootBase {
                                 fieldWithPath(END_TIME).description("종료 시간").optional(),
                                 fieldWithPath(MAX_JOINER).description("최대 참가자 수").optional()
                         ),
-                        responseFields(
-                                fieldWithPath(ContestDto.Fields.ID).description("대회 아이디"),
-                                fieldWithPath(TITLE).description("대회명"),
-                                fieldWithPath(DESCRIPTION).description("대회 설명").optional(),
-                                fieldWithPath(START_DATE).description("시작 날짜"),
-                                fieldWithPath(START_TIME).description("시작 시간").optional(),
-                                fieldWithPath(END_DATE).description("종료 날짜").optional(),
-                                fieldWithPath(END_TIME).description("종료 시간").optional(),
-                                fieldWithPath(STATE_CODE).description("상태 코드"),
-                                fieldWithPath(STATE_NAME).description("상태명"),
-                                fieldWithPath(MAX_JOINER).description("최대 참가자 수").optional()
-                        )
+                        responseFields(RestDocsUtils.FieldsSnippet.contest())
                 ))
                 // verify
                 .andExpect(status().isOk())

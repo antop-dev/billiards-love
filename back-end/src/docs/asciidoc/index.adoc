@@ -147,6 +147,7 @@ include::{snippets}/contest-open/request-headers.adoc[]
 include::{snippets}/contest-open/http-request.adoc[]
 
 .response
+include::{snippets}/contest-open/response-fields.adoc[]
 include::{snippets}/contest-open/http-response.adoc[]
 
 ==== 대회 시작
@@ -159,7 +160,11 @@ include::{snippets}/contest-start/request-headers.adoc[]
 include::{snippets}/contest-start/http-request.adoc[]
 
 .response
+include::{snippets}/contest-start/response-fields.adoc[]
 include::{snippets}/contest-start/http-response.adoc[]
+
+.대회를 시작할 수 없는 경우
+include::{snippets}/contest-start-can-not/http-response.adoc[]
 
 ==== 대회 중지
 
@@ -171,7 +176,11 @@ include::{snippets}/contest-stop/request-headers.adoc[]
 include::{snippets}/contest-stop/http-request.adoc[]
 
 .response
+include::{snippets}/contest-stop/response-fields.adoc[]
 include::{snippets}/contest-stop/http-response.adoc[]
+
+.대회를 중지할 수 없는 경우
+include::{snippets}/contest-stop-can-not/http-response.adoc[]
 
 ==== 대회 종료
 
@@ -183,7 +192,11 @@ include::{snippets}/contest-end/request-headers.adoc[]
 include::{snippets}/contest-end/http-request.adoc[]
 
 .response
+include::{snippets}/contest-end/response-fields.adoc[]
 include::{snippets}/contest-end/http-response.adoc[]
+
+.이미 중지된 대회인 경우
+include::{snippets}/contest-end-already/http-response.adoc[]
 
 === 경기 정보
 
@@ -233,9 +246,6 @@ include::{snippets}/match-result-enter/http-request.adoc[]
 
 .응답
 include::{snippets}/match-result-enter/http-response.adoc[]
-
-.참여하지 않은 대회
-include::{snippets}/error-contest-not-joined/http-response.adoc[]
 
 .존재하지 않은 경기
 include::{snippets}/error-match-not-found/http-response.adoc[]
