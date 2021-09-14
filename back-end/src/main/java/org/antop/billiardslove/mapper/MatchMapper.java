@@ -22,9 +22,9 @@ public abstract class MatchMapper {
     @Autowired
     private PlayerMapper playerMapper;
 
-    @Mapping(source = "match", target = MatchDto.Fields.OPPONENT, qualifiedByName = MAPPING_OPPONENT)
-    @Mapping(source = "match", target = MatchDto.Fields.RESULT, qualifiedByName = MAPPING_MATCH_RESULT)
-    @Mapping(source = "confirmed", target = MatchDto.Fields.CLOSED)
+    @Mapping(source = "match", target = "opponent", qualifiedByName = MAPPING_OPPONENT)
+    @Mapping(source = "match", target = "result", qualifiedByName = MAPPING_MATCH_RESULT)
+    @Mapping(source = "confirmed", target = "closed")
     public abstract MatchDto toDto(Match match, @Context long memberId);
 
     @Named(MAPPING_OPPONENT)

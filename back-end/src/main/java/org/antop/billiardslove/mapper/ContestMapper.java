@@ -25,9 +25,9 @@ public abstract class ContestMapper {
         return toDto(contest, null);
     }
 
-    @Mapping(source = Contest.Fields.STATE, target = ContestDto.Fields.STATE_CODE, qualifiedByName = MAPPING_STATE_CODE)
-    @Mapping(source = Contest.Fields.STATE, target = ContestDto.Fields.STATE_NAME, qualifiedByName = MAPPING_STATE_NAME)
-    @Mapping(source = Contest.Fields.ID, target = ContestDto.Fields.PLAYER, qualifiedByName = MAPPING_PLAYER)
+    @Mapping(source = "state", target = "stateCode", qualifiedByName = MAPPING_STATE_CODE)
+    @Mapping(source = "state", target = "stateName", qualifiedByName = MAPPING_STATE_NAME)
+    @Mapping(source = "id", target = "player", qualifiedByName = MAPPING_PLAYER)
     public abstract ContestDto toDto(Contest contest, @Context Long memberId);
 
     @Named(MAPPING_STATE_CODE)
