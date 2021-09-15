@@ -3,10 +3,9 @@ package org.antop.billiardslove.api;
 import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
-import org.antop.billiardslove.service.ContestService;
+import org.antop.billiardslove.model.ContestState;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,12 +13,10 @@ import org.springframework.http.MediaType;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.Attributes.type;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -29,8 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ContestStateApiTest extends SpringBootBase {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-    @SpyBean
-    private ContestService contestService;
 
     @Test
     void open() throws Exception {
@@ -44,12 +39,14 @@ class ContestStateApiTest extends SpringBootBase {
                 // document
                 .andDo(document("contest-open",
                         requestHeaders(RestDocsUtils.jwtToken()),
-                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER)))
+                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER))),
+                        responseFields(RestDocsUtils.FieldsSnippet.contest())
                 ))
                 // verify
-                .andExpect(status().isOk());
-        // contestService.open() 를 한번만 호출 했는지 검사
-        verify(contestService, times(1)).open(contestId);
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stateCode", is(ContestState.ACCEPTING.getCode())))
+                .andExpect(jsonPath("$.stateName", is(ContestState.ACCEPTING.name())))
+        ;
     }
 
     @Test
@@ -64,12 +61,14 @@ class ContestStateApiTest extends SpringBootBase {
                 // document
                 .andDo(document("contest-start",
                         requestHeaders(RestDocsUtils.jwtToken()),
-                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER)))
+                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER))),
+                        responseFields(RestDocsUtils.FieldsSnippet.contest())
                 ))
                 // verify
-                .andExpect(status().isOk());
-        // contestService.open({contestId}) 를 한번만 호출 했는지 검사
-        verify(contestService, times(1)).start(anyLong());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stateCode", is(ContestState.PROCEEDING.getCode())))
+                .andExpect(jsonPath("$.stateName", is(ContestState.PROCEEDING.name())))
+        ;
     }
 
     /**
@@ -84,7 +83,7 @@ class ContestStateApiTest extends SpringBootBase {
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andDo(print())
                 // document
-                .andDo(RestDocsUtils.error("error-contest-cant-start"))
+                .andDo(RestDocsUtils.error("contest-start-can-not"))
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
@@ -103,11 +102,13 @@ class ContestStateApiTest extends SpringBootBase {
                 // document
                 .andDo(document("contest-stop",
                         requestHeaders(RestDocsUtils.jwtToken()),
-                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER)))
+                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER))),
+                        responseFields(RestDocsUtils.FieldsSnippet.contest())
                 ))
-                .andExpect(status().isOk());
-        // contestService.stop() 한번만 호출 했는지 검사
-        verify(contestService, times(1)).stop(contestId);
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stateCode", is(ContestState.STOPPED.getCode())))
+                .andExpect(jsonPath("$.stateName", is(ContestState.STOPPED.name())))
+        ;
     }
 
     @Test
@@ -120,7 +121,7 @@ class ContestStateApiTest extends SpringBootBase {
                 // logging
                 .andDo(print())
                 // document
-                .andDo(RestDocsUtils.error("error-contest-cant-stop"))
+                .andDo(RestDocsUtils.error("contest-stop-can-not"))
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
@@ -140,12 +141,14 @@ class ContestStateApiTest extends SpringBootBase {
                 // document
                 .andDo(document("contest-end",
                         requestHeaders(RestDocsUtils.jwtToken()),
-                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER)))
+                        pathParameters(parameterWithName("id").description("대회 아이디").attributes(type(NUMBER))),
+                        responseFields(RestDocsUtils.FieldsSnippet.contest())
                 ))
                 // verify
-                .andExpect(status().isOk());
-        // contestService.open({contestId}) 를 한번만 호출 했는지 검사
-        verify(contestService, times(1)).end(contestId);
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stateCode", is(ContestState.END.getCode())))
+                .andExpect(jsonPath("$.stateName", is(ContestState.END.name())))
+        ;
     }
 
     @Test
@@ -158,7 +161,7 @@ class ContestStateApiTest extends SpringBootBase {
                 // logging
                 .andDo(print())
                 // document
-                .andDo(RestDocsUtils.error("error-contest-already-end"))
+                .andDo(RestDocsUtils.error("contest-end-already"))
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
@@ -186,9 +189,8 @@ class ContestStateApiTest extends SpringBootBase {
 
     @Test
     void unauthorized() throws Exception {
-        long contestId = 2;
         // 인증 토큰을 보내지 않는다.
-        mockMvc.perform(post("/api/v1/contest/{id}/start", contestId)
+        mockMvc.perform(post("/api/v1/contest/{id}/start", 2)
                         .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())

@@ -99,9 +99,11 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void open(long contestId) {
+    public ContestDto open(long contestId) {
         Contest contest = findContest(contestId);
         contest.open();
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -131,7 +133,7 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void start(long contestId) {
+    public ContestDto start(long contestId) {
         Contest contest = findContest(contestId);
         contest.start();
 
@@ -155,6 +157,8 @@ public class ContestService {
                 matchDao.save(match);
             }
         }
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -191,9 +195,11 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void stop(long contestId) {
+    public ContestDto stop(long contestId) {
         Contest contest = findContest(contestId);
         contest.stop();
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -202,9 +208,11 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void end(long contestId) {
+    public ContestDto end(long contestId) {
         Contest contest = findContest(contestId);
         contest.end();
+
+        return contestMapper.toDto(contest);
     }
 
     /**
