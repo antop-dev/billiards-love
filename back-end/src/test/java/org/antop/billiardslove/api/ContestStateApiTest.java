@@ -45,7 +45,7 @@ class ContestStateApiTest extends SpringBootBase {
                 // verify
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stateCode", is(ContestState.ACCEPTING.getCode())))
-                .andExpect(jsonPath("$.stateName", is(ContestState.ACCEPTING.name())))
+                .andExpect(jsonPath("$.stateName", is("접수중")))
         ;
     }
 
@@ -67,7 +67,7 @@ class ContestStateApiTest extends SpringBootBase {
                 // verify
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stateCode", is(ContestState.PROCEEDING.getCode())))
-                .andExpect(jsonPath("$.stateName", is(ContestState.PROCEEDING.name())))
+                .andExpect(jsonPath("$.stateName", is("진행중")))
         ;
     }
 
@@ -107,7 +107,7 @@ class ContestStateApiTest extends SpringBootBase {
                 ))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stateCode", is(ContestState.STOPPED.getCode())))
-                .andExpect(jsonPath("$.stateName", is(ContestState.STOPPED.name())))
+                .andExpect(jsonPath("$.stateName", is("중지")))
         ;
     }
 
@@ -147,7 +147,7 @@ class ContestStateApiTest extends SpringBootBase {
                 // verify
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stateCode", is(ContestState.END.getCode())))
-                .andExpect(jsonPath("$.stateName", is(ContestState.END.name())))
+                .andExpect(jsonPath("$.stateName", is("종료")))
         ;
     }
 

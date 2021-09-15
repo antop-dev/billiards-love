@@ -61,3 +61,24 @@ create table if not exists tbl_mtc
     cnfr_dt         datetime null comment '확정 일시',
     primary key (mtc_id)
 );
+
+create table if not exists tbl_cd_grp
+(
+    cd_grp_id   varchar(10)  not null,
+    cd_grp_nm   varchar(50)  not null,
+    cd_grp_dscr varchar(255) not null,
+    rgst_dt     datetime     not null,
+    mdfy_dt     datetime,
+    primary key (cd_grp_id)
+);
+
+create table if not exists tbl_cd
+(
+    cd_grp_id varchar(10) not null,
+    cd_id     varchar(10) not null,
+    cd_nm     varchar(50) not null,
+    ord_no    int         not null,
+    rgst_dt   datetime    not null,
+    mdfy_dt   datetime,
+    primary key (cd_grp_id, cd_id)
+);

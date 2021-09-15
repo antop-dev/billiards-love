@@ -28,7 +28,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -71,8 +70,8 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.startTime", is("00:00:00")))
                 .andExpect(jsonPath("$.endDate", is("2021-12-30")))
                 .andExpect(jsonPath("$.endTime", is("23:59:59")))
-                .andExpect(jsonPath("$.stateCode", is("0")))
-                .andExpect(jsonPath("$.stateName", is("PROCEEDING")))
+                .andExpect(jsonPath("$.stateCode", is(ContestState.PROCEEDING.getCode())))
+                .andExpect(jsonPath("$.stateName", is("진행중")))
                 .andExpect(jsonPath("$.maxJoiner", is(32)))
                 .andExpect(jsonPath("$.player", notNullValue()))
                 .andExpect(jsonPath("$.player.id", is(2)))
@@ -133,9 +132,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 // logging
                 .andDo(print())
                 .andDo(document("contest-register",
-                        requestHeaders(
-                                headerWithName(HttpHeaders.AUTHORIZATION).description("로그인 API 응답으로 받은 JWT 토큰값 (관리자 권한)")
-                        ),
+                        requestHeaders(RestDocsUtils.jwtToken()),
                         requestFields(
                                 fieldWithPath(TITLE).description("대회명"),
                                 fieldWithPath(DESCRIPTION).description("대회 설명").optional(),
@@ -158,7 +155,7 @@ class ContestInfoApiTest extends SpringBootBase {
                 .andExpect(jsonPath("$.endDate", is("2021-12-31")))
                 .andExpect(jsonPath("$.endTime", is("23:59:59")))
                 .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.getCode())))
-                .andExpect(jsonPath("$.stateName", is(ContestState.PREPARING.name())))
+                .andExpect(jsonPath("$.stateName", is("준비중")))
                 .andExpect(jsonPath("$.maxJoiner", is(32)))
         ;
     }
@@ -221,9 +218,7 @@ class ContestInfoApiTest extends SpringBootBase {
                         pathParameters(
                                 parameterWithName("id").description("대회 아이디").attributes(Attributes.type(JsonFieldType.NUMBER))
                         ),
-                        requestHeaders(
-                                headerWithName(HttpHeaders.AUTHORIZATION).description("로그인 API 응답으로 받은 JWT 토큰값")
-                        ),
+                        requestHeaders(RestDocsUtils.jwtToken()),
                         requestFields(
                                 fieldWithPath(TITLE).description("대회명"),
                                 fieldWithPath(DESCRIPTION).description("대회 설명").optional(),
