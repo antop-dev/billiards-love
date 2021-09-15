@@ -8,14 +8,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = MapStruct.COMPONENT_MODEL)
 public interface KakaoMapper {
-    @Mapping(source = KakaoDto.Fields.NICKNAME,
-             target = Kakao.Fields.PROFILE
-                    + "." + Kakao.Profile.Fields.NICKNAME)
-    @Mapping(source = KakaoDto.Fields.IMAGE_URL,
-             target = Kakao.Fields.PROFILE
-                    + "." + Kakao.Profile.Fields.IMG_URL)
-    @Mapping(source = KakaoDto.Fields.THUMBNAIL_URL,
-             target = Kakao.Fields.PROFILE
-                    + "." + Kakao.Profile.Fields.THUMB_URL)
+    @Mapping(target = "profile", ignore = true)
+    @Mapping(source = "nickname", target = "profile.nickname")
+    @Mapping(source = "imageUrl", target = "profile.imgUrl")
+    @Mapping(source = "thumbnailUrl", target = "profile.thumbUrl")
     Kakao toEntity(KakaoDto kakaoDto);
 }
