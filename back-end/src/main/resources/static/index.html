@@ -558,9 +558,9 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 230
 
 {
-  "secretKey" : "rYQI+nC+S9L15N6QK5VmOiNI42mvs3Xb6tYmK+KX8uU=",
-  "kakaoKey" : "K7tIube4grD/mXnujWlDqzg/wHMZmbkY/3avvUoh7l4C873EtAG4jZhWyd/pKwULiidwMZOa+GX7sWWG",
-  "adSenseKey" : "j+QqJyNa9FnFJQMlSXw66qPW3KkPZ0TUCmt3qRc="
+  "secretKey" : "tSFbq2h3uhKoiJMoGwSjAf+/lpOWDW67e57OGhUUT54=",
+  "kakaoKey" : "vQraVRZYlK6AuQVggyMMKZK96WbfCPaBtuxXz2i6sOtKyugnFH+g5EWP6w9lRLJWb7SBduNqlPr51vvT",
+  "adSenseKey" : "qMwJtxv1fl0zxcZ+MorLfAu+Z4b90eoWO/63qw0="
 }</code></pre>
 </div>
 </div>
@@ -725,7 +725,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 289
 
 {
-  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.XMIlwPulKlIMa752CIHiyHc4hneHhPIlpdYE8U7MnkQ",
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU4LCJleHAiOjE2MzE1NTk1NTh9.eOW_6DOBDT52Za-LiJEfnzT-6ag5wR0xsAKeXEZLWgc",
   "member" : {
     "id" : 1,
     "nickname" : "안탑",
@@ -772,15 +772,49 @@ Content-Length: 289
 </tr>
 </tbody>
 </table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수</th>
+<th class="tableblock halign-left valign-top">암호화</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">별명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>handicap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">핸디캡</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/member HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/member HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.XMIlwPulKlIMa752CIHiyHc4hneHhPIlpdYE8U7MnkQ
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzYxLCJleHAiOjE2MzE1NTk1NjF9.TQmLiUWgZRZR1fLPDOqwWr1rqJVDPTvaUcyU3o0KKBM
 Content-Length: 95
 
 {
-  "nickname" : "3Fnxdx0j0FNSe6mbKkpJXm4cm89Ck9iyWslkonOPl0nGaXf0Vuw=",
+  "nickname" : "QIgwo3WnOjxhzHGRJ5WsKV7PWT505+v+BkhV6MpPOAK1UP1hOoo=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -819,6 +853,13 @@ Content-Length: 95
 <td class="tableblock halign-left valign-top"><p class="tableblock">별명</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thumbnail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">썸네일 이미지 URL</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>handicap</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
@@ -831,12 +872,64 @@ Content-Length: 95
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 108
+Content-Length: 154
 
 {
   "id" : 1,
-  "nickname" : "QSxLFfr6RY01kPV8hdkngqtga78Cxz/jn+IKPtvgMRoIoBNkbrk=",
-  "handicap" : 30
+  "nickname" : "JDcRrMgEMEON1TrhsEpGR9IwvnzEbdTPOwpd0umeun+bPxWqkWk=",
+  "handicap" : 30,
+  "thumbnail" : "https://picsum.photos/110"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">별명이 미입력된 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+Content-Length: 68
+
+{
+  "code" : 400,
+  "message" : "별명을 입력해주세요."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">핸디가 미입력된 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+Content-Length: 71
+
+{
+  "code" : 400,
+  "message" : "핸디캡을 입력해주세요."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">핸디가 1 미만으로 입력된 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+Content-Length: 80
+
+{
+  "code" : 400,
+  "message" : "핸디캡을 1 이상 입력해주세요."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">없는 회원인 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 401 Unauthorized
+Content-Length: 73
+
+{
+  "code" : 401,
+  "message" : "회원을 찾을 수 없습니다."
 }</code></pre>
 </div>
 </div>
@@ -1068,8 +1161,8 @@ Content-Length: 1346
 }, {
   "id" : 3,
   "title" : "준비중인 대회 (1)",
-  "startDate" : "2021-09-09",
-  "endDate" : "2021-09-09",
+  "startDate" : "2021-09-14",
+  "endDate" : "2021-09-14",
   "stateCode" : "2",
   "stateName" : "PREPARING"
 }, {
@@ -1121,7 +1214,7 @@ Content-Length: 1346
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1 HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxMTM2MDM1LCJleHAiOjE2MzExMzc4MzV9.xNlZ1W_g_Uy-7YIqjgq1ii2Ps0lUEQjbB8m1ZUcXIsA</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNTU3NzUyLCJleHAiOjE2MzE1NTk1NTJ9.Pvee2U2hCN_H6_9q1arvmucbRLiL_fPQzNFWu_r7ANE</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1396,7 +1489,7 @@ Content-Length: 412
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDM3LCJleHAiOjE2MzExMzc4Mzd9.KgVoDLwzW9Nn8Zu_dYoL9NS7hQtR-WhokY41VVG_9oM
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU0LCJleHAiOjE2MzE1NTk1NTR9.mZuaGHuzhb5hxSThvnNsYw0-C2LsyET8mnPXL5qLVSM
 Content-Length: 217
 
 {
@@ -1650,7 +1743,7 @@ Content-Length: 282
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/contest/5 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDM2LCJleHAiOjE2MzExMzc4MzZ9.kBlA7pjBeTBmExtxiwvU6g_dcCBW27Ok6-3TNTVCzSo
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU0LCJleHAiOjE2MzE1NTk1NTR9.mZuaGHuzhb5hxSThvnNsYw0-C2LsyET8mnPXL5qLVSM
 Content-Length: 224
 
 {
@@ -1864,7 +1957,7 @@ Content-Length: 287
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/join HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxMTM2MDM3LCJleHAiOjE2MzExMzc4Mzd9.4GJ2wRVP8u_q2HOvjlY70ptHu8_7cDGw91WUkSt5k4E
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxNTU3NzU1LCJleHAiOjE2MzE1NTk1NTV9.ho_PnKWvavzlcLji1kY_YTFyD5TPcDYdP90QD7qmYls
 Content-Length: 23
 
 {
@@ -1937,7 +2030,7 @@ Content-Length: 23
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/v1/contest/2/join HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjMxMTM2MDM3LCJleHAiOjE2MzExMzc4Mzd9.PrJ1jz517vLEq9kEpoMvkyRjlzxVPXHBwvAPNBXlss8</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjMxNTU3NzU1LCJleHAiOjE2MzE1NTk1NTV9.t4AXee27GnfO2i_eiE3Kn6fcSHGk0oXx_0PVYynuPRo</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2008,7 +2101,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjMxMTM2MDM3LCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/3/open HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDM5LCJleHAiOjE2MzExMzc4Mzl9.RXZ-2ako5oJ_3FhDJMq0WKIrPlq8hTMirWET0JieVJY</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU4LCJleHAiOjE2MzE1NTk1NTh9.eOW_6DOBDT52Za-LiJEfnzT-6ag5wR0xsAKeXEZLWgc</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2076,7 +2169,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDM5LCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/start HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.XMIlwPulKlIMa752CIHiyHc4hneHhPIlpdYE8U7MnkQ</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU4LCJleHAiOjE2MzE1NTk1NTh9.eOW_6DOBDT52Za-LiJEfnzT-6ag5wR0xsAKeXEZLWgc</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2144,7 +2237,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/1/stop HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.XMIlwPulKlIMa752CIHiyHc4hneHhPIlpdYE8U7MnkQ</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU4LCJleHAiOjE2MzE1NTk1NTh9.eOW_6DOBDT52Za-LiJEfnzT-6ag5wR0xsAKeXEZLWgc</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2212,7 +2305,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/end HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDM5LCJleHAiOjE2MzExMzc4Mzl9.RXZ-2ako5oJ_3FhDJMq0WKIrPlq8hTMirWET0JieVJY</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNTU3NzU4LCJleHAiOjE2MzE1NTk1NTh9.eOW_6DOBDT52Za-LiJEfnzT-6ag5wR0xsAKeXEZLWgc</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2280,7 +2373,7 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxMTM2MDM5LCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1/matches HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.GcWQ6pw5ee6e5IewWgKu3RTWXm4WfKiMkCh7UkICBug</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNTU3NzU5LCJleHAiOjE2MzE1NTk1NTl9.o_FpUN0ecJTy8IjRuecgyOlR_BM8z3sGi6qb9uuVBPI</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2508,7 +2601,7 @@ Content-Length: 869
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/match/5 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.6wBLZ1PjJ4lxsOWBIqh1JQ1elwuCVPMZloKJtfvUk9Y</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjMxNTU3NzU4LCJleHAiOjE2MzE1NTk1NTh9.03gxx5LVjfDMGoBaYDHprl2QKUyVPOfH6XeC_dwVq_Y</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2686,7 +2779,7 @@ Content-Length: 219
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/match/7 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxMTM2MDQwLCJleHAiOjE2MzExMzc4NDB9.gdVA3AcQJ7TodujpqVoQWLIBzS2xIT5uuFr301Ar_Io
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxNTU3NzU5LCJleHAiOjE2MzE1NTk1NTl9.mRP_NGM10IePaGf61jp5AI4J20zfeXGetWIvULqhPT0
 Content-Length: 24
 
 [ "WIN", "WIN", "LOSE" ]</code></pre>
@@ -2696,19 +2789,6 @@ Content-Length: 24
 <div class="title">응답</div>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">참여하지 않은 대회</div>
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-Content-Length: 75
-
-{
-  "code" : 400,
-  "message" : "참여하지 않은 경기입니다."
-}</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2798,7 +2878,7 @@ Content-Length: 75
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1/ranks HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxMTM2MDM3LCJleHAiOjE2MzExMzc4Mzd9.TUPx6xMTkMat-KHk9AY9TGQ3rF5NftFaGkHuxmsukjk</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNTU3NzU1LCJleHAiOjE2MzE1NTk1NTV9.YVyurV5YoZYJMkeXHBVBCfrVVAokU6rDxYUicpwTesQ</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2995,7 +3075,7 @@ Content-Length: 544
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-09 06:09:19 KST
+Last updated 2021-09-14 03:28:51 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

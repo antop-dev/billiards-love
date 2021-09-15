@@ -2,6 +2,7 @@ package org.antop.billiardslove;
 
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.PlayerDto;
+import org.antop.billiardslove.dto.MemberDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.headers.HeaderDocumentation;
@@ -14,8 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static org.antop.billiardslove.RestDocsUtils.Attributes.encrypted;
 import static org.antop.billiardslove.config.error.ErrorMessage.Fields.CODE;
 import static org.antop.billiardslove.config.error.ErrorMessage.Fields.MESSAGE;
 import static org.antop.billiardslove.dto.ContestDto.Fields.DESCRIPTION;
@@ -143,6 +144,16 @@ public class RestDocsUtils {
                 return field;
             }).collect(Collectors.toList());
         }
+
+        public static List<FieldDescriptor> member() {
+            return Arrays.asList(
+                    fieldWithPath(MemberDto.Fields.ID).description("회원 아이디"),
+                    fieldWithPath(MemberDto.Fields.NICKNAME).description("별명").attributes(encrypted()),
+                    fieldWithPath(MemberDto.Fields.THUMBNAIL).description("썸네일 이미지 URL"),
+                    fieldWithPath(MemberDto.Fields.HANDICAP).description("핸디캡")
+            );
+        }
+
     }
 
 }

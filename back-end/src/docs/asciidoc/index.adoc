@@ -48,11 +48,25 @@ include::{snippets}/logged-in/http-response.adoc[]
 
 .request
 include::{snippets}/member-modify/request-headers.adoc[]
+include::{snippets}/member-modify/request-fields.adoc[]
 include::{snippets}/member-modify/http-request.adoc[]
 
 .response
 include::{snippets}/member-modify/response-fields.adoc[]
 include::{snippets}/member-modify/http-response.adoc[]
+
+.별명이 미입력된 경우
+include::{snippets}/member-modify-valid-nickname-not-empty/http-response.adoc[]
+
+.핸디가 미입력된 경우
+include::{snippets}/member-modify-valid-handicap-not-null/http-response.adoc[]
+
+.핸디가 1 미만으로 입력된 경우
+include::{snippets}/member-modify-valid-handicap-over-1/http-response.adoc[]
+
+.없는 회원인 경우
+include::{snippets}/error-bad-credentials/http-response.adoc[]
+
 
 == 대회
 

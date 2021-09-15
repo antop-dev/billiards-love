@@ -5,8 +5,8 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class MemberNotFountException extends RuntimeException {
-    public MemberNotFountException() {
+public class MemberNotFoundException extends NotFoundException {
+    public MemberNotFoundException() {
         super("회원을 찾을 수 없습니다.");
     }
 }

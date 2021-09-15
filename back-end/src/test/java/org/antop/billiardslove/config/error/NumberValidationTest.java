@@ -41,7 +41,7 @@ class NumberValidationTest extends SpringBootBase {
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must not be null (input : null)")));
+                .andExpect(jsonPath("$.message", is("숫자를 입력해주세요.")));
     }
 
     @Test
@@ -60,7 +60,7 @@ class NumberValidationTest extends SpringBootBase {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("JSON parse error: Cannot deserialize value of type `java.lang.Number` from String \"not number\": not a valid number")));
+                .andExpect(jsonPath("$.message", is("잘못된 포멧입니다.")));
     }
 
     @Test
@@ -76,7 +76,7 @@ class NumberValidationTest extends SpringBootBase {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must be greater than or equal to 10 (input : 1)")));
+                .andExpect(jsonPath("$.message", is("숫자를 10 이상 입력해주세요.")));
     }
 
     @Test
@@ -92,7 +92,7 @@ class NumberValidationTest extends SpringBootBase {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must be less than or equal to 100 (input : 9999)")));
+                .andExpect(jsonPath("$.message", is("숫자를 100 이하로 입력해주세요.")));
     }
 
     @Test
@@ -119,9 +119,9 @@ class NumberValidationTest extends SpringBootBase {
         }
 
         static class Request {
-            @NotNull
-            @Min(10)
-            @Max(100)
+            @NotNull(message = "숫자를 입력해주세요.")
+            @Min(value = 10, message = "숫자를 10 이상 입력해주세요.")
+            @Max(value = 100, message = "숫자를 100 이하로 입력해주세요.")
             private Number value;
 
             public Number getValue() {
