@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author jammini
  */
-public class AlreadyContestProgressException extends RuntimeException {
+public class AlreadyContestProgressException extends BadRequestException {
     public AlreadyContestProgressException() {
         super("이미 진행된 대회입니다.");
     }

@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class MatchNotFoundException extends RuntimeException {
+public class MatchNotFoundException extends NotFoundException {
     public MatchNotFoundException() {
         super("경기를 찾을 수 없습니다.");
     }

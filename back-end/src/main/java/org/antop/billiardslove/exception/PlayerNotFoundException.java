@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class PlayerNotFoundException extends RuntimeException {
+public class PlayerNotFoundException extends NotFoundException {
     public PlayerNotFoundException() {
         super("참가자를 찾을 수 없습니다.");
     }

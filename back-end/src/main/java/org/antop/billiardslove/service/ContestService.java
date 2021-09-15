@@ -13,7 +13,7 @@ import org.antop.billiardslove.exception.AlreadyJoinException;
 import org.antop.billiardslove.exception.CanNotCancelJoinException;
 import org.antop.billiardslove.exception.CanNotJoinContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
-import org.antop.billiardslove.exception.MemberNotFountException;
+import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
@@ -82,7 +82,7 @@ public class ContestService {
             throw new AlreadyJoinException();
         });
 
-        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFountException::new);
+        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
 
         Player player = Player.builder()
                 .contest(contest)
