@@ -3,6 +3,7 @@ package org.antop.billiardslove.jpa.repository;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Kakao.Profile;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,44 +19,94 @@ class KakaoRepositoryTest extends SpringBootBase {
     private KakaoRepository repository;
 
     @Test
-    void findById() {
-        Optional<Kakao> optional = repository.findById(3L);
-        assertThat(optional.isPresent(), is(true));
+    @DisplayName("카카오 정보를 저장한다.")
+    void save() {
+        // 1. 데이터 준비
+        String name = faker.name().name();
+        Kakao kakaoData = Kakao.builder()
+                .id(9999999999L)
+                .connectedAt(LocalDateTime.now())
+                .profile(Profile.builder()
+                        .nickname(name)
+                        .imgUrl("https://picsum.photos/640")
+                        .thumbUrl("https://picsum.photos/110").build())
+                .build();
 
+        // 2. 실행
+        repository.save(kakaoData);
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Kakao> optional = repository.findById(kakaoData.getId());
+        assertThat(optional.isPresent(), is(true));
         optional.ifPresent(kakao -> {
-            assertThat(kakao.getProfile().getNickname(), is("김정민"));
+            assertThat(kakao.getProfile().getNickname(), is(name));
             assertThat(kakao.getConnectedAt(), notNullValue());
             assertThat(kakao.getProfile().getImgUrl(), is("https://picsum.photos/640"));
             assertThat(kakao.getProfile().getThumbUrl(), is("https://picsum.photos/110"));
         });
-
     }
 
     @Test
-    void save() {
-        Kakao kakao = Kakao.builder()
+    @DisplayName("카카오 정보를 변경한다.")
+    void changeProfile() {
+        // 1. 데이터 준비
+        String name = faker.name().name();
+        Kakao kakaoData = Kakao.builder()
                 .id(9999999999L)
                 .connectedAt(LocalDateTime.now())
                 .profile(Profile.builder()
-                        .nickname(faker.name().name())
+                        .nickname(name)
                         .imgUrl("https://picsum.photos/640")
                         .thumbUrl("https://picsum.photos/110").build())
                 .build();
-        repository.save(kakao);
-        // TODO: 뭘 검증해야 할까?
-    }
+        repository.save(kakaoData);
+        flushAndClear();
 
-    @Test
-    void changeProfile() {
-        repository.findById(2L).ifPresent(it -> {
+        // 2. 실행
+        repository.findById(kakaoData.getId()).ifPresent(it -> {
             Profile newProfile = Profile.builder()
-                    .nickname(faker.name().name())
+                    .nickname(name)
                     .imgUrl("https://foo")
                     .thumbUrl("https://bar")
                     .build();
             it.changeProfile(newProfile);
         });
-        // TODO: 뭘 검증 해야 할까?
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Kakao> optional = repository.findById(kakaoData.getId());
+        assertThat(optional.isPresent(), is(true));
+        optional.ifPresent(kakao -> {
+            assertThat(kakao.getProfile().getNickname(), is(name));
+            assertThat(kakao.getConnectedAt(), notNullValue());
+            assertThat(kakao.getProfile().getImgUrl(), is("https://foo"));
+            assertThat(kakao.getProfile().getThumbUrl(), is("https://bar"));
+        });
     }
 
+    @Test
+    @DisplayName("존재하지 않는 카카오 정보를 조회한다.")
+    void delete() {
+        // 1. 데이터 준비
+        String name = faker.name().name();
+        Kakao kakaoData = Kakao.builder()
+                .id(9999999999L)
+                .connectedAt(LocalDateTime.now())
+                .profile(Profile.builder()
+                        .nickname(name)
+                        .imgUrl("https://picsum.photos/640")
+                        .thumbUrl("https://picsum.photos/110").build())
+                .build();
+        repository.save(kakaoData);
+        flushAndClear();
+
+        // 2. 실행
+        repository.deleteById(kakaoData.getId());
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Kakao> optional = repository.findById(kakaoData.getId());
+        assertThat(optional.isPresent(), is(false));
+    }
 }

@@ -77,5 +77,9 @@ public abstract class SpringBootBase {
         em.flush();
         log.info("after flush...");
     }
+    protected void flushAndClear() {
+        flush();
+        em.clear();
+    }
 
 }
