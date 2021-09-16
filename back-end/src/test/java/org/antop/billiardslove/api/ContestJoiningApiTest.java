@@ -4,7 +4,8 @@ import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.RestDocsUtils.Attributes;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
-import org.antop.billiardslove.service.ContestService;
+import org.antop.billiardslove.dto.PlayerDto;
+import org.antop.billiardslove.service.PlayerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,11 +14,13 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.Collections;
+import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.api.ContestJoiningApi.JoiningRequest.Fields.HANDICAP;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -33,7 +36,7 @@ class ContestJoiningApiTest extends SpringBootBase {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
-    private ContestService contestService;
+    private PlayerService playerService;
 
     /**
      * 정상 참가
@@ -124,8 +127,10 @@ class ContestJoiningApiTest extends SpringBootBase {
      */
     @Test
     void cancelJoining() throws Exception {
+        long contestId = 2;
         String token = jwtTokenProvider.createToken("4");
-        mockMvc.perform(delete("/api/v1/contest/{id}/join", 2)
+
+        mockMvc.perform(delete("/api/v1/contest/{id}/join", contestId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andDo(print())
@@ -139,9 +144,8 @@ class ContestJoiningApiTest extends SpringBootBase {
                 .andExpect(status().isOk())
         ;
 
-        // TODO(안정용): 테스트 완성
-//        Contest contest = contestService.getContest(2);
-//        assertThat(contest.getPlayers(), hasSize(3)); // 4 -> 3
+        List<PlayerDto> players = playerService.getPlayers(contestId);
+        assertThat(players, hasSize(3)); // 4 -> 3
     }
 
 }
