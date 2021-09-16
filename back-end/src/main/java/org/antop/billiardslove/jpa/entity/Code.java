@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,8 +19,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.StringJoiner;
 
 /**
  * 코드
@@ -27,6 +26,7 @@ import java.util.StringJoiner;
  * @author antop
  */
 @Getter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @FieldNameConstants
@@ -41,6 +41,7 @@ public class Code {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cd_grp_id")
+    @ToString.Exclude
     private CodeGroup group;
 
     /**
@@ -75,28 +76,8 @@ public class Code {
     @Column(name = "mdfy_dt")
     private LocalDateTime modified;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Code code1 = (Code) o;
-        return Objects.equals(group, code1.group) && Objects.equals(id, code1.id);
+    public void setGroup(CodeGroup group) {
+        this.group = group;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(group, id);
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Code.class.getSimpleName() + "[", "]")
-                .add("group=" + group)
-                .add("id='" + id + "'")
-                .add("name='" + name + "'")
-                .add("order=" + order)
-                .add("created=" + created)
-                .add("modified=" + modified)
-                .toString();
-    }
 }

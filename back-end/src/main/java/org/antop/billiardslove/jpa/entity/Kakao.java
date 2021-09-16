@@ -3,15 +3,12 @@ package org.antop.billiardslove.jpa.entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -20,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * 카카오 사용자 정보<br>
@@ -42,7 +38,6 @@ public class Kakao {
      */
     @Id
     @Column(name = "lgn_id")
-    @EqualsAndHashCode.Include
     private Long id;
     /**
      * 접속 일시
@@ -54,11 +49,6 @@ public class Kakao {
 
     @Setter
     @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "nickname", column = @Column(name = "nck_nm", nullable = false)),
-            @AttributeOverride(name = "imgUrl", column = @Column(name = "prfl_img_url")),
-            @AttributeOverride(name = "thumbUrl", column = @Column(name = "prfl_thmb_img_url"))
-    })
     private Profile profile;
 
     /**
@@ -68,19 +58,6 @@ public class Kakao {
      */
     public void changeProfile(Profile profile) {
         this.profile = profile;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Kakao kakao = (Kakao) o;
-        return Objects.equals(id, kakao.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     /**
@@ -99,14 +76,17 @@ public class Kakao {
         /**
          * 닉네임
          */
+        @Column(name = "nck_nm")
         private String nickname;
         /**
          * 프로필 이미지 URL, 640px * 640px 또는 480px * 480px
          */
+        @Column(name = "prfl_img_url")
         private String imgUrl;
         /**
          * 프로필 미리보기 이미지 URL, 110px * 110px 또는 100px * 100px
          */
+        @Column(name = "prfl_thmb_img_url")
         private String thumbUrl;
     }
 }

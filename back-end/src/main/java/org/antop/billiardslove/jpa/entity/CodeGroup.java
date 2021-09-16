@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * 코드 그룹
@@ -64,19 +63,6 @@ public class CodeGroup {
         this.id = id;
         this.name = name;
         this.description = description;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CodeGroup codeGroup = (CodeGroup) o;
-        return Objects.equals(id, codeGroup.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 }

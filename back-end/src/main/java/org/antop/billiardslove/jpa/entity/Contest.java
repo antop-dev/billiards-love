@@ -2,7 +2,6 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +29,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Objects;
 
 /**
  * 대회 정보
@@ -50,7 +48,6 @@ public class Contest {
      */
     @Id
     @Column(name = "cnts_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -212,19 +209,5 @@ public class Contest {
     public void open() {
         state = ContestState.ACCEPTING;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contest contest = (Contest) o;
-        return Objects.equals(id, contest.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
 
 }
