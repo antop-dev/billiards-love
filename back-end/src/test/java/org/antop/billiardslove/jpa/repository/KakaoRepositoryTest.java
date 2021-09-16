@@ -3,7 +3,6 @@ package org.antop.billiardslove.jpa.repository;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Kakao.Profile;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
