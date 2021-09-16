@@ -76,8 +76,4 @@ public class Code {
     @Column(name = "mdfy_dt")
     private LocalDateTime modified;
 
-    public void setGroup(CodeGroup group) {
-        this.group = group;
-    }
-
 }

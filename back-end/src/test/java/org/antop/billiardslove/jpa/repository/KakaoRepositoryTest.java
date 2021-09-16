@@ -3,6 +3,7 @@ package org.antop.billiardslove.jpa.repository;
 import org.antop.billiardslove.SpringBootBase;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Kakao.Profile;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 class KakaoRepositoryTest extends SpringBootBase {
     @Autowired
@@ -41,8 +43,12 @@ class KakaoRepositoryTest extends SpringBootBase {
                         .imgUrl("https://picsum.photos/640")
                         .thumbUrl("https://picsum.photos/110").build())
                 .build();
-        repository.save(kakao);
-        // TODO: 뭘 검증해야 할까?
+
+        Kakao saved = repository.save(kakao);
+
+        assertThat(isPersisted(kakao), is(false));
+        assertThat(isPersisted(saved), is(true));
+        assertNotSame(kakao, saved);
     }
 
     @Test
