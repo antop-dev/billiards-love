@@ -27,7 +27,6 @@ class KakaoRepositoryTest extends DataJpaBase {
 
         // 2. 실행
         repository.save(kakao);
-
         flushAndClear();
 
         // 3. 검증
@@ -36,8 +35,8 @@ class KakaoRepositoryTest extends DataJpaBase {
         optional.ifPresent(it -> {
             assertThat(it.getProfile().getNickname(), is(kakao.getProfile().getNickname()));
             assertThat(it.getConnectedAt(), notNullValue());
-            assertThat(it.getProfile().getImgUrl(), is("https://picsum.photos/640"));
-            assertThat(it.getProfile().getThumbUrl(), is("https://picsum.photos/110"));
+            assertThat(it.getProfile().getImgUrl(), is(kakao.getProfile().getImgUrl()));
+            assertThat(it.getProfile().getThumbUrl(), is(kakao.getProfile().getThumbUrl()));
         });
     }
 
