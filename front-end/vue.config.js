@@ -8,11 +8,13 @@ module.exports = {
       },
     },
   },
+
   chainWebpack: config => {
     config.externals({
       Kakao: 'Kakao',
     });
   },
+
   configureWebpack: {
     resolve: {
       alias: {
@@ -20,4 +22,5 @@ module.exports = {
       },
     },
   },
+  transpileDependencies: ['vuetify'],
 };

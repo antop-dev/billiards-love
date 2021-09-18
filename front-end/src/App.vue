@@ -1,26 +1,39 @@
 <template>
-  <div class="page-container">
-    <div>
-      <!-- 초기화가 되어있나 안되어있나-->
-      <div v-if="showLoading">
-        <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
+  <div>
+    <v-app>
+      <div v-if="showLoading" class="text-center">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="purple"
+          indeterminate
+        ></v-progress-circular>
       </div>
       <div v-else>
         <div v-if="showLoginButton">
-          <md-content>
-            <a @click="kakaoLogin" href="#">
-              <img
-                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-                width="222"
-              />
-            </a>
-          </md-content>
+          <a @click="kakaoLogin" href="#">
+            <img
+              src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              width="222"
+            />
+          </a>
         </div>
-        <div v-else>
+        <v-main v-else>
           <router-view></router-view>
-        </div>
+        </v-main>
       </div>
-    </div>
+      <v-snackbar v-model="snackbar" top="true">
+        {{ text }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+      <v-btn @click="snackbar = true">테스트</v-btn>
+    </v-app>
+    <!-- 초기화가 되어있나 안되어있나-->
   </div>
 </template>
 
@@ -31,6 +44,8 @@ import aes256 from './util/aes256';
 export default {
   data() {
     return {
+      text: 'TEST!!',
+      snackbar: false,
       showLoading: true,
       showLoginButton: false,
     };
@@ -103,7 +118,4 @@ export default {
 };
 </script>
 
-<style>
-.md-alignment-center-center {
-}
-</style>
+<style></style>

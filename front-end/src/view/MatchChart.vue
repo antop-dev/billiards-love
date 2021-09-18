@@ -1,73 +1,65 @@
 <template>
   <div>
-    <md-table
-      hidden
-      v-model="users"
-      md-sort="rank"
-      md-sort-order="asc"
-      md-card
-      md-fixed-header
-    >
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="번호" md-sort-by="no" md-numeric>{{
-          item.no
-        }}</md-table-cell>
-        <md-table-cell md-label="참가자명" md-sort-by="name">{{
-          item.name
-        }}</md-table-cell>
-        <md-table-cell md-label="결과" md-sort-by="result">
-          <a href="#" @click="showSidepanel = !showSidepanel">{{
-            item.result
-          }}</a>
-        </md-table-cell>
-        <md-table-cell md-label="확정" md-sort-by="confirm">{{
-          item.confirm
-        }}</md-table-cell>
-      </md-table-row>
-    </md-table>
-    <match-result hidden></match-result>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-center">
+              번호
+            </th>
+            <th class="text-left">
+              참가자명
+            </th>
+            <th class="text-left">
+              결과
+            </th>
+            <th class="text-left">
+              확정
+            </th>
+          </tr>
+        </thead>
+        <tbody v-if="users.length > 0">
+          <tr v-for="item in users" :key="item.id">
+            <td class="text-center">{{ item.opponent.no }}</td>
+            <td>{{ item.opponent.nickname }}</td>
+            <td><match-result value="test"></match-result></td>
+            <td>{{ item.closed }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
 <script>
+import MatchApi from '../api/match.api';
 import MatchResult from './MatchResult';
 export default {
   name: 'GameRank',
   components: { MatchResult },
   data() {
     return {
-      showSidepanel: false,
+      showDialog: false,
       users: [
         {
-          id: 1,
-          no: 1,
-          name: '김형익',
-          result: '4승',
-          confirm: false,
-        },
-        {
-          id: 2,
-          no: 2,
-          name: '김띠용',
-          result: '입력',
-          confirm: true,
-        },
-        {
-          id: 3,
-          no: 3,
-          name: '안탑',
-          result: '입력',
-          confirm: true,
-        },
-        {
-          id: 4,
-          no: 4,
-          name: '골드스푼',
-          result: '입력',
-          confirm: true,
+          id: 3823,
+          opponent: {
+            no: 2,
+            id: 312,
+            nickname: '홍길동',
+          },
+          result: ['WIN', 'LOSE', 'LOSE'],
+          closed: true,
         },
       ],
     };
+  },
+  methods: {},
+  async created() {
+    // RankApi.inquire();
+    const id = this.$store.state.match_detail.id;
+    const users = await MatchApi.inquire_all(id);
+    console.log(users);
   },
 };
 </script>
