@@ -82,4 +82,14 @@ public abstract class SpringBootBase {
         em.clear();
     }
 
+    /**
+     * 엔티티가 영속성이 됬는지 여부
+     *
+     * @param entity JPA 엔티티
+     * @return 영속성 여부
+     */
+    protected final boolean isPersisted(Object entity) {
+        return em.contains(entity);
+    }
+
 }

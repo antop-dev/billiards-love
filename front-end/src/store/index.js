@@ -7,6 +7,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    match_detail: {
+      id: 0,
+    },
     login_info: {
       token: '',
       registered: false,

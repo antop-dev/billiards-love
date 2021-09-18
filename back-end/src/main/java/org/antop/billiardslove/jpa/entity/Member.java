@@ -2,7 +2,6 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +26,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * 회원 정보
@@ -47,7 +45,6 @@ public class Member {
      */
     @Id
     @Column(name = "mmbr_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -98,19 +95,6 @@ public class Member {
     public Member(Kakao kakao, String nickname) {
         this.kakao = kakao;
         this.nickname = nickname;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return Objects.equals(id, member.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 }

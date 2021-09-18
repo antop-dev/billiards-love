@@ -4,8 +4,8 @@ plugins {
     id "java"
     id "org.sonarqube" version "3.0"
     id "jacoco"
-    id 'com.epages.restdocs-api-spec' version '0.11.5'
-    id 'org.asciidoctor.convert' version '1.5.8'
+    id "com.epages.restdocs-api-spec" version "0.11.5"
+    id "org.asciidoctor.convert" version "1.5.8"
 }
 
 group = "org.antop"
@@ -105,7 +105,7 @@ dependencies {
     implementation "io.springfox:springfox-swagger-common:3.0.0"
     implementation "io.springfox:springfox-swagger-ui:3.0.0"
     // https://github.com/ePages-de/restdocs-api-spec
-    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.12.0'
+    testImplementation "com.epages:restdocs-api-spec-mockmvc:0.12.0"
 }
 
 ext {
@@ -146,7 +146,7 @@ asciidoctor {
 }
 
 asciidoctor.doFirst {
-    delete file('src/main/resources/static/index.html')
+    delete file("src/main/resources/static/index.html")
 }
 
 task copyDocument(type: Copy) {

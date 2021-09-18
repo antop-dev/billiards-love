@@ -1,27 +1,37 @@
 <template>
-  <div class="page-container">
+  <div>
     <app-header title="대시보드" menu-btn="true"></app-header>
-    <div v-if="showLoading">
-      <md-progress-spinner md-mode="indeterminate"> </md-progress-spinner>
-    </div>
-    <div v-else>
-      <div v-if="contentsList.length > 0">
-        <div
-          class="board"
-          v-for="content in contentsList"
-          v-bind:key="content.id"
-        >
-          <board-contents
-            :title="content.name"
-            :state="content.state.code"
-            @click.native="getDetail(content.id)"
-          ></board-contents>
+    <v-sheet>
+      <v-container>
+        <div v-if="showLoading" class="text-center">
+          <v-progress-circular
+            :size="70"
+            :width="7"
+            color="purple"
+            indeterminate
+          ></v-progress-circular>
         </div>
-      </div>
-      <div v-else>
-        <no-data></no-data>
-      </div>
-    </div>
+        <div v-else>
+          <div v-if="contests.length > 0">
+            <div
+              class="board"
+              v-for="content in contests"
+              v-bind:key="content.id"
+            >
+              <board-contents
+                :id="content.id"
+                :title="content.title"
+                :state="content.stateCode"
+                @click.native="getDetail(content.id)"
+              ></board-contents>
+            </div>
+          </div>
+          <div v-else>
+            <no-data></no-data>
+          </div>
+        </div>
+      </v-container>
+    </v-sheet>
   </div>
 </template>
 <script>
@@ -35,8 +45,8 @@ export default {
   data: function() {
     return {
       showLoading: true,
-      contentsList: [
-        /*{
+      contests: [
+        {
           id: 1,
           name: '2021 리그전',
           description: '2021.01.01~',
@@ -54,18 +64,19 @@ export default {
           },
           maximumParticipants: 32,
           participation: false,
-        },*/
+        },
       ],
     };
   },
   components: { BoardContents, AppHeader, NoData },
   methods: {
     getDetail(id) {
+      this.$store.commit('SAVE_MATCH_ID', id);
       this.$router.push({ path: '/match/:id', query: { id } });
     },
   },
   async created() {
-    this.contentsList = await ContestApi.inquire();
+    this.contests = await ContestApi.inquire_contests();
     this.showLoading = false;
   },
 };
