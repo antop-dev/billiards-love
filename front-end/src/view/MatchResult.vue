@@ -1,52 +1,66 @@
 <template>
   <div>
-    <app-header title="결과 입력" close-btn="true"></app-header>
-    <div class="md-layout md-gutter md-alignment-center-center">
-      <div class="md-layout-item md-size-90">
-        <md-card>
-          <md-card-area md-inset>
-            <md-card-header>
-              <h2 class="md-display-2">Vs 상대</h2>
-            </md-card-header>
-          </md-card-area>
-          <md-card-content>
-            <div class="md-layout md-gutter md-alignment-center">
-              <div class="md-layout-item md-size-40 md-display-1">1경기</div>
-              <div class="md-layout-item md-size-40 md-display-1">승</div>
-            </div>
-          </md-card-content>
-          <md-card-content>
-            <div class="md-layout md-gutter md-alignment-center">
-              <div class="md-layout-item md-size-40 md-display-1">2경기</div>
-              <div class="md-layout-item md-size-40 md-display-1">승</div>
-            </div>
-          </md-card-content>
-          <md-card-content>
-            <div class="md-layout md-gutter md-alignment-center">
-              <div class="md-layout-item md-size-40  md-display-1">3경기</div>
-              <div class="md-layout-item md-size-40  md-display-1">선택</div>
-            </div>
-          </md-card-content>
-        </md-card>
-      </div>
-    </div>
-    <div>
-      <md-bottom-bar md-type="shift">
-        <div class="md-layout md-gutter md-alignment-center-center">
-          <div class="md-layout-item">
-            <md-button class="md-raised">확인</md-button>
-          </div>
-        </div>
-      </md-bottom-bar>
-    </div>
+    <v-dialog v-model="dialog" width="500">
+      <template v-slot:activator="{ on, attrs }">
+        <a v-bind="attrs" v-on="on">{{ value }}</a>
+      </template>
+
+      <v-card>
+        <v-card-title class="text-h5 blue lighten-2">
+          결과 입력
+        </v-card-title>
+        <v-card-title class="text-center justify-center py-6">
+          <h1 class="font-weight-bold text-h3 basil--text">
+            VS 상대
+          </h1>
+        </v-card-title>
+        <v-divider></v-divider>
+
+        <v-list subheader three-line>
+          <v-divider></v-divider>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title><h2>1경기</h2></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title><h2>2경기</h2></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dialog = false">
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/common/AppHeader';
+// import MatchApi from '../api/match.api';
 export default {
-  components: { AppHeader },
   name: 'GameResult',
+  props: {
+    value: String,
+    showDialog: Boolean,
+    toggleWindow: Function,
+  },
+  async created() {
+    // const id = this.$store.state.match_detail.id;
+    // const matchResult = await MatchApi.inquire(id);
+    // console.log(matchResult);
+  },
+  methods: {
+    closeWindow() {
+      this.$emit('toggleWindow', false);
+    },
+  },
 };
 </script>
 

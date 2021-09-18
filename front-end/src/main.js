@@ -6,6 +6,7 @@ import store from './store';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
 import '../public/index.css';
+import vuetify from './plugins/vuetify';
 
 Vue.use(VueMaterial);
 
@@ -15,6 +16,7 @@ const initVue = () => {
     el: '#app',
     router,
     store,
+    vuetify,
     render: h => h(App),
   });
 };
