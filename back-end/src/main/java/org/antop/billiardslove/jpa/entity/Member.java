@@ -79,6 +79,7 @@ public class Member {
     /**
      * 관리자 여부
      */
+    @Setter
     @NotNull
     @Convert(converter = BooleanConverter.class)
     @Column(name = "mgnr_yn")
