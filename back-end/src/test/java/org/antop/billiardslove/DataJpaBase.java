@@ -96,11 +96,9 @@ abstract public class DataJpaBase {
      * 선수 스텁 생성
      *
      * @param contest 대회 정보
+     * @param member  회원 정보
      * @return 선수 정보
      */
-    protected final Player player(Contest contest) {
-        return player(contest, member());
-    }
 
     protected final Player player(Contest contest, Member member) {
         return Player.builder()

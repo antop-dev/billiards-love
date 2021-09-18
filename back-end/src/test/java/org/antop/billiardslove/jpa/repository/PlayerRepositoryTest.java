@@ -43,11 +43,7 @@ class PlayerRepositoryTest extends DataJpaBase {
 
         // 3. 검증
         assertThat(optional, isPresent());
-        optional.ifPresent(it -> {
-            assertThat(it.getContest(), is(contest));
-            assertThat(it.getMember(), is(member));
-            assertThat(it.getHandicap(), is(player.getHandicap()));
-        });
+        optional.ifPresent(it -> assertThat(it.getHandicap(), is(player.getHandicap())));
     }
 
     @Test
@@ -72,14 +68,14 @@ class PlayerRepositoryTest extends DataJpaBase {
         playerRepository.findById(player.getId()).ifPresent(it -> {
             it.setNumber(newNumber);
             it.setHandicap(newHandicap);
+            playerRepository.save(it);
+            flushAndClear();
         });
 
         // 3. 검증
         Optional<Player> optional = playerRepository.findById(player.getId());
-        assertThat(optional.isPresent(), is(true));
+        assertThat(optional, isPresent());
         optional.ifPresent(it -> {
-            assertThat(it.getContest(), is(contest));
-            assertThat(it.getMember(), is(member));
             assertThat(it.getHandicap(), is(newHandicap));
             assertThat(it.getNumber(), is(newNumber));
             assertThat(it.getRank(), nullValue());

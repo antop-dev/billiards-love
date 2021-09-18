@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
@@ -24,7 +25,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 class MatchRepositoryTest extends DataJpaBase {
     @Autowired
-    private MatchRepository repository;
+    private MatchRepository matchRepository;
     @Autowired
     private PlayerRepository playerRepository;
     @Autowired
@@ -39,20 +40,22 @@ class MatchRepositoryTest extends DataJpaBase {
         Contest contest = contest();
         contestRepository.save(contest);
 
-        Player player1 = player(contest);
-        playerRepository.save(player1);
+        Member member1 = member();
+        Member member2 = member();
+        memberRepository.saveAll(Arrays.asList(member1, member2));
 
-        Player player2 = player(contest);
-        playerRepository.save(player2);
+        Player player1 = player(contest, member1);
+        Player player2 = player(contest, member2);
+        playerRepository.saveAll(Arrays.asList(player1, player2));
 
         Match match = match(contest, player1, player2);
         MatcherAssert.assertThat(match.getId(), nullValue());
-        repository.save(match);
+        matchRepository.save(match);
 
         flushAndClear();
 
         // 2. 실행
-        Optional<Match> optional = repository.findById(match.getId());
+        Optional<Match> optional = matchRepository.findById(match.getId());
 
         // 3. 검증
         assertThat(optional, isPresent());
@@ -66,13 +69,16 @@ class MatchRepositoryTest extends DataJpaBase {
         Contest contest = contest();
         contestRepository.save(contest);
 
-        Player player1 = player(contest);
-        playerRepository.save(player1);
-        Player player2 = player(contest);
-        playerRepository.save(player2);
+        Member member1 = member();
+        Member member2 = member();
+        memberRepository.saveAll(Arrays.asList(member1, member2));
+
+        Player player1 = player(contest, member1);
+        Player player2 = player(contest, member2);
+        playerRepository.saveAll(Arrays.asList(player1, player2));
 
         Match match = match(contest, player1, player2);
-        repository.save(match);
+        matchRepository.save(match);
         flushAndClear();
 
         // 2. 실행
@@ -83,11 +89,12 @@ class MatchRepositoryTest extends DataJpaBase {
         match.enterResult(player1.getMember().getId(), WIN, LOSE, NONE);
         match.enterResult(player2.getMember().getId(), LOSE, LOSE, NONE);
         match.decide(admin);
+        matchRepository.save(match);
 
         flushAndClear();
 
         // 3. 검증
-        Optional<Match> optional = repository.findById(match.getId());
+        Optional<Match> optional = matchRepository.findById(match.getId());
         assertThat(optional.isPresent(), is(true));
         optional.ifPresent(it -> {
             assertThat(it.getMatchResult(player1.getMember().getId()), is(MatchResult.of(WIN, LOSE, NONE)));
