@@ -4,13 +4,13 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Arrays;
+import lombok.ToString;
 
 /**
  * 경기 결과
  */
 @Getter
+@ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MatchResult {
@@ -44,8 +44,4 @@ public class MatchResult {
         return new MatchResult(first, second, third);
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(toArray());
-    }
 }

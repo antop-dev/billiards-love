@@ -77,6 +77,10 @@ public abstract class SpringBootBase {
         em.flush();
         log.info("after flush...");
     }
+    protected void flushAndClear() {
+        flush();
+        em.clear();
+    }
 
     /**
      * 엔티티가 영속성이 됬는지 여부
