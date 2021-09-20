@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -29,8 +30,6 @@ import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +83,10 @@ public class SwaggerUiConfig implements WebMvcConfigurer {
             ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
             try {
                 for (Resource resource : resolver.getResources(API_DOCS_PATH + "/*.json")) {
-                    JsonNode node = mapper.readTree(Files.readAllBytes(Paths.get(resource.getURI())));
+                    log.debug("open api resource = {}", resource);
+
+                    // https://stackoverflow.com/questions/25869428/classpath-resource-not-found-when-running-as-jar
+                    JsonNode node = mapper.readTree(IOUtils.toByteArray(resource.getInputStream()));
                     String title = node.get("info").get("title").asText();
 
                     SwaggerResource sr = new SwaggerResource();
