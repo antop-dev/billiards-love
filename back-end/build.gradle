@@ -1,6 +1,6 @@
 plugins {
-    id "org.springframework.boot" version "2.3.1.RELEASE"
-    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id "org.springframework.boot" version "2.5.4"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
     id "java"
     id "org.sonarqube" version "3.0"
     id "jacoco"
@@ -13,6 +13,29 @@ version = "1.0.0"
 
 project.sourceCompatibility = 1.8
 project.targetCompatibility = 1.8
+
+ext {
+    snippetsDir = file("build/generated-snippets")
+    // versions
+    sentryVersion = "5.1.2"
+    mariadbVersion = "2.7.4"
+    commonsIoVersion = "2.11.0"
+    commonsLang3Version = "3.12.0"
+    commonsCodecVersion = "1.15"
+    jasyptVersion = "2.1.2"
+    log4jdbcSpring = "2.0.0"
+    mapstructVersion = "1.4.2.Final"
+    querydslVersion = "4.4.0"
+    lombokVersion = "1.18.20"
+    lombokMapstructBindingVersion = "0.2.0"
+    springRestDocsVersion = "2.0.5.RELEASE"
+    swaggerUiVersion = "3.0.0"
+    restdocsApiSpec = "0.12.0"
+    fakerVersion = "1.0.2"
+    jjwtVersion = "0.9.1"
+    hamcrestOptionalVersion = "2.0.0"
+    h2Version = "1.4.200"
+}
 
 /**
  * Gradle을 통해 빌드 테스트시에 H2 데이터베이스의 인코딩이 안맞춰져서 한글이 전부 깨지게 된다.
@@ -43,49 +66,43 @@ repositories {
 }
 
 dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-security"
-    implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     // https://github.com/jwtk/jjwt
-    implementation "io.jsonwebtoken:jjwt:0.9.1"
-    // querydsl
-    implementation "com.querydsl:querydsl-jpa"
+    implementation "io.jsonwebtoken:jjwt:$jjwtVersion"
+    // https://github.com/querydsl/querydsl/tree/master/querydsl-jpa
+    implementation "com.querydsl:querydsl-jpa:$querydslVersion"
     // https://projectlombok.org/
-    compileOnly "org.projectlombok:lombok"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
     developmentOnly "org.springframework.boot:spring-boot-devtools"
     // https://mapstruct.org/
-    compileOnly "org.mapstruct:mapstruct:1.4.2.Final"
-    // https://docs.sentry.io/clients/java/integrations/#spring
-    implementation "io.sentry:sentry-spring:1.7.30"
-    // https://github.com/ulisesbocchio/jasypt-spring-boot/issues
-    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
+    compileOnly "org.mapstruct:mapstruct:$mapstructVersion"
+    // https://docs.sentry.io/platforms/java/guides/spring-boot/
+    implementation "io.sentry:sentry-spring-boot-starter:$sentryVersion"
     // https://github.com/candrews/log4jdbc-spring-boot-starter/
-    implementation "com.integralblue:log4jdbc-spring-boot-starter:2.0.0"
+    implementation "com.integralblue:log4jdbc-spring-boot-starter:$log4jdbcSpring"
     // https://mariadb.com/kb/en/about-mariadb-connector-j/
-    implementation "org.mariadb.jdbc:mariadb-java-client:2.6.2"
+    implementation "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
     // https://commons.apache.org/proper/commons-io/
-    implementation "commons-io:commons-io:2.8.0"
+    implementation "commons-io:commons-io:$commonsIoVersion"
     // https://commons.apache.org/proper/commons-lang/
-    implementation "org.apache.commons:commons-lang3:3.11"
-    // https://github.com/google/gson
-    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "org.apache.commons:commons-lang3:$commonsLang3Version"
     // https://commons.apache.org/proper/commons-codec/
-    implementation "commons-codec:commons-codec:1.15"
-    // https://github.com/google/guava
-    implementation "com.google.guava:guava:30.1-jre"
+    implementation "commons-codec:commons-codec:$commonsCodecVersion"
     // https://github.com/ulisesbocchio/jasypt-spring-boot
-    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:2.1.2"
+    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:$jasyptVersion"
     /**
      * https://wise-develop.tistory.com/18
      * 순서에 주의해야 한다!!!!!!!
      * 맵스트럭이 롬복보다 위에 있어야 한다.
      */
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
-    annotationProcessor "org.projectlombok:lombok"
-    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties["querydsl.version"]}:jpa"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:$lombokMapstructBindingVersion"
+    annotationProcessor "com.querydsl:querydsl-apt:$querydslVersion:jpa"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     /**
@@ -93,24 +110,21 @@ dependencies {
      */
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.security:spring-security-test"
-    // https://github.com/DiUS/java-faker
-    testImplementation "com.github.javafaker:javafaker:1.0.2"
-    // https://github.com/npathai/hamcrest-optional
-    testImplementation "com.github.npathai:hamcrest-optional:2.0.0"
-    // https://spring.io/projects/spring-restdocs
-    testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc"
     // https://www.h2database.com
-    testImplementation 'com.h2database:h2:1.4.200'
+    testImplementation "com.h2database:h2:$h2Version"
+    // https://github.com/DiUS/java-faker
+    testImplementation "com.github.javafaker:javafaker:$fakerVersion"
+    // https://github.com/npathai/hamcrest-optional
+    testImplementation "com.github.npathai:hamcrest-optional:$hamcrestOptionalVersion"
+    // https://spring.io/projects/spring-restdocs
+    testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:$springRestDocsVersion"
     // swagger-ui
-    implementation "io.springfox:springfox-swagger-common:3.0.0"
-    implementation "io.springfox:springfox-swagger-ui:3.0.0"
+    implementation "io.springfox:springfox-swagger-common:$swaggerUiVersion"
+    implementation "io.springfox:springfox-swagger-ui:$swaggerUiVersion"
     // https://github.com/ePages-de/restdocs-api-spec
-    testImplementation "com.epages:restdocs-api-spec-mockmvc:0.12.0"
+    testImplementation "com.epages:restdocs-api-spec-mockmvc:$restdocsApiSpec"
 }
 
-ext {
-    set("snippetsDir", file("build/generated-snippets"))
-}
 
 test {
     outputs.dir snippetsDir
