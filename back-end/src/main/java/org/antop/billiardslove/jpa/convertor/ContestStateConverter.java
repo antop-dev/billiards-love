@@ -1,20 +1,20 @@
 package org.antop.billiardslove.jpa.convertor;
 
-import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.model.ContestState;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter
-public class ContestStateConverter implements AttributeConverter<Contest.State, String> {
+public class ContestStateConverter implements AttributeConverter<ContestState, String> {
 
     @Override
-    public String convertToDatabaseColumn(Contest.State attribute) {
+    public String convertToDatabaseColumn(ContestState attribute) {
         return attribute.getCode();
     }
 
     @Override
-    public Contest.State convertToEntityAttribute(String dbData) {
-        return Contest.State.of(dbData);
+    public ContestState convertToEntityAttribute(String dbData) {
+        return ContestState.of(dbData);
     }
 }

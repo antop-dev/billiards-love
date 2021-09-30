@@ -31,8 +31,8 @@ public class MatchDao extends QuerydslRepositorySupport {
     }
 
     @Transactional
-    public Match save(Match match) {
-        return repository.save(match);
+    public void save(Match match) {
+        repository.save(match);
     }
 
     /**

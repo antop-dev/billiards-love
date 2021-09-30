@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class CantStopContestStateException extends RuntimeException {
+public class CantStopContestStateException extends BadRequestException {
     public CantStopContestStateException() {
         super("대회를 중지할 수 없는 상태입니다.");
     }

@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class NotJoinedMatchException extends RuntimeException {
+public class NotJoinedMatchException extends BadRequestException {
     public NotJoinedMatchException() {
         super("참여하지 않은 경기입니다.");
     }

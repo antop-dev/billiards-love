@@ -3,13 +3,23 @@ package org.antop.billiardslove.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dao.ContestDao;
+import org.antop.billiardslove.dao.MatchDao;
+import org.antop.billiardslove.dao.MemberDao;
+import org.antop.billiardslove.dao.PlayerDao;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.AlreadyContestProgressException;
+import org.antop.billiardslove.exception.AlreadyJoinException;
 import org.antop.billiardslove.exception.CanNotCancelJoinException;
 import org.antop.billiardslove.exception.CanNotJoinContestStateException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
+import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
+import org.antop.billiardslove.jpa.entity.Match;
+import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.jpa.entity.Player;
+import org.antop.billiardslove.mapper.ContestMapper;
+import org.antop.billiardslove.model.ContestState;
 import org.antop.billiardslove.util.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +34,10 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ContestService {
     private final ContestDao contestDao;
-    private final PlayerService playerService;
+    private final PlayerDao playerDao;
+    private final MatchDao matchDao;
+    private final MemberDao memberDao;
+    private final ContestMapper contestMapper;
 
     /**
      * 대회 정보 조회
@@ -33,7 +46,8 @@ public class ContestService {
      * @return 대회 정보
      */
     public Optional<ContestDto> getContest(long contestId) {
-        return contestDao.findById(contestId).map(this::convert);
+        return contestDao.findById(contestId)
+                .map(contest -> contestMapper.toDto(contest, SecurityUtils.getMemberId()));
     }
 
     /**
@@ -44,7 +58,7 @@ public class ContestService {
     public List<ContestDto> getAllContests() {
         return contestDao.findAllOrdered()
                 .stream()
-                .map(this::convert)
+                .map(contest -> contestMapper.toDto(contest, SecurityUtils.getMemberId()))
                 .collect(Collectors.toList());
     }
 
@@ -62,7 +76,21 @@ public class ContestService {
         if (!contest.isAccepting()) {
             throw new CanNotJoinContestStateException();
         }
-        playerService.join(contest.getId(), memberId, handicap);
+
+        // 이미 참가한 회원인지 확인
+        playerDao.findByContestAndMember(contestId, memberId).ifPresent(player -> {
+            throw new AlreadyJoinException();
+        });
+
+        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
+
+        Player player = Player.builder()
+                .contest(contest)
+                .member(member)
+                .handicap(handicap)
+                .build();
+
+        playerDao.save(player);
     }
 
     /**
@@ -71,9 +99,11 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void open(long contestId) {
+    public ContestDto open(long contestId) {
         Contest contest = findContest(contestId);
         contest.open();
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -94,7 +124,7 @@ public class ContestService {
                 .maxJoiner(dto.getMaxJoiner())
                 .build();
         contestDao.save(contest);
-        return convert(contest);
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -103,10 +133,32 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void start(long contestId) {
+    public ContestDto start(long contestId) {
         Contest contest = findContest(contestId);
         contest.start();
-        playerService.initPlayers(contest.getId());
+
+        List<Player> players = playerDao.findByContest(contestId);
+        for (int i = 0; i < players.size(); i++) {
+            Player p = players.get(i);
+            p.setScore(0);
+            p.setNumber(i + 1);
+            p.setRank(i + 1);
+
+            // 대진표 생성
+            for (int j = i + 1; j < players.size(); j++) {
+                Player opponent = players.get(j);
+
+                Match match = Match.builder()
+                        .contest(contest)
+                        .player1(p)
+                        .player2(opponent)
+                        .build();
+
+                matchDao.save(match);
+            }
+        }
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -120,9 +172,9 @@ public class ContestService {
         Contest contest = contestDao.findById(contestId)
                 .orElseThrow(ContestNotFoundException::new);
         // 준비중, 접수중, 중지 상태에서만 변경 가능
-        if (contest.getState() == Contest.State.PROCEEDING) {
+        if (contest.getState() == ContestState.PROCEEDING) {
             throw new AlreadyContestProgressException();
-        } else if (contest.getState() == Contest.State.END) {
+        } else if (contest.getState() == ContestState.END) {
             throw new AlreadyContestEndException();
         }
 
@@ -134,7 +186,7 @@ public class ContestService {
         contest.setEndTime(dto.getEndTime());
         contest.setMaxJoiner(dto.getMaxJoiner());
 
-        return convert(contest);
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -143,9 +195,11 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void stop(long contestId) {
+    public ContestDto stop(long contestId) {
         Contest contest = findContest(contestId);
         contest.stop();
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -154,9 +208,11 @@ public class ContestService {
      * @param contestId 대회 아이디
      */
     @Transactional
-    public void end(long contestId) {
+    public ContestDto end(long contestId) {
         Contest contest = findContest(contestId);
         contest.end();
+
+        return contestMapper.toDto(contest);
     }
 
     /**
@@ -171,31 +227,12 @@ public class ContestService {
         if (!contest.isAccepting()) {
             throw new CanNotCancelJoinException();
         }
-
-        playerService.getPlayer(contestId, memberId)
-                .ifPresent(player -> playerService.remove(player.getId()));
+        playerDao.findByContestAndMember(contestId, memberId)
+                .ifPresent(player -> playerDao.remove(player.getId()));
     }
 
     public Contest findContest(long contestId) {
         return contestDao.findById(contestId).orElseThrow(ContestNotFoundException::new);
-    }
-
-    private ContestDto convert(Contest contest) {
-        long memberId = SecurityUtils.getMemberId();
-
-        return ContestDto.builder()
-                .id(contest.getId())
-                .title(contest.getTitle())
-                .description(contest.getDescription())
-                .startDate(contest.getStartDate())
-                .startTime(contest.getStartTime())
-                .endDate(contest.getEndDate())
-                .endTime(contest.getEndTime())
-                .maxJoiner(contest.getMaxJoiner())
-                .stateCode(contest.getState().getCode())
-                .stateName(contest.getState().name())
-                .player(playerService.getPlayer(contest.getId(), memberId).orElse(null))
-                .build();
     }
 
 }

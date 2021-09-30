@@ -1,7 +1,7 @@
 package org.antop.billiardslove.config.error;
 
 import org.antop.billiardslove.SpringBootBase;
-import org.antop.billiardslove.exception.MemberNotFountException;
+import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ class NotFoundErrorTest extends SpringBootBase {
     static class TempController {
         @PostMapping(URL)
         public Number validate() {
-            throw new MemberNotFountException();
+            throw new MemberNotFoundException();
         }
 
     }

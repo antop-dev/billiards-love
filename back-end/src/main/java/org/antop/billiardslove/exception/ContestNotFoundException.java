@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class ContestNotFoundException extends RuntimeException {
+public class ContestNotFoundException extends NotFoundException {
     public ContestNotFoundException() {
         super("대회를 찾을 수 없습니다.");
     }

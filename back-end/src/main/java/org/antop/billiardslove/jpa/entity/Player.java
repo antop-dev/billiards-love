@@ -2,11 +2,11 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 /**
  * 선수 정보
@@ -29,20 +28,19 @@ import java.util.Objects;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@FieldNameConstants
 @Entity
 @Table(name = "tbl_plyr", uniqueConstraints = {
         @UniqueConstraint(
                 columnNames = {"plyr_id", "cnts_id", "mmbr_id"}
         )
-}
-)
+})
 public class Player {
     /**
      * 선수 아이디
      */
     @Id
     @Column(name = "plyr_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -93,16 +91,4 @@ public class Player {
         this.handicap = handicap;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
-        return Objects.equals(id, player.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

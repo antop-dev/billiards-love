@@ -2,11 +2,11 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,7 +26,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * 회원 정보
@@ -36,6 +35,7 @@ import java.util.Objects;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@FieldNameConstants
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tbl_mmbr")
@@ -45,7 +45,6 @@ public class Member {
      */
     @Id
     @Column(name = "mmbr_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -77,10 +76,11 @@ public class Member {
     /**
      * 관리자 여부
      */
+    @Setter
     @NotNull
     @Convert(converter = BooleanConverter.class)
     @Column(name = "mgnr_yn")
-    private boolean manager = false;
+    private boolean manager;
 
     /**
      * 카카오 로그인 아이디
@@ -95,19 +95,6 @@ public class Member {
     public Member(Kakao kakao, String nickname) {
         this.kakao = kakao;
         this.nickname = nickname;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return Objects.equals(id, member.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 }

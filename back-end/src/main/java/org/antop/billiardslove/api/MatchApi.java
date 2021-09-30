@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.MatchDto;
 import org.antop.billiardslove.exception.MatchNotFoundException;
-import org.antop.billiardslove.jpa.entity.Match;
+import org.antop.billiardslove.model.Outcome;
 import org.antop.billiardslove.service.MatchService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +43,9 @@ public class MatchApi {
     public void result(@PathVariable("matchId") final long matchId,
                        @RequestBody String[] result,
                        @AuthenticationPrincipal final Long memberId) {
-        Match.Result[] results = Arrays.stream(result).map(Match.Result::valueOf).toArray(value -> new Match.Result[3]);
+        Outcome[] results = Arrays.stream(result)
+                .map(Outcome::valueOf).
+                toArray(value -> new Outcome[3]);
         matchService.enter(matchId, memberId, results);
     }
 

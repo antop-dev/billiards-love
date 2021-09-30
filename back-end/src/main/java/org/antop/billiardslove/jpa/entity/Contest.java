@@ -2,10 +2,8 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
@@ -14,6 +12,7 @@ import org.antop.billiardslove.exception.CantEndContestStateException;
 import org.antop.billiardslove.exception.CantStartContestStateException;
 import org.antop.billiardslove.exception.CantStopContestStateException;
 import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
+import org.antop.billiardslove.model.ContestState;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,8 +29,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * 대회 정보
@@ -51,7 +48,6 @@ public class Contest {
      */
     @Id
     @Column(name = "cnts_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
@@ -97,7 +93,7 @@ public class Contest {
     @NotNull
     @Convert(converter = ContestStateConverter.class)
     @Column(name = "prgr_stt")
-    private State state = State.PREPARING;
+    private ContestState state = ContestState.PREPARING;
     /**
      * 최대 참가 인원
      */
@@ -135,7 +131,7 @@ public class Contest {
      * @return 접수중
      */
     public boolean isAccepting() {
-        return state == State.ACCEPTING;
+        return state == ContestState.ACCEPTING;
     }
 
     /**
@@ -144,7 +140,7 @@ public class Contest {
      * @return {@code true} 시작(재시작) 가능
      */
     public boolean canStart() {
-        return state == State.ACCEPTING || state == State.STOPPED;
+        return state == ContestState.ACCEPTING || state == ContestState.STOPPED;
     }
 
     /**
@@ -153,7 +149,7 @@ public class Contest {
      * @return {@code true} 중지 가능
      */
     public boolean canStop() {
-        return state == State.PROCEEDING;
+        return state == ContestState.PROCEEDING;
     }
 
     /**
@@ -162,7 +158,7 @@ public class Contest {
      * @return {@code true} 종료
      */
     public boolean isEnd() {
-        return state == State.END;
+        return state == ContestState.END;
     }
 
     /**
@@ -181,7 +177,7 @@ public class Contest {
         if (!canStop()) {
             throw new CantStopContestStateException();
         }
-        state = State.STOPPED;
+        state = ContestState.STOPPED;
     }
 
     /**
@@ -191,7 +187,7 @@ public class Contest {
         if (!canStart()) {
             throw new CantStartContestStateException();
         }
-        state = State.PROCEEDING;
+        state = ContestState.PROCEEDING;
     }
 
     /**
@@ -204,67 +200,14 @@ public class Contest {
         if (!canEnd()) {
             throw new CantEndContestStateException();
         }
-        state = State.END;
+        state = ContestState.END;
     }
 
     /**
      * 접수 시작
      */
     public void open() {
-        state = State.ACCEPTING;
+        state = ContestState.ACCEPTING;
     }
-
-    /**
-     * 대회 진행 상태
-     *
-     * @author jammini
-     */
-    @Getter
-    @RequiredArgsConstructor
-    public enum State {
-        /**
-         * 진행중
-         */
-        PROCEEDING("0"),
-        /**
-         * 접수중 (시작하지 않음)
-         */
-        ACCEPTING("1"),
-        /**
-         * 준비중
-         */
-        PREPARING("2"),
-        /**
-         * 중지됨
-         */
-        STOPPED("3"),
-        /**
-         * 종료
-         */
-        END("4");
-
-        private final String code;
-
-        public static State of(String code) {
-            return Arrays.stream(values())
-                    .filter(it -> it.code.equals(code))
-                    .findFirst()
-                    .orElseThrow(IllegalArgumentException::new);
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contest contest = (Contest) o;
-        return Objects.equals(id, contest.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
 
 }

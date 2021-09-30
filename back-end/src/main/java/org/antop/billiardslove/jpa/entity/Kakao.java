@@ -3,14 +3,12 @@ package org.antop.billiardslove.jpa.entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -28,7 +26,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@FieldNameConstants
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -40,7 +38,6 @@ public class Kakao {
      */
     @Id
     @Column(name = "lgn_id")
-    @EqualsAndHashCode.Include
     private Long id;
     /**
      * 접속 일시
@@ -52,11 +49,6 @@ public class Kakao {
 
     @Setter
     @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "nickname", column = @Column(name = "nck_nm", nullable = false)),
-            @AttributeOverride(name = "imgUrl", column = @Column(name = "prfl_img_url")),
-            @AttributeOverride(name = "thumbUrl", column = @Column(name = "prfl_thmb_img_url"))
-    })
     private Profile profile;
 
     /**
@@ -79,18 +71,22 @@ public class Kakao {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
     @Builder
+    @FieldNameConstants
     public static class Profile {
         /**
          * 닉네임
          */
+        @Column(name = "nck_nm")
         private String nickname;
         /**
          * 프로필 이미지 URL, 640px * 640px 또는 480px * 480px
          */
+        @Column(name = "prfl_img_url")
         private String imgUrl;
         /**
          * 프로필 미리보기 이미지 URL, 110px * 110px 또는 100px * 100px
          */
+        @Column(name = "prfl_thmb_img_url")
         private String thumbUrl;
     }
 }

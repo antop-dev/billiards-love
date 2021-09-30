@@ -5,8 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.security.PrincipalProvider;
 import org.antop.billiardslove.dao.MemberDao;
 import org.antop.billiardslove.dto.MemberDto;
-import org.antop.billiardslove.exception.MemberNotFountException;
+import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.mapper.MemberMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class MemberService implements PrincipalProvider {
     private final MemberDao memberDao;
+    private final MemberMapper memberMapper;
 
     @Transactional(readOnly = true)
     @Override
@@ -25,7 +27,7 @@ public class MemberService implements PrincipalProvider {
         long memberId = Long.parseLong(id.toString());
         return memberDao.findById(memberId)
                 .map(member -> new Principal(member.getId(), member.isManager()))
-                .orElseThrow(MemberNotFountException::new);
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     /**
@@ -35,10 +37,13 @@ public class MemberService implements PrincipalProvider {
      * @param nickname 변경할 회원 별명
      * @param handicap 변경할 회원 핸디캡
      */
-    public void modify(long memberId, String nickname, int handicap) {
-        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFountException::new);
+    @Transactional
+    public MemberDto modify(long memberId, String nickname, int handicap) {
+        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
         member.setNickname(nickname);
         member.setHandicap(handicap);
+
+        return memberMapper.toDto(member);
     }
 
     /**
@@ -48,16 +53,7 @@ public class MemberService implements PrincipalProvider {
      * @return 회원 정보
      */
     public Optional<MemberDto> getMember(long memberId) {
-        return memberDao.findById(memberId).map(this::convert);
-    }
-
-    private MemberDto convert(Member member) {
-        return MemberDto.builder()
-                .id(member.getId())
-                .nickname(member.getNickname())
-                .thumbnail(member.getKakao().getProfile().getImgUrl())
-                .handicap(member.getHandicap())
-                .build();
+        return memberDao.findById(memberId).map(memberMapper::toDto);
     }
 
 }

@@ -1,14 +1,48 @@
 package org.antop.billiardslove.service;
 
+import lombok.RequiredArgsConstructor;
+import org.antop.billiardslove.dao.KakaoDao;
+import org.antop.billiardslove.dao.MemberDao;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
+import org.antop.billiardslove.jpa.entity.Kakao;
+import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.mapper.KakaoMapper;
+import org.antop.billiardslove.mapper.MemberMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface LoggedInService {
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class LoggedInService {
+    private final KakaoDao kakaoDao;
+    private final MemberDao memberDao;
+    private final MemberMapper memberMapper;
+    private final KakaoMapper kakaoMapper;
+
     /**
      * 카카오톡 로그인 처리
      *
      * @param kakaoDto 카카오 로그인 정보
      * @return 회원 정보
      */
-    MemberDto loggedIn(final KakaoDto kakaoDto);
+    public MemberDto loggedIn(final KakaoDto kakaoDto) {
+        Kakao kakao = kakaoDao.findById(kakaoDto.getId()).orElseGet(() -> kakaoDao.save(kakaoMapper.toEntity(kakaoDto)));
+
+        kakao.changeProfile(Kakao.Profile.builder()
+                .nickname(kakaoDto.getNickname())
+                .imgUrl(kakaoDto.getImageUrl())
+                .thumbUrl(kakaoDto.getThumbnailUrl())
+                .build());
+
+        Member member = memberDao.findByKakao(kakao).orElseGet(() -> {
+            Member newMember = Member.builder()
+                    .nickname(kakao.getProfile().getNickname())
+                    .kakao(kakao)
+                    .build();
+            return memberDao.save(newMember);
+        });
+        return memberMapper.toDto(member);
+    }
 }

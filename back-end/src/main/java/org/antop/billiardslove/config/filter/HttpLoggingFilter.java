@@ -1,9 +1,7 @@
 package org.antop.billiardslove.config.filter;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonSyntaxException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -16,13 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Enumeration;
 
 @Slf4j(topic = "http.logging")
+@RequiredArgsConstructor
 public class HttpLoggingFilter extends OncePerRequestFilter {
     /**
      * 뽑아낼 해더명들
@@ -34,12 +32,13 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
      * 알 수 없음 플래그
      */
     public static final String UNKNOWN_REMOTE = "unknown";
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    private final ObjectMapper om;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        if (!log.isDebugEnabled()) {
+        if (!log.isDebugEnabled() || !request.getRequestURI().startsWith("/api")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -89,13 +88,11 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
      */
     private void printResponseBody(ContentCachingResponseWrapper response) {
         String json = "[EMPTY]";
-        byte[] buf = response.getContentAsByteArray();
-        if (buf.length != 0) {
+        if (response.getContentSize() > 0) {
             try {
-                json = new String(buf, 0, buf.length, StandardCharsets.UTF_8);
-                json = System.lineSeparator() + gson.toJson(gson.fromJson(json, JsonElement.class));
-            } catch (JsonSyntaxException e) {
-                json = "[NOT JSON]";
+                json = System.lineSeparator() + om.readTree(response.getContentInputStream()).toPrettyString();
+            } catch (IOException e) {
+                json = new String(response.getContentAsByteArray());
             }
         }
         log.debug("Response Body: {}", json);
@@ -113,8 +110,8 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         String body = request.getRequestBody();
         if (StringUtils.isNotBlank(body)) {
             try {
-                json = System.lineSeparator() + gson.toJson(gson.fromJson(body, JsonElement.class));
-            } catch (JsonSyntaxException e) {
+                json = System.lineSeparator() + om.readTree(body).toPrettyString();
+            } catch (IOException e) {
                 json = body;
             }
         }

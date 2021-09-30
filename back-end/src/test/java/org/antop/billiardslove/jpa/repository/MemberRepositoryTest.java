@@ -1,73 +1,77 @@
 package org.antop.billiardslove.jpa.repository;
 
-import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.DataJpaBase;
 import org.antop.billiardslove.jpa.entity.Kakao;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static com.github.npathai.hamcrestopt.OptionalMatchers.isEmpty;
+import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
-class MemberRepositoryTest extends SpringBootBase {
+class MemberRepositoryTest extends DataJpaBase {
     @Autowired
     private MemberRepository repository;
 
     @Test
-    void findManager() {
-        Optional<Member> optional = repository.findById(1L);
-        assertThat(optional.isPresent(), is(true));
-
-        optional.ifPresent(member -> {
-            assertThat(member.getKakao(), notNullValue());
-            assertThat(member.getNickname(), is("안탑"));
-            assertThat(member.getHandicap(), is(22));
-            assertThat(member.getCreated(), notNullValue());
-            assertThat(member.getModified(), nullValue());
-            assertThat(member.isManager(), is(true));
-        });
-    }
-
-    @Test
-    void findNotManager() {
-        Optional<Member> optional = repository.findById(2L);
-        assertThat(optional.isPresent(), is(true));
-
-        optional.ifPresent(member -> {
-            assertThat(member.getKakao(), notNullValue());
-            assertThat(member.getNickname(), is("띠용"));
-            assertThat(member.getHandicap(), is(20));
-            assertThat(member.getCreated(), notNullValue());
-            assertThat(member.getModified(), notNullValue());
-            assertThat(member.isManager(), is(false));
-        });
-    }
-
-    @Test
+    @DisplayName("회원정보를 저장한다.")
     void save() {
-        Kakao kakao = Kakao.builder()
-                .id(9999999L)
-                .profile(Kakao.Profile.builder()
-                        .nickname("도금수푼?")
-                        .imgUrl("foo")
-                        .thumbUrl("bar").build())
-                .connectedAt(LocalDateTime.now())
-                .build();
+        // 1. 데이터 준비
+        final Member member = member();
+        member.setManager(true);
 
-        Member member = Member.builder()
-                .nickname("골드스푼")
-                .kakao(kakao)
-                .build();
+        // 2. 실행
+        repository.save(member);
+        assertThat(member.getId(), notNullValue());
+        assertThat(member.getCreated(), notNullValue());
+
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Member> optional = repository.findById(member.getId());
+        assertThat(optional, isPresent());
+        optional.ifPresent(it -> {
+            assertThat(it.getNickname(), is(member.getNickname()));
+            assertThat(it.getHandicap(), nullValue());
+            assertThat(it.getCreated(), notNullValue());
+            assertThat(it.getModified(), notNullValue());
+            assertThat(it.isManager(), is(true));
+        });
+    }
+
+    @Test
+    @DisplayName("카카오 정보가 존재하지 않는다.")
+    void notFoundByKakao() {
+        // 1. 데이터 준비
+        Kakao kakao = kakao();
+        // 2. 실행
+        Optional<Member> optional = repository.findByKakao(kakao);
+        // 3. 검증
+        assertThat(optional, isEmpty());
+    }
+
+    @Test
+    @DisplayName("멤버정보를 삭제한다.")
+    void delete() {
+        // 1. 데이터 준비
+        Member member = member();
         repository.save(member);
 
-        assertThat(member.getId(), notNullValue());
-        assertThat(member.getId(), greaterThan(0L));
-    }
+        flushAndClear();
 
+        // 2. 실행
+        repository.deleteById(member.getId());
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Member> optional = repository.findById(member.getId());
+        assertThat(optional, isEmpty());
+    }
 }
