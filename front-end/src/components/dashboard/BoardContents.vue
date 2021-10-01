@@ -1,94 +1,51 @@
 <template>
   <v-card color="#385F73" dark class="contents">
-    <ContentsHeader :title="title" :state="state"></ContentsHeader>
-    <div v-if="!showLoading">
+    <ContentsHeader
+      :title="content.title"
+      :state-name="content.stateName"
+      :state-code="content.stateCode"
+    ></ContentsHeader>
+    <div v-if="content.player">
       <v-col cols="12">
-        <v-row>
-          <v-card-title class="text-h5">
-            {{ rank }}위
-            <v-icon large color="orange darken-2"
-              >mdi-arrow-up-bold-box-outline</v-icon
-            >
-          </v-card-title>
+        <v-card-title class="text-h4">
+          {{ content.player.rank }}위
+          <v-icon large color="orange darken-2">mdi-arrow-up-bold</v-icon>
+        </v-card-title>
+      </v-col>
+      <v-col cols="12">
+        <v-row justify="end">
+          <span v-if="content.player.score"
+            ><h3>{{ content.player.score }} 점</h3></span
+          >
         </v-row>
         <v-row justify="end">
-          <span> 점</span>
-          <br />
-          <span>{{ progress }}%</span>
-          <br />
-          <span></span>
+          <span v-if="content.progress"
+            ><h3>
+              {{ content.progress }}% ({{ 0 }} / {{ content.maxJoiner }})
+            </h3></span
+          >
         </v-row>
       </v-col>
-      <!--<div
-        class="md-layout-item md-layout md-gutter md-alignment-center-center md-size-30"
-      >
-        <div class="md-layout-item">
-
-        </div>
-        <div class="md-layout-item">
-
-        </div>
-      </div>
-      <div
-        class="md-layout-item md-layout md-gutter
-            md-alignment-center-right"
-      >
-        <md-content>
-
-        </md-content>
-      </div>-->
-    </div>
-    <div class="text-center" v-else>
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        color="purple"
-        indeterminate
-      ></v-progress-circular>
     </div>
   </v-card>
 </template>
 <script>
-import ContestApi from '../../api/contest.api';
 import ContentsHeader from './ContentsHeader';
 export default {
   name: 'BoardContents',
   components: { ContentsHeader },
   props: {
-    id: Number,
-    title: String,
-    state: String,
+    content: Object,
   },
   data() {
     return {
       showLoading: true,
       rank: 1,
-      participant: {
-        id: '',
-        name: '',
-        handicap: '',
-      },
-      progress: '',
       score: '',
     };
   },
-  methods: {
-    setRank(rankInfo) {
-      this.rank = rankInfo.rank;
-      this.participant = rankInfo.participant;
-      this.progress = rankInfo.progress;
-      this.score = rankInfo.score;
-      this.showLoading = false;
-    },
-  },
-  async created() {
-    try {
-      const inquireRank = await ContestApi.inquire_rank(this.id);
-      this.setRank(inquireRank);
-    } catch (e) {
-      console.log(e);
-    }
-  },
+  methods: {},
+  created() {},
 };
 </script>
 

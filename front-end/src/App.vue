@@ -22,7 +22,7 @@
           <router-view></router-view>
         </v-main>
       </div>
-      <v-snackbar v-model="snackbar" top="true">
+      <v-snackbar v-model="snackbar" top>
         {{ text }}
 
         <template v-slot:action="{ attrs }">
