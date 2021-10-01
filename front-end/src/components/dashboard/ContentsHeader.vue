@@ -3,8 +3,8 @@
     <v-toolbar :color="gameStatus()" dense flat>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="md-toolbar-section-end">
-        <v-btn elevation="2" :class="gameStatus()">{{ stateMsg }}</v-btn>
+      <div>
+        <v-btn elevation="2" :class="gameStatus()">{{ stateName }}</v-btn>
       </div>
     </v-toolbar>
   </div>
@@ -15,8 +15,8 @@ export default {
   name: 'ContentsHeader',
   props: {
     title: String,
-    state: String,
-    isNoData: String,
+    stateName: String,
+    stateCode: String,
   },
   data() {
     return {
@@ -25,14 +25,11 @@ export default {
   },
   methods: {
     gameStatus: function() {
-      if (this.state === '0' || this.state === '1') {
-        this.stateMsg = '참가중';
+      if (this.stateCode === '0' || this.stateCode === '1') {
         return 'blue';
-      } else if (this.state === '3' || this.state === '4') {
-        this.stateMsg = '종료';
+      } else if (this.stateCode === '3' || this.stateCode === '4') {
         return 'read';
       } else {
-        this.stateMsg = '접수중';
         return 'orange';
       }
     },
