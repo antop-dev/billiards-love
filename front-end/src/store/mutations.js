@@ -22,4 +22,7 @@ export default {
   [types.SAVE_MATCH_ID](state, payload) {
     state.match_detail.id = payload;
   },
+  [types.SAVE_MATCH_INFO](state, payload) {
+    state.match_detail = payload;
+  },
 };

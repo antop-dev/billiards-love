@@ -43,6 +43,13 @@ export default {
       showDialog: false,
     };
   },
+  methods: {
+    render() {
+      let matchDetail = this.$store.state.match_detail;
+      console.log(matchDetail);
+    },
+  },
+  created() {},
 };
 </script>
 

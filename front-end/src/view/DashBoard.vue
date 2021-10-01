@@ -48,7 +48,6 @@ export default {
   components: { BoardContents, AppHeader, NoData },
   methods: {
     getDetail(id) {
-      this.$store.commit('SAVE_MATCH_ID', id);
       this.$router.push({ path: '/match/:id', query: { id } });
     },
   },

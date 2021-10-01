@@ -3,7 +3,7 @@
     <v-toolbar color="deep-purple accent-4" dark flat>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>타이틀</v-toolbar-title>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -36,7 +36,7 @@
 export default {
   name: 'GameTabs',
   props: {
-    id: String,
+    title: String,
   },
   data() {
     return {
