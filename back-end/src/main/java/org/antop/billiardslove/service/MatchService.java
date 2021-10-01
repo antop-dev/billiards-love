@@ -62,9 +62,10 @@ public class MatchService {
      * @param results  입력한 결과
      */
     @Transactional
-    public void enter(long matchId, long memberId, Outcome[] results) {
+    public MatchDto enter(long matchId, long memberId, Outcome[] results) {
         Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
         match.enterResult(memberId, results[0], results[1], results[2]);
+        return matchMapper.toDto(match, memberId);
     }
 
     /**

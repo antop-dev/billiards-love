@@ -40,6 +40,15 @@ public class MatchResult {
         return new Outcome[]{first, second, third};
     }
 
+    /**
+     * 문자열 배열로 리턴
+     *
+     * @return 크기 3의 문자열 배열
+     */
+    public String[] toArrayString() {
+        return new String[]{first.name(), second.name(), third.name()};
+    }
+
     public static MatchResult of(Outcome first, Outcome second, Outcome third) {
         return new MatchResult(first, second, third);
     }

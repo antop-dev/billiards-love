@@ -23,8 +23,8 @@ public class JwtTokenProvider {
      * @param subject 토큰 제목
      * @return JWT 토큰
      */
-    public String createToken(String subject) {
-        Claims claims = Jwts.claims().setSubject(subject); // JWT payload 에 저장되는 정보단위
+    public String createToken(Object subject) {
+        Claims claims = Jwts.claims().setSubject(subject.toString()); // JWT payload 에 저장되는 정보단위
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expiration = now.plus(jwtProperties.getDuration());

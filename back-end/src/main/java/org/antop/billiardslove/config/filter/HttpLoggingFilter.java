@@ -60,7 +60,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         }
 
         printSession(request.getSession());
-        printHeader(request);
+        printRequestHeader(request);
         printParameter(request);
 
         ReadableRequestBodyWrapper wrappedRequest = new ReadableRequestBodyWrapper(request);
@@ -76,6 +76,7 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
                 duration,
                 response.getCharacterEncoding());
 
+        printResponseHeader(wrappedResponse);
         printResponseBody(wrappedResponse);
         // IMPORTANT: copy content of response back into original response
         wrappedResponse.copyBodyToResponse();
@@ -126,11 +127,17 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    private void printHeader(HttpServletRequest request) {
+    private void printRequestHeader(HttpServletRequest request) {
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             log.debug("header[{}] = {}", name, request.getHeader(name));
+        }
+    }
+
+    private void printResponseHeader(HttpServletResponse response) {
+        for (String name : response.getHeaderNames()) {
+            log.debug("header[{}] = {}", name, response.getHeader(name));
         }
     }
 

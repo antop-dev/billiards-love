@@ -5,14 +5,11 @@ import org.antop.billiardslove.dto.MatchDto;
 import org.antop.billiardslove.dto.PlayerDto;
 import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Player;
-import org.antop.billiardslove.model.Outcome;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Arrays;
 
 @Mapper(componentModel = MapStruct.COMPONENT_MODEL)
 public abstract class MatchMapper {
@@ -35,9 +32,7 @@ public abstract class MatchMapper {
 
     @Named(MAPPING_MATCH_RESULT)
     protected String[] matchResult(Match match, @Context long memberId) {
-        return Arrays.stream(match.getMatchResult(memberId).toArray())
-                .map(Outcome::name)
-                .toArray(String[]::new);
+        return match.getMatchResult(memberId).toArrayString();
     }
 
 }

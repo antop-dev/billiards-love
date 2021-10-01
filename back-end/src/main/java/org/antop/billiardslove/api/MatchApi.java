@@ -40,13 +40,13 @@ public class MatchApi {
     }
 
     @PutMapping("/api/v1/match/{matchId}")
-    public void result(@PathVariable("matchId") final long matchId,
+    public MatchDto enter(@PathVariable("matchId") final long matchId,
                        @RequestBody String[] result,
                        @AuthenticationPrincipal final Long memberId) {
         Outcome[] results = Arrays.stream(result)
                 .map(Outcome::valueOf).
                 toArray(value -> new Outcome[3]);
-        matchService.enter(matchId, memberId, results);
+        return matchService.enter(matchId, memberId, results);
     }
 
 }

@@ -14,7 +14,6 @@ import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 class KakaoRepositoryTest extends DataJpaBase {
     @Autowired

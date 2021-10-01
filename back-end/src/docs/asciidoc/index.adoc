@@ -40,6 +40,9 @@ include::{snippets}/logged-in/http-request.adoc[]
 include::{snippets}/logged-in/response-fields.adoc[]
 include::{snippets}/logged-in/http-response.adoc[]
 
+.이전에 로그인 시에 추가 정보를 입력한 경우
+include::{snippets}/logged-in-registered/http-response.adoc[]
+
 == 회원 정보
 
 === 회원 정보 수정
@@ -135,7 +138,14 @@ include::{snippets}/contest-join/request-fields.adoc[]
 include::{snippets}/contest-join/http-request.adoc[]
 
 .response
+include::{snippets}/contest-join/response-fields.adoc[]
 include::{snippets}/contest-join/http-response.adoc[]
+
+.참가할 수 없는 상태
+include::{snippets}/contest-join-can-not/http-response.adoc[]
+
+.대회에 이미 참여한 상태
+include::{snippets}/contest-join-already/http-response.adoc[]
 
 ==== 대회 참가 취소
 
@@ -147,6 +157,7 @@ include::{snippets}/contest-join-cancel/request-headers.adoc[]
 include::{snippets}/contest-join-cancel/http-request.adoc[]
 
 .response
+include::{snippets}/contest-join-cancel/response-fields.adoc[]
 include::{snippets}/contest-join-cancel/http-response.adoc[]
 
 === 대회 상태
@@ -209,7 +220,7 @@ include::{snippets}/contest-end/http-request.adoc[]
 include::{snippets}/contest-end/response-fields.adoc[]
 include::{snippets}/contest-end/http-response.adoc[]
 
-.이미 중지된 대회인 경우
+.이미 종료한 대회인 경우
 include::{snippets}/contest-end-already/http-response.adoc[]
 
 === 경기 정보
@@ -261,11 +272,11 @@ include::{snippets}/match-result-enter/http-request.adoc[]
 .응답
 include::{snippets}/match-result-enter/http-response.adoc[]
 
+.참여하지 않은 경기
+include::{snippets}/match-result-enter-not-joined/http-response.adoc[]
+
 .존재하지 않은 경기
 include::{snippets}/error-match-not-found/http-response.adoc[]
-
-.참여하지 않은 경기
-include::{snippets}/error-match-not-joined/http-response.adoc[]
 
 === 대진표
 
