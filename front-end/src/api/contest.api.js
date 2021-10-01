@@ -10,11 +10,16 @@ const ContestApi = class {
     // TODO
     return true;
   }
-  inquire() {
+  inquire_contests() {
     return this.#client.get('/api/v1/contests').then(({ data }) => data || {});
   }
-  inquire_rank(id) {
+  inquire_contest(id) {
     // 데이터 없을 때 404 말고 따른거..
+    return this.#client
+      .get('/api/v1/contest/' + id)
+      .then(({ data }) => data || {});
+  }
+  inquire_rank(id) {
     return this.#client
       .get('/api/v1/contest/' + id + '/rank')
       .then(({ data }) => data || {});

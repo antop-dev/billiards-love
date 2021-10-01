@@ -19,9 +19,7 @@
               v-bind:key="content.id"
             >
               <board-contents
-                :id="content.id"
-                :title="content.title"
-                :state="content.stateCode"
+                :content="content"
                 @click.native="getDetail(content.id)"
               ></board-contents>
             </div>
@@ -39,33 +37,12 @@ import BoardContents from '@/dashboard/BoardContents';
 import AppHeader from '@/common/AppHeader';
 import ContestApi from '../api/contest.api';
 import NoData from '@/dashboard/NoData';
-
 export default {
   name: 'DashBoard',
   data: function() {
     return {
       showLoading: true,
-      contests: [
-        {
-          id: 1,
-          name: '2021 리그전',
-          description: '2021.01.01~',
-          start: {
-            startDate: '2021-01-01',
-            startTime: '00:00:00',
-          },
-          end: {
-            endDate: '2021-12-30',
-            endTime: '23:59:59',
-          },
-          state: {
-            code: '0',
-            name: 'PROCEEDING',
-          },
-          maximumParticipants: 32,
-          participation: false,
-        },
-      ],
+      contests: [],
     };
   },
   components: { BoardContents, AppHeader, NoData },
