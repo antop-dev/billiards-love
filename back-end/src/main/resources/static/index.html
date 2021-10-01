@@ -555,12 +555,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 230
 
 {
-  "secretKey" : "Qabqur/9zHJqO+uXD6FvNhO/LFSHW6ftoiOM+mBcItw=",
-  "kakaoKey" : "ML0+xoU3x5cZFlN/wmBNVIXC3gDsPbb3yDTLTUAjP18z3+H9R6DSxMTT+ACl0apk87WB4E8jo676ommq",
-  "adSenseKey" : "wVktiEZdhoyYteikJO/JNbRqgydmqR6e9zyLNzI="
+  "secretKey" : "aj+nCB0Oj99//z3Nb8jVfaqW0/1/XGiJPj16BQZJlqs=",
+  "kakaoKey" : "CY1YSs6Sf/1RIpyPyVqr4Nqnbn5gciwRDZHETCYPy0Q4jo3qpJBn8vZqOglZItvylg==",
+  "adSenseKey" : "BZ8h0MU2huiopZTzqVkPKGoU8jQd/qfIbgYEX0FuVHOoeYNKhWzoEopIwLA8Kg=="
 }</code></pre>
 </div>
 </div>
@@ -639,16 +638,15 @@ Content-Length: 230
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/logged-in HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Content-Length: 213
+Content-Type: application/json
 
 {
-  "id" : 1,
-  "connectedAt" : "2020-08-17T15:45:04+02:00",
+  "id" : 9999,
+  "connectedAt" : "2020-08-17T15:45:04Z",
   "profile" : {
-    "nickname" : "Antop",
-    "imageUrl" : "https://foo",
-    "thumbnailUrl" : "https://bar",
+    "nickname" : "antop",
+    "imageUrl" : "https://cataas.com/cat?width=200&amp;height=200",
+    "thumbnailUrl" : "https://cataas.com/cat?width=160&amp;height=100",
     "needsAgreement" : true
   }
 }</code></pre>
@@ -707,14 +705,14 @@ false면 추가 정보를 입력 받아야 한다.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 별명 or 카카오톡 별명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원 별명</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.handicap</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3구 핸디캡</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">핸디캡</p></td>
 </tr>
 </tbody>
 </table>
@@ -722,12 +720,28 @@ false면 추가 정보를 입력 받아야 한다.</p></td>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 289
 
 {
-  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.2r58FYM731Lhgae6Td--YYl6I-goA01XmfV5PZAoX8w",
+  "token" : "created jwt token value!",
   "member" : {
-    "id" : 1,
+    "id" : 12,
+    "nickname" : "antop",
+    "thumbnail" : "https://cataas.com/cat?width=160&amp;height=100"
+  },
+  "registered" : false
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">이전에 로그인 시에 추가 정보를 입력한 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+
+{
+  "token" : "created jwt token value!",
+  "member" : {
+    "id" : 12,
     "nickname" : "안탑",
     "handicap" : 22,
     "thumbnail" : "https://bar"
@@ -809,12 +823,11 @@ Content-Length: 289
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/member HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUzLCJleHAiOjE2MzE3NDE3NTN9.j6DtAFMrejrvN-cEOJr9puWHpLhtz0uIETIx0KyzRpk
-Content-Length: 95
+Content-Type: application/json
+Authorization: 2
 
 {
-  "nickname" : "VJcpg5ZAd5Lo/qgUWDO/PQN8goAUHPGBAn9Pg+fVf4sXn7Jsw04=",
+  "nickname" : "/HbhMf39DOeeCc/Xgad29OVlvb/whDTCkpBlKz7EV6VE6fv6KyzJ/WmKTBM=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -872,13 +885,12 @@ Content-Length: 95
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 154
 
 {
-  "id" : 1,
-  "nickname" : "kWVRh4MuNt/z+quRM+4JzaBOoPBlWH5mAWolDBqcsmtTcmJ9wCQ=",
+  "id" : 2,
+  "nickname" : "Af/Crw75hmDseXaJorS05naeTW/B//QIQzWDH7ZncWaRMiyJpK++uRQrx5k=",
   "handicap" : 30,
-  "thumbnail" : "https://picsum.photos/110"
+  "thumbnail" : "https://img.foo.bar"
 }</code></pre>
 </div>
 </div>
@@ -887,7 +899,6 @@ Content-Length: 154
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
-Content-Length: 68
 
 {
   "code" : 400,
@@ -900,7 +911,6 @@ Content-Length: 68
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
-Content-Length: 71
 
 {
   "code" : 400,
@@ -913,7 +923,6 @@ Content-Length: 71
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
-Content-Length: 80
 
 {
   "code" : 400,
@@ -924,11 +933,11 @@ Content-Length: 80
 <div class="listingblock">
 <div class="title">없는 회원인 경우</div>
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 401 Unauthorized
-Content-Length: 73
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
+Content-Type: application/json;charset=UTF-8
 
 {
-  "code" : 401,
+  "code" : 404,
   "message" : "회원을 찾을 수 없습니다."
 }</code></pre>
 </div>
@@ -1115,68 +1124,35 @@ Content-Length: 73
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1347
 
 [ {
-  "id" : 1,
-  "title" : "2021 리그전",
-  "description" : "2021.01.01~",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2021-12-30",
-  "endTime" : "23:59:59",
-  "maxJoiner" : 32,
-  "stateCode" : "0",
-  "stateName" : "진행중",
-  "player" : {
-    "id" : 2,
-    "number" : 2,
-    "handicap" : 24,
-    "nickname" : "띠용",
-    "rank" : 2,
-    "score" : 40
-  }
-}, {
-  "id" : 2,
-  "title" : "2022 리그전",
-  "description" : "2021.05.01~",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2022-12-30",
-  "endTime" : "23:59:59",
+  "id" : 1121,
+  "title" : "2020년 7월 동호회 리그전",
+  "description" : "총 상금 100만원!",
+  "startDate" : "2021-07-01",
+  "startTime" : "18:00:00",
+  "endDate" : "2020-07-31",
+  "endTime" : "22:00:00",
   "maxJoiner" : 128,
-  "stateCode" : "1",
-  "stateName" : "접수중",
+  "stateCode" : "4",
+  "stateName" : "종료",
   "player" : {
-    "id" : 8,
-    "handicap" : 21,
-    "nickname" : "띠용"
+    "id" : 335,
+    "number" : 16,
+    "handicap" : 18,
+    "nickname" : "띠용",
+    "rank" : 5,
+    "score" : 600
   }
 }, {
-  "id" : 4,
-  "title" : "준비중인 대회 (2)",
-  "startDate" : "2021-08-01",
+  "id" : 1121,
+  "title" : "2022년 1분기 대회",
+  "startDate" : "2022-01-01",
+  "startTime" : "18:00:00",
+  "endDate" : "2022-03-31",
+  "maxJoiner" : 64,
   "stateCode" : "2",
   "stateName" : "준비중"
-}, {
-  "id" : 3,
-  "title" : "준비중인 대회 (1)",
-  "startDate" : "2021-09-16",
-  "endDate" : "2021-09-16",
-  "stateCode" : "2",
-  "stateName" : "준비중"
-}, {
-  "id" : 5,
-  "title" : "중지된 대회",
-  "startDate" : "2021-01-01",
-  "stateCode" : "3",
-  "stateName" : "중지"
-}, {
-  "id" : 6,
-  "title" : "종료된 대회",
-  "startDate" : "2020-01-01",
-  "stateCode" : "4",
-  "stateName" : "종료"
 } ]</code></pre>
 </div>
 </div>
@@ -1213,8 +1189,8 @@ Content-Length: 1347
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1 HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5OTQ4LCJleHAiOjE2MzE3NDE3NDh9.Djn9fYNH5WEkzlP_k4MfNPZfyjPT2HlECtfdAeN-g8U</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/5 HTTP/1.1
+Authorization: 2</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1361,26 +1337,25 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5OTQ4LCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 411
 
 {
-  "id" : 1,
-  "title" : "2021 리그전",
-  "description" : "2021.01.01~",
-  "startDate" : "2021-01-01",
+  "id" : 5,
+  "title" : "대회 타이틀",
+  "description" : "대회 설명",
+  "startDate" : "2020-01-01",
   "startTime" : "00:00:00",
-  "endDate" : "2021-12-30",
+  "endDate" : "2020-03-31",
   "endTime" : "23:59:59",
-  "maxJoiner" : 32,
+  "maxJoiner" : 128,
   "stateCode" : "0",
   "stateName" : "진행중",
   "player" : {
-    "id" : 2,
-    "number" : 2,
-    "handicap" : 24,
-    "nickname" : "띠용",
-    "rank" : 2,
-    "score" : 40
+    "id" : 332,
+    "number" : 3,
+    "handicap" : 22,
+    "nickname" : "안탑",
+    "rank" : 11,
+    "score" : 1154
   }
 }</code></pre>
 </div>
@@ -1488,9 +1463,8 @@ Content-Length: 411
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUwLCJleHAiOjE2MzE3NDE3NTB9.XDdLOv8KuT32GASmmBsf4bzKzjxzKN-DQp6hhkZfg_A
-Content-Length: 217
+Content-Type: application/json
+Authorization: 1
 
 {
   "title" : "2021 리그전",
@@ -1597,12 +1571,11 @@ Content-Length: 217
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created
-Location: http://localhost:9000/api/v1/contest/7
+Location: http://localhost:8080/api/v1/contest/987654321
 Content-Type: application/json;charset=UTF-8
-Content-Length: 282
 
 {
-  "id" : 7,
+  "id" : 987654321,
   "title" : "2021 리그전",
   "description" : "리그전 대회 설명",
   "startDate" : "2021-01-01",
@@ -1742,17 +1715,16 @@ Content-Length: 282
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/contest/5 HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUwLCJleHAiOjE2MzE3NDE3NTB9.XDdLOv8KuT32GASmmBsf4bzKzjxzKN-DQp6hhkZfg_A
-Content-Length: 224
+Content-Type: application/json
+Authorization: 1
 
 {
   "title" : "2021 리그전 수정",
   "description" : "리그전 대회 수정",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2021-12-31",
-  "endTime" : "23:59:59",
+  "startDate" : "2021-01-02",
+  "startTime" : "00:10:00",
+  "endDate" : "2021-06-01",
+  "endTime" : "10:59:59",
   "maxJoiner" : 64
 }</code></pre>
 </div>
@@ -1852,19 +1824,18 @@ Content-Length: 224
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 286
 
 {
   "id" : 5,
   "title" : "2021 리그전 수정",
   "description" : "리그전 대회 수정",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2021-12-31",
-  "endTime" : "23:59:59",
+  "startDate" : "2021-01-02",
+  "startTime" : "00:10:00",
+  "endDate" : "2021-06-01",
+  "endTime" : "10:59:59",
   "maxJoiner" : 64,
-  "stateCode" : "3",
-  "stateName" : "중지"
+  "stateCode" : "2",
+  "stateName" : "준비중"
 }</code></pre>
 </div>
 </div>
@@ -1956,19 +1927,195 @@ Content-Length: 286
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/join HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxNzM5OTUxLCJleHAiOjE2MzE3NDE3NTF9.iFBLk_vvzRVXvBhS-bwRXSuq6jHRG1I_V5VTqzaJPrM
-Content-Length: 23
+Content-Type: application/json
+Authorization: 2
 
 {
   "handicap" : 30
 }</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 15. response</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수</th>
+<th class="tableblock halign-left valign-top">암호화</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회 설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">시작 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">시작 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>endDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">종료 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>endTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">종료 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stateCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상태 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stateName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상태명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내 선수 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 별명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호 (참가 번호)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.handicap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.rank</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.score</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
-<div class="title">response</div>
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+
+{
+  "id" : 2,
+  "title" : "참가 가능한 대회",
+  "startDate" : "2020-07-01",
+  "stateCode" : "1",
+  "stateName" : "접수중",
+  "player" : {
+    "id" : 11095,
+    "handicap" : 30,
+    "nickname" : "선수1"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">참가할 수 없는 상태</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+
+{
+  "code" : 400,
+  "message" : "대회에 참가할 수 없는 상태입니다."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">대회에 이미 참여한 상태</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+
+{
+  "code" : 400,
+  "message" : "이미 참가한 대회입니다."
+}</code></pre>
 </div>
 </div>
 </div>
@@ -1978,7 +2125,7 @@ Content-Length: 23
 <p>회원이 해당 대회에 참가 취소한다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 15. /api/v1/contest/{id}/join</caption>
+<caption class="title">Table 16. /api/v1/contest/{id}/join</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2029,79 +2176,8 @@ Content-Length: 23
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/v1/contest/2/join HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjMxNzM5OTUxLCJleHAiOjE2MzE3NDE3NTF9.Gb__El4FZjlxLX_jNVUjhO-DgUmbT12kjmykH8MSe2o</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">response</div>
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_대회_상태"><a class="link" href="#_대회_상태">대회 상태</a></h3>
-<div class="sect3">
-<h4 id="_대회_오픈"><a class="link" href="#_대회_오픈">대회 오픈</a></h4>
-<div class="paragraph">
-<p>대회를 접수중으로 변경한다.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 16. /api/v1/contest/{id}/open</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">파라미터명</th>
-<th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">필수</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">대회 아이디</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">해더명</th>
-<th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">필수</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
-</tr>
-</tbody>
-</table>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/3/open HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.2r58FYM731Lhgae6Td--YYl6I-goA01XmfV5PZAoX8w</code></pre>
+Content-Type: application/json
+Authorization: 2</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2199,26 +2275,30 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 168
 
 {
-  "id" : 3,
-  "title" : "준비중인 대회 (1)",
-  "startDate" : "2021-09-16",
-  "endDate" : "2021-09-16",
+  "id" : 2,
+  "title" : "최소한 대회",
+  "description" : "player 속성이 없다.",
+  "startDate" : "2021-01-10",
+  "endDate" : "2021-11-12",
+  "maxJoiner" : 128,
   "stateCode" : "1",
   "stateName" : "접수중"
 }</code></pre>
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_대회_상태"><a class="link" href="#_대회_상태">대회 상태</a></h3>
 <div class="sect3">
-<h4 id="_대회_시작"><a class="link" href="#_대회_시작">대회 시작</a></h4>
+<h4 id="_대회_오픈"><a class="link" href="#_대회_오픈">대회 오픈</a></h4>
 <div class="paragraph">
-<p>대회를 시작(재시작)한다.</p>
+<p>대회를 접수중으로 변경한다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 18. /api/v1/contest/{id}/start</caption>
+<caption class="title">Table 18. /api/v1/contest/{id}/open</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2268,9 +2348,9 @@ Content-Length: 168
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/start HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.2r58FYM731Lhgae6Td--YYl6I-goA01XmfV5PZAoX8w</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/3/open HTTP/1.1
+Content-Type: application/json
+Authorization: 1</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2368,43 +2448,29 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 271
 
 {
-  "id" : 2,
-  "title" : "2022 리그전",
-  "description" : "2021.05.01~",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2022-12-30",
-  "endTime" : "23:59:59",
-  "maxJoiner" : 128,
-  "stateCode" : "0",
-  "stateName" : "진행중"
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">대회를 시작할 수 없는 경우</div>
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-Content-Length: 86
-
-{
-  "code" : 400,
-  "message" : "대회를 시작할 수 없는 상태입니다."
+  "id" : 3,
+  "title" : "오픈한 대회",
+  "description" : "오픈해서 상태가 접수중!",
+  "startDate" : "2020-01-01",
+  "startTime" : "19:00:00",
+  "endDate" : "2020-01-01",
+  "endTime" : "22:00:00",
+  "maxJoiner" : 16,
+  "stateCode" : "1",
+  "stateName" : "접수중"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_대회_중지"><a class="link" href="#_대회_중지">대회 중지</a></h4>
+<h4 id="_대회_시작"><a class="link" href="#_대회_시작">대회 시작</a></h4>
 <div class="paragraph">
-<p>대회를 중지한다.</p>
+<p>대회를 시작(재시작)한다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 20. /api/v1/contest/{id}/stop</caption>
+<caption class="title">Table 20. /api/v1/contest/{id}/start</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2454,9 +2520,9 @@ Content-Length: 86
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/1/stop HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.2r58FYM731Lhgae6Td--YYl6I-goA01XmfV5PZAoX8w</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/start HTTP/1.1
+Content-Type: application/json
+Authorization: 1</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2554,43 +2620,39 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 267
 
 {
-  "id" : 1,
-  "title" : "2021 리그전",
-  "description" : "2021.01.01~",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2021-12-30",
-  "endTime" : "23:59:59",
-  "maxJoiner" : 32,
-  "stateCode" : "3",
-  "stateName" : "중지"
+  "id" : 2,
+  "title" : "시작된 대회",
+  "description" : "★ 시작을 했습니다!!",
+  "startDate" : "2020-01-01",
+  "startTime" : "19:00:00",
+  "maxJoiner" : 64,
+  "stateCode" : "0",
+  "stateName" : "진행중"
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">대회를 중지할 수 없는 경우</div>
+<div class="title">대회를 시작할 수 없는 경우</div>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
-Content-Length: 86
 
 {
   "code" : 400,
-  "message" : "대회를 중지할 수 없는 상태입니다."
+  "message" : "대회를 시작할 수 없는 상태입니다."
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_대회_종료"><a class="link" href="#_대회_종료">대회 종료</a></h4>
+<h4 id="_대회_중지"><a class="link" href="#_대회_중지">대회 중지</a></h4>
 <div class="paragraph">
-<p>대회를 종료한다.</p>
+<p>대회를 중지한다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 22. /api/v1/contest/{id}/end</caption>
+<caption class="title">Table 22. /api/v1/contest/{id}/stop</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2640,9 +2702,9 @@ Content-Length: 86
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/end HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.2r58FYM731Lhgae6Td--YYl6I-goA01XmfV5PZAoX8w</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/1/stop HTTP/1.1
+Content-Type: application/json
+Authorization: 1</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2740,43 +2802,36 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 268
 
 {
-  "id" : 2,
-  "title" : "2022 리그전",
-  "description" : "2021.05.01~",
-  "startDate" : "2021-01-01",
-  "startTime" : "00:00:00",
-  "endDate" : "2022-12-30",
-  "endTime" : "23:59:59",
-  "maxJoiner" : 128,
-  "stateCode" : "4",
-  "stateName" : "종료"
+  "id" : 1,
+  "title" : "중지한 대회",
+  "startDate" : "2021-08-07",
+  "stateCode" : "3",
+  "stateName" : "중지"
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">이미 중지된 대회인 경우</div>
+<div class="title">대회를 중지할 수 없는 경우</div>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
-Content-Length: 72
 
 {
   "code" : 400,
-  "message" : "이미 종료된 대회입니다."
+  "message" : "대회를 중지할 수 없는 상태입니다."
 }</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_경기_정보"><a class="link" href="#_경기_정보">경기 정보</a></h3>
 <div class="sect3">
-<h4 id="_경기_정보_조회"><a class="link" href="#_경기_정보_조회">경기 정보 조회</a></h4>
+<h4 id="_대회_종료"><a class="link" href="#_대회_종료">대회 종료</a></h4>
+<div class="paragraph">
+<p>대회를 종료한다.</p>
+</div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 24. /api/v1/contest/{id}/matches</caption>
+<caption class="title">Table 24. /api/v1/contest/{id}/end</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -2826,13 +2881,192 @@ Content-Length: 72
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1/matches HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.WPerAEwztLdltdeb9Gz6i4OEoFryWRMqQwybN2fTS2o</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/end HTTP/1.1
+Content-Type: application/json
+Authorization: 1</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <caption class="title">Table 25. response</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수</th>
+<th class="tableblock halign-left valign-top">암호화</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회 설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">시작 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">시작 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>endDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">종료 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>endTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">종료 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stateCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상태 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stateName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상태명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+
+{
+  "id" : 2,
+  "title" : "종료한 대회",
+  "startDate" : "2021-01-01",
+  "stateCode" : "4",
+  "stateName" : "종료"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">이미 종료한 대회인 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+
+{
+  "code" : 400,
+  "message" : "이미 종료된 대회입니다."
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_경기_정보"><a class="link" href="#_경기_정보">경기 정보</a></h3>
+<div class="sect3">
+<h4 id="_경기_정보_조회"><a class="link" href="#_경기_정보_조회">경기 정보 조회</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 26. /api/v1/contest/{id}/matches</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">파라미터명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대회 아이디</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">해더명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토큰</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/123/matches HTTP/1.1
+Content-Type: application/json
+Authorization: 2</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 27. response</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -2927,51 +3161,40 @@ true : 수정 불가</p></td>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 869
 
 [ {
   "id" : 1,
   "opponent" : {
-    "id" : 1,
-    "number" : 1,
-    "handicap" : 22,
-    "nickname" : "안탑",
+    "id" : 111,
+    "number" : 3,
+    "handicap" : 21,
+    "nickname" : "띠용",
     "rank" : 1,
-    "score" : 150
+    "score" : 17
   },
-  "result" : [ "LOSE", "LOSE", "WIN" ],
+  "result" : [ "WIN", "LOSE", "WIN" ],
   "closed" : true
 }, {
-  "id" : 5,
+  "id" : 2,
   "opponent" : {
-    "id" : 3,
-    "number" : 3,
-    "handicap" : 26,
-    "nickname" : "잼미니",
+    "id" : 222,
+    "number" : 4,
+    "handicap" : 22,
+    "nickname" : "스터디2",
     "rank" : 3,
-    "score" : 10
+    "score" : 11
   },
   "result" : [ "LOSE", "LOSE", "LOSE" ],
   "closed" : false
 }, {
-  "id" : 6,
+  "id" : 3,
   "opponent" : {
-    "id" : 4,
-    "number" : 4,
-    "handicap" : 28,
-    "nickname" : "인디",
-    "score" : 20
-  },
-  "result" : [ "NONE", "NONE", "NONE" ],
-  "closed" : false
-}, {
-  "id" : 7,
-  "opponent" : {
-    "id" : 5,
+    "id" : 333,
     "number" : 5,
-    "handicap" : 30,
-    "nickname" : "춘향이",
-    "score" : 30
+    "handicap" : 25,
+    "nickname" : "인디",
+    "rank" : 8,
+    "score" : 3
   },
   "result" : [ "NONE", "NONE", "NONE" ],
   "closed" : false
@@ -3004,7 +3227,7 @@ Content-Length: 869
 <p><code>closed</code> 속성이 <code>true</code>이면 알반 참가자는 UI에서 수정이 불가능하다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 26. /api/v1/match/{id}</caption>
+<caption class="title">Table 28. /api/v1/match/{id}</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -3054,13 +3277,13 @@ Content-Length: 869
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/match/5 HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjMxNzM5OTUyLCJleHAiOjE2MzE3NDE3NTJ9.vj5agK2hq1fmWV4UE1MIiTYwilsY80aEcfc6-WVQ3XM</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/match/991 HTTP/1.1
+Content-Type: application/json
+Authorization: 2</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 27. response</caption>
+<caption class="title">Table 29. response</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -3155,20 +3378,19 @@ true : 수정 불가</p></td>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 219
 
 {
-  "id" : 5,
+  "id" : 991,
   "opponent" : {
-    "id" : 2,
-    "number" : 2,
-    "handicap" : 24,
-    "nickname" : "띠용",
-    "rank" : 2,
-    "score" : 40
+    "id" : 9,
+    "number" : 15,
+    "handicap" : 22,
+    "nickname" : "안탑",
+    "rank" : 8,
+    "score" : 115
   },
   "result" : [ "WIN", "WIN", "WIN" ],
-  "closed" : false
+  "closed" : true
 }</code></pre>
 </div>
 </div>
@@ -3182,7 +3404,7 @@ Content-Length: 219
 <p>경기에 속한 두 선수, 관리자 만이 정보를 입력(수정)할 수 있다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 28. /api/v1/match/{id}</caption>
+<caption class="title">Table 30. /api/v1/match/{id}</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -3233,9 +3455,8 @@ Content-Length: 219
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/match/7 HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxNzM5OTUzLCJleHAiOjE2MzE3NDE3NTN9.GrNSvki-jN_JhjswyXVs-3YmbFEVR6__vPaJovfYpbk
-Content-Length: 24
+Content-Type: application/json
+Authorization: 2
 
 [ "WIN", "WIN", "LOSE" ]</code></pre>
 </div>
@@ -3243,19 +3464,21 @@ Content-Length: 24
 <div class="listingblock">
 <div class="title">응답</div>
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">존재하지 않은 경기</div>
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 73
 
 {
-  "code" : 404,
-  "message" : "경기를 찾을 수 없습니다."
+  "id" : 7,
+  "opponent" : {
+    "id" : 123,
+    "number" : 10,
+    "handicap" : 18,
+    "nickname" : "상대선수 닉네임",
+    "rank" : 15,
+    "score" : 452
+  },
+  "result" : [ "WIN", "WIN", "LOSE" ],
+  "closed" : false
 }</code></pre>
 </div>
 </div>
@@ -3264,11 +3487,22 @@ Content-Length: 73
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
-Content-Length: 75
 
 {
   "code" : 400,
   "message" : "참여하지 않은 경기입니다."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">존재하지 않은 경기</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
+Content-Type: application/json;charset=UTF-8
+
+{
+  "code" : 404,
+  "message" : "경기를 찾을 수 없습니다."
 }</code></pre>
 </div>
 </div>
@@ -3282,7 +3516,7 @@ Content-Length: 75
 <p>해당 대회의 순위표를 조회한다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 29. /api/v1/contest/{id}/ranks</caption>
+<caption class="title">Table 31. /api/v1/contest/{id}/ranks</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -3333,11 +3567,11 @@ Content-Length: 75
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1/ranks HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5OTUxLCJleHAiOjE2MzE3NDE3NTF9.AJtsb0OeDu8HcY6Bv2TSBklWjeQq8MwAtMoCZGDmBXE</code></pre>
+Authorization: 2</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 30. response</caption>
+<caption class="title">Table 32. response</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -3403,41 +3637,31 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5OTUxLCJleHAi
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 544
 
 [ {
-  "id" : 1,
-  "number" : 1,
-  "handicap" : 22,
-  "nickname" : "안탑",
-  "rank" : 1,
-  "score" : 150
-}, {
   "id" : 2,
-  "number" : 2,
-  "handicap" : 24,
-  "nickname" : "띠용",
-  "rank" : 2,
-  "score" : 40
-}, {
-  "id" : 3,
-  "number" : 3,
-  "handicap" : 26,
-  "nickname" : "잼미니",
-  "rank" : 3,
-  "score" : 10
+  "number" : 10,
+  "handicap" : 22,
+  "nickname" : "스터디2",
+  "rank" : 1
 }, {
   "id" : 4,
-  "number" : 4,
-  "handicap" : 28,
-  "nickname" : "인디",
-  "score" : 20
+  "number" : 20,
+  "handicap" : 24,
+  "nickname" : "지수.나",
+  "rank" : 2
 }, {
-  "id" : 5,
+  "id" : 3,
+  "number" : 21,
+  "handicap" : 25,
+  "nickname" : "띠용",
+  "rank" : 2
+}, {
+  "id" : 1,
   "number" : 5,
   "handicap" : 30,
-  "nickname" : "춘향이",
-  "score" : 30
+  "nickname" : "안탑",
+  "rank" : 3
 } ]</code></pre>
 </div>
 </div>
@@ -3449,7 +3673,7 @@ Content-Length: 544
 <h2 id="_코드표"><a class="link" href="#_코드표">코드표</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 31. 대회 상태</caption>
+<caption class="title">Table 33. 대회 상태</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 10%;">
@@ -3491,7 +3715,7 @@ Content-Length: 544
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 32. 경기 결과</caption>
+<caption class="title">Table 34. 경기 결과</caption>
 <colgroup>
 <col style="width: 30%;">
 <col style="width: 70%;">
@@ -3530,7 +3754,7 @@ Content-Length: 544
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-09-15 19:30:49 KST
+Last updated 2021-10-01 10:22:47 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

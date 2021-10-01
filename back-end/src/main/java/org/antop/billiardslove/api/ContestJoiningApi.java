@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.service.ContestService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,16 +27,16 @@ public class ContestJoiningApi {
     private final ContestService contestService;
 
     @PostMapping("/api/v1/contest/{id}/join")
-    public void join(@PathVariable(name = "id") long contestId,
-                     @AuthenticationPrincipal Long memberId,
-                     @RequestBody JoiningRequest request) {
-        contestService.join(contestId, memberId, request.getHandicap());
+    public ContestDto join(@PathVariable(name = "id") long contestId,
+                           @AuthenticationPrincipal Long memberId,
+                           @RequestBody JoiningRequest request) {
+        return contestService.join(contestId, memberId, request.getHandicap());
     }
 
     @DeleteMapping("/api/v1/contest/{id}/join")
-    public void cancelJoining(@PathVariable(name = "id") long contestId,
-                              @AuthenticationPrincipal Long memberId) {
-        contestService.cancelJoin(contestId, memberId);
+    public ContestDto cancelJoining(@PathVariable(name = "id") long contestId,
+                                    @AuthenticationPrincipal Long memberId) {
+        return contestService.cancelJoin(contestId, memberId);
     }
 
     /**

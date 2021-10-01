@@ -38,8 +38,7 @@ public class LoggedInApi {
                 .build();
 
         MemberDto member = loggedInService.loggedIn(kakaoDto);
-
-        String token = jwtTokenProvider.createToken("" + member.getId());
+        String token = jwtTokenProvider.createToken(member.getId());
 
         return Response.builder()
                 .token(token)
@@ -143,7 +142,7 @@ public class LoggedInApi {
         @Builder
         @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
         @FieldNameConstants
-        static class Member {
+        public static class Member {
             /**
              * 회원 아이디
              */

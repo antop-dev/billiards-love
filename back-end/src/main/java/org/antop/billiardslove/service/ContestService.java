@@ -71,7 +71,8 @@ public class ContestService {
      * @param handicap  참가 핸디캡
      */
     @Transactional
-    public void join(long contestId, long memberId, int handicap) {
+    public ContestDto join(long contestId, long memberId, int handicap) {
+        // 대회
         Contest contest = findContest(contestId);
         if (!contest.isAccepting()) {
             throw new CanNotJoinContestStateException();
@@ -82,6 +83,7 @@ public class ContestService {
             throw new AlreadyJoinException();
         });
 
+        // 회원
         Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
 
         Player player = Player.builder()
@@ -89,8 +91,9 @@ public class ContestService {
                 .member(member)
                 .handicap(handicap)
                 .build();
-
         playerDao.save(player);
+
+        return contestMapper.toDto(contest, memberId);
     }
 
     /**
@@ -222,13 +225,15 @@ public class ContestService {
      * @param memberId  회워 아이디
      */
     @Transactional
-    public void cancelJoin(long contestId, long memberId) {
+    public ContestDto cancelJoin(long contestId, long memberId) {
         Contest contest = findContest(contestId);
         if (!contest.isAccepting()) {
             throw new CanNotCancelJoinException();
         }
         playerDao.findByContestAndMember(contestId, memberId)
                 .ifPresent(player -> playerDao.remove(player.getId()));
+
+        return contestMapper.toDto(contest);
     }
 
     public Contest findContest(long contestId) {

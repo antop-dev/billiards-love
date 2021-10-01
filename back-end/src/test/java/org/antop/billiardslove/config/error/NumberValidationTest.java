@@ -1,11 +1,11 @@
 package org.antop.billiardslove.config.error;
 
-import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.WebMvcBase;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WebMvcTest(NumberValidationTest.TempController.class)
 @Import(NumberValidationTest.TempController.class)
-@WithMockUser(roles = "USER")
-class NumberValidationTest extends SpringBootBase {
+class NumberValidationTest extends WebMvcBase {
     private static final String URL = "/test/number";
 
     @Test
@@ -36,7 +36,7 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -54,7 +54,7 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -70,7 +70,7 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -86,7 +86,7 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -102,7 +102,7 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())

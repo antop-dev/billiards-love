@@ -22,20 +22,20 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc2LCJleHAiOjE2MzE3NDE2NzZ9.ihivqyxa-Jhb4U2vZY2V8lmgcZfG-potMZYmyuIQKSM"
+          "example" : "1"
         } ],
         "requestBody" : {
           "content" : {
-            "application/json;charset=UTF-8" : {
+            "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/api-v1-contest-id-1349013051"
+                "$ref" : "#/components/schemas/api-v1-contest-1349013051"
               },
               "examples" : {
                 "contest-register" : {
                   "value" : "{\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"리그전 대회 설명\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32\r\n}"
                 },
                 "error-forbidden" : {
-                  "value" : "{\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"리그전 대회 설명\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32\r\n}"
+                  "value" : "{ }"
                 }
               }
             }
@@ -47,11 +47,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1617394986"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
                 },
                 "examples" : {
                   "contest-register" : {
-                    "value" : "{\r\n  \"id\" : 7,\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"리그전 대회 설명\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32,\r\n  \"stateCode\" : \"2\",\r\n  \"stateName\" : \"준비중\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 987654321,\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"리그전 대회 설명\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32,\r\n  \"stateCode\" : \"2\",\r\n  \"stateName\" : \"준비중\"\r\n}"
                   }
                 }
               }
@@ -62,7 +62,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "error-forbidden" : {
@@ -87,7 +87,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5ODc3LCJleHAiOjE2MzE3NDE2Nzd9.70Ea3TIz-JFdcxNzl9wSF6HLGRW30VbIlZg0WaqeHsg"
+          "example" : "2"
         } ],
         "responses" : {
           "200" : {
@@ -99,7 +99,7 @@
                 },
                 "examples" : {
                   "contest-list" : {
-                    "value" : "[ {\r\n  \"id\" : 1,\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"2021.01.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32,\r\n  \"stateCode\" : \"0\",\r\n  \"stateName\" : \"진행중\",\r\n  \"player\" : {\r\n    \"id\" : 2,\r\n    \"number\" : 2,\r\n    \"handicap\" : 24,\r\n    \"nickname\" : \"띠용\",\r\n    \"rank\" : 2,\r\n    \"score\" : 40\r\n  }\r\n}, {\r\n  \"id\" : 2,\r\n  \"title\" : \"2022 리그전\",\r\n  \"description\" : \"2021.05.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2022-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"player\" : {\r\n    \"id\" : 8,\r\n    \"handicap\" : 21,\r\n    \"nickname\" : \"띠용\"\r\n  }\r\n}, {\r\n  \"id\" : 4,\r\n  \"title\" : \"준비중인 대회 (2)\",\r\n  \"startDate\" : \"2021-08-01\",\r\n  \"stateCode\" : \"2\",\r\n  \"stateName\" : \"준비중\"\r\n}, {\r\n  \"id\" : 3,\r\n  \"title\" : \"준비중인 대회 (1)\",\r\n  \"startDate\" : \"2021-09-16\",\r\n  \"endDate\" : \"2021-09-16\",\r\n  \"stateCode\" : \"2\",\r\n  \"stateName\" : \"준비중\"\r\n}, {\r\n  \"id\" : 5,\r\n  \"title\" : \"중지된 대회\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"stateCode\" : \"3\",\r\n  \"stateName\" : \"중지\"\r\n}, {\r\n  \"id\" : 6,\r\n  \"title\" : \"종료된 대회\",\r\n  \"startDate\" : \"2020-01-01\",\r\n  \"stateCode\" : \"4\",\r\n  \"stateName\" : \"종료\"\r\n} ]"
+                    "value" : "[ {\r\n  \"id\" : 1121,\r\n  \"title\" : \"2020년 7월 동호회 리그전\",\r\n  \"description\" : \"총 상금 100만원!\",\r\n  \"startDate\" : \"2021-07-01\",\r\n  \"startTime\" : \"18:00:00\",\r\n  \"endDate\" : \"2020-07-31\",\r\n  \"endTime\" : \"22:00:00\",\r\n  \"maxJoiner\" : 128,\r\n  \"stateCode\" : \"4\",\r\n  \"stateName\" : \"종료\",\r\n  \"player\" : {\r\n    \"id\" : 335,\r\n    \"number\" : 16,\r\n    \"handicap\" : 18,\r\n    \"nickname\" : \"띠용\",\r\n    \"rank\" : 5,\r\n    \"score\" : 600\r\n  }\r\n}, {\r\n  \"id\" : 1121,\r\n  \"title\" : \"2022년 1분기 대회\",\r\n  \"startDate\" : \"2022-01-01\",\r\n  \"startTime\" : \"18:00:00\",\r\n  \"endDate\" : \"2022-03-31\",\r\n  \"maxJoiner\" : 64,\r\n  \"stateCode\" : \"2\",\r\n  \"stateName\" : \"준비중\"\r\n} ]"
                   }
                 }
               }
@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"Hilo6jmoDrDFqMwSsaO2DhRnQ3rs6wOibHNXq/qf5kg=\",\r\n  \"kakaoKey\" : \"IRWmv1xNVrbeqGwXJdUMeUC0oQfxxatdsQJ2CsENFsRKWrtcAjj5C2jBqf6dXGoLthwDv1RFRTP7KkGC\",\r\n  \"adSenseKey\" : \"PFHrXqbMW6iPsjqR78D8MhQMAtCyVmetkGdizz0=\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"V6XckjqvdO0WWV3uObm4jI+GFmZVTlY3yi81Lt/Pdbo=\",\r\n  \"kakaoKey\" : \"UuZ+zW7OxbJgLXU9l+FKC7so9ss0QPXb40GImZKNOT/OUjVfCaOuJj6R1Yz6k9/Qiw==\",\r\n  \"adSenseKey\" : \"rcx/+aEn7E6JneFd0yuJKf9BvgnpcgNhESfAmf/+ACQg0fut7qBv3jcWBU1oiQ==\"\r\n}"
                   }
                 }
               }
@@ -137,12 +137,15 @@
         "operationId" : "logged-in",
         "requestBody" : {
           "content" : {
-            "application/json;charset=UTF-8" : {
+            "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/api-v1-logged-in-1751261676"
               },
               "examples" : {
                 "logged-in" : {
+                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : \"2020-08-17T15:45:04Z\",\r\n  \"profile\" : {\r\n    \"nickname\" : \"antop\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                },
+                "logged-in-registered" : {
                   "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : \"2020-08-17T15:45:04+02:00\",\r\n  \"profile\" : {\r\n    \"nickname\" : \"Antop\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 }
               }
@@ -155,11 +158,14 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-logged-in1370625323"
+                  "$ref" : "#/components/schemas/api-v1-logged-in-595124119"
                 },
                 "examples" : {
                   "logged-in" : {
-                    "value" : "{\r\n  \"token\" : \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc5LCJleHAiOjE2MzE3NDE2Nzl9.Sce6bV598kr6dNwla4n_qW0CSz3ZxwrpzcHuWvL-F1M\",\r\n  \"member\" : {\r\n    \"id\" : 1,\r\n    \"nickname\" : \"안탑\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\"\r\n  },\r\n  \"registered\" : true\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"antop\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\"\r\n  },\r\n  \"registered\" : false\r\n}"
+                  },
+                  "logged-in-registered" : {
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"안탑\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\"\r\n  },\r\n  \"registered\" : true\r\n}"
                   }
                 }
               }
@@ -180,20 +186,20 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc5LCJleHAiOjE2MzE3NDE2Nzl9.Sce6bV598kr6dNwla4n_qW0CSz3ZxwrpzcHuWvL-F1M"
+          "example" : "2"
         } ],
         "requestBody" : {
           "content" : {
-            "application/json;charset=UTF-8" : {
+            "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/api-v1-member-2071489835"
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"wWE7pLzmiB++swcHXiMp5TMXlQj1vXJnLqFUucLv5muE\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"6RcEUmBIpFQtm9yrWozrqA40zPh9iyRQVkCzHRsLDqsG\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"Uo1xLqyVcRVxlJdxu5vgvv9m/EICn4g1Dkn8jimmBIHSckUxS9o=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"64E2+T+Xn+rGPKm2xQWV4G9n8PY01EtVoUz6W+JBPuksOARxKzFJAHjVxLY=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\"\r\n}"
@@ -209,16 +215,16 @@
           }
         },
         "responses" : {
-          "401" : {
-            "description" : "401",
+          "404" : {
+            "description" : "404",
             "content" : {
-              "application/json" : {
+              "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "error-bad-credentials" : {
-                    "value" : "{\r\n  \"code\" : 401,\r\n  \"message\" : \"회원을 찾을 수 없습니다.\"\r\n}"
+                    "value" : "{\r\n  \"code\" : 404,\r\n  \"message\" : \"회원을 찾을 수 없습니다.\"\r\n}"
                   }
                 }
               }
@@ -233,7 +239,7 @@
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 1,\r\n  \"nickname\" : \"1v3TJ+QC61AMUeNbr/RNLbDH6cyMZ9huu3Uy66ewS0RZniqqVGE=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://picsum.photos/110\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"tht42/uz4F4qrmmNpTQDuyh1XxzQQzanDog2+tBJg8h867ELCA9DDog9gDk=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
                   }
                 }
               }
@@ -244,7 +250,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "member-modify-valid-handicap-not-null" : {
@@ -283,7 +289,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5ODc0LCJleHAiOjE2MzE3NDE2NzR9.buEyFbggbhqnl2-tILbz9SICRHn2GlLGRZRUJkuzcvo"
+          "example" : "2"
         } ],
         "responses" : {
           "200" : {
@@ -291,11 +297,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1677253782"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-join1677253782"
                 },
                 "examples" : {
                   "contest-info" : {
-                    "value" : "{\r\n  \"id\" : 1,\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"2021.01.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32,\r\n  \"stateCode\" : \"0\",\r\n  \"stateName\" : \"진행중\",\r\n  \"player\" : {\r\n    \"id\" : 2,\r\n    \"number\" : 2,\r\n    \"handicap\" : 24,\r\n    \"nickname\" : \"띠용\",\r\n    \"rank\" : 2,\r\n    \"score\" : 40\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 5,\r\n  \"title\" : \"대회 타이틀\",\r\n  \"description\" : \"대회 설명\",\r\n  \"startDate\" : \"2020-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2020-03-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"stateCode\" : \"0\",\r\n  \"stateName\" : \"진행중\",\r\n  \"player\" : {\r\n    \"id\" : 332,\r\n    \"number\" : 3,\r\n    \"handicap\" : 22,\r\n    \"nickname\" : \"안탑\",\r\n    \"rank\" : 11,\r\n    \"score\" : 1154\r\n  }\r\n}"
                   }
                 }
               }
@@ -322,17 +328,17 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc2LCJleHAiOjE2MzE3NDE2NzZ9.ihivqyxa-Jhb4U2vZY2V8lmgcZfG-potMZYmyuIQKSM"
+          "example" : "1"
         } ],
         "requestBody" : {
           "content" : {
-            "application/json;charset=UTF-8" : {
+            "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/api-v1-contest-id-1349013051"
+                "$ref" : "#/components/schemas/api-v1-contest-1349013051"
               },
               "examples" : {
                 "contest-modify" : {
-                  "value" : "{\r\n  \"title\" : \"2021 리그전 수정\",\r\n  \"description\" : \"리그전 대회 수정\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 64\r\n}"
+                  "value" : "{\r\n  \"title\" : \"2021 리그전 수정\",\r\n  \"description\" : \"리그전 대회 수정\",\r\n  \"startDate\" : \"2021-01-02\",\r\n  \"startTime\" : \"00:10:00\",\r\n  \"endDate\" : \"2021-06-01\",\r\n  \"endTime\" : \"10:59:59\",\r\n  \"maxJoiner\" : 64\r\n}"
                 },
                 "error-already-contest-end" : {
                   "value" : "{\r\n  \"title\" : \"2021 리그전 수정\",\r\n  \"description\" : \"리그전 대회 수정\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 64\r\n}"
@@ -350,11 +356,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1617394986"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
                 },
                 "examples" : {
                   "contest-modify" : {
-                    "value" : "{\r\n  \"id\" : 5,\r\n  \"title\" : \"2021 리그전 수정\",\r\n  \"description\" : \"리그전 대회 수정\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-31\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 64,\r\n  \"stateCode\" : \"3\",\r\n  \"stateName\" : \"중지\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 5,\r\n  \"title\" : \"2021 리그전 수정\",\r\n  \"description\" : \"리그전 대회 수정\",\r\n  \"startDate\" : \"2021-01-02\",\r\n  \"startTime\" : \"00:10:00\",\r\n  \"endDate\" : \"2021-06-01\",\r\n  \"endTime\" : \"10:59:59\",\r\n  \"maxJoiner\" : 64,\r\n  \"stateCode\" : \"2\",\r\n  \"stateName\" : \"준비중\"\r\n}"
                   }
                 }
               }
@@ -365,7 +371,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "error-already-contest-end" : {
@@ -401,7 +407,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjMxNzM5ODc5LCJleHAiOjE2MzE3NDE2Nzl9.09u7IGt7ckFQI0luvWTKOzO1lyifBF4OrYwf3m38gJM"
+          "example" : "2"
         } ],
         "responses" : {
           "200" : {
@@ -413,7 +419,7 @@
                 },
                 "examples" : {
                   "match" : {
-                    "value" : "{\r\n  \"id\" : 5,\r\n  \"opponent\" : {\r\n    \"id\" : 2,\r\n    \"number\" : 2,\r\n    \"handicap\" : 24,\r\n    \"nickname\" : \"띠용\",\r\n    \"rank\" : 2,\r\n    \"score\" : 40\r\n  },\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\" ],\r\n  \"closed\" : false\r\n}"
+                    "value" : "{\r\n  \"id\" : 991,\r\n  \"opponent\" : {\r\n    \"id\" : 9,\r\n    \"number\" : 15,\r\n    \"handicap\" : 22,\r\n    \"nickname\" : \"안탑\",\r\n    \"rank\" : 8,\r\n    \"score\" : 115\r\n  },\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\" ],\r\n  \"closed\" : true\r\n}"
                   }
                 }
               }
@@ -423,7 +429,7 @@
       },
       "put" : {
         "tags" : [ "api" ],
-        "operationId" : "error-match-not-founderror-match-not-joinedmatch-result-enter",
+        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-not-joined",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -440,11 +446,11 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxNzM5ODc5LCJleHAiOjE2MzE3NDE2Nzl9.ksjjmAoAPe76D5Kwm5wXnw7hIcpP5_fiSP4d1bKZCSQ"
+          "example" : "2"
         } ],
         "requestBody" : {
           "content" : {
-            "application/json;charset=UTF-8" : {
+            "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/api-v1-match-id486549215"
               },
@@ -452,10 +458,10 @@
                 "error-match-not-found" : {
                   "value" : "[ \"WIN\", \"WIN\", \"LOSE\" ]"
                 },
-                "error-match-not-joined" : {
+                "match-result-enter" : {
                   "value" : "[ \"WIN\", \"WIN\", \"LOSE\" ]"
                 },
-                "match-result-enter" : {
+                "match-result-enter-not-joined" : {
                   "value" : "[ \"WIN\", \"WIN\", \"LOSE\" ]"
                 }
               }
@@ -468,11 +474,26 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "error-match-not-found" : {
                     "value" : "{\r\n  \"code\" : 404,\r\n  \"message\" : \"경기를 찾을 수 없습니다.\"\r\n}"
+                  }
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-match-id1652061409"
+                },
+                "examples" : {
+                  "match-result-enter" : {
+                    "value" : "{\r\n  \"id\" : 7,\r\n  \"opponent\" : {\r\n    \"id\" : 123,\r\n    \"number\" : 10,\r\n    \"handicap\" : 18,\r\n    \"nickname\" : \"상대선수 닉네임\",\r\n    \"rank\" : 15,\r\n    \"score\" : 452\r\n  },\r\n  \"result\" : [ \"WIN\", \"WIN\", \"LOSE\" ],\r\n  \"closed\" : false\r\n}"
                   }
                 }
               }
@@ -483,18 +504,15 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
-                  "error-match-not-joined" : {
+                  "match-result-enter-not-joined" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"참여하지 않은 경기입니다.\"\r\n}"
                   }
                 }
               }
             }
-          },
-          "200" : {
-            "description" : "200"
           }
         }
       }
@@ -502,7 +520,7 @@
     "/api/v1/contest/{id}/end" : {
       "post" : {
         "tags" : [ "api" ],
-        "operationId" : "contest-endcontest-end-alreadyerror-contest-already-end",
+        "operationId" : "contest-end",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -519,7 +537,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc4LCJleHAiOjE2MzE3NDE2Nzh9._JI2av2vcrjkF-3FKY5YvU_hbSmaHu7BPMDIE0miCrM"
+          "example" : "1"
         } ],
         "responses" : {
           "200" : {
@@ -527,11 +545,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1617394986"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
                 },
                 "examples" : {
                   "contest-end" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"2022 리그전\",\r\n  \"description\" : \"2021.05.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2022-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"stateCode\" : \"4\",\r\n  \"stateName\" : \"종료\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"종료한 대회\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"stateCode\" : \"4\",\r\n  \"stateName\" : \"종료\"\r\n}"
                   }
                 }
               }
@@ -542,13 +560,10 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "contest-end-already" : {
-                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"이미 종료된 대회입니다.\"\r\n}"
-                  },
-                  "error-contest-already-end" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"이미 종료된 대회입니다.\"\r\n}"
                   }
                 }
@@ -561,7 +576,7 @@
     "/api/v1/contest/{id}/join" : {
       "post" : {
         "tags" : [ "api" ],
-        "operationId" : "contest-joinerror-already-joinerror-cant-join",
+        "operationId" : "contest-join",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -578,11 +593,11 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjMxNzM5ODc3LCJleHAiOjE2MzE3NDE2Nzd9.nAY1H1OVj_E7Z-2XusHQTvZNqEajDruCt39lV0OZIFs"
+          "example" : "2"
         } ],
         "requestBody" : {
           "content" : {
-            "application/json;charset=UTF-8" : {
+            "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/api-v1-contest-id-join-405702609"
               },
@@ -590,10 +605,10 @@
                 "contest-join" : {
                   "value" : "{\r\n  \"handicap\" : 30\r\n}"
                 },
-                "error-already-join" : {
+                "contest-join-already" : {
                   "value" : "{\r\n  \"handicap\" : 30\r\n}"
                 },
-                "error-cant-join" : {
+                "contest-join-can-not" : {
                   "value" : "{\r\n  \"handicap\" : 30\r\n}"
                 }
               }
@@ -602,20 +617,32 @@
         },
         "responses" : {
           "200" : {
-            "description" : "200"
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-contest-id-join1677253782"
+                },
+                "examples" : {
+                  "contest-join" : {
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"player\" : {\r\n    \"id\" : 12164037,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\"\r\n  }\r\n}"
+                  }
+                }
+              }
+            }
           },
           "400" : {
             "description" : "400",
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
-                  "error-already-join" : {
+                  "contest-join-already" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"이미 참가한 대회입니다.\"\r\n}"
                   },
-                  "error-cant-join" : {
+                  "contest-join-can-not" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회에 참가할 수 없는 상태입니다.\"\r\n}"
                   }
                 }
@@ -643,11 +670,23 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjMxNzM5ODc3LCJleHAiOjE2MzE3NDE2Nzd9.sxy_wTtRvRMaVbjg4psewBIef5GW752FtR8d3q27miU"
+          "example" : "2"
         } ],
         "responses" : {
           "200" : {
-            "description" : "200"
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
+                },
+                "examples" : {
+                  "contest-join-cancel" : {
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"최소한 대회\",\r\n  \"description\" : \"player 속성이 없다.\",\r\n  \"startDate\" : \"2021-01-10\",\r\n  \"endDate\" : \"2021-11-12\",\r\n  \"maxJoiner\" : 128,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\"\r\n}"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -672,7 +711,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5ODc5LCJleHAiOjE2MzE3NDE2Nzl9.PtpmgRUeuDNuqt6ZB0DhVYHLbbNfK2mPJ44OLFI7tZk"
+          "example" : "2"
         } ],
         "responses" : {
           "200" : {
@@ -684,7 +723,7 @@
                 },
                 "examples" : {
                   "matches" : {
-                    "value" : "[ {\r\n  \"id\" : 1,\r\n  \"opponent\" : {\r\n    \"id\" : 1,\r\n    \"number\" : 1,\r\n    \"handicap\" : 22,\r\n    \"nickname\" : \"안탑\",\r\n    \"rank\" : 1,\r\n    \"score\" : 150\r\n  },\r\n  \"result\" : [ \"LOSE\", \"LOSE\", \"WIN\" ],\r\n  \"closed\" : true\r\n}, {\r\n  \"id\" : 5,\r\n  \"opponent\" : {\r\n    \"id\" : 3,\r\n    \"number\" : 3,\r\n    \"handicap\" : 26,\r\n    \"nickname\" : \"잼미니\",\r\n    \"rank\" : 3,\r\n    \"score\" : 10\r\n  },\r\n  \"result\" : [ \"LOSE\", \"LOSE\", \"LOSE\" ],\r\n  \"closed\" : false\r\n}, {\r\n  \"id\" : 6,\r\n  \"opponent\" : {\r\n    \"id\" : 4,\r\n    \"number\" : 4,\r\n    \"handicap\" : 28,\r\n    \"nickname\" : \"인디\",\r\n    \"score\" : 20\r\n  },\r\n  \"result\" : [ \"NONE\", \"NONE\", \"NONE\" ],\r\n  \"closed\" : false\r\n}, {\r\n  \"id\" : 7,\r\n  \"opponent\" : {\r\n    \"id\" : 5,\r\n    \"number\" : 5,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"춘향이\",\r\n    \"score\" : 30\r\n  },\r\n  \"result\" : [ \"NONE\", \"NONE\", \"NONE\" ],\r\n  \"closed\" : false\r\n} ]"
+                    "value" : "[ {\r\n  \"id\" : 1,\r\n  \"opponent\" : {\r\n    \"id\" : 111,\r\n    \"number\" : 3,\r\n    \"handicap\" : 21,\r\n    \"nickname\" : \"띠용\",\r\n    \"rank\" : 1,\r\n    \"score\" : 17\r\n  },\r\n  \"result\" : [ \"WIN\", \"LOSE\", \"WIN\" ],\r\n  \"closed\" : true\r\n}, {\r\n  \"id\" : 2,\r\n  \"opponent\" : {\r\n    \"id\" : 222,\r\n    \"number\" : 4,\r\n    \"handicap\" : 22,\r\n    \"nickname\" : \"스터디2\",\r\n    \"rank\" : 3,\r\n    \"score\" : 11\r\n  },\r\n  \"result\" : [ \"LOSE\", \"LOSE\", \"LOSE\" ],\r\n  \"closed\" : false\r\n}, {\r\n  \"id\" : 3,\r\n  \"opponent\" : {\r\n    \"id\" : 333,\r\n    \"number\" : 5,\r\n    \"handicap\" : 25,\r\n    \"nickname\" : \"인디\",\r\n    \"rank\" : 8,\r\n    \"score\" : 3\r\n  },\r\n  \"result\" : [ \"NONE\", \"NONE\", \"NONE\" ],\r\n  \"closed\" : false\r\n} ]"
                   }
                 }
               }
@@ -713,7 +752,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc4LCJleHAiOjE2MzE3NDE2Nzh9._JI2av2vcrjkF-3FKY5YvU_hbSmaHu7BPMDIE0miCrM"
+          "example" : "1"
         } ],
         "responses" : {
           "200" : {
@@ -721,11 +760,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1617394986"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
                 },
                 "examples" : {
                   "contest-open" : {
-                    "value" : "{\r\n  \"id\" : 3,\r\n  \"title\" : \"준비중인 대회 (1)\",\r\n  \"startDate\" : \"2021-09-16\",\r\n  \"endDate\" : \"2021-09-16\",\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 3,\r\n  \"title\" : \"오픈한 대회\",\r\n  \"description\" : \"오픈해서 상태가 접수중!\",\r\n  \"startDate\" : \"2020-01-01\",\r\n  \"startTime\" : \"19:00:00\",\r\n  \"endDate\" : \"2020-01-01\",\r\n  \"endTime\" : \"22:00:00\",\r\n  \"maxJoiner\" : 16,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\"\r\n}"
                   }
                 }
               }
@@ -754,7 +793,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjMxNzM5ODc3LCJleHAiOjE2MzE3NDE2Nzd9.70Ea3TIz-JFdcxNzl9wSF6HLGRW30VbIlZg0WaqeHsg"
+          "example" : "2"
         } ],
         "responses" : {
           "200" : {
@@ -766,7 +805,7 @@
                 },
                 "examples" : {
                   "ranks" : {
-                    "value" : "[ {\r\n  \"id\" : 1,\r\n  \"number\" : 1,\r\n  \"handicap\" : 22,\r\n  \"nickname\" : \"안탑\",\r\n  \"rank\" : 1,\r\n  \"score\" : 150\r\n}, {\r\n  \"id\" : 2,\r\n  \"number\" : 2,\r\n  \"handicap\" : 24,\r\n  \"nickname\" : \"띠용\",\r\n  \"rank\" : 2,\r\n  \"score\" : 40\r\n}, {\r\n  \"id\" : 3,\r\n  \"number\" : 3,\r\n  \"handicap\" : 26,\r\n  \"nickname\" : \"잼미니\",\r\n  \"rank\" : 3,\r\n  \"score\" : 10\r\n}, {\r\n  \"id\" : 4,\r\n  \"number\" : 4,\r\n  \"handicap\" : 28,\r\n  \"nickname\" : \"인디\",\r\n  \"score\" : 20\r\n}, {\r\n  \"id\" : 5,\r\n  \"number\" : 5,\r\n  \"handicap\" : 30,\r\n  \"nickname\" : \"춘향이\",\r\n  \"score\" : 30\r\n} ]"
+                    "value" : "[ {\r\n  \"id\" : 2,\r\n  \"number\" : 10,\r\n  \"handicap\" : 22,\r\n  \"nickname\" : \"스터디2\",\r\n  \"rank\" : 1\r\n}, {\r\n  \"id\" : 4,\r\n  \"number\" : 20,\r\n  \"handicap\" : 24,\r\n  \"nickname\" : \"지수.나\",\r\n  \"rank\" : 2\r\n}, {\r\n  \"id\" : 3,\r\n  \"number\" : 21,\r\n  \"handicap\" : 25,\r\n  \"nickname\" : \"띠용\",\r\n  \"rank\" : 2\r\n}, {\r\n  \"id\" : 1,\r\n  \"number\" : 5,\r\n  \"handicap\" : 30,\r\n  \"nickname\" : \"안탑\",\r\n  \"rank\" : 3\r\n} ]"
                   }
                 }
               }
@@ -778,7 +817,7 @@
     "/api/v1/contest/{id}/start" : {
       "post" : {
         "tags" : [ "api" ],
-        "operationId" : "contest-startcontest-start-can-noterror-contest-cant-starterror-contest-not-founderror-unauthorized",
+        "operationId" : "contest-start",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -795,7 +834,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc4LCJleHAiOjE2MzE3NDE2Nzh9._JI2av2vcrjkF-3FKY5YvU_hbSmaHu7BPMDIE0miCrM"
+          "example" : "1"
         } ],
         "responses" : {
           "200" : {
@@ -803,11 +842,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1617394986"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
                 },
                 "examples" : {
                   "contest-start" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"2022 리그전\",\r\n  \"description\" : \"2021.05.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2022-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"stateCode\" : \"0\",\r\n  \"stateName\" : \"진행중\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"시작된 대회\",\r\n  \"description\" : \"★ 시작을 했습니다!!\",\r\n  \"startDate\" : \"2020-01-01\",\r\n  \"startTime\" : \"19:00:00\",\r\n  \"maxJoiner\" : 64,\r\n  \"stateCode\" : \"0\",\r\n  \"stateName\" : \"진행중\"\r\n}"
                   }
                 }
               }
@@ -818,44 +857,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "contest-start-can-not" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회를 시작할 수 없는 상태입니다.\"\r\n}"
-                  },
-                  "error-contest-cant-start" : {
-                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회를 시작할 수 없는 상태입니다.\"\r\n}"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "404",
-            "content" : {
-              "application/json;charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
-                },
-                "examples" : {
-                  "error-contest-not-found" : {
-                    "value" : "{\r\n  \"code\" : 404,\r\n  \"message\" : \"대회를 찾을 수 없습니다.\"\r\n}"
-                  }
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "401",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
-                },
-                "examples" : {
-                  "error-unauthorized" : {
-                    "value" : "{\r\n  \"code\" : 401,\r\n  \"message\" : \"인증 토큰이 유효하지 않습니다.\"\r\n}"
                   }
                 }
               }
@@ -867,7 +873,7 @@
     "/api/v1/contest/{id}/stop" : {
       "post" : {
         "tags" : [ "api" ],
-        "operationId" : "contest-stopcontest-stop-can-noterror-contest-cant-stop",
+        "operationId" : "contest-stop",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -884,7 +890,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjMxNzM5ODc4LCJleHAiOjE2MzE3NDE2Nzh9._JI2av2vcrjkF-3FKY5YvU_hbSmaHu7BPMDIE0miCrM"
+          "example" : "1"
         } ],
         "responses" : {
           "200" : {
@@ -892,11 +898,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id1617394986"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end1617394986"
                 },
                 "examples" : {
                   "contest-stop" : {
-                    "value" : "{\r\n  \"id\" : 1,\r\n  \"title\" : \"2021 리그전\",\r\n  \"description\" : \"2021.01.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2021-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 32,\r\n  \"stateCode\" : \"3\",\r\n  \"stateName\" : \"중지\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 1,\r\n  \"title\" : \"중지한 대회\",\r\n  \"startDate\" : \"2021-08-07\",\r\n  \"stateCode\" : \"3\",\r\n  \"stateName\" : \"중지\"\r\n}"
                   }
                 }
               }
@@ -907,13 +913,10 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-end-1153901879"
                 },
                 "examples" : {
                   "contest-stop-can-not" : {
-                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회를 중지할 수 없는 상태입니다.\"\r\n}"
-                  },
-                  "error-contest-cant-stop" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회를 중지할 수 없는 상태입니다.\"\r\n}"
                   }
                 }
@@ -977,7 +980,7 @@
           }
         }
       },
-      "api-v1-contest-id1617394986" : {
+      "api-v1-contest-id-end1617394986" : {
         "type" : "object",
         "properties" : {
           "stateName" : {
@@ -1019,6 +1022,81 @@
           "startDate" : {
             "type" : "string",
             "description" : "시작 날짜"
+          }
+        }
+      },
+      "api-v1-contest-id-join1677253782" : {
+        "type" : "object",
+        "properties" : {
+          "stateName" : {
+            "type" : "string",
+            "description" : "상태명"
+          },
+          "endDate" : {
+            "type" : "string",
+            "description" : "종료 날짜"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "대회 설명"
+          },
+          "stateCode" : {
+            "type" : "string",
+            "description" : "상태 코드"
+          },
+          "startTime" : {
+            "type" : "string",
+            "description" : "시작 시간"
+          },
+          "endTime" : {
+            "type" : "string",
+            "description" : "종료 시간"
+          },
+          "id" : {
+            "type" : "number",
+            "description" : "대회 아이디"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "대회명"
+          },
+          "maxJoiner" : {
+            "type" : "number",
+            "description" : "최대 참가자 수"
+          },
+          "startDate" : {
+            "type" : "string",
+            "description" : "시작 날짜"
+          },
+          "player" : {
+            "type" : "object",
+            "properties" : {
+              "score" : {
+                "type" : "number",
+                "description" : "점수"
+              },
+              "number" : {
+                "type" : "number",
+                "description" : "선수 번호 (참가 번호)"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다."
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "선수 별명"
+              },
+              "rank" : {
+                "type" : "number",
+                "description" : "순위"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              }
+            },
+            "description" : "내 선수 정보"
           }
         }
       },
@@ -1100,13 +1178,56 @@
           }
         }
       },
-      "api-v1-contest-id1677253782" : {
+      "api-v1-logged-in-595124119" : {
         "type" : "object",
         "properties" : {
-          "stateName" : {
-            "type" : "string",
-            "description" : "상태명"
+          "member" : {
+            "type" : "object",
+            "properties" : {
+              "thumbnail" : {
+                "type" : "string",
+                "description" : "회원 이미지 (카카오톡 프로필 썸네일)"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "핸디캡"
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "회원 별명"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "회원 아이디"
+              }
+            }
           },
+          "registered" : {
+            "type" : "boolean",
+            "description" : "추가 정보 등록됨 여부 +\nfalse면 추가 정보를 입력 받아야 한다."
+          },
+          "token" : {
+            "type" : "string",
+            "description" : "JWT 토큰"
+          }
+        }
+      },
+      "api-v1-contest-id-end-1153901879" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "number",
+            "description" : "에러 코드"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "에러 메세지"
+          }
+        }
+      },
+      "api-v1-contest-1349013051" : {
+        "type" : "object",
+        "properties" : {
           "endDate" : {
             "type" : "string",
             "description" : "종료 날짜"
@@ -1115,10 +1236,6 @@
             "type" : "string",
             "description" : "대회 설명"
           },
-          "stateCode" : {
-            "type" : "string",
-            "description" : "상태 코드"
-          },
           "startTime" : {
             "type" : "string",
             "description" : "시작 시간"
@@ -1126,10 +1243,6 @@
           "endTime" : {
             "type" : "string",
             "description" : "종료 시간"
-          },
-          "id" : {
-            "type" : "number",
-            "description" : "대회 아이디"
           },
           "title" : {
             "type" : "string",
@@ -1142,49 +1255,6 @@
           "startDate" : {
             "type" : "string",
             "description" : "시작 날짜"
-          },
-          "player" : {
-            "type" : "object",
-            "properties" : {
-              "score" : {
-                "type" : "number",
-                "description" : "점수"
-              },
-              "number" : {
-                "type" : "number",
-                "description" : "선수 번호 (참가 번호)"
-              },
-              "handicap" : {
-                "type" : "number",
-                "description" : "참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다."
-              },
-              "nickname" : {
-                "type" : "string",
-                "description" : "선수 별명"
-              },
-              "rank" : {
-                "type" : "number",
-                "description" : "순위"
-              },
-              "id" : {
-                "type" : "number",
-                "description" : "선수 아이디"
-              }
-            },
-            "description" : "내 선수 정보"
-          }
-        }
-      },
-      "api-v1-contest-id-1153901879" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "number",
-            "description" : "에러 코드"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "에러 메세지"
           }
         }
       },
@@ -1217,39 +1287,6 @@
               "type" : "number",
               "description" : "선수 아이디"
             }
-          }
-        }
-      },
-      "api-v1-contest-id-1349013051" : {
-        "type" : "object",
-        "properties" : {
-          "endDate" : {
-            "type" : "string",
-            "description" : "종료 날짜"
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "대회 설명"
-          },
-          "startTime" : {
-            "type" : "string",
-            "description" : "시작 시간"
-          },
-          "endTime" : {
-            "type" : "string",
-            "description" : "종료 시간"
-          },
-          "title" : {
-            "type" : "string",
-            "description" : "대회명"
-          },
-          "maxJoiner" : {
-            "type" : "number",
-            "description" : "최대 참가자 수"
-          },
-          "startDate" : {
-            "type" : "string",
-            "description" : "시작 날짜"
           }
         }
       },
@@ -1403,40 +1440,6 @@
           "id" : {
             "type" : "number",
             "description" : "경기 아이디"
-          }
-        }
-      },
-      "api-v1-logged-in1370625323" : {
-        "type" : "object",
-        "properties" : {
-          "member" : {
-            "type" : "object",
-            "properties" : {
-              "thumbnail" : {
-                "type" : "string",
-                "description" : "회원 이미지 (카카오톡 프로필 썸네일)"
-              },
-              "handicap" : {
-                "type" : "number",
-                "description" : "3구 핸디캡"
-              },
-              "nickname" : {
-                "type" : "string",
-                "description" : "회원 별명 or 카카오톡 별명"
-              },
-              "id" : {
-                "type" : "number",
-                "description" : "회원 아이디"
-              }
-            }
-          },
-          "registered" : {
-            "type" : "boolean",
-            "description" : "추가 정보 등록됨 여부 +\nfalse면 추가 정보를 입력 받아야 한다."
-          },
-          "token" : {
-            "type" : "string",
-            "description" : "JWT 토큰"
           }
         }
       },
