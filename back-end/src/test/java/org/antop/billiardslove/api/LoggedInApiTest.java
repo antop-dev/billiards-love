@@ -22,6 +22,7 @@ import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.CustomAttributes.encrypted;
+import static org.antop.billiardslove.RestDocsUtils.Descrption.NL;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -144,11 +145,11 @@ class LoggedInApiTest extends WebMvcBase {
         return Arrays.asList(
                 fieldWithPath(LoggedInApi.Request.Fields.ID).description("카카오톡 회원번호"),
                 fieldWithPath(LoggedInApi.Request.Fields.CONNECTED_AT).description(
-                        "카카오톡 +++<a href=\"https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink\">연결</a>++ 완료된 시각, UTC +\n"
+                        "카카오톡 +++<a href=\"https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink\">연결</a>++ 완료된 시각, UTC" + NL
                                 + " (+++<a href=\"https://tools.ietf.org/html/rfc3339\">RFC3339 internet date/time format</a>+++)"),
                 fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.NICKNAME).description("닉네임").attributes(encrypted()),
-                fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.IMAGE_URL).description("프로필 이미지 URL +\n640px * 640px 또는 480px * 480px"),
-                fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.THUMBNAIL_URL).description("프로필 미리보기 이미지 URL +\n110px * 110px 또는 100px * 100px"),
+                fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.IMAGE_URL).description("프로필 이미지 URL" + NL + "640px * 640px 또는 480px * 480px"),
+                fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.THUMBNAIL_URL).description("프로필 미리보기 이미지 URL" + NL + "110px * 110px 또는 100px * 100px"),
                 fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.NEEDS_AGREEMENT).description("사용자 동의 시 프로필 제공 가능")
         );
     }
@@ -156,7 +157,7 @@ class LoggedInApiTest extends WebMvcBase {
     private List<FieldDescriptor> loginResponseFields() {
         return Arrays.asList(
                 fieldWithPath(LoggedInApi.Response.Fields.TOKEN).description("JWT 토큰"),
-                fieldWithPath(LoggedInApi.Response.Fields.REGISTERED).description("추가 정보 등록됨 여부 +\nfalse면 추가 정보를 입력 받아야 한다."),
+                fieldWithPath(LoggedInApi.Response.Fields.REGISTERED).description("추가 정보 등록됨 여부" + NL + "false면 추가 정보를 입력 받아야 한다."),
                 fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.ID).description("회원 아이디"),
                 fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.THUMBNAIL).description("회원 이미지 (카카오톡 프로필 썸네일)"),
                 fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.NICKNAME).description("회원 별명").attributes(encrypted()),

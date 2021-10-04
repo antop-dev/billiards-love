@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.CustomAttributes.encrypted;
+import static org.antop.billiardslove.RestDocsUtils.Descrption.NL;
 import static org.antop.billiardslove.config.error.ErrorMessage.Fields.CODE;
 import static org.antop.billiardslove.config.error.ErrorMessage.Fields.MESSAGE;
 import static org.springframework.restdocs.payload.JsonFieldType.ARRAY;
@@ -41,6 +42,21 @@ public class RestDocsUtils {
                         fieldWithPath(CODE).description("에러 코드"),
                         fieldWithPath(MESSAGE).description("에러 메세지")
                 ));
+    }
+
+    /**
+     * 성명란에서 자주 쓰이는 것(?)
+     *
+     * @author antop
+     */
+    public static class Descrption {
+        private Descrption() {
+        }
+
+        /**
+         * 줄바꿈
+         */
+        public static final String NL = " +\n";
     }
 
     /**
@@ -105,6 +121,8 @@ public class RestDocsUtils {
             fields.add(fieldWithPath(ContestDto.Fields.STATE_CODE).description("상태 코드").type(STRING));
             fields.add(fieldWithPath(ContestDto.Fields.STATE_NAME).description("상태명").type(STRING));
             fields.add(fieldWithPath(ContestDto.Fields.MAX_JOINER).description("최대 참가자 수").type(NUMBER).optional());
+            fields.add(fieldWithPath(ContestDto.Fields.CURRENT_JOINER).description("현재 참가자 수").type(NUMBER));
+            fields.add(fieldWithPath(ContestDto.Fields.PROGRESS).description("진행률 (%)").type(NUMBER));
             return fields;
         }
 
@@ -113,13 +131,8 @@ public class RestDocsUtils {
          */
         public static List<FieldDescriptor> contestWithPlayer() {
             List<FieldDescriptor> fields = contest();
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER).description("내 선수 정보").optional());
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER + "." + PlayerDto.Fields.ID).description("선수 아이디").type(NUMBER));
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER + "." + PlayerDto.Fields.NICKNAME).description("선수 별명").type(STRING));
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER + "." + PlayerDto.Fields.NUMBER).description("선수 번호 (참가 번호)").type(NUMBER).optional());
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER + "." + PlayerDto.Fields.HANDICAP).description("참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.").type(NUMBER).optional());
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER + "." + PlayerDto.Fields.RANK).description("순위").type(NUMBER).optional());
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER + "." + PlayerDto.Fields.SCORE).description("점수").type(NUMBER).optional());
+            fields.add(fieldWithPath(ContestDto.Fields.PLAYER).type(OBJECT).description("선수 정보").optional());
+            fields.addAll(appendPrefix(player(), ContestDto.Fields.PLAYER));
             return fields;
         }
 
@@ -152,7 +165,8 @@ public class RestDocsUtils {
                     fieldWithPath(PlayerDto.Fields.HANDICAP).description("선수 아이디").type(NUMBER),
                     fieldWithPath(PlayerDto.Fields.NUMBER).description("선수 번호").type(NUMBER).optional(),
                     fieldWithPath(PlayerDto.Fields.RANK).description("순위").type(NUMBER).optional(),
-                    fieldWithPath(PlayerDto.Fields.SCORE).description("점수").type(NUMBER).optional()
+                    fieldWithPath(PlayerDto.Fields.SCORE).description("점수").type(NUMBER).optional(),
+                    fieldWithPath(PlayerDto.Fields.VARIATION).description("순위 변동" + NL + "양수: 순위 올라감." + NL + "0: 변동 없음" + NL + "음수: 순위 내려감.").type(NUMBER)
             );
         }
 
@@ -170,7 +184,7 @@ public class RestDocsUtils {
             List<FieldDescriptor> fields = new ArrayList<>();
             fields.add(fieldWithPath(MatchDto.Fields.ID).description("경기 아이디").type(NUMBER));
             fields.add(fieldWithPath(MatchDto.Fields.RESULT).description("경기 결과").type(ARRAY));
-            fields.add(fieldWithPath(MatchDto.Fields.CLOSED).description("확정 여부 +\ntrue : 수정 불가").type(BOOLEAN));
+            fields.add(fieldWithPath(MatchDto.Fields.CLOSED).description("확정 여부" + NL + "true : 수정 불가").type(BOOLEAN));
             fields.add(fieldWithPath(MatchDto.Fields.OPPONENT).description("선수 정보").type(OBJECT));
             fields.addAll(appendPrefix(player(), MatchDto.Fields.OPPONENT));
             return fields;

@@ -6,14 +6,18 @@ import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.PlayerDto;
 import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.AlreadyContestProgressException;
+import org.antop.billiardslove.mapper.ContestMapperImpl;
 import org.antop.billiardslove.model.ContestState;
+import org.antop.billiardslove.service.CodeService;
 import org.antop.billiardslove.service.ContestService;
+import org.antop.billiardslove.service.PlayerService;
 import org.antop.billiardslove.util.TemporalUtils;
 import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,17 +26,9 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
-import static org.antop.billiardslove.dto.ContestDto.Fields.DESCRIPTION;
-import static org.antop.billiardslove.dto.ContestDto.Fields.END_DATE;
-import static org.antop.billiardslove.dto.ContestDto.Fields.END_TIME;
-import static org.antop.billiardslove.dto.ContestDto.Fields.MAX_JOINER;
-import static org.antop.billiardslove.dto.ContestDto.Fields.START_DATE;
-import static org.antop.billiardslove.dto.ContestDto.Fields.START_TIME;
-import static org.antop.billiardslove.dto.ContestDto.Fields.TITLE;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
@@ -55,9 +51,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(ContestInfoApi.class)
+@Import(ContestMapperImpl.class)
 class ContestInfoApiTest extends WebMvcBase {
     @MockBean
     private ContestService contestService;
+    /*
+     아래 두개 서비스는 ContestMapper에서 사용한다.
+     하지만 Model → Dto 변환에서는 사용하지 않으므로 껍대기만 만들어놓기!
+     */
+    @MockBean
+    private PlayerService playerService;
+    @MockBean
+    private CodeService codeService;
 
     @DisplayName("대회 상세 조회")
     @Test
@@ -70,6 +75,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .handicap(22)
                 .rank(11)
                 .score(1154)
+                .variation(10)
                 .build();
         ContestDto contest = ContestDto.builder()
                 .id(5L)
@@ -82,6 +88,8 @@ class ContestInfoApiTest extends WebMvcBase {
                 .stateCode(ContestState.PROCEEDING.getCode())
                 .stateName(stateName(ContestState.PROCEEDING))
                 .maxJoiner(128)
+                .currentJoiner(108)
+                .progress(12.5)
                 .player(player)
                 .build();
         when(contestService.getContest(anyLong())).thenReturn(Optional.of(contest));
@@ -108,6 +116,8 @@ class ContestInfoApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.stateCode", is(contest.getStateCode())))
                 .andExpect(jsonPath("$.stateName", is(contest.getStateName())))
                 .andExpect(jsonPath("$.maxJoiner", is(contest.getMaxJoiner())))
+                .andExpect(jsonPath("$.currentJoiner", is(contest.getCurrentJoiner())))
+                .andExpect(jsonPath("$.progress", is(contest.getProgress())))
                 .andExpect(jsonPath("$.player").exists())
                 .andExpect(jsonPath("$.player.id", NumberMatcher.is(player.getId())))
                 .andExpect(jsonPath("$.player.number", is(player.getNumber())))
@@ -122,7 +132,7 @@ class ContestInfoApiTest extends WebMvcBase {
     @Test
     void listApi() throws Exception {
         // stub
-        List<ContestDto> contests = Arrays.asList(
+        when(contestService.getAllContests()).thenReturn(Arrays.asList(
                 ContestDto.builder()
                         .id(1121L)
                         .title("2020년 7월 동호회 리그전")
@@ -153,9 +163,7 @@ class ContestInfoApiTest extends WebMvcBase {
                         .stateName(stateName(ContestState.PREPARING))
                         .maxJoiner(64)
                         .build()
-        );
-        when(contestService.getAllContests()).thenReturn(contests);
-
+        ));
         // action
         mockMvc.perform(get("/api/v1/contests").header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging
@@ -166,7 +174,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 ))
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(contests.size())))
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].player").exists())
                 .andExpect(jsonPath("$[1].player").doesNotExist())
         ;
@@ -193,7 +201,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 }
         );
         // request
-        final ContestDto request = ContestDto.builder()
+        final ContestInfoApi.Model request = ContestInfoApi.Model.builder()
                 .title("2021 리그전")
                 .description("리그전 대회 설명")
                 .startDate(LocalDate.of(2021, 1, 1))
@@ -273,7 +281,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 }
         );
         // request
-        ContestDto request = ContestDto.builder()
+        ContestInfoApi.Model request = ContestInfoApi.Model.builder()
                 .title("2021 리그전 수정")
                 .description("리그전 대회 수정")
                 .startDate(LocalDate.of(2021, 1, 2))
@@ -282,7 +290,6 @@ class ContestInfoApiTest extends WebMvcBase {
                 .endTime(LocalTime.of(10, 59, 59))
                 .maxJoiner(64)
                 .build();
-
         // action
         mockMvc.perform(put("/api/v1/contest/{id}", 5)
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
@@ -381,13 +388,13 @@ class ContestInfoApiTest extends WebMvcBase {
      */
     private FieldDescriptor[] request() {
         return new FieldDescriptor[]{
-                fieldWithPath(TITLE).description("대회명"),
-                fieldWithPath(DESCRIPTION).description("대회 설명").optional(),
-                fieldWithPath(START_DATE).description("시작 날짜"),
-                fieldWithPath(START_TIME).description("시작 시간").optional(),
-                fieldWithPath(END_DATE).description("종료 날짜").optional(),
-                fieldWithPath(END_TIME).description("종료 시간").optional(),
-                fieldWithPath(MAX_JOINER).description("최대 참가자 수").optional()
+                fieldWithPath(ContestInfoApi.Model.Fields.TITLE).description("대회명"),
+                fieldWithPath(ContestInfoApi.Model.Fields.DESCRIPTION).description("대회 설명").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.START_DATE).description("시작 날짜"),
+                fieldWithPath(ContestInfoApi.Model.Fields.START_TIME).description("시작 시간").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.END_DATE).description("종료 날짜").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.END_TIME).description("종료 시간").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.MAX_JOINER).description("최대 참가자 수").optional()
         };
     }
 

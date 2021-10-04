@@ -46,6 +46,10 @@ public class ContestDto {
      */
     private final Integer maxJoiner;
     /**
+     * 참가 인원
+     */
+    private final int currentJoiner;
+    /**
      * 대회 상태 코드
      */
     private final String stateCode;
@@ -53,6 +57,10 @@ public class ContestDto {
      * 대회 상태명
      */
     private final String stateName;
+    /**
+     * 대회 진행률(%)
+     */
+    private final double progress;
     /**
      * 내 선수 정보<br>
      * 회원이 대회에 참가하지 않았을 경우 null

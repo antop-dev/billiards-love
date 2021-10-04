@@ -30,11 +30,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldNameConstants
 @Entity
-@Table(name = "tbl_plyr", uniqueConstraints = {
-        @UniqueConstraint(
-                columnNames = {"plyr_id", "cnts_id", "mmbr_id"}
-        )
-})
+@Table(name = "tbl_plyr", uniqueConstraints = @UniqueConstraint(columnNames = {"cnts_id", "mmbr_id"}))
 public class Player {
     /**
      * 선수 아이디
@@ -74,7 +70,6 @@ public class Player {
     /**
      * 순위
      */
-    @Setter
     @Column(name = "plyr_rnkn")
     private Integer rank;
     /**
@@ -83,6 +78,20 @@ public class Player {
     @Setter
     @Column(name = "plyr_scr")
     private Integer score;
+    /**
+     * 순위 변동 현황<br>
+     * 양수: 올라감
+     * 0: 그대로
+     * 음수: 내려감
+     */
+    @Column(name = "plyr_vrtn")
+    private int variation;
+
+    public void setRank(int rank) {
+        Integer oldRank = this.rank;
+        this.rank = rank;
+        this.variation = oldRank == null ? 0 : rank - oldRank;
+    }
 
     @Builder
     private Player(Contest contest, Member member, int handicap) {
