@@ -31,6 +31,8 @@ create table if not exists tbl_cnts
     end_time      time         null comment '종료 시간',
     prgr_stt      char(1)      not null comment '진행 상태',
     max_prtc_prsn int          null comment '최대 참가인원',
+    crnt_prsn     int          not null default 0 comment '현재 참가인원',
+    cnts_prgr     double       not null default 0.0 comment '진행률 (%)',
     rgst_dt       datetime     not null default now() comment '등록 일시',
     mdfy_dt       datetime     null comment '수정 일시',
     primary key (cnts_id)
@@ -45,8 +47,9 @@ create table if not exists tbl_plyr
     prtc_hndc tinyint null comment '선수 핸디캡',
     plyr_rnkn int     null comment '순위',
     plyr_scr  int     null comment '점수',
+    plyr_vrtn int     not null default 0 comment '순위 변동',
     primary key (plyr_id),
-    unique (cnts_id, mmbr_id, plyr_no)
+    unique (cnts_id, mmbr_id)
 );
 
 create table if not exists tbl_mtc

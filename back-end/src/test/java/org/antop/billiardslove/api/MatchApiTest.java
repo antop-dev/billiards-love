@@ -49,6 +49,7 @@ class MatchApiTest extends WebMvcBase {
                                 .handicap(21)
                                 .number(3)
                                 .rank(1)
+                                .variation(3)
                                 .score(17)
                                 .build())
                         .build(),
@@ -62,6 +63,7 @@ class MatchApiTest extends WebMvcBase {
                                 .handicap(22)
                                 .number(4)
                                 .rank(3)
+                                .score(-2)
                                 .score(11)
                                 .build())
                         .build(),
@@ -75,7 +77,7 @@ class MatchApiTest extends WebMvcBase {
                                 .handicap(25)
                                 .number(5)
                                 .rank(8)
-                                .score(3)
+                                .score(-3)
                                 .build())
                         .build()
         ));
@@ -116,6 +118,7 @@ class MatchApiTest extends WebMvcBase {
                                 .handicap(22)
                                 .number(15)
                                 .rank(8)
+                                .variation(-4)
                                 .score(115)
                                 .build())
                         .build())
@@ -140,8 +143,9 @@ class MatchApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.opponent.number", is(15)))
                 .andExpect(jsonPath("$.opponent.rank", is(8)))
                 .andExpect(jsonPath("$.opponent.score", is(115)))
+                .andExpect(jsonPath("$.opponent.variation", is(-4)))
                 .andExpect(jsonPath("$.result", Matchers.is(Arrays.asList("WIN", "WIN", "WIN"))))
-                .andExpect(jsonPath("$.closed", is(true)));
+                .andExpect(jsonPath("$.closed", is(true)))
         ;
     }
 

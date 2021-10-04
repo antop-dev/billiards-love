@@ -557,9 +557,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 
 {
-  "secretKey" : "aj+nCB0Oj99//z3Nb8jVfaqW0/1/XGiJPj16BQZJlqs=",
-  "kakaoKey" : "CY1YSs6Sf/1RIpyPyVqr4Nqnbn5gciwRDZHETCYPy0Q4jo3qpJBn8vZqOglZItvylg==",
-  "adSenseKey" : "BZ8h0MU2huiopZTzqVkPKGoU8jQd/qfIbgYEX0FuVHOoeYNKhWzoEopIwLA8Kg=="
+  "secretKey" : "OaIeNoO81J6RBHe17Yq3czH0Q+J8rL+CmQsIz4poCo8=",
+  "kakaoKey" : "uU799QBFc5a7AvxpBXLT9tTyoBEgvGBd0W/JuKy/Hxd3zJZ+WnZ7gXBg7KjMzn8Wlg==",
+  "adSenseKey" : "ci4ek5tpv1O/iIV3zT54c+C18U8cSL+wuUzQIQ7DBXwG3/lguUtGu2wO63ISaQ=="
 }</code></pre>
 </div>
 </div>
@@ -827,7 +827,7 @@ Content-Type: application/json
 Authorization: 2
 
 {
-  "nickname" : "/HbhMf39DOeeCc/Xgad29OVlvb/whDTCkpBlKz7EV6VE6fv6KyzJ/WmKTBM=",
+  "nickname" : "juXD/1AKuES8cO2UfmQfsAlSGyRy6Dabs3tWHnxFdI3L111TsV5qfhhruFo=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -888,7 +888,7 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "id" : 2,
-  "nickname" : "Af/Crw75hmDseXaJorS05naeTW/B//QIQzWDH7ZncWaRMiyJpK++uRQrx5k=",
+  "nickname" : "w2LpEq2P/upQfUpz19s9DJ7oVD2DaMW32rhkmenJn76/zKXnZ50fTDSCWj8=",
   "handicap" : 30,
   "thumbnail" : "https://img.foo.bar"
 }</code></pre>
@@ -1070,11 +1070,25 @@ Content-Type: application/json;charset=UTF-8
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">내 선수 정보</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 정보</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.id</code></p></td>
@@ -1088,21 +1102,21 @@ Content-Type: application/json;charset=UTF-8
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">선수 별명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">별명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.handicap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 아이디</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호 (참가 번호)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.handicap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.rank</code></p></td>
@@ -1117,6 +1131,16 @@ Content-Type: application/json;charset=UTF-8
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.variation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위 변동<br>
+양수: 순위 올라감.<br>
+0: 변동 없음<br>
+음수: 순위 내려감.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1134,15 +1158,18 @@ Content-Type: application/json;charset=UTF-8
   "endDate" : "2020-07-31",
   "endTime" : "22:00:00",
   "maxJoiner" : 128,
+  "currentJoiner" : 0,
   "stateCode" : "4",
   "stateName" : "종료",
+  "progress" : 0.0,
   "player" : {
     "id" : 335,
     "number" : 16,
     "handicap" : 18,
     "nickname" : "띠용",
     "rank" : 5,
-    "score" : 600
+    "score" : 600,
+    "variation" : 0
   }
 }, {
   "id" : 1121,
@@ -1151,8 +1178,10 @@ Content-Type: application/json;charset=UTF-8
   "startTime" : "18:00:00",
   "endDate" : "2022-03-31",
   "maxJoiner" : 64,
+  "currentJoiner" : 0,
   "stateCode" : "2",
-  "stateName" : "준비중"
+  "stateName" : "준비중",
+  "progress" : 0.0
 } ]</code></pre>
 </div>
 </div>
@@ -1283,11 +1312,25 @@ Authorization: 2</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">내 선수 정보</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 정보</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.id</code></p></td>
@@ -1301,21 +1344,21 @@ Authorization: 2</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">선수 별명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">별명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.handicap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 아이디</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호 (참가 번호)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.handicap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.rank</code></p></td>
@@ -1330,6 +1373,16 @@ Authorization: 2</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.variation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위 변동<br>
+양수: 순위 올라감.<br>
+0: 변동 없음<br>
+음수: 순위 내려감.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1347,15 +1400,18 @@ Content-Type: application/json;charset=UTF-8
   "endDate" : "2020-03-31",
   "endTime" : "23:59:59",
   "maxJoiner" : 128,
+  "currentJoiner" : 108,
   "stateCode" : "0",
   "stateName" : "진행중",
+  "progress" : 12.5,
   "player" : {
     "id" : 332,
     "number" : 3,
     "handicap" : 22,
     "nickname" : "안탑",
     "rank" : 11,
-    "score" : 1154
+    "score" : 1154,
+    "variation" : 10
   }
 }</code></pre>
 </div>
@@ -1566,6 +1622,20 @@ Authorization: 1
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1583,8 +1653,10 @@ Content-Type: application/json;charset=UTF-8
   "endDate" : "2021-12-31",
   "endTime" : "23:59:59",
   "maxJoiner" : 32,
+  "currentJoiner" : 0,
   "stateCode" : "2",
-  "stateName" : "준비중"
+  "stateName" : "준비중",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -1818,6 +1890,20 @@ Authorization: 1
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1834,8 +1920,10 @@ Content-Type: application/json;charset=UTF-8
   "endDate" : "2021-06-01",
   "endTime" : "10:59:59",
   "maxJoiner" : 64,
+  "currentJoiner" : 0,
   "stateCode" : "2",
-  "stateName" : "준비중"
+  "stateName" : "준비중",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -2025,11 +2113,25 @@ Authorization: 2
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">내 선수 정보</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 정보</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.id</code></p></td>
@@ -2043,21 +2145,21 @@ Authorization: 2
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">선수 별명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">별명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.handicap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 아이디</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호 (참가 번호)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.handicap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">참가 핸디캡 (회원의 핸디캡과 참가 핸디캡은 다를 수 있다.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 번호</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.rank</code></p></td>
@@ -2073,6 +2175,16 @@ Authorization: 2
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.variation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위 변동<br>
+양수: 순위 올라감.<br>
+0: 변동 없음<br>
+음수: 순위 내려감.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2084,12 +2196,15 @@ Content-Type: application/json;charset=UTF-8
   "id" : 2,
   "title" : "참가 가능한 대회",
   "startDate" : "2020-07-01",
+  "currentJoiner" : 0,
   "stateCode" : "1",
   "stateName" : "접수중",
+  "progress" : 0.0,
   "player" : {
-    "id" : 11095,
+    "id" : 7937,
     "handicap" : 30,
-    "nickname" : "선수1"
+    "nickname" : "선수1",
+    "variation" : 0
   }
 }</code></pre>
 </div>
@@ -2269,6 +2384,20 @@ Authorization: 2</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2283,8 +2412,10 @@ Content-Type: application/json;charset=UTF-8
   "startDate" : "2021-01-10",
   "endDate" : "2021-11-12",
   "maxJoiner" : 128,
+  "currentJoiner" : 0,
   "stateCode" : "1",
-  "stateName" : "접수중"
+  "stateName" : "접수중",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -2442,6 +2573,20 @@ Authorization: 1</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2458,8 +2603,10 @@ Content-Type: application/json;charset=UTF-8
   "endDate" : "2020-01-01",
   "endTime" : "22:00:00",
   "maxJoiner" : 16,
+  "currentJoiner" : 0,
   "stateCode" : "1",
-  "stateName" : "접수중"
+  "stateName" : "접수중",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -2614,6 +2761,20 @@ Authorization: 1</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2628,8 +2789,10 @@ Content-Type: application/json;charset=UTF-8
   "startDate" : "2020-01-01",
   "startTime" : "19:00:00",
   "maxJoiner" : 64,
+  "currentJoiner" : 0,
   "stateCode" : "0",
-  "stateName" : "진행중"
+  "stateName" : "진행중",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -2796,6 +2959,20 @@ Authorization: 1</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2807,8 +2984,10 @@ Content-Type: application/json;charset=UTF-8
   "id" : 1,
   "title" : "중지한 대회",
   "startDate" : "2021-08-07",
+  "currentJoiner" : 0,
   "stateCode" : "3",
-  "stateName" : "중지"
+  "stateName" : "중지",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -2975,6 +3154,20 @@ Authorization: 1</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">최대 참가자 수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>currentJoiner</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 참가자 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진행률 (%)</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2986,8 +3179,10 @@ Content-Type: application/json;charset=UTF-8
   "id" : 2,
   "title" : "종료한 대회",
   "startDate" : "2021-01-01",
+  "currentJoiner" : 0,
   "stateCode" : "4",
-  "stateName" : "종료"
+  "stateName" : "종료",
+  "progress" : 0.0
 }</code></pre>
 </div>
 </div>
@@ -3155,6 +3350,16 @@ true : 수정 불가</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].opponent.variation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위 변동<br>
+양수: 순위 올라감.<br>
+0: 변동 없음<br>
+음수: 순위 내려감.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -3170,7 +3375,8 @@ Content-Type: application/json;charset=UTF-8
     "handicap" : 21,
     "nickname" : "띠용",
     "rank" : 1,
-    "score" : 17
+    "score" : 17,
+    "variation" : 3
   },
   "result" : [ "WIN", "LOSE", "WIN" ],
   "closed" : true
@@ -3182,7 +3388,8 @@ Content-Type: application/json;charset=UTF-8
     "handicap" : 22,
     "nickname" : "스터디2",
     "rank" : 3,
-    "score" : 11
+    "score" : 11,
+    "variation" : 0
   },
   "result" : [ "LOSE", "LOSE", "LOSE" ],
   "closed" : false
@@ -3194,7 +3401,8 @@ Content-Type: application/json;charset=UTF-8
     "handicap" : 25,
     "nickname" : "인디",
     "rank" : 8,
-    "score" : 3
+    "score" : -3,
+    "variation" : 0
   },
   "result" : [ "NONE", "NONE", "NONE" ],
   "closed" : false
@@ -3372,6 +3580,16 @@ true : 수정 불가</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>opponent.variation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위 변동<br>
+양수: 순위 올라감.<br>
+0: 변동 없음<br>
+음수: 순위 내려감.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -3387,7 +3605,8 @@ Content-Type: application/json;charset=UTF-8
     "handicap" : 22,
     "nickname" : "안탑",
     "rank" : 8,
-    "score" : 115
+    "score" : 115,
+    "variation" : -4
   },
   "result" : [ "WIN", "WIN", "WIN" ],
   "closed" : true
@@ -3475,7 +3694,8 @@ Content-Type: application/json;charset=UTF-8
     "handicap" : 18,
     "nickname" : "상대선수 닉네임",
     "rank" : 15,
-    "score" : 452
+    "score" : 452,
+    "variation" : 0
   },
   "result" : [ "WIN", "WIN", "LOSE" ],
   "closed" : false
@@ -3631,6 +3851,16 @@ Authorization: 2</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">점수</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].variation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">순위 변동<br>
+양수: 순위 올라감.<br>
+0: 변동 없음<br>
+음수: 순위 내려감.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -3643,25 +3873,29 @@ Content-Type: application/json;charset=UTF-8
   "number" : 10,
   "handicap" : 22,
   "nickname" : "스터디2",
-  "rank" : 1
+  "rank" : 1,
+  "variation" : 0
 }, {
   "id" : 4,
   "number" : 20,
   "handicap" : 24,
   "nickname" : "지수.나",
-  "rank" : 2
+  "rank" : 2,
+  "variation" : 0
 }, {
   "id" : 3,
   "number" : 21,
   "handicap" : 25,
   "nickname" : "띠용",
-  "rank" : 2
+  "rank" : 2,
+  "variation" : 0
 }, {
   "id" : 1,
   "number" : 5,
   "handicap" : 30,
   "nickname" : "안탑",
-  "rank" : 3
+  "rank" : 3,
+  "variation" : 0
 } ]</code></pre>
 </div>
 </div>
@@ -3754,7 +3988,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-01 10:22:47 KST
+Last updated 2021-10-04 14:04:17 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

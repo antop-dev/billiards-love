@@ -1,5 +1,6 @@
 package org.antop.billiardslove.mapper;
 
+import org.antop.billiardslove.api.ContestInfoApi;
 import org.antop.billiardslove.constants.CodeGroups;
 import org.antop.billiardslove.constants.MapStruct;
 import org.antop.billiardslove.dto.CodeDto;
@@ -25,6 +26,14 @@ public abstract class ContestMapper {
     private PlayerService playerService;
     @Autowired
     private CodeService codeService;
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "currentJoiner", ignore = true)
+    @Mapping(target = "stateCode", ignore = true)
+    @Mapping(target = "stateName", ignore = true)
+    @Mapping(target = "progress", ignore = true)
+    @Mapping(target = "player", ignore = true)
+    public abstract ContestDto toDto(ContestInfoApi.Model model);
 
     public ContestDto toDto(Contest contest) {
         return toDto(contest, null);

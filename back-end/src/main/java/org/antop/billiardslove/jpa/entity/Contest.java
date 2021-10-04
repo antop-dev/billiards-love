@@ -101,6 +101,18 @@ public class Contest {
     @Column(name = "max_prtc_prsn")
     private Integer maxJoiner;
     /**
+     * 현재 참가 인원
+     */
+    @Setter
+    @Column(name = "crnt_prsn")
+    private int currentJoiner;
+    /**
+     * 대회 진행 률
+     */
+    @Setter
+    @Column(name = "cnts_prgr")
+    private double progress;
+    /**
      * 등록 일시
      */
     @NotNull
@@ -115,7 +127,11 @@ public class Contest {
     private LocalDateTime modified;
 
     @Builder
-    private Contest(String title, String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, Integer maxJoiner) {
+    private Contest(String title, String description,
+                    LocalDate startDate, LocalTime startTime,
+                    LocalDate endDate, LocalTime endTime,
+                    Integer maxJoiner, int currentJoiner,
+                    double progress) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -123,6 +139,8 @@ public class Contest {
         this.endDate = endDate;
         this.endTime = endTime;
         this.maxJoiner = maxJoiner;
+        this.currentJoiner = currentJoiner;
+        this.progress = progress;
     }
 
     /**
