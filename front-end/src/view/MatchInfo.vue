@@ -16,16 +16,16 @@
           label="날짜"
         ></v-text-field>
         <v-text-field
-          v-model="rate"
-          filled
-          color="blue-grey lighten-2"
-          label="진행률"
-        ></v-text-field>
-        <v-text-field
-          v-model="join"
+          v-model="currentJoiner"
           filled
           color="blue-grey lighten-2"
           label="참가자"
+        ></v-text-field>
+        <v-text-field
+          v-model="progress"
+          filled
+          color="blue-grey lighten-2"
+          label="진행률"
         ></v-text-field>
       </v-container>
     </v-form>
@@ -37,19 +37,33 @@ export default {
   name: 'GameInfo',
   data() {
     return {
-      date: '2020-10-01 ~ 2021-10-02',
-      rate: '20% (228/1,140)',
-      join: '20',
+      date: '',
+      progress: '',
+      maxJoiner: 0,
+      currentJoiner: 0,
       showDialog: false,
     };
   },
   methods: {
     render() {
-      let matchDetail = this.$store.state.match_detail;
-      console.log(matchDetail);
+      const matchDetail = this.$store.state.match_detail;
+      this.setDetail(matchDetail);
+    },
+    setDetail(detail) {
+      this.date = detail.startDate + ' - ' + detail.endDate;
+      this.progress =
+        detail.progress +
+        '% (' +
+        detail.currentJoiner +
+        '/' +
+        detail.maxJoiner +
+        ')';
+      this.currentJoiner = detail.currentJoiner;
     },
   },
-  created() {},
+  created() {
+    this.render();
+  },
 };
 </script>
 
