@@ -76,6 +76,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .rank(11)
                 .score(1154)
                 .variation(10)
+                .progress(30)
                 .build();
         ContestDto contest = ContestDto.builder()
                 .id(5L)
@@ -125,6 +126,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.player.handicap", is(player.getHandicap())))
                 .andExpect(jsonPath("$.player.rank", is(player.getRank())))
                 .andExpect(jsonPath("$.player.score", is(player.getScore())))
+                .andExpect(jsonPath("$.player.progress", is(30)))
         ;
     }
 
