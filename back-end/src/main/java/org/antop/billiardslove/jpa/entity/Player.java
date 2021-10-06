@@ -87,6 +87,12 @@ public class Player {
     @Column(name = "plyr_vrtn")
     private int variation;
 
+    /**
+     * 개인 진행률
+     */
+    @Column(name = "plyr_prgr")
+    private double progress;
+
     public void setRank(int rank) {
         Integer oldRank = this.rank;
         this.rank = rank;

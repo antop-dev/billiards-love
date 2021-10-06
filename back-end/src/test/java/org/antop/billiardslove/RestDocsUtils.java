@@ -166,7 +166,8 @@ public class RestDocsUtils {
                     fieldWithPath(PlayerDto.Fields.NUMBER).description("선수 번호").type(NUMBER).optional(),
                     fieldWithPath(PlayerDto.Fields.RANK).description("순위").type(NUMBER).optional(),
                     fieldWithPath(PlayerDto.Fields.SCORE).description("점수").type(NUMBER).optional(),
-                    fieldWithPath(PlayerDto.Fields.VARIATION).description("순위 변동" + NL + "양수: 순위 올라감." + NL + "0: 변동 없음" + NL + "음수: 순위 내려감.").type(NUMBER)
+                    fieldWithPath(PlayerDto.Fields.VARIATION).description("순위 변동" + NL + "양수: 순위 올라감." + NL + "0: 변동 없음" + NL + "음수: 순위 내려감.").type(NUMBER),
+                    fieldWithPath(PlayerDto.Fields.PROGRESS).description("선수 개인 진행률").type(NUMBER)
             );
         }
 

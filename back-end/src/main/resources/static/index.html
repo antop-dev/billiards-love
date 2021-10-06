@@ -557,9 +557,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 
 {
-  "secretKey" : "OaIeNoO81J6RBHe17Yq3czH0Q+J8rL+CmQsIz4poCo8=",
-  "kakaoKey" : "uU799QBFc5a7AvxpBXLT9tTyoBEgvGBd0W/JuKy/Hxd3zJZ+WnZ7gXBg7KjMzn8Wlg==",
-  "adSenseKey" : "ci4ek5tpv1O/iIV3zT54c+C18U8cSL+wuUzQIQ7DBXwG3/lguUtGu2wO63ISaQ=="
+  "secretKey" : "b0j66Ijs50Vm7nRrvcASbqfE5oH8Nx55/oxQDIEru0w=",
+  "kakaoKey" : "Qzpuee6+bZVslJNwuGKelYpCzOnC83aJQuvJnz1wKC7KpsTZMwhEey/dM1BWNcYWBw==",
+  "adSenseKey" : "a4lPMwbrcazp/xJp217EEV4wKs98H0SJCbGvnJNY4Accsfz8tG8BfBuIWNO03w=="
 }</code></pre>
 </div>
 </div>
@@ -827,7 +827,7 @@ Content-Type: application/json
 Authorization: 2
 
 {
-  "nickname" : "juXD/1AKuES8cO2UfmQfsAlSGyRy6Dabs3tWHnxFdI3L111TsV5qfhhruFo=",
+  "nickname" : "c06rfeIx0io5mw5tKjR0G6LWGJ6ZS8GYsdew9cIOO9H9Z90/rHCf50U66xw=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -888,7 +888,7 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "id" : 2,
-  "nickname" : "w2LpEq2P/upQfUpz19s9DJ7oVD2DaMW32rhkmenJn76/zKXnZ50fTDSCWj8=",
+  "nickname" : "A2LaJA3Rr3L9MxKzoJ/jlptkVRwtGtrIY9MDBXkpE+AaCzR31gbDDPkeqpk=",
   "handicap" : 30,
   "thumbnail" : "https://img.foo.bar"
 }</code></pre>
@@ -1142,6 +1142,13 @@ Content-Type: application/json;charset=UTF-8
 0: 변동 없음<br>
 음수: 순위 내려감.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].player.progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 개인 진행률</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1169,7 +1176,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "띠용",
     "rank" : 5,
     "score" : 600,
-    "variation" : 0
+    "variation" : 0,
+    "progress" : 0
   }
 }, {
   "id" : 1121,
@@ -1384,6 +1392,13 @@ Authorization: 2</code></pre>
 0: 변동 없음<br>
 음수: 순위 내려감.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 개인 진행률</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1411,7 +1426,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "안탑",
     "rank" : 11,
     "score" : 1154,
-    "variation" : 10
+    "variation" : 10,
+    "progress" : 30
   }
 }</code></pre>
 </div>
@@ -2185,6 +2201,13 @@ Authorization: 2
 0: 변동 없음<br>
 음수: 순위 내려감.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>player.progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 개인 진행률</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -2201,10 +2224,11 @@ Content-Type: application/json;charset=UTF-8
   "stateName" : "접수중",
   "progress" : 0.0,
   "player" : {
-    "id" : 7937,
+    "id" : 50396,
     "handicap" : 30,
     "nickname" : "선수1",
-    "variation" : 0
+    "variation" : 0,
+    "progress" : 0
   }
 }</code></pre>
 </div>
@@ -3360,6 +3384,13 @@ true : 수정 불가</p></td>
 0: 변동 없음<br>
 음수: 순위 내려감.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].opponent.progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 개인 진행률</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -3376,7 +3407,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "띠용",
     "rank" : 1,
     "score" : 17,
-    "variation" : 3
+    "variation" : 3,
+    "progress" : 0
   },
   "result" : [ "WIN", "LOSE", "WIN" ],
   "closed" : true
@@ -3389,7 +3421,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "스터디2",
     "rank" : 3,
     "score" : 11,
-    "variation" : 0
+    "variation" : 0,
+    "progress" : 0
   },
   "result" : [ "LOSE", "LOSE", "LOSE" ],
   "closed" : false
@@ -3402,7 +3435,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "인디",
     "rank" : 8,
     "score" : -3,
-    "variation" : 0
+    "variation" : 0,
+    "progress" : 0
   },
   "result" : [ "NONE", "NONE", "NONE" ],
   "closed" : false
@@ -3590,6 +3624,13 @@ true : 수정 불가</p></td>
 0: 변동 없음<br>
 음수: 순위 내려감.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>opponent.progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 개인 진행률</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -3606,7 +3647,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "안탑",
     "rank" : 8,
     "score" : 115,
-    "variation" : -4
+    "variation" : -4,
+    "progress" : 0
   },
   "result" : [ "WIN", "WIN", "WIN" ],
   "closed" : true
@@ -3695,7 +3737,8 @@ Content-Type: application/json;charset=UTF-8
     "nickname" : "상대선수 닉네임",
     "rank" : 15,
     "score" : 452,
-    "variation" : 0
+    "variation" : 0,
+    "progress" : 0
   },
   "result" : [ "WIN", "WIN", "LOSE" ],
   "closed" : false
@@ -3861,6 +3904,13 @@ Authorization: 2</code></pre>
 0: 변동 없음<br>
 음수: 순위 내려감.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].progress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수 개인 진행률</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -3874,28 +3924,32 @@ Content-Type: application/json;charset=UTF-8
   "handicap" : 22,
   "nickname" : "스터디2",
   "rank" : 1,
-  "variation" : 0
+  "variation" : 0,
+  "progress" : 0
 }, {
   "id" : 4,
   "number" : 20,
   "handicap" : 24,
   "nickname" : "지수.나",
   "rank" : 2,
-  "variation" : 0
+  "variation" : 0,
+  "progress" : 0
 }, {
   "id" : 3,
   "number" : 21,
   "handicap" : 25,
   "nickname" : "띠용",
   "rank" : 2,
-  "variation" : 0
+  "variation" : 0,
+  "progress" : 0
 }, {
   "id" : 1,
   "number" : 5,
   "handicap" : 30,
   "nickname" : "안탑",
   "rank" : 3,
-  "variation" : 0
+  "variation" : 0,
+  "progress" : 0
 } ]</code></pre>
 </div>
 </div>
@@ -3988,7 +4042,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-04 14:04:17 KST
+Last updated 2021-10-06 17:12:19 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
