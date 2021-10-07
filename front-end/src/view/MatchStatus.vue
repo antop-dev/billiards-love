@@ -1,6 +1,6 @@
 <template>
   <div>
-    <game-tabs :id="id"></game-tabs>
+    <game-tabs :title="title"></game-tabs>
     <div>
       <v-sheet>
         <v-container>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       id: '',
-      name: '',
+      title: '',
     };
   },
   methods: {},
@@ -33,10 +33,10 @@ export default {
       this.id = query.id;
       try {
         const contest = await ContestApi.inquire_contest(query.id);
-        this.name = contest.name;
+        this.$store.dispatch('saveMatchInfo', contest);
+        this.title = contest.title;
       } catch (e) {
-        // alert(e.message);
-        // await this.$router.back();
+        console.error(e);
       } finally {
         await this.$router.push({ name: 'info', params: { id: this.id } });
       }

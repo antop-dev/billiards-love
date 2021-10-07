@@ -7,3 +7,7 @@ export const saveLoginRequestInfo = ({ commit }, info) => {
 export const saveMatchId = ({ commit }, info) => {
   commit(types.SAVE_MATCH_ID, info);
 };
+
+export const saveMatchInfo = ({ commit }, info) => {
+  commit(types.SAVE_MATCH_INFO, info);
+};

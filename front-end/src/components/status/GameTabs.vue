@@ -3,7 +3,7 @@
     <v-toolbar color="deep-purple accent-4" dark flat>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>타이틀</v-toolbar-title>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -26,7 +26,7 @@
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in items" :key="item">
         <v-card flat>
-          <v-card-text v-text="text"></v-card-text>
+          <v-card-text v-text="item"></v-card-text>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -36,7 +36,7 @@
 export default {
   name: 'GameTabs',
   props: {
-    id: String,
+    title: String,
   },
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
     };
   },
   created() {
-    // this.id = this.$route.params.id;
+    this.id = this.$route.params.id;
   },
 };
 </script>
