@@ -50,15 +50,16 @@ export default {
       this.setDetail(matchDetail);
     },
     setDetail(detail) {
-      this.date = detail.startDate + ' - ' + detail.endDate;
+      this.date =
+        detail.startDate + (detail.endDate ? ' - ' + detail.endDate : '');
       this.progress =
-        detail.progress +
+        (detail.progress || 0) +
         '% (' +
-        detail.currentJoiner +
+        (detail.currentJoiner || 0) +
         '/' +
         detail.maxJoiner +
         ')';
-      this.currentJoiner = detail.currentJoiner;
+      this.currentJoiner = (detail.currentJoiner || 0) + ' 명';
     },
   },
   created() {
