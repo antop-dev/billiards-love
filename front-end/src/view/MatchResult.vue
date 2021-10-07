@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <a v-bind="attrs" v-on="on">{{ value }}</a>
+        <a v-bind="attrs" v-on="on">{{ renderResult() }}</a>
       </template>
 
       <v-card>
@@ -46,20 +46,40 @@
 // import MatchApi from '../api/match.api';
 export default {
   name: 'GameResult',
-  props: {
-    value: String,
-    showDialog: Boolean,
-    toggleWindow: Function,
+  data() {
+    return {
+      dialog: false,
+    };
   },
-  async created() {
-    // const id = this.$store.state.match_detail.id;
-    // const matchResult = await MatchApi.inquire(id);
-    // console.log(matchResult);
+  props: {
+    resultList: Array,
+    toggleWindow: Function,
   },
   methods: {
     closeWindow() {
       this.$emit('toggleWindow', false);
     },
+    renderResult() {
+      let win = 0;
+      let lost = 0;
+      let typeNone = true;
+      this.resultList.forEach(value => {
+        if (value === 'WIN') {
+          typeNone = false;
+          win++;
+        } else if (value === 'LOSE') {
+          typeNone = false;
+          lost++;
+        }
+      });
+      return typeNone ? '선택' : (win + '승' || '') + (lost + '패' || '');
+    },
+  },
+  async created() {
+    this.renderResult();
+    // const id = this.$store.state.match_detail.id;
+    // const matchResult = await MatchApi.inquire(id);
+    // console.log(matchResult);
   },
 };
 </script>

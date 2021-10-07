@@ -20,9 +20,9 @@
         </thead>
         <tbody v-if="users.length > 0">
           <tr v-for="item in users" :key="item.id">
-            <td class="text-center">{{ item.opponent.no }}</td>
+            <td class="text-center">{{ item.opponent.id }}</td>
             <td>{{ item.opponent.nickname }}</td>
-            <td><match-result value="test"></match-result></td>
+            <td><match-result :result-list="item.result"></match-result></td>
             <td>{{ item.closed }}</td>
           </tr>
         </tbody>
@@ -40,26 +40,14 @@ export default {
   data() {
     return {
       showDialog: false,
-      users: [
-        {
-          id: 3823,
-          opponent: {
-            no: 2,
-            id: 312,
-            nickname: '홍길동',
-          },
-          result: ['WIN', 'LOSE', 'LOSE'],
-          closed: true,
-        },
-      ],
+      users: [],
     };
   },
   methods: {},
   async created() {
     // RankApi.inquire();
     const id = this.$store.state.match_detail.id;
-    const users = await MatchApi.inquire_all(id);
-    console.log(users);
+    this.users = await MatchApi.inquire_all(id);
   },
 };
 </script>

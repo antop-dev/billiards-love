@@ -19,11 +19,6 @@ const ContestApi = class {
       .get('/api/v1/contest/' + id)
       .then(({ data }) => data || {});
   }
-  inquire_rank(id) {
-    return this.#client
-      .get('/api/v1/contest/' + id + '/rank')
-      .then(({ data }) => data || {});
-  }
   register(data) {
     this.valid(data);
     return this.#client
