@@ -25,9 +25,9 @@
           <tr v-for="item in users" :key="item.id">
             <td>{{ item.rank }}</td>
             <td>{{ item.nickname }}</td>
-            <td>{{ item.handicap }}</td>
-            <td>{{ item.progress }}</td>
-            <td>{{ item.number }}</td>
+            <td>{{ item.handicap || 0 }}</td>
+            <td>{{ item.progress || 0 }}</td>
+            <td>{{ item.score || 0 }}</td>
           </tr>
         </tbody>
       </template>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import ContestApi from '../api/contest.api';
+import RankApi from '../api/rank.api';
 
 export default {
   name: 'GameRank',
@@ -45,10 +45,10 @@ export default {
       users: [],
     };
   },
+  methods: {},
   async created() {
     try {
-      const inquireRank = await ContestApi.inquire_rank(this.$route.params.id);
-      this.users = inquireRank;
+      this.users = await RankApi.inquire(this.$store.state.match_detail.id);
     } catch (e) {
       console.log(e);
     }
