@@ -2,11 +2,11 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * 선수 정보
@@ -25,22 +27,22 @@ import javax.persistence.Table;
  */
 @Getter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@FieldNameConstants
 @Entity
-@Table(name = "tbl_plyr")
+@Table(name = "tbl_plyr", uniqueConstraints = @UniqueConstraint(columnNames = {"cnts_id", "mmbr_id"}))
 public class Player {
     /**
      * 선수 아이디
      */
     @Id
     @Column(name = "plyr_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 대회 아이디
      */
+    @NotNull
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cnts_id")
@@ -48,6 +50,7 @@ public class Player {
     /**
      * 회원 아이디
      */
+    @NotNull
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mmbr_id")
@@ -67,7 +70,6 @@ public class Player {
     /**
      * 순위
      */
-    @Setter
     @Column(name = "plyr_rnkn")
     private Integer rank;
     /**
@@ -76,6 +78,26 @@ public class Player {
     @Setter
     @Column(name = "plyr_scr")
     private Integer score;
+    /**
+     * 순위 변동 현황<br>
+     * 양수: 올라감
+     * 0: 그대로
+     * 음수: 내려감
+     */
+    @Column(name = "plyr_vrtn")
+    private int variation;
+
+    /**
+     * 개인 진행률
+     */
+    @Column(name = "plyr_prgr")
+    private double progress;
+
+    public void setRank(int rank) {
+        Integer oldRank = this.rank;
+        this.rank = rank;
+        this.variation = oldRank == null ? 0 : rank - oldRank;
+    }
 
     @Builder
     private Player(Contest contest, Member member, int handicap) {

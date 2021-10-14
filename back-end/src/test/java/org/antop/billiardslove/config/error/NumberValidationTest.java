@@ -1,11 +1,11 @@
 package org.antop.billiardslove.config.error;
 
-import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.WebMvcBase;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WebMvcTest(NumberValidationTest.TempController.class)
 @Import(NumberValidationTest.TempController.class)
-@WithMockUser(roles = "USER")
-class NumberValidationTest extends SpringBootBase {
+class NumberValidationTest extends WebMvcBase {
     private static final String URL = "/test/number";
 
     @Test
@@ -36,12 +36,12 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must not be null (input : null)")));
+                .andExpect(jsonPath("$.message", is("숫자를 입력해주세요.")));
     }
 
     @Test
@@ -54,13 +54,13 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("JSON parse error: Cannot deserialize value of type `java.lang.Number` from String \"not number\": not a valid number")));
+                .andExpect(jsonPath("$.message", is("잘못된 포멧입니다.")));
     }
 
     @Test
@@ -70,13 +70,13 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must be greater than or equal to 10 (input : 1)")));
+                .andExpect(jsonPath("$.message", is("숫자를 10 이상 입력해주세요.")));
     }
 
     @Test
@@ -86,13 +86,13 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must be less than or equal to 100 (input : 9999)")));
+                .andExpect(jsonPath("$.message", is("숫자를 100 이하로 입력해주세요.")));
     }
 
     @Test
@@ -102,7 +102,7 @@ class NumberValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -119,9 +119,9 @@ class NumberValidationTest extends SpringBootBase {
         }
 
         static class Request {
-            @NotNull
-            @Min(10)
-            @Max(100)
+            @NotNull(message = "숫자를 입력해주세요.")
+            @Min(value = 10, message = "숫자를 10 이상 입력해주세요.")
+            @Max(value = 100, message = "숫자를 100 이하로 입력해주세요.")
             private Number value;
 
             public Number getValue() {

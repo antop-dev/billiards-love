@@ -2,11 +2,11 @@ package org.antop.billiardslove.jpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import org.antop.billiardslove.jpa.convertor.BooleanConverter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -33,8 +34,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@FieldNameConstants
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tbl_mmbr")
@@ -44,14 +45,13 @@ public class Member {
      */
     @Id
     @Column(name = "mmbr_id")
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 별명
      */
     @Setter
-    @Column(name = "mmbr_nck_nm")
+    @Column(name = "mmbr_nck_nm", length = 50)
     private String nickname;
     /**
      * 핸디캡
@@ -62,6 +62,7 @@ public class Member {
     /**
      * 등록 일시
      */
+    @NotNull
     @CreatedDate
     @Column(name = "rgst_dt")
     private LocalDateTime created;
@@ -72,6 +73,11 @@ public class Member {
     @Column(name = "mdfy_dt")
     private LocalDateTime modified;
 
+    /**
+     * 관리자 여부
+     */
+    @Setter
+    @NotNull
     @Convert(converter = BooleanConverter.class)
     @Column(name = "mgnr_yn")
     private boolean manager;
@@ -79,6 +85,7 @@ public class Member {
     /**
      * 카카오 로그인 아이디
      */
+    @NotNull
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "kko_lgn_id")

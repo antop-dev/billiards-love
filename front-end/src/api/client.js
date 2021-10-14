@@ -29,4 +29,24 @@ HttpClient.interceptors.response.use(
   },
 );
 
+HttpClient.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    alert(error);
+    return Promise.reject(error);
+  },
+);
+
+HttpClient.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    alert(error);
+    return Promise.reject(error);
+  },
+);
+
 export default HttpClient;

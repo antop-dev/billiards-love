@@ -1,77 +1,97 @@
 package org.antop.billiardslove.jpa.repository;
 
-import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.DataJpaBase;
 import org.antop.billiardslove.jpa.entity.Contest;
-import org.antop.billiardslove.jpa.entity.Contest.State;
+import org.antop.billiardslove.model.ContestState;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
 
+import static com.github.npathai.hamcrestopt.OptionalMatchers.isEmpty;
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 
-class ContestRepositoryTest extends SpringBootBase {
+class ContestRepositoryTest extends DataJpaBase {
     @Autowired
     private ContestRepository repository;
 
     @Test
-    void findById() {
-        Optional<Contest> optional = repository.findById(1L);
-        assertThat(optional, isPresent());
+    @DisplayName("대회 정보를 저장한다.")
+    void save() {
+        // 1. 데이터 준비
+        final Contest contest = contest();
+        repository.save(contest);
+        assertThat(contest.getId(), notNullValue());
 
-        optional.ifPresent(contest -> {
-            assertThat(contest.getTitle(), is("2021 리그전"));
-            assertThat(contest.getDescription(), is("2021.01.01~"));
-            assertThat(contest.getStartDate(), is(LocalDate.of(2021, 1, 1)));
-            assertThat(contest.getStartTime(), is(LocalTime.of(0, 0, 0)));
-            assertThat(contest.getEndDate(), is(LocalDate.of(2021, 12, 30)));
-            assertThat(contest.getEndTime(), is(LocalTime.of(23, 59, 59)));
-            assertThat(contest.getState(), is(State.PROCEEDING));
-            assertThat(contest.getMaxJoiner(), is(32));
-            assertThat(contest.getCreated(), is(LocalDateTime.of(2019, 11, 12, 15, 11, 45)));
-            assertThat(contest.getModified(), nullValue());
+        flushAndClear();
+
+        // 2. 실행
+        Optional<Contest> optional = repository.findById(contest.getId());
+        // 3. 검증
+        assertThat(optional, isPresent());
+        optional.ifPresent(it -> {
+            assertThat(it.getTitle(), is(contest.getTitle()));
+            assertThat(it.getDescription(), is(contest.getDescription()));
+            assertThat(it.getStartDate(), is(contest.getStartDate()));
+            assertThat(it.getStartTime(), is(contest.getStartTime()));
+            assertThat(it.getEndDate(), is(contest.getEndDate()));
+            assertThat(it.getEndTime(), is(contest.getEndTime()));
+            assertThat(it.getState(), is(ContestState.PREPARING));
+            assertThat(it.getMaxJoiner(), is(contest.getMaxJoiner()));
         });
     }
 
     @Test
-    void save() {
-        Contest contest = Contest.builder()
-                .title("코로나 리그전 2020")
-                .build();
-        repository.save(contest);
-        assertThat(contest.getId(), notNullValue());
-    }
-
-    @Test
+    @DisplayName("대회정보를 변경한다.")
     void change() {
-        Optional<Contest> optional = repository.findById(2L);
+        // 1. 데이터 준비
+        Contest contestData = contest();
+        repository.save(contestData);
+
+        flushAndClear();
+
+        // 2. 실행
+        final String newTitle = "코로나 추석 리그전 2021 - 2";
+        final String newDescription = "2021년 2번째 리그전 설연휴로 인해 종료";
+
+        repository.findById(contestData.getId()).ifPresent(contest -> {
+            contest.setTitle(newTitle);
+            contest.setDescription(newDescription);
+            contest.end();
+        });
+
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Contest> optional = repository.findById(contestData.getId());
         assertThat(optional, isPresent());
-
         optional.ifPresent(contest -> {
-            contest.setTitle("2020 리그전 - 2");
-            contest.setDescription("2020년 2번째 리그전 코로나로 인해 종료");
-            contest.setState(State.END);
-
-            flush();
+            assertThat(contest.getTitle(), is(newTitle));
+            assertThat(contest.getDescription(), is(newDescription));
+            assertThat(contest.getState(), is(ContestState.END));
             assertThat(contest.getModified(), notNullValue());
         });
     }
 
     @Test
-    void findAllWithPlayers() {
-        List<Contest> contests = repository.findAllOrdered();
-        // 시작일이 입력된 "준비중인 대회 (2)"가 "준비중인 대회 (1)"보다 위에 있어야 한다.
-        assertThat(contests.get(2).getId(), is(4L));
-        assertThat(contests.get(2).getTitle(), is("준비중인 대회 (2)"));
-        assertThat(contests.get(3).getId(), is(3L));
-        assertThat(contests.get(3).getTitle(), is("준비중인 대회 (1)"));
+    @DisplayName("없는 대회를 조회한다.")
+    void notExist() {
+        // 1. 데이터 준비
+        Contest contest = contest();
+        repository.save(contest);
+        flushAndClear();
+
+        // 2. 실행
+        repository.deleteById(contest.getId());
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Contest> optional = repository.findById(contest.getId());
+        assertThat(optional, isEmpty());
     }
+
 }

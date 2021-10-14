@@ -1,27 +1,34 @@
 <template>
   <div>
-    <md-dialog :md-active.sync="showDialog">
-      <md-dialog-title>Preferences</md-dialog-title>
-    </md-dialog>
-
-    <md-card>
-      <md-card-media></md-card-media>
-      <md-card-header>
-        <div class="md-title">Title goes here</div>
-        <div class="md-subhead">Subtitle here</div>
-      </md-card-header>
-
-      <md-card-content>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque
-        ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo
-        quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-      </md-card-content>
-
-      <md-card-actions>
-        <md-button>Action</md-button>
-        <md-button>Action</md-button>
-      </md-card-actions>
-    </md-card>
+    <v-row class="pa-4" align="center" justify="center">
+      <v-col class="text-center">
+        <h3 class="text-h5">
+          상태
+        </h3>
+      </v-col>
+    </v-row>
+    <v-form>
+      <v-container>
+        <v-text-field
+          v-model="date"
+          filled
+          color="blue-grey lighten-2"
+          label="날짜"
+        ></v-text-field>
+        <v-text-field
+          v-model="currentJoiner"
+          filled
+          color="blue-grey lighten-2"
+          label="참가자"
+        ></v-text-field>
+        <v-text-field
+          v-model="progress"
+          filled
+          color="blue-grey lighten-2"
+          label="진행률"
+        ></v-text-field>
+      </v-container>
+    </v-form>
   </div>
 </template>
 
@@ -30,8 +37,33 @@ export default {
   name: 'GameInfo',
   data() {
     return {
+      date: '',
+      progress: '',
+      maxJoiner: 0,
+      currentJoiner: 0,
       showDialog: false,
     };
+  },
+  methods: {
+    render() {
+      const matchDetail = this.$store.state.match_detail;
+      this.setDetail(matchDetail);
+    },
+    setDetail(detail) {
+      this.date =
+        detail.startDate + (detail.endDate ? ' - ' + detail.endDate : '');
+      this.progress =
+        (detail.progress || 0) +
+        '% (' +
+        (detail.currentJoiner || 0) +
+        '/' +
+        detail.maxJoiner +
+        ')';
+      this.currentJoiner = (detail.currentJoiner || 0) + ' 명';
+    },
+  },
+  created() {
+    this.render();
   },
 };
 </script>

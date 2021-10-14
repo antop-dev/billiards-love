@@ -1,32 +1,45 @@
 <template>
   <div>
-    <!-- TODO Id -> title -->
-    <app-header :title="id" back-btn="true"></app-header>
+    <game-tabs :title="title"></game-tabs>
     <div>
-      <game-tabs></game-tabs>
+      <v-sheet>
+        <v-container>
+          <v-card min-height="200">
+            <router-view></router-view>
+          </v-card>
+        </v-container>
+      </v-sheet>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import GameTabs from '@/status/GameTabs';
-import AppHeader from '@/common/AppHeader';
+import ContestApi from '../api/contest.api';
 export default {
   name: 'GameStatus',
-  components: { AppHeader, GameTabs },
+  components: { GameTabs },
   data() {
     return {
       id: '',
+      title: '',
     };
   },
   methods: {},
-  created() {
+  async created() {
     let query = this.$route.query;
     if (query) {
       // 아이디 받아오면 처리
       this.id = query.id;
-      this.$router.push({ name: 'info', params: { id: this.id } });
+      try {
+        const contest = await ContestApi.inquire_contest(query.id);
+        this.$store.dispatch('saveMatchInfo', contest);
+        this.title = contest.title;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        await this.$router.push({ name: 'info', params: { id: this.id } });
+      }
     }
   },
 };

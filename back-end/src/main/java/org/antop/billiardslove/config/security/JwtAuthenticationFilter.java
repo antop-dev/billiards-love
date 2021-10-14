@@ -2,6 +2,7 @@ package org.antop.billiardslove.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.antop.billiardslove.config.security.PrincipalProvider.Principal;
+import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,21 +33,27 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             throw new BadCredentialsException("인증 토큰이 유효하지 않습니다.");
         }
 
-        String subject = jwtTokenProvider.getSubject(token);
-        Principal principal = principalProvider.getPrincipal(subject);
-        // Principal 로 인증 토큰 생성
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        // 관한 생성
-        authorities.add(() -> JwtAuthenticationToken.ROLE_USER);
-        if (principal.isManager()) {
-            authorities.add(() -> JwtAuthenticationToken.ROLE_MANAGER);
+        try {
+            String subject = jwtTokenProvider.getSubject(token);
+            Principal principal = principalProvider.getPrincipal(subject);
+            // Principal 로 인증 토큰 생성
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            // 관한 생성
+            authorities.add(() -> JwtAuthenticationToken.ROLE_USER);
+            if (principal.isManager()) {
+                authorities.add(() -> JwtAuthenticationToken.ROLE_MANAGER);
+            }
+
+            JwtAuthenticationToken auth = new JwtAuthenticationToken(principal.getValue(), token, authorities);
+            // SecurityContext 에 Authentication 객체를 저장합니다.
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            chain.doFilter(request, response);
+        } catch (MemberNotFoundException e) {
+            // 토큰 포멧은 유효하고 사용자 아이디가 없는 경우
+            throw new BadCredentialsException(e.getMessage());
         }
 
-        JwtAuthenticationToken auth = new JwtAuthenticationToken(principal.getValue(), token, authorities);
-        // SecurityContext 에 Authentication 객체를 저장합니다.
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
-        chain.doFilter(request, response);
     }
 
     private String getToken(ServletRequest request) {

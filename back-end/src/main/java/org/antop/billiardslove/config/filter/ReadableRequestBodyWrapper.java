@@ -68,8 +68,7 @@ public class ReadableRequestBodyWrapper extends HttpServletRequestWrapper {
 
         @Override
         public void setReadListener(ReadListener listener) {
-
+            // do nothing
         }
     }
 }
-

@@ -6,10 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.antop.billiardslove.Constants;
 import org.antop.billiardslove.config.properties.GoogleProperties;
 import org.antop.billiardslove.config.properties.KakaoProperties;
+import org.antop.billiardslove.constants.Security;
 import org.antop.billiardslove.util.Aes256Util;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,7 @@ public class InitApi {
     @PostMapping("api/v1/init")
     public Response init(HttpSession session) {
         String secretKey = Aes256Util.generateKey();
-        session.setAttribute(Constants.SECRET_KEY, secretKey);
+        session.setAttribute(Security.SECRET_KEY, secretKey);
 
         return Response.builder()
                 .secretKey(secretKey)
@@ -47,6 +48,7 @@ public class InitApi {
      */
     @Getter
     @Builder
+    @FieldNameConstants
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Response {

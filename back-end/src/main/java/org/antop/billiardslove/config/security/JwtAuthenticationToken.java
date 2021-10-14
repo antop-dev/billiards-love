@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * JWT 인증 토큰
@@ -52,4 +53,17 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         return credentials;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        JwtAuthenticationToken that = (JwtAuthenticationToken) o;
+        return principal == that.principal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), principal);
+    }
 }

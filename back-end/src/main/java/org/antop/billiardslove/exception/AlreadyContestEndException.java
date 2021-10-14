@@ -5,7 +5,7 @@ package org.antop.billiardslove.exception;
  *
  * @author jammini
  */
-public class AlreadyContestEndException extends RuntimeException {
+public class AlreadyContestEndException extends BadRequestException {
     public AlreadyContestEndException() {
         super("이미 종료된 대회입니다.");
     }

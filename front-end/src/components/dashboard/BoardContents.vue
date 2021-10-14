@@ -1,75 +1,51 @@
 <template>
-  <div class="contents">
-    <md-content class="md-elevation-5">
-      <ContentsHeader :title="title" :state="state"></ContentsHeader>
-      <div>
-        <div class="md-layout md-gutter">
-          <div
-            class="md-layout-item md-layout md-gutter md-alignment-center-center md-size-30"
+  <v-card color="#385F73" dark class="contents">
+    <ContentsHeader
+      :title="content.title"
+      :state-name="content.stateName"
+      :state-code="content.stateCode"
+    ></ContentsHeader>
+    <div v-if="content.player">
+      <v-col cols="12">
+        <v-card-title class="text-h4">
+          {{ content.player.rank }}위
+          <v-icon large color="orange darken-2">mdi-arrow-up-bold</v-icon>
+        </v-card-title>
+      </v-col>
+      <v-col cols="12">
+        <v-row justify="end">
+          <span v-if="content.player.score"
+            ><h3>{{ content.player.score }} 점</h3></span
           >
-            <div class="md-layout-item">
-              <h1>{{ rank }}위</h1>
-            </div>
-            <div class="md-layout-item">
-              <md-icon class="md-size-2x">arrow_upward</md-icon>
-            </div>
-          </div>
-          <div
-            class="md-layout-item md-layout md-gutter
-            md-alignment-center-right"
+        </v-row>
+        <v-row justify="end">
+          <span v-if="content.progress"
+            ><h3>
+              {{ content.progress }}% ({{ 0 }} / {{ content.maxJoiner }})
+            </h3></span
           >
-            <md-content>
-              <span>210 점</span>
-              <br />
-              <span>{{ progress }}%</span>
-              <br />
-              <span>(110 / 220)</span>
-            </md-content>
-          </div>
-        </div>
-      </div>
-    </md-content>
-  </div>
+        </v-row>
+      </v-col>
+    </div>
+  </v-card>
 </template>
 <script>
-import ContestApi from '../../api/contest.api';
 import ContentsHeader from './ContentsHeader';
 export default {
   name: 'BoardContents',
   components: { ContentsHeader },
   props: {
-    id: Number,
-    title: String,
-    state: String,
+    content: Object,
   },
   data() {
     return {
+      showLoading: true,
       rank: 1,
-      participant: {
-        id: '',
-        name: '',
-        handicap: '',
-      },
-      progress: '',
       score: '',
     };
   },
-  methods: {
-    setRank(rankInfo) {
-      this.rank = rankInfo.rank;
-      this.participant = rankInfo.participant;
-      this.progress = rankInfo.progress;
-      this.score = rankInfo.score;
-    },
-  },
-  created() {
-    try {
-      const inquireRank = ContestApi.inquire_rank(this.id);
-      this.setRank(inquireRank);
-    } catch (e) {
-      console.log(e);
-    }
-  },
+  methods: {},
+  created() {},
 };
 </script>
 

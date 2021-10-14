@@ -2,13 +2,21 @@ package org.antop.billiardslove.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
 @Builder
+@ToString
+@FieldNameConstants
 public class ContestDto {
+    /**
+     * 대회 아이디
+     */
+    private final Long id;
     /**
      * 대회명
      */
@@ -37,4 +45,26 @@ public class ContestDto {
      * 최대 참가 인원
      */
     private final Integer maxJoiner;
+    /**
+     * 참가 인원
+     */
+    private final int currentJoiner;
+    /**
+     * 대회 상태 코드
+     */
+    private final String stateCode;
+    /**
+     * 대회 상태명
+     */
+    private final String stateName;
+    /**
+     * 대회 진행률(%)
+     */
+    private final double progress;
+    /**
+     * 내 선수 정보<br>
+     * 회원이 대회에 참가하지 않았을 경우 null
+     */
+    private final PlayerDto player;
+
 }

@@ -1,154 +1,259 @@
 package org.antop.billiardslove.api;
 
-import org.antop.billiardslove.SpringBootBase;
-import org.antop.billiardslove.config.security.JwtTokenProvider;
+import org.antop.billiardslove.RestDocsUtils;
+import org.antop.billiardslove.WebMvcBase;
+import org.antop.billiardslove.dto.ContestDto;
+import org.antop.billiardslove.dto.PlayerDto;
+import org.antop.billiardslove.exception.AlreadyContestEndException;
+import org.antop.billiardslove.exception.AlreadyContestProgressException;
+import org.antop.billiardslove.mapper.ContestMapperImpl;
+import org.antop.billiardslove.model.ContestState;
+import org.antop.billiardslove.service.CodeService;
+import org.antop.billiardslove.service.ContestService;
+import org.antop.billiardslove.service.PlayerService;
+import org.antop.billiardslove.util.TemporalUtils;
+import org.hamcrest.NumberMatcher;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.FieldDescriptor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Optional;
+
+import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class ContestInfoApiTest extends SpringBootBase {
 
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+@WebMvcTest(ContestInfoApi.class)
+@Import(ContestMapperImpl.class)
+class ContestInfoApiTest extends WebMvcBase {
+    @MockBean
+    private ContestService contestService;
+    /*
+     아래 두개 서비스는 ContestMapper에서 사용한다.
+     하지만 Model → Dto 변환에서는 사용하지 않으므로 껍대기만 만들어놓기!
+     */
+    @MockBean
+    private PlayerService playerService;
+    @MockBean
+    private CodeService codeService;
 
+    @DisplayName("대회 상세 조회")
     @Test
     void informationApi() throws Exception {
-        // request
-        String token = jwtTokenProvider.createToken("2");
+        // stub
+        PlayerDto player = PlayerDto.builder()
+                .id(332)
+                .number(3)
+                .nickname("안탑")
+                .handicap(22)
+                .rank(11)
+                .score(1154)
+                .variation(10)
+                .progress(30)
+                .build();
+        ContestDto contest = ContestDto.builder()
+                .id(5L)
+                .title("대회 타이틀")
+                .description("대회 설명")
+                .startDate(LocalDate.of(2020, 1, 1))
+                .startTime(LocalTime.MIN)
+                .endDate(LocalDate.of(2020, 3, 31))
+                .endTime(LocalTime.of(23, 59, 59))
+                .stateCode(ContestState.PROCEEDING.getCode())
+                .stateName(stateName(ContestState.PROCEEDING))
+                .maxJoiner(128)
+                .currentJoiner(108)
+                .progress(12.5)
+                .player(player)
+                .build();
+        when(contestService.getContest(anyLong())).thenReturn(Optional.of(contest));
         // action
-        mockMvc.perform(get("/api/v1/contest/1").header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(get("/api/v1/contest/{id}", 5)
+                        .header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging
                 .andDo(print())
+                // document
+                .andDo(document("contest-info",
+                        pathParameters(RestDocsUtils.PathParameter.contestId()),
+                        requestHeaders(RestDocsUtils.Header.jwtToken()),
+                        responseFields(RestDocsUtils.FieldSnippet.contestWithPlayer())
+                ))
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.name", is("2021 리그전")))
-                .andExpect(jsonPath("$.description", is("2021.01.01~")))
-                .andExpect(jsonPath("$.start.date", is("2021-01-01")))
-                .andExpect(jsonPath("$.start.time", is("00:00:00")))
-                .andExpect(jsonPath("$.end.date", is("2021-12-30")))
-                .andExpect(jsonPath("$.end.time", is("23:59:59")))
-                .andExpect(jsonPath("$.state.code", is("0")))
-                .andExpect(jsonPath("$.state.name", is("PROCEEDING")))
-                .andExpect(jsonPath("$.maxJoiner", is(32)))
-                .andExpect(jsonPath("$.joined", is(true)))
-                .andExpect(jsonPath("$.player.id", is(2)))
-                // 회원의 핸디탭은 20인데 참가는 24로 했다.
-                .andExpect(jsonPath("$.player.id", is(2)))
-                .andExpect(jsonPath("$.player.number", is(2)))
-                .andExpect(jsonPath("$.player.nickname", is("띠용")))
-                .andExpect(jsonPath("$.player.handicap", is(24)))
-                .andExpect(jsonPath("$.player.rank", is(2)))
-                .andExpect(jsonPath("$.player.score", is(40)))
+                .andExpect(jsonPath("$.id", NumberMatcher.is(contest.getId())))
+                .andExpect(jsonPath("$.title", is(contest.getTitle())))
+                .andExpect(jsonPath("$.description", is(contest.getDescription())))
+                .andExpect(jsonPath("$.startDate", is(TemporalUtils.format(contest.getStartDate()))))
+                .andExpect(jsonPath("$.startTime", is(TemporalUtils.format(contest.getStartTime()))))
+                .andExpect(jsonPath("$.endDate", is(TemporalUtils.format(contest.getEndDate()))))
+                .andExpect(jsonPath("$.endTime", is(TemporalUtils.format(contest.getEndTime()))))
+                .andExpect(jsonPath("$.stateCode", is(contest.getStateCode())))
+                .andExpect(jsonPath("$.stateName", is(contest.getStateName())))
+                .andExpect(jsonPath("$.maxJoiner", is(contest.getMaxJoiner())))
+                .andExpect(jsonPath("$.currentJoiner", is(contest.getCurrentJoiner())))
+                .andExpect(jsonPath("$.progress", is(contest.getProgress())))
+                .andExpect(jsonPath("$.player").exists())
+                .andExpect(jsonPath("$.player.id", NumberMatcher.is(player.getId())))
+                .andExpect(jsonPath("$.player.number", is(player.getNumber())))
+                .andExpect(jsonPath("$.player.nickname", is(player.getNickname())))
+                .andExpect(jsonPath("$.player.handicap", is(player.getHandicap())))
+                .andExpect(jsonPath("$.player.rank", is(player.getRank())))
+                .andExpect(jsonPath("$.player.score", is(player.getScore())))
+                .andExpect(jsonPath("$.player.progress", is(30)))
         ;
     }
 
+    @DisplayName("대회 목록 조회")
     @Test
     void listApi() throws Exception {
-        // request
-        String token = jwtTokenProvider.createToken("2");
+        // stub
+        when(contestService.getAllContests()).thenReturn(Arrays.asList(
+                ContestDto.builder()
+                        .id(1121L)
+                        .title("2020년 7월 동호회 리그전")
+                        .description("총 상금 100만원!")
+                        .startDate(LocalDate.of(2021, 7, 1))
+                        .startTime(LocalTime.of(18, 0, 0))
+                        .endDate(LocalDate.of(2020, 7, 31))
+                        .endTime(LocalTime.of(22, 0, 0))
+                        .stateCode(ContestState.END.getCode())
+                        .stateName(stateName(ContestState.END))
+                        .maxJoiner(128)
+                        .player(PlayerDto.builder()
+                                .id(335)
+                                .number(16)
+                                .nickname("띠용")
+                                .handicap(18)
+                                .rank(5)
+                                .score(600)
+                                .build())
+                        .build(),
+                ContestDto.builder()
+                        .id(1121L)
+                        .title("2022년 1분기 대회")
+                        .startDate(LocalDate.of(2022, 1, 1))
+                        .startTime(LocalTime.of(18, 0, 0))
+                        .endDate(LocalDate.of(2022, 3, 31))
+                        .stateCode(ContestState.PREPARING.getCode())
+                        .stateName(stateName(ContestState.PREPARING))
+                        .maxJoiner(64)
+                        .build()
+        ));
         // action
-        mockMvc.perform(get("/api/v1/contests").header(HttpHeaders.AUTHORIZATION, token))
+        mockMvc.perform(get("/api/v1/contests").header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging
                 .andDo(print())
+                .andDo(document("contest-list",
+                        requestHeaders(RestDocsUtils.Header.jwtToken()),
+                        responseFields(RestDocsUtils.FieldSnippet.contestsWithPlayer())
+                ))
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(6)))
-                .andExpect(jsonPath("$[0].joined", is(true)))
-                .andExpect(jsonPath("$[1].joined", is(true)))
-                .andExpect(jsonPath("$[2].joined", is(false)))
-                .andExpect(jsonPath("$[3].joined", is(false)))
-                .andExpect(jsonPath("$[4].joined", is(false)))
-                .andExpect(jsonPath("$[5].joined", is(false)))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].player").exists())
+                .andExpect(jsonPath("$[1].player").doesNotExist())
         ;
     }
 
+    @DisplayName("대회 등록")
     @Test
     void register() throws Exception {
+        // stub
+        when(contestService.register(any(ContestDto.class))).thenAnswer(invocation -> {
+                    ContestDto request = invocation.getArgument(0, ContestDto.class);
+                    return ContestDto.builder()
+                            .id(987_654_321L)
+                            .title(request.getTitle())
+                            .description(request.getDescription())
+                            .startDate(request.getStartDate())
+                            .startTime(request.getStartTime())
+                            .endDate(request.getEndDate())
+                            .endTime(request.getEndTime())
+                            .stateCode(ContestState.PREPARING.getCode())
+                            .stateName(stateName(ContestState.PREPARING))
+                            .maxJoiner(request.getMaxJoiner())
+                            .build();
+                }
+        );
         // request
-        String token = jwtTokenProvider.createToken("1");
-
-        String name = "2021 리그전";
-        String description = "리그전 대회 설명";
-        String requestBody = "{\n" +
-                "  \"name\": \"" + name + "\",\n" +
-                "  \"description\": \"" + description + "\",\n" +
-                "  \"start\": {\n" +
-                "    \"startDate\": \"20210101\",\n" +
-                "    \"startTime\": \"000000\"\n" +
-                "  },\n" +
-                "  \"end\": {\n" +
-                "    \"endDate\": \"20211231\",\n" +
-                "    \"endTime\": \"235959\"\n" +
-                "  },\n" +
-                "  \"maxJoiner\": 32\n" +
-                "}";
-
+        final ContestInfoApi.Model request = ContestInfoApi.Model.builder()
+                .title("2021 리그전")
+                .description("리그전 대회 설명")
+                .startDate(LocalDate.of(2021, 1, 1))
+                .startTime(LocalTime.of(0, 0, 0))
+                .endDate(LocalDate.of(2021, 12, 31))
+                .endTime(LocalTime.of(23, 59, 59))
+                .maxJoiner(32)
+                .build();
         // action
         mockMvc.perform(post("/api/v1/contest")
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .header(HttpHeaders.AUTHORIZATION, managerToken())
+                        .content(toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
+                .andDo(document("contest-register",
+                        requestHeaders(RestDocsUtils.Header.jwtToken()),
+                        requestFields(request()),
+                        responseFields(RestDocsUtils.FieldSnippet.contest())
+                ))
                 // verify
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.name", is(name)))
-                .andExpect(jsonPath("$.description", is(description)))
-                .andExpect(jsonPath("$.start", notNullValue()))
-                .andExpect(jsonPath("$.start.date", notNullValue()))
-                .andExpect(jsonPath("$.start.time", notNullValue()))
-                .andExpect(jsonPath("$.end", notNullValue()))
-                .andExpect(jsonPath("$.end.date", notNullValue()))
-                .andExpect(jsonPath("$.end.time", notNullValue()))
-                .andExpect(jsonPath("$.state", notNullValue()))
-                .andExpect(jsonPath("$.state.code", notNullValue()))
-                .andExpect(jsonPath("$.state.name", notNullValue()))
-                .andExpect(jsonPath("$.maxJoiner", is(32)))
+                .andExpect(status().isCreated())
+                .andExpect(header().string(HttpHeaders.LOCATION, matchesPattern("^.*/api/v1/contest/987654321$")))
+                .andExpect(jsonPath("$.id", is(987_654_321)))
+                .andExpect(jsonPath("$.title", is(request.getTitle())))
+                .andExpect(jsonPath("$.description", is(request.getDescription())))
+                .andExpect(jsonPath("$.startDate", is(TemporalUtils.format(request.getStartDate()))))
+                .andExpect(jsonPath("$.startTime", is(TemporalUtils.format(request.getStartTime()))))
+                .andExpect(jsonPath("$.endDate", is(TemporalUtils.format(request.getEndDate()))))
+                .andExpect(jsonPath("$.endTime", is(TemporalUtils.format(request.getEndTime()))))
+                .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.getCode())))
+                .andExpect(jsonPath("$.stateName", is(stateName(ContestState.PREPARING))))
+                .andExpect(jsonPath("$.maxJoiner", is(request.getMaxJoiner())))
         ;
     }
 
+    @DisplayName("권한 없음")
     @Test
     void forbidden() throws Exception {
         // request
-        String token = jwtTokenProvider.createToken("2");
-
-        String name = "2021 리그전";
-        String description = "리그전 대회 설명";
-        String requestBody = "{\n" +
-                "  \"name\": \"" + name + "\",\n" +
-                "  \"description\": \"" + description + "\",\n" +
-                "  \"start\": {\n" +
-                "    \"startDate\": \"20210101\",\n" +
-                "    \"startTime\": \"000000\"\n" +
-                "  },\n" +
-                "  \"end\": {\n" +
-                "    \"endDate\": \"20211231\",\n" +
-                "    \"endTime\": \"235959\"\n" +
-                "  },\n" +
-                "  \"maxJoiner\": 32\n" +
-                "}";
-
+        ContestDto request = ContestDto.builder().build();
         // action
         mockMvc.perform(post("/api/v1/contest")
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .header(HttpHeaders.AUTHORIZATION, userToken())
+                        .content(toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
+                // document
+                .andDo(RestDocsUtils.error("error-forbidden"))
                 // verify
                 .andExpect(status().isForbidden()) // 403 에러
                 .andExpect(jsonPath("$.code", is(HttpStatus.FORBIDDEN.value())))
@@ -156,80 +261,91 @@ class ContestInfoApiTest extends SpringBootBase {
         ;
     }
 
+    @DisplayName("대회 수정")
     @Test
     void modify() throws Exception {
+        // stub
+        when(contestService.modify(anyLong(), any(ContestDto.class))).thenAnswer(invocation -> {
+                    long contestId = invocation.getArgument(0, Long.class);
+                    ContestDto request = invocation.getArgument(1, ContestDto.class);
+                    return ContestDto.builder()
+                            .id(contestId)
+                            .title(request.getTitle())
+                            .description(request.getDescription())
+                            .startDate(request.getStartDate())
+                            .startTime(request.getStartTime())
+                            .endDate(request.getEndDate())
+                            .endTime(request.getEndTime())
+                            .stateCode(ContestState.PREPARING.getCode())
+                            .stateName(stateName(ContestState.PREPARING))
+                            .maxJoiner(request.getMaxJoiner())
+                            .build();
+                }
+        );
         // request
-        String token = jwtTokenProvider.createToken("1");
-
-        String name = "2021 리그전 수정";
-        String description = "리그전 대회 수정";
-        String requestBody = "{\n" +
-                "  \"name\": \"" + name + "\",\n" +
-                "  \"description\": \"" + description + "\",\n" +
-                "  \"start\": {\n" +
-                "    \"startDate\": \"20210101\",\n" +
-                "    \"startTime\": \"000000\"\n" +
-                "  },\n" +
-                "  \"end\": {\n" +
-                "    \"endDate\": \"20211231\",\n" +
-                "    \"endTime\": \"235959\"\n" +
-                "  },\n" +
-                "  \"maxJoiner\": 64\n" +
-                "}";
-
+        ContestInfoApi.Model request = ContestInfoApi.Model.builder()
+                .title("2021 리그전 수정")
+                .description("리그전 대회 수정")
+                .startDate(LocalDate.of(2021, 1, 2))
+                .startTime(LocalTime.of(0, 10, 0))
+                .endDate(LocalDate.of(2021, 6, 1))
+                .endTime(LocalTime.of(10, 59, 59))
+                .maxJoiner(64)
+                .build();
         // action
-        mockMvc.perform(put("/api/v1/contest/5")
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/api/v1/contest/{id}", 5)
+                        .header(HttpHeaders.AUTHORIZATION, managerToken())
+                        .content(toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
+                // document
+                .andDo(document("contest-modify",
+                        pathParameters(RestDocsUtils.PathParameter.contestId()),
+                        requestHeaders(RestDocsUtils.Header.jwtToken()),
+                        requestFields(request()),
+                        responseFields(RestDocsUtils.FieldSnippet.contest())
+                ))
                 // verify
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.name", is(name)))
-                .andExpect(jsonPath("$.description", is(description)))
-                .andExpect(jsonPath("$.start", notNullValue()))
-                .andExpect(jsonPath("$.start.date", notNullValue()))
-                .andExpect(jsonPath("$.start.time", notNullValue()))
-                .andExpect(jsonPath("$.end", notNullValue()))
-                .andExpect(jsonPath("$.end.date", notNullValue()))
-                .andExpect(jsonPath("$.end.time", notNullValue()))
-                .andExpect(jsonPath("$.state", notNullValue()))
-                .andExpect(jsonPath("$.state.code", notNullValue()))
-                .andExpect(jsonPath("$.state.name", notNullValue()))
-                .andExpect(jsonPath("$.maxJoiner", is(64)))
+                .andExpect(jsonPath("$.title", is(request.getTitle())))
+                .andExpect(jsonPath("$.description", is(request.getDescription())))
+                .andExpect(jsonPath("$.startDate", is(TemporalUtils.format(request.getStartDate()))))
+                .andExpect(jsonPath("$.startTime", is(TemporalUtils.format(request.getStartTime()))))
+                .andExpect(jsonPath("$.endDate", is(TemporalUtils.format(request.getEndDate()))))
+                .andExpect(jsonPath("$.endTime", is(TemporalUtils.format(request.getEndTime()))))
+                .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.getCode())))
+                .andExpect(jsonPath("$.stateName", is(stateName(ContestState.PREPARING))))
+                .andExpect(jsonPath("$.maxJoiner", is(request.getMaxJoiner())))
         ;
     }
 
+    @DisplayName("이미 종료된 대회는 수정할 수 없다.")
     @Test
     void alreadyContestEnd() throws Exception {
+        // when
+        when(contestService.modify(anyLong(), any())).thenThrow(new AlreadyContestEndException());
         // request
-        String token = jwtTokenProvider.createToken("1");
-
-        String name = "2021 리그전 수정";
-        String description = "리그전 대회 수정";
-        String requestBody = "{\n" +
-                "  \"name\": \"" + name + "\",\n" +
-                "  \"description\": \"" + description + "\",\n" +
-                "  \"start\": {\n" +
-                "    \"startDate\": \"20210101\",\n" +
-                "    \"startTime\": \"000000\"\n" +
-                "  },\n" +
-                "  \"end\": {\n" +
-                "    \"endDate\": \"20211231\",\n" +
-                "    \"endTime\": \"235959\"\n" +
-                "  },\n" +
-                "  \"maxJoiner\": 64\n" +
-                "}";
+        ContestDto request = ContestDto.builder()
+                .title("2021 리그전 수정")
+                .description("리그전 대회 수정")
+                .startDate(LocalDate.of(2021, 1, 1))
+                .startTime(LocalTime.of(0, 0, 0))
+                .endDate(LocalDate.of(2021, 12, 31))
+                .endTime(LocalTime.of(23, 59, 59))
+                .maxJoiner(64)
+                .build();
 
         // action
-        mockMvc.perform(put("/api/v1/contest/6")
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/api/v1/contest/{id}", 6)
+                        .header(HttpHeaders.AUTHORIZATION, managerToken())
+                        .content(toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
+                // document
+                .andDo(RestDocsUtils.error("error-already-contest-end"))
                 // verify
                 .andExpect(status().isBadRequest()) // 400 에러
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
@@ -237,39 +353,51 @@ class ContestInfoApiTest extends SpringBootBase {
         ;
     }
 
+    @DisplayName("이미 진행하고 있는 대회는 수정할 수 없다.")
     @Test
     void alreadyContestProgress() throws Exception {
+        // when
+        when(contestService.modify(anyLong(), any())).thenThrow(new AlreadyContestProgressException());
         // request
-        String token = jwtTokenProvider.createToken("1");
-
-        String name = "2021 리그전 수정";
-        String description = "리그전 대회 수정";
-        String requestBody = "{\n" +
-                "  \"name\": \"" + name + "\",\n" +
-                "  \"description\": \"" + description + "\",\n" +
-                "  \"start\": {\n" +
-                "    \"startDate\": \"20210101\",\n" +
-                "    \"startTime\": \"000000\"\n" +
-                "  },\n" +
-                "  \"end\": {\n" +
-                "    \"endDate\": \"20211231\",\n" +
-                "    \"endTime\": \"235959\"\n" +
-                "  },\n" +
-                "  \"maxJoiner\": 64\n" +
-                "}";
+        ContestDto request = ContestDto.builder()
+                .title("2021 리그전 수정")
+                .description("리그전 대회 수정")
+                .startDate(LocalDate.of(2021, 1, 1))
+                .startTime(LocalTime.of(0, 0, 0))
+                .endDate(LocalDate.of(2021, 12, 31))
+                .endTime(LocalTime.of(23, 59, 59))
+                .maxJoiner(64)
+                .build();
 
         // action
-        mockMvc.perform(put("/api/v1/contest/1")
-                .header(HttpHeaders.AUTHORIZATION, token)
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/api/v1/contest/{id}", 1)
+                        .header(HttpHeaders.AUTHORIZATION, managerToken())
+                        .content(toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
+                // document
+                .andDo(RestDocsUtils.error("error-already-contest-progress"))
                 // verify
-                .andExpect(status().isInternalServerError()) // 500 에러
-                .andExpect(jsonPath("$.code", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(400)))
                 .andExpect(jsonPath("$.message", is("이미 진행된 대회입니다.")))
         ;
+    }
+
+    /**
+     * 대회 등록, 수정에 사용하는 필드 정의
+     */
+    private FieldDescriptor[] request() {
+        return new FieldDescriptor[]{
+                fieldWithPath(ContestInfoApi.Model.Fields.TITLE).description("대회명"),
+                fieldWithPath(ContestInfoApi.Model.Fields.DESCRIPTION).description("대회 설명").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.START_DATE).description("시작 날짜"),
+                fieldWithPath(ContestInfoApi.Model.Fields.START_TIME).description("시작 시간").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.END_DATE).description("종료 날짜").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.END_TIME).description("종료 시간").optional(),
+                fieldWithPath(ContestInfoApi.Model.Fields.MAX_JOINER).description("최대 참가자 수").optional()
+        };
     }
 
 }

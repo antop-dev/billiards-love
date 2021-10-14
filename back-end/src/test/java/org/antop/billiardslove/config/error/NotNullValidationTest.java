@@ -1,11 +1,11 @@
 package org.antop.billiardslove.config.error;
 
-import org.antop.billiardslove.SpringBootBase;
+import org.antop.billiardslove.WebMvcBase;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,9 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WebMvcTest(NotNullValidationTest.TempController.class)
 @Import(NotNullValidationTest.TempController.class)
-@WithMockUser(roles = "USER")
-class NotNullValidationTest extends SpringBootBase {
+class NotNullValidationTest extends WebMvcBase {
     private static final String URL = "/test/not-null";
 
     @Test
@@ -34,12 +34,12 @@ class NotNullValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("value is must not be null (input : null)")));
+                .andExpect(jsonPath("$.message", is("값을 입력해주세요!")));
     }
 
     @Test
@@ -49,7 +49,7 @@ class NotNullValidationTest extends SpringBootBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(body));
+                .content(toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -65,7 +65,7 @@ class NotNullValidationTest extends SpringBootBase {
         }
 
         static class Request {
-            @NotNull
+            @NotNull(message = "값을 입력해주세요!")
             private String value;
 
             public String getValue() {

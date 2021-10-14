@@ -1,85 +1,109 @@
 package org.antop.billiardslove.jpa.repository;
 
-import org.antop.billiardslove.SpringBootBase;
-import org.antop.billiardslove.exception.ContestNotFoundException;
-import org.antop.billiardslove.exception.MemberNotFountException;
-import org.antop.billiardslove.exception.PlayerNotFoundException;
+import org.antop.billiardslove.DataJpaBase;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+import static com.github.npathai.hamcrestopt.OptionalMatchers.isEmpty;
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
-class PlayerRepositoryTest extends SpringBootBase {
+class PlayerRepositoryTest extends DataJpaBase {
+    @Autowired
+    private PlayerRepository playerRepository;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
     private ContestRepository contestRepository;
-    @Autowired
-    private PlayerRepository playerRepository;
 
     @Test
-    void findById() {
-        try {
-            Player player1 = playerRepository.findById(1L).orElseThrow(PlayerNotFoundException::new);
-            assertThat(player1.getHandicap(), is(22));
-            assertThat(player1.getRank(), is(1));
-            assertThat(player1.getScore(), is(150));
-
-            Player player2 = playerRepository.findById(2L).orElseThrow(PlayerNotFoundException::new);
-            assertThat(player2.getHandicap(), is(24));
-            assertThat(player2.getRank(), is(2));
-            assertThat(player2.getScore(), is(40));
-
-            assertSame(player1.getContest(), player2.getContest());
-        } catch (PlayerNotFoundException e) {
-            fail("member is null");
-        }
-    }
-
-    @Test
+    @DisplayName("플레이어 정보를 저장한다.")
     void save() {
-        Contest contest = contestRepository.findById(2L).orElseThrow(ContestNotFoundException::new);
-        Member member = memberRepository.findById(1L).orElseThrow(MemberNotFountException::new);
+        final Member member = member();
+        memberRepository.save(member);
 
-        Player player = Player.builder()
-                .contest(contest)
-                .member(member)
-                .handicap(27)
-                .build();
+        final Contest contest = contest();
+        contestRepository.save(contest);
 
+        final Player player = player(contest, member);
         playerRepository.save(player);
 
-        assertThat(player.getId(), notNullValue());
-        assertThat(player.getId(), greaterThan(0L));
-        assertThat(player.getNumber(), nullValue());
-        assertThat(player.getRank(), nullValue());
-        assertThat(player.getScore(), nullValue());
+        flushAndClear();
+
+        // 2. 실행
+        Optional<Player> optional = playerRepository.findById(player.getId());
+
+        // 3. 검증
+        assertThat(optional, isPresent());
+        optional.ifPresent(it -> assertThat(it.getHandicap(), is(player.getHandicap())));
     }
 
     @Test
-    void findByContestAndMember() {
-        Contest contest = contestRepository.findById(1L).orElseThrow(ContestNotFoundException::new);
-        Member member = memberRepository.findById(1L).orElseThrow(MemberNotFountException::new);
+    @DisplayName("플레이어 정보를 변경한다.")
+    void change() {
+        // 1. 데이터 준비
+        final Member member = member();
+        memberRepository.save(member);
 
-        Optional<Player> optional = playerRepository.findByContestAndMember(contest, member);
+        final Contest contest = contest();
+        contestRepository.save(contest);
+
+        final Player player = player(contest, member);
+        playerRepository.save(player);
+
+        flushAndClear();
+
+        // 2. 실행
+        final int newNumber = 1;
+        final int newHandicap = 70;
+
+        playerRepository.findById(player.getId()).ifPresent(it -> {
+            it.setNumber(newNumber);
+            it.setHandicap(newHandicap);
+            playerRepository.save(it);
+            flushAndClear();
+        });
+
+        // 3. 검증
+        Optional<Player> optional = playerRepository.findById(player.getId());
         assertThat(optional, isPresent());
-        optional.ifPresent(player -> {
-            assertThat(player.getHandicap(), is(22));
-            assertThat(player.getRank(), is(1));
-            assertThat(player.getScore(), is(150));
+        optional.ifPresent(it -> {
+            assertThat(it.getHandicap(), is(newHandicap));
+            assertThat(it.getNumber(), is(newNumber));
+            assertThat(it.getRank(), nullValue());
+            assertThat(it.getScore(), nullValue());
         });
     }
 
+    @Test
+    @DisplayName("삭제된 플레이어를 조회한다.")
+    void delete() {
+        // 1. 데이터 준비
+        Member member = member();
+        memberRepository.save(member);
+
+        Contest contest = contest();
+        contestRepository.save(contest);
+
+        Player player = player(contest, member);
+        playerRepository.save(player);
+
+        flushAndClear();
+
+        // 2. 실행
+        playerRepository.deleteById(player.getId());
+        flushAndClear();
+
+        // 3. 검증
+        Optional<Player> optional = playerRepository.findById(player.getId());
+        assertThat(optional, isEmpty());
+    }
 }

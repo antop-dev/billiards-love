@@ -1,9 +1,9 @@
 package org.antop.billiardslove;
 
-import org.antop.billiardslove.config.Profiles;
 import org.antop.billiardslove.config.SecurityConfig;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
 import org.antop.billiardslove.config.security.PrincipalProvider;
+import org.antop.billiardslove.constants.Profiles;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
