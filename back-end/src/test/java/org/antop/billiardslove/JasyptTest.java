@@ -19,9 +19,10 @@ class JasyptTest {
      */
     private final JasyptEncryptorConfigurationProperties properties = new JasyptEncryptorConfigurationProperties();
     /**
-     * 암복호화에 사용되는 키
+     * 암복호화에 사용되는 키<br>
+     * Password is not ASCII
      */
-    private final static String PASSWORD = "암호화 키는 여기";
+    private final static String PASSWORD = "PASSWORD";
     /**
      * 암호화 하려는 값<br>
      * 암호화 한 값은 application.properties 에서 "ENC(암호화된 값)"으로 사용된다.

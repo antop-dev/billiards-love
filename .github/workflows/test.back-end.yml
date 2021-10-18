@@ -35,6 +35,9 @@ jobs:
       - name: Check gradle version
         run: ./gradlew -v
         working-directory: back-end
+      - name: Run build
+        run: ./gradlew --console verbose build
+        working-directory: back-end
       - name: Run test
         run: ./gradlew --console verbose test
         working-directory: back-end
