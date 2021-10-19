@@ -57,9 +57,8 @@ export default {
   methods: {},
   async created() {
     // RankApi.inquire();
-    const id = this.$store.state.match_detail.id;
-    const users = await MatchApi.inquire_all(id);
-    console.log(users);
+    const params = this.$route.params;
+    this.users = await MatchApi.inquire_all(params.id);
   },
 };
 </script>

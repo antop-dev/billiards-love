@@ -36,6 +36,7 @@
 export default {
   name: 'GameTabs',
   props: {
+    id: String,
     title: String,
   },
   data() {
@@ -44,9 +45,7 @@ export default {
       items: ['web', 'shopping', 'videos', 'images', 'news'],
     };
   },
-  created() {
-    this.id = this.$route.params.id;
-  },
+  created() {},
 };
 </script>
 

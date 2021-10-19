@@ -98,8 +98,6 @@ export default {
       this.showLoading = false;
       if (!this.$store.state.login_info.registered) {
         await this.$router.push('/register');
-      } else {
-        await this.$router.push('/dashboard');
       }
     },
     async getUserInfo() {

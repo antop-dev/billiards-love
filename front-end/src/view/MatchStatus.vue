@@ -27,7 +27,7 @@ export default {
   },
   methods: {},
   async created() {
-    let query = this.$route.query;
+    const query = this.$route.query;
     if (query) {
       // 아이디 받아오면 처리
       this.id = query.id;
