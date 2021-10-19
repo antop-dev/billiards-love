@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import ContestApi from '../api/contest.api';
-
 export default {
   name: 'GameInfo',
   data() {
@@ -47,6 +45,10 @@ export default {
     };
   },
   methods: {
+    render() {
+      const matchDetail = this.$store.state.match_detail;
+      this.setDetail(matchDetail);
+    },
     setDetail(detail) {
       this.date =
         detail.startDate + (detail.endDate ? ' - ' + detail.endDate : '');
@@ -60,10 +62,8 @@ export default {
       this.currentJoiner = (detail.currentJoiner || 0) + ' 명';
     },
   },
-  async created() {
-    let params = this.$route.params;
-    const contest = await ContestApi.inquire_contest(params.id);
-    this.setDetail(contest);
+  created() {
+    this.render(); 
   },
 };
 </script>
