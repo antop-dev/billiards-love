@@ -63,7 +63,7 @@ export default {
     },
   },
   created() {
-    this.render(); 
+    this.render();
   },
 };
 </script>
