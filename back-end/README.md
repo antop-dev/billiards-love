@@ -7,7 +7,13 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=coverage)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=antop-dev_billiards-love%3Aback-end&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=antop-dev_billiards-love%3Aback-end)
 
-### Generate Querydsl class files
+### API 명세서
+
+https://raw.githack.com/antop-dev/billiards-love/master/back-end/src/main/resources/static/index.html
+
+### Generate class files
+
+Mapstruct, Querydsl, Lombok 클래스 파일을 생성하기 위함.
 
 ```bash
 ./gradlew compileJava
@@ -15,13 +21,9 @@
 
 ### [Jasypt](https://github.com/ulisesbocchio/jasypt-spring-boot)
 
-`application.yml` 파일 내용에서 중요 정보를 암호화 한다.
+개발 시 암호화 키를 지정해서 실행해야 한다.
 
-암호화 비밀번호<sup>`encryption password`</sup>는 [RANDOM.ORG](https://www.random.org/strings) 에서 무작위 생성했다.
-
-개발 시에는 아래와 같이 암호화 비밀번호를 파라미터에 추가 후 실행한다.
-
-![Intellij 암호화 비밀번호 설정](https://i.imgur.com/aXSRNu7.png)
+[Wiki 참조](https://github.com/antop-dev/billiards-love/wiki/%EB%B0%B1%EC%97%94%EB%93%9C-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%8B%A4%ED%96%89-%EC%8B%9C-Jasypt-%EC%84%A4%EC%A0%95-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0)
 
 ### [Sentry](https://sentry.io/)
 
