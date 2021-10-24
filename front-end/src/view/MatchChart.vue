@@ -34,7 +34,7 @@
 </template>
 
 <script>
-// import MatchApi from '../api/match.api';
+import MatchApi from '../api/match.api';
 import MatchResult from './MatchResult';
 export default {
   name: 'GameRank',
@@ -60,7 +60,7 @@ export default {
   async created() {
     const params = this.$route.params;
     this.id = params.id;
-    // this.users = await MatchApi.inquire_all(params.id);
+    this.users = await MatchApi.inquire_all(params.id);
   },
 };
 </script>
