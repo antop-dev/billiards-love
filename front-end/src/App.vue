@@ -40,7 +40,6 @@
 <script>
 import LoginApi from './api/login.api';
 import aes256 from './util/aes256';
-
 export default {
   data() {
     return {
@@ -93,7 +92,6 @@ export default {
         const loginInfo = await LoginApi.executeLogin(dat.user);
         this.$store.commit('SAVE_LOGIN_REQUEST_INFO', loginInfo);
       }
-
       this.showLoginButton = false;
       this.showLoading = false;
       if (!this.$store.state.login_info.registered) {

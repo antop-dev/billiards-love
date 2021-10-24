@@ -17,6 +17,7 @@
               class="board"
               v-for="content in contests"
               v-bind:key="content.id"
+              :title="content.title"
             >
               <board-contents
                 :content="content"

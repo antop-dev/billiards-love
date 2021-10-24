@@ -48,7 +48,8 @@ export default {
   methods: {},
   async created() {
     try {
-      this.users = await RankApi.inquire(this.$store.state.match_detail.id);
+      const inquireRank = await RankApi.inquire_rank(this.$route.params.id);
+      this.users = inquireRank;
     } catch (e) {
       console.log(e);
     }
