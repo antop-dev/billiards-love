@@ -22,7 +22,9 @@
           <tr v-for="user in users" :key="user.id">
             <td class="text-center">{{ user.opponent.no }}</td>
             <td>{{ user.opponent.nickname }}</td>
-            <td><match-result :opponent="user"></match-result></td>
+            <td>
+              <match-result :id="id" :opponent="user"></match-result>
+            </td>
             <td>{{ user.closed }}</td>
           </tr>
         </tbody>
@@ -39,7 +41,7 @@ export default {
   components: { MatchResult },
   data() {
     return {
-      showDialog: false,
+      id: '',
       users: [
         {
           id: 3823,
@@ -57,7 +59,7 @@ export default {
   methods: {},
   async created() {
     const params = this.$route.params;
-    console.log(params);
+    this.id = params.id;
     // this.users = await MatchApi.inquire_all(params.id);
   },
 };

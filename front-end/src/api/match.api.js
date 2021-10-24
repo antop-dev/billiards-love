@@ -10,10 +10,9 @@ const MatchApi = class {
     // TODO
     return true;
   }
-  inquire_all(id) {
-    return this.#client
-      .get('/api/v1/contest/' + id + '/matches')
-      .then(({ data }) => data || {});
+
+  update(id, data) {
+    return this.#client.put('/api/v1/match/' + id, { result: data });
   }
 
   inquire(id) {

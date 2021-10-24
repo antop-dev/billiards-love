@@ -48,8 +48,7 @@ export default {
   methods: {},
   async created() {
     try {
-      const inquireRank = await RankApi.inquire_rank(this.$route.params.id);
-      this.users = inquireRank;
+      this.users = await RankApi.inquire(this.$route.params.id);
     } catch (e) {
       console.log(e);
     }
