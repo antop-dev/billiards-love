@@ -54,7 +54,6 @@ export default {
   },
   async created() {
     this.contests = await ContestApi.inquire_contests();
-    console.log(this.contests);
     this.showLoading = false;
   },
 };
