@@ -18,15 +18,11 @@
 
         <v-list subheader three-line>
           <v-divider></v-divider>
-          <v-list-item>
+          <v-list-item :key="i" v-for="(result, i) in opponent.result">
             <v-list-item-content>
-              <v-list-item-title><h2>1경기</h2></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title><h2>2경기</h2></v-list-item-title>
+              <v-list-item-title
+                ><h2>{{ i + 1 }}경기</h2></v-list-item-title
+              >
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -47,6 +43,7 @@
 export default {
   name: 'GameResult',
   props: {
+    opponent: Object,
     value: String,
     showDialog: Boolean,
     toggleWindow: Function,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <game-tabs :title="title"></game-tabs>
+    <game-tabs :id="id" :title="title"></game-tabs>
     <div>
       <v-sheet>
         <v-container>
@@ -15,31 +15,22 @@
 
 <script>
 import GameTabs from '@/status/GameTabs';
-import ContestApi from '../api/contest.api';
 export default {
   name: 'GameStatus',
   components: { GameTabs },
+  props: {
+    title: String,
+  },
   data() {
     return {
       id: '',
-      title: '',
     };
   },
   methods: {},
   async created() {
-    const query = this.$route.query;
-    if (query) {
-      // 아이디 받아오면 처리
-      this.id = query.id;
-      try {
-        const contest = await ContestApi.inquire_contest(query.id);
-        this.$store.dispatch('saveMatchInfo', contest);
-        this.title = contest.title;
-      } catch (e) {
-        console.error(e);
-      } finally {
-        await this.$router.push({ name: 'info', params: { id: this.id } });
-      }
+    let params = this.$route.params;
+    if (params) {
+      this.id = params.id;
     }
   },
 };
