@@ -49,7 +49,7 @@ include::{snippets}/logged-in-registered/http-response.adoc[]
 
 회원정보를 수정한다.
 
-.requestㄱ
+.request
 include::{snippets}/member-modify/request-headers.adoc[]
 include::{snippets}/member-modify/request-fields.adoc[]
 include::{snippets}/member-modify/http-request.adoc[]
