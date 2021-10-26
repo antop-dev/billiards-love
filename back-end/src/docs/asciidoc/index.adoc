@@ -49,7 +49,7 @@ include::{snippets}/logged-in-registered/http-response.adoc[]
 
 회원정보를 수정한다.
 
-.request
+.requestㄱ
 include::{snippets}/member-modify/request-headers.adoc[]
 include::{snippets}/member-modify/request-fields.adoc[]
 include::{snippets}/member-modify/http-request.adoc[]
@@ -262,11 +262,12 @@ include::{snippets}/match/http-response.adoc[]
 
 선수가 해당 경기^`match`^의 결과를 입력한다.
 
-경기에 속한 두 선수, 관리자 만이 정보를 입력(수정)할 수 있다.
+경기에 속한 두 선수들만이 결과를 입력(수정)할 수 있다.
 
 .요청
 include::{snippets}/match-result-enter/path-parameters.adoc[]
 include::{snippets}/match-result-enter/request-headers.adoc[]
+include::{snippets}/match-result-enter/request-fields.adoc[]
 include::{snippets}/match-result-enter/http-request.adoc[]
 
 .응답
@@ -277,6 +278,28 @@ include::{snippets}/match-result-enter-not-joined/http-response.adoc[]
 
 .존재하지 않은 경기
 include::{snippets}/error-match-not-found/http-response.adoc[]
+
+.잘못된 요청
+
+약속된 입력이 아닌 경우
+
+[source,json]
+----
+{
+  "result": [ "X", "A", "?" ]
+}
+----
+
+경기 결과의 개수가 3개가 아닌 경우
+
+[source,json]
+----
+{
+  "result": [ "WIN", "WIN", "WIN", "WIN" ]
+}
+----
+
+include::{snippets}/match-result-enter-bad-request/http-response.adoc[]
 
 === 대진표
 

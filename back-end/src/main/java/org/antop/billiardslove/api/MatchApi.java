@@ -1,8 +1,14 @@
 package org.antop.billiardslove.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.MatchDto;
+import org.antop.billiardslove.exception.BadRequestException;
 import org.antop.billiardslove.exception.MatchNotFoundException;
 import org.antop.billiardslove.model.Outcome;
 import org.antop.billiardslove.service.MatchService;
@@ -13,7 +19,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,12 +46,35 @@ public class MatchApi {
 
     @PutMapping("/api/v1/match/{matchId}")
     public MatchDto enter(@PathVariable("matchId") final long matchId,
-                       @RequestBody String[] result,
-                       @AuthenticationPrincipal final Long memberId) {
-        Outcome[] results = Arrays.stream(result)
-                .map(Outcome::valueOf).
-                toArray(value -> new Outcome[3]);
+                          @RequestBody MatchEnterRequest request,
+                          @AuthenticationPrincipal final Long memberId) {
+        if (request.getResult().length != 3) throw new BadRequestException();
+        // String[] -> Outcome[]
+        Outcome[] results = new Outcome[3];
+        try {
+            for (int i = 0; i < request.getResult().length; i++) {
+                results[i] = Outcome.valueOf(request.getResult()[i]);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException();
+        }
+
         return matchService.enter(matchId, memberId, results);
+    }
+
+    @Getter
+    @ToString
+    @FieldNameConstants
+    static class MatchEnterRequest {
+        /**
+         * 선수가 입력한 경기 결과
+         */
+        private final String[] result;
+
+        @JsonCreator
+        public MatchEnterRequest(@JsonProperty String[] result) {
+            this.result = result;
+        }
     }
 
 }
