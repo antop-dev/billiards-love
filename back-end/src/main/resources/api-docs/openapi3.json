@@ -62,7 +62,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "error-forbidden" : {
@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"MzxVpjGtiXZekW68aNImqmu3/+F4ykLL9h7NofuSN9I=\",\r\n  \"kakaoKey\" : \"sjLgFGITELSkYdtOXjurGEyvogtV+XdAgmW3Pyd4DRG6fOT+2f+5OtwpAnQQ7p3AUw==\",\r\n  \"adSenseKey\" : \"O/7vaFi8Sz4+XXGFGq8nUs6NwlKm72xjtOV5zJXHBSx/3cJuHy+t8c27UasjZw==\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"r5Fgv7qRCYDzvDZrphYMG8Tjmk90yAQBC7FH0UONmvM=\",\r\n  \"kakaoKey\" : \"qEvxDwFuMD+luJVPDzZG44Rx/DRfagd1XwIDZ30Z2JiS+Af3YCcsE54TRB4rliO68Q==\",\r\n  \"adSenseKey\" : \"PAPNx5MovnFGsmCee7gyKSAx3QTvAGHe8J/pCZsPi0XhxCFx63hzWYFA3yaykw==\"\r\n}"
                   }
                 }
               }
@@ -196,10 +196,10 @@
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"mEsMGQ0STvult+qNLy5vciybfRz7MIdNXJh8HMYiFWGl\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"JjCYhqFRJ8rq0HFcqkJXyKk7OhSjAMr6ZvNowktjJXkc\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"vm+M2Me/skCHG7hoUUmFT4Q6XUxmPxt+5Fs8V8KS5IwjfUXc3OEjPUq9s7Y=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"xfczkCd0sd97yWYVm7lCSdTQlxVYwTWOYUp0MU84kD9gEi/SGrRbDYMMXlk=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\"\r\n}"
@@ -220,7 +220,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "error-bad-credentials" : {
@@ -239,7 +239,7 @@
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"H30Ve5XpvmzNTnIOYaEOcDGttX0CGJGQPA3KrJc9tzFs0TFuZvNJMph7188=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"ACjyXOYqwrHTaXQJTimFvcQTiLALUi37+OApSvO68DQDVhAZr08IAgfa/0U=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
                   }
                 }
               }
@@ -250,7 +250,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "member-modify-valid-handicap-not-null" : {
@@ -297,7 +297,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-949258933"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-949258933"
                 },
                 "examples" : {
                   "contest-info" : {
@@ -371,7 +371,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "error-already-contest-end" : {
@@ -480,7 +480,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "error-match-not-found" : {
@@ -510,11 +510,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "match-result-enter-bad-request" : {
-                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"잘못된 요청입니다.\"\r\n}"
+                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"경기 결과의 크기는 3개입니다.\"\r\n}"
                   },
                   "match-result-enter-invalid" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"잘못된 요청입니다.\"\r\n}"
@@ -572,7 +572,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "contest-end-already" : {
@@ -633,11 +633,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-949258933"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-949258933"
                 },
                 "examples" : {
                   "contest-join" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 9821,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 71304,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0\r\n  }\r\n}"
                   }
                 }
               }
@@ -648,7 +648,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "contest-join-already" : {
@@ -869,7 +869,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "contest-start-can-not" : {
@@ -925,7 +925,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
                   "contest-stop-can-not" : {
@@ -941,7 +941,7 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-contest-id-join-949258933" : {
+      "api-v1-contest-id-949258933" : {
         "type" : "object",
         "properties" : {
           "currentJoiner" : {
@@ -1223,7 +1223,7 @@
           }
         }
       },
-      "api-v1-contest-id-join-1153901879" : {
+      "api-v1-contest-id-start-1153901879" : {
         "type" : "object",
         "properties" : {
           "code" : {

@@ -49,7 +49,7 @@ public class ErrorAdvisor {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ErrorMessage processValidationError(HttpMessageNotReadableException e) {
-        log.error("{}", e.getMessage());
+        log.debug("fail convert json → object. exception class = {}, message = {}", e.getClass(), e.getMessage());
         return ErrorMessage.badRequest("잘못된 포멧입니다.");
     }
 

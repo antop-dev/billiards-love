@@ -17,8 +17,12 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static org.antop.billiardslove.model.Outcome.LOSE;
+import static org.antop.billiardslove.model.Outcome.WIN;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -60,8 +64,8 @@ class MatchResultApiTest extends WebMvcBase {
                         .build()
         );
         // request
-        String[] result = {"WIN", "WIN", "LOSE"};
-        MatchApi.MatchEnterRequest request = new MatchApi.MatchEnterRequest(result);
+        Outcome[] result = {WIN, WIN, LOSE};
+        MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
         // action
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
@@ -75,7 +79,7 @@ class MatchResultApiTest extends WebMvcBase {
                         requestHeaders(RestDocsUtils.Header.jwtToken()),
                         pathParameters(RestDocsUtils.PathParameter.contestId()),
                         requestFields(
-                                fieldWithPath(MatchApi.MatchEnterRequest.Fields.RESULT)
+                                fieldWithPath(MatchApi.MatchResultEnterRequest.Fields.RESULT)
                                         .description("선수가 입력한 자신의 경기 결과")
                                         .type(JsonFieldType.ARRAY)
                         ),
@@ -83,9 +87,9 @@ class MatchResultApiTest extends WebMvcBase {
                 ))
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result[0]", is(result[0])))
-                .andExpect(jsonPath("$.result[1]", is(result[1])))
-                .andExpect(jsonPath("$.result[2]", is(result[2])))
+                .andExpect(jsonPath("$.result[0]", is(result[0].name())))
+                .andExpect(jsonPath("$.result[1]", is(result[1].name())))
+                .andExpect(jsonPath("$.result[2]", is(result[2].name())))
         ;
     }
 
@@ -93,8 +97,8 @@ class MatchResultApiTest extends WebMvcBase {
     @Test
     void resultIsOne() throws Exception {
         // request
-        String[] result = {"WIN"};
-        MatchApi.MatchEnterRequest request = new MatchApi.MatchEnterRequest(result);
+        Outcome[] result = {WIN};
+        MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
         // action
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
@@ -108,7 +112,7 @@ class MatchResultApiTest extends WebMvcBase {
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
-                .andExpect(jsonPath("$.message", is("잘못된 요청입니다.")))
+                .andExpect(jsonPath("$.message", is("경기 결과의 크기는 3개입니다.")))
         ;
     }
 
@@ -116,8 +120,8 @@ class MatchResultApiTest extends WebMvcBase {
     @Test
     void resultIsFour() throws Exception {
         // request
-        String[] result = {"WIN", "WIN", "WIN", "WIN"};
-        MatchApi.MatchEnterRequest request = new MatchApi.MatchEnterRequest(result);
+        Outcome[] result = {WIN, WIN, WIN, WIN};
+        MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
         // action
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
@@ -131,7 +135,7 @@ class MatchResultApiTest extends WebMvcBase {
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
-                .andExpect(jsonPath("$.message", is("잘못된 요청입니다.")))
+                .andExpect(jsonPath("$.message", is("경기 결과의 크기는 3개입니다.")))
         ;
     }
 
@@ -140,7 +144,7 @@ class MatchResultApiTest extends WebMvcBase {
     void invalidCode() throws Exception {
         // request
         String[] result = {"?", "WIN", "LOSE"};
-        MatchApi.MatchEnterRequest request = new MatchApi.MatchEnterRequest(result);
+        Map<String, String[]> request = Collections.singletonMap("result", result);
         // action
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
@@ -154,7 +158,7 @@ class MatchResultApiTest extends WebMvcBase {
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
-                .andExpect(jsonPath("$.message", is("잘못된 요청입니다.")))
+                .andExpect(jsonPath("$.message", is("잘못된 포멧입니다.")))
         ;
     }
 
@@ -164,8 +168,8 @@ class MatchResultApiTest extends WebMvcBase {
         // when
         when(matchService.enter(anyLong(), anyLong(), any())).thenThrow(new NotJoinedMatchException());
         // request
-        String[] result = {"WIN", "WIN", "LOSE"};
-        MatchApi.MatchEnterRequest request = new MatchApi.MatchEnterRequest(result);
+        Outcome[] result = {WIN, WIN, LOSE};
+        MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
         // action
         mockMvc.perform(put("/api/v1/match/{id}", 32)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
@@ -186,8 +190,8 @@ class MatchResultApiTest extends WebMvcBase {
         // when
         when(matchService.enter(anyLong(), anyLong(), any())).thenThrow(new MatchNotFoundException());
         // request
-        String[] result = {"WIN", "WIN", "LOSE"};
-        MatchApi.MatchEnterRequest request = new MatchApi.MatchEnterRequest(result);
+        Outcome[] result = {WIN, WIN, LOSE};
+        MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
         // action
         mockMvc.perform(put("/api/v1/match/{id}", 81)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
