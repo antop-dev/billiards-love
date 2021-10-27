@@ -557,9 +557,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 
 {
-  "secretKey" : "b0j66Ijs50Vm7nRrvcASbqfE5oH8Nx55/oxQDIEru0w=",
-  "kakaoKey" : "Qzpuee6+bZVslJNwuGKelYpCzOnC83aJQuvJnz1wKC7KpsTZMwhEey/dM1BWNcYWBw==",
-  "adSenseKey" : "a4lPMwbrcazp/xJp217EEV4wKs98H0SJCbGvnJNY4Accsfz8tG8BfBuIWNO03w=="
+  "secretKey" : "r5Fgv7qRCYDzvDZrphYMG8Tjmk90yAQBC7FH0UONmvM=",
+  "kakaoKey" : "qEvxDwFuMD+luJVPDzZG44Rx/DRfagd1XwIDZ30Z2JiS+Af3YCcsE54TRB4rliO68Q==",
+  "adSenseKey" : "PAPNx5MovnFGsmCee7gyKSAx3QTvAGHe8J/pCZsPi0XhxCFx63hzWYFA3yaykw=="
 }</code></pre>
 </div>
 </div>
@@ -827,7 +827,7 @@ Content-Type: application/json
 Authorization: 2
 
 {
-  "nickname" : "c06rfeIx0io5mw5tKjR0G6LWGJ6ZS8GYsdew9cIOO9H9Z90/rHCf50U66xw=",
+  "nickname" : "xfczkCd0sd97yWYVm7lCSdTQlxVYwTWOYUp0MU84kD9gEi/SGrRbDYMMXlk=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -888,7 +888,7 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "id" : 2,
-  "nickname" : "A2LaJA3Rr3L9MxKzoJ/jlptkVRwtGtrIY9MDBXkpE+AaCzR31gbDDPkeqpk=",
+  "nickname" : "ACjyXOYqwrHTaXQJTimFvcQTiLALUi37+OApSvO68DQDVhAZr08IAgfa/0U=",
   "handicap" : 30,
   "thumbnail" : "https://img.foo.bar"
 }</code></pre>
@@ -2224,7 +2224,7 @@ Content-Type: application/json;charset=UTF-8
   "stateName" : "접수중",
   "progress" : 0.0,
   "player" : {
-    "id" : 50396,
+    "id" : 71304,
     "handicap" : 30,
     "nickname" : "선수1",
     "variation" : 0,
@@ -3662,7 +3662,7 @@ Content-Type: application/json;charset=UTF-8
 <p>선수가 해당 경기<sup><code>match</code></sup>의 결과를 입력한다.</p>
 </div>
 <div class="paragraph">
-<p>경기에 속한 두 선수, 관리자 만이 정보를 입력(수정)할 수 있다.</p>
+<p>경기에 속한 두 선수들만이 결과를 입력(수정)할 수 있다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <caption class="title">Table 30. /api/v1/match/{id}</caption>
@@ -3713,13 +3713,42 @@ Content-Type: application/json;charset=UTF-8
 </tr>
 </tbody>
 </table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수</th>
+<th class="tableblock halign-left valign-top">암호화</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">선수가 입력한 자신의 경기 결과</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/match/7 HTTP/1.1
 Content-Type: application/json
 Authorization: 2
 
-[ "WIN", "WIN", "LOSE" ]</code></pre>
+{
+  "result" : [ "WIN", "WIN", "LOSE" ]
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -3766,6 +3795,38 @@ Content-Type: application/json;charset=UTF-8
 {
   "code" : 404,
   "message" : "경기를 찾을 수 없습니다."
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">잘못된 요청</div>
+<p>약속된 입력이 아닌 경우</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "result": [ "X", "A", "?" ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>경기 결과의 개수가 3개가 아닌 경우</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "result": [ "WIN", "WIN", "WIN", "WIN" ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+
+{
+  "code" : 400,
+  "message" : "경기 결과의 크기는 3개입니다."
 }</code></pre>
 </div>
 </div>
@@ -4042,7 +4103,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-06 17:12:19 KST
+Last updated 2021-10-26 15:04:07 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

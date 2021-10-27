@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"b0j66Ijs50Vm7nRrvcASbqfE5oH8Nx55/oxQDIEru0w=\",\r\n  \"kakaoKey\" : \"Qzpuee6+bZVslJNwuGKelYpCzOnC83aJQuvJnz1wKC7KpsTZMwhEey/dM1BWNcYWBw==\",\r\n  \"adSenseKey\" : \"a4lPMwbrcazp/xJp217EEV4wKs98H0SJCbGvnJNY4Accsfz8tG8BfBuIWNO03w==\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"r5Fgv7qRCYDzvDZrphYMG8Tjmk90yAQBC7FH0UONmvM=\",\r\n  \"kakaoKey\" : \"qEvxDwFuMD+luJVPDzZG44Rx/DRfagd1XwIDZ30Z2JiS+Af3YCcsE54TRB4rliO68Q==\",\r\n  \"adSenseKey\" : \"PAPNx5MovnFGsmCee7gyKSAx3QTvAGHe8J/pCZsPi0XhxCFx63hzWYFA3yaykw==\"\r\n}"
                   }
                 }
               }
@@ -196,10 +196,10 @@
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"ufgfrTPD1Gt7FYSnYpyuOYLiwiJpw3q7o4/flinw7r97\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"JjCYhqFRJ8rq0HFcqkJXyKk7OhSjAMr6ZvNowktjJXkc\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"c06rfeIx0io5mw5tKjR0G6LWGJ6ZS8GYsdew9cIOO9H9Z90/rHCf50U66xw=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"xfczkCd0sd97yWYVm7lCSdTQlxVYwTWOYUp0MU84kD9gEi/SGrRbDYMMXlk=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\"\r\n}"
@@ -239,7 +239,7 @@
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"A2LaJA3Rr3L9MxKzoJ/jlptkVRwtGtrIY9MDBXkpE+AaCzR31gbDDPkeqpk=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"ACjyXOYqwrHTaXQJTimFvcQTiLALUi37+OApSvO68DQDVhAZr08IAgfa/0U=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
                   }
                 }
               }
@@ -429,7 +429,7 @@
       },
       "put" : {
         "tags" : [ "api" ],
-        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-not-joined",
+        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-bad-requestmatch-result-enter-invalidmatch-result-enter-not-joined",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -452,17 +452,23 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/api-v1-match-id486549215"
+                "$ref" : "#/components/schemas/api-v1-match-id-487369792"
               },
               "examples" : {
                 "error-match-not-found" : {
-                  "value" : "[ \"WIN\", \"WIN\", \"LOSE\" ]"
+                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"LOSE\" ]\r\n}"
                 },
                 "match-result-enter" : {
-                  "value" : "[ \"WIN\", \"WIN\", \"LOSE\" ]"
+                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"LOSE\" ]\r\n}"
+                },
+                "match-result-enter-bad-request" : {
+                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\", \"WIN\" ]\r\n}"
+                },
+                "match-result-enter-invalid" : {
+                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\", \"WIN\" ]\r\n}"
                 },
                 "match-result-enter-not-joined" : {
-                  "value" : "[ \"WIN\", \"WIN\", \"LOSE\" ]"
+                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"LOSE\" ]\r\n}"
                 }
               }
             }
@@ -507,6 +513,12 @@
                   "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
                 },
                 "examples" : {
+                  "match-result-enter-bad-request" : {
+                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"경기 결과의 크기는 3개입니다.\"\r\n}"
+                  },
+                  "match-result-enter-invalid" : {
+                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"잘못된 요청입니다.\"\r\n}"
+                  },
                   "match-result-enter-not-joined" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"참여하지 않은 경기입니다.\"\r\n}"
                   }
@@ -625,7 +637,7 @@
                 },
                 "examples" : {
                   "contest-join" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 50396,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 71304,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0\r\n  }\r\n}"
                   }
                 }
               }
@@ -1270,6 +1282,26 @@
           }
         }
       },
+      "api-v1-match-id-487369792" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "array",
+            "description" : "선수가 입력한 자신의 경기 결과",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
+          }
+        }
+      },
       "api-v1-member-115978559" : {
         "type" : "object",
         "properties" : {
@@ -1446,9 +1478,6 @@
             "description" : "참가 핸디캡"
           }
         }
-      },
-      "api-v1-match-id486549215" : {
-        "type" : "object"
       },
       "api-v1-contest-id-matches150485159" : {
         "type" : "array",

@@ -1,6 +1,11 @@
 package org.antop.billiardslove.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.dto.MatchDto;
 import org.antop.billiardslove.exception.MatchNotFoundException;
@@ -13,7 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -40,13 +46,26 @@ public class MatchApi {
     }
 
     @PutMapping("/api/v1/match/{matchId}")
-    public MatchDto enter(@PathVariable("matchId") final long matchId,
-                       @RequestBody String[] result,
-                       @AuthenticationPrincipal final Long memberId) {
-        Outcome[] results = Arrays.stream(result)
-                .map(Outcome::valueOf).
-                toArray(value -> new Outcome[3]);
-        return matchService.enter(matchId, memberId, results);
+    public MatchDto enterResult(@PathVariable("matchId") final long matchId,
+                          @RequestBody @Valid MatchResultEnterRequest request,
+                          @AuthenticationPrincipal final Long memberId) {
+        return matchService.enter(matchId, memberId, request.getResult());
+    }
+
+    @Getter
+    @ToString
+    @FieldNameConstants
+    static class MatchResultEnterRequest {
+        /**
+         * 선수가 입력한 경기 결과
+         */
+        @Size(min = 3, max = 3, message = "경기 결과의 크기는 3개입니다.")
+        private final Outcome[] result;
+
+        @JsonCreator
+        public MatchResultEnterRequest(@JsonProperty Outcome[] result) {
+            this.result = result;
+        }
     }
 
 }
