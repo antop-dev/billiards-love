@@ -27,7 +27,7 @@
                 <v-select
                   :disabled="result === 'NONE'"
                   v-model="results[i]"
-                  :items="['WIN', 'LOSE']"
+                  :items="['WIN', 'LOSE', 'ABSTENTION', 'HOLD']"
                   @change="updateResult(result, i)"
                   menu-props="auto"
                   hide-details
