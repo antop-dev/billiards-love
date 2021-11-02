@@ -5,8 +5,7 @@ const RankApi = class {
   constructor(client) {
     this.#client = client;
   }
-  valid(s) {
-    console.log(s);
+  valid() {
     // TODO
     return true;
   }
