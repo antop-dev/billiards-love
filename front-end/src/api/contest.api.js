@@ -5,9 +5,7 @@ const ContestApi = class {
   constructor(client) {
     this.#client = client;
   }
-  valid(s) {
-    console.log(s);
-    // TODO
+  valid() {
     return true;
   }
   inquire_contests() {
