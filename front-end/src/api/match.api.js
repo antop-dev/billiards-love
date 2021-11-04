@@ -5,17 +5,18 @@ const MatchApi = class {
   constructor(client) {
     this.#client = client;
   }
-  valid(s) {
-    console.log(s);
-    // TODO
+  valid() {
     return true;
+  }
+
+  update(id, data) {
+    return this.#client.put('/api/v1/match/' + id, { result: data });
   }
   inquire_all(id) {
     return this.#client
       .get('/api/v1/contest/' + id + '/matches')
       .then(({ data }) => data || {});
   }
-
   inquire(id) {
     return this.#client
       .get('/api/v1/match/' + id)

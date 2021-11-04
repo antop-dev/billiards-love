@@ -20,9 +20,15 @@
         </thead>
         <tbody v-if="users.length > 0">
           <tr v-for="user in users" :key="user.id">
-            <td class="text-center">{{ user.opponent.no }}</td>
+            <td class="text-center">{{ user.opponent.number }}</td>
             <td>{{ user.opponent.nickname }}</td>
-            <td><match-result :opponent="user"></match-result></td>
+            <td>
+              <match-result
+                :id="id"
+                :opponent-id="user.opponent.id"
+                :value="renderButton(user.result)"
+              ></match-result>
+            </td>
             <td>{{ user.closed }}</td>
           </tr>
         </tbody>
@@ -32,33 +38,42 @@
 </template>
 
 <script>
-// import MatchApi from '../api/match.api';
+import MatchApi from '../api/match.api';
 import MatchResult from './MatchResult';
 export default {
   name: 'GameRank',
   components: { MatchResult },
   data() {
     return {
-      showDialog: false,
-      users: [
-        {
-          id: 3823,
-          opponent: {
-            no: 2,
-            id: 312,
-            nickname: '홍길동',
-          },
-          result: ['WIN', 'LOSE', 'LOSE'],
-          closed: true,
-        },
-      ],
+      id: '',
+      users: [],
     };
   },
-  methods: {},
+  methods: {
+    renderButton(results) {
+      let win = 0;
+      let lose = 0;
+      let none = 0;
+      for (let i = 0; i < results.length; i++) {
+        const result = results[i];
+        if (result === 'WIN') {
+          win++;
+        } else if (result === 'LOSE') {
+          lose++;
+        } else {
+          none++;
+          if (none === result.length - 1) {
+            return '선택';
+          }
+        }
+      }
+      return (win > 0 ? win + '승' : '') + (lose > 0 ? lose + '패' : '');
+    },
+  },
   async created() {
     const params = this.$route.params;
-    console.log(params);
-    // this.users = await MatchApi.inquire_all(params.id);
+    this.id = params.id;
+    this.users = await MatchApi.inquire_all(params.id);
   },
 };
 </script>
