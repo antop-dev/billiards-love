@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
-        <a v-bind="attrs" v-on="on">{{ renderButton() }}</a>
+        <a v-bind="attrs" v-on="on">{{ value }}</a>
       </template>
 
       <v-card>
@@ -11,7 +11,7 @@
         </v-card-title>
         <v-card-title class="text-center justify-center py-6">
           <h1 class="font-weight-bold text-h3 basil--text">
-            VS {{ opponent.opponent.nickname }}
+            VS {{ match.opponent.nickname }}
           </h1>
         </v-card-title>
         <v-divider></v-divider>
@@ -25,7 +25,6 @@
             <v-list-item-content>
               <h2>
                 <v-select
-                  :disabled="result === 'NONE'"
                   v-model="results[i]"
                   :items="['WIN', 'LOSE', 'ABSTENTION', 'HOLD']"
                   @change="updateResult(result, i)"
@@ -54,14 +53,16 @@ export default {
   name: 'GameResult',
   props: {
     id: String,
-    opponentId: String,
+    opponentId: Number,
+    value: String,
     toggleWindow: Function,
   },
   data() {
     return {
-      value: 'test',
       selected: '',
-      opponent: {},
+      match: {
+        opponent: {},
+      },
       results: [],
       dialog: false,
     };
@@ -72,26 +73,6 @@ export default {
     },
     updateResult(v, i) {
       this.$set(this.results, v, i);
-      this.renderButton();
-    },
-    renderButton() {
-      let win = 0;
-      let lose = 0;
-      let none = 0;
-      for (let i = 0; i < this.results.length; i++) {
-        const result = this.results[i];
-        if (result === 'WIN') {
-          win++;
-        } else if (result === 'LOSE') {
-          lose++;
-        } else {
-          none++;
-          if (none === result.length) {
-            return '선택';
-          }
-        }
-      }
-      return (win > 0 ? win + '승' : '') + (lose > 0 ? lose + '패' : '');
     },
     confirm() {
       MatchApi.update(this.id, this.results);
@@ -99,8 +80,12 @@ export default {
     },
   },
   async created() {
-    this.opponent = await MatchApi.inquire(this.opponentId);
-    this.results = this.opponent.result;
+    try {
+      this.match = await MatchApi.inquire(this.opponentId);
+    } catch {
+      console.error('error');
+    }
+    this.results = this.match.result;
   },
 };
 </script>

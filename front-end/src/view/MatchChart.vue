@@ -20,12 +20,13 @@
         </thead>
         <tbody v-if="users.length > 0">
           <tr v-for="user in users" :key="user.id">
-            <td class="text-center">{{ user.opponent.no }}</td>
+            <td class="text-center">{{ user.opponent.number }}</td>
             <td>{{ user.opponent.nickname }}</td>
             <td>
               <match-result
                 :id="id"
                 :opponent-id="user.opponent.id"
+                :value="renderButton(user.result)"
               ></match-result>
             </td>
             <td>{{ user.closed }}</td>
@@ -48,7 +49,27 @@ export default {
       users: [],
     };
   },
-  methods: {},
+  methods: {
+    renderButton(results) {
+      let win = 0;
+      let lose = 0;
+      let none = 0;
+      for (let i = 0; i < results.length; i++) {
+        const result = results[i];
+        if (result === 'WIN') {
+          win++;
+        } else if (result === 'LOSE') {
+          lose++;
+        } else {
+          none++;
+          if (none === result.length - 1) {
+            return '선택';
+          }
+        }
+      }
+      return (win > 0 ? win + '승' : '') + (lose > 0 ? lose + '패' : '');
+    },
+  },
   async created() {
     const params = this.$route.params;
     this.id = params.id;
