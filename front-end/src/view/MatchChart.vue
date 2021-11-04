@@ -23,7 +23,10 @@
             <td class="text-center">{{ user.opponent.no }}</td>
             <td>{{ user.opponent.nickname }}</td>
             <td>
-              <match-result :id="id" :opponent="user"></match-result>
+              <match-result
+                :id="id"
+                :opponent-id="user.opponent.id"
+              ></match-result>
             </td>
             <td>{{ user.closed }}</td>
           </tr>
@@ -42,18 +45,7 @@ export default {
   data() {
     return {
       id: '',
-      users: [
-        {
-          id: 3823,
-          opponent: {
-            no: 2,
-            id: 312,
-            nickname: '홍길동',
-          },
-          result: ['WIN', 'LOSE', 'LOSE'],
-          closed: true,
-        },
-      ],
+      users: [],
     };
   },
   methods: {},

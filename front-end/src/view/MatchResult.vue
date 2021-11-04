@@ -54,13 +54,14 @@ export default {
   name: 'GameResult',
   props: {
     id: String,
-    opponent: Object,
+    opponentId: String,
     toggleWindow: Function,
   },
   data() {
     return {
       value: 'test',
       selected: '',
+      opponent: {},
       results: [],
       dialog: false,
     };
@@ -68,15 +69,6 @@ export default {
   methods: {
     closeWindow() {
       this.$emit('toggleWindow', false);
-    },
-    renderResult(result) {
-      if (result === 'WIN') {
-        return '승';
-      } else if (result === 'LOSE') {
-        return '패';
-      } else {
-        return '선택';
-      }
     },
     updateResult(v, i) {
       this.$set(this.results, v, i);
@@ -107,6 +99,7 @@ export default {
     },
   },
   async created() {
+    this.opponent = await MatchApi.inquire(this.opponentId);
     this.results = this.opponent.result;
   },
 };
