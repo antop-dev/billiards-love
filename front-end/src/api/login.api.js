@@ -36,7 +36,7 @@ const loginApi = class {
   }
   registerMember(input) {
     return this.#client
-      .post('/api/v1/member', input)
+      .put('/api/v1/member', input)
       .then(({ data }) => data || {});
   }
 };
