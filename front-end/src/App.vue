@@ -77,7 +77,7 @@ export default {
         window.Kakao.Auth.login({
           success: async () => {
             // 사용자 정보 입력
-            await this.executeLogin(await this.getUserInfo());
+            await this.executeLogin(statusInfo);
           },
           fail: e => {
             console.error(e);
@@ -98,6 +98,8 @@ export default {
       this.showLoading = false;
       if (!this.$store.state.login_info.registered) {
         await this.$router.push('/register');
+      } else if (this.$route.path === '/') {
+        await this.$router.push('/dashboard');
       }
     },
     async getUserInfo() {
