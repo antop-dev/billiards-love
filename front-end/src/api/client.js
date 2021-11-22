@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 import store from '../store';
 
@@ -15,6 +16,7 @@ HttpClient.interceptors.request.use(
     return config;
   },
   function(error) {
+    Vue.$toast.error(error);
     return Promise.reject(error);
   },
 );
@@ -24,27 +26,7 @@ HttpClient.interceptors.response.use(
     return response;
   },
   error => {
-    alert(error);
-    return Promise.reject(error);
-  },
-);
-
-HttpClient.interceptors.response.use(
-  response => {
-    return response;
-  },
-  error => {
-    alert(error);
-    return Promise.reject(error);
-  },
-);
-
-HttpClient.interceptors.response.use(
-  response => {
-    return response;
-  },
-  error => {
-    alert(error);
+    Vue.$toast.error(error);
     return Promise.reject(error);
   },
 );
