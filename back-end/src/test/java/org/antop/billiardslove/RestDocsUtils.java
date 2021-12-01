@@ -184,9 +184,9 @@ public class RestDocsUtils {
         public static List<FieldDescriptor> match() {
             List<FieldDescriptor> fields = new ArrayList<>();
             fields.add(fieldWithPath(MatchDto.Fields.ID).description("경기 아이디").type(NUMBER));
-            fields.add(fieldWithPath(MatchDto.Fields.LEFT).description("left player").type(OBJECT));
+            fields.add(fieldWithPath(MatchDto.Fields.LEFT).description("플레이어가 조회 : 나 자신" + NL + "관리자가 조회 : 왼쪽 선수").type(OBJECT));
             fields.addAll(appendPrefix(matchPlayer(), MatchDto.Fields.LEFT));
-            fields.add(fieldWithPath(MatchDto.Fields.RIGHT).description("right player").type(OBJECT));
+            fields.add(fieldWithPath(MatchDto.Fields.RIGHT).description("플레이어가 조회 : 상대 선수" + NL + "관리자가 조회 : 오른쪽 선수").type(OBJECT));
             fields.addAll(appendPrefix(matchPlayer(), MatchDto.Fields.RIGHT));
             fields.add(fieldWithPath(MatchDto.Fields.CLOSED).description("확정 여부" + NL + "true : 수정 불가").type(BOOLEAN));
             return fields;
