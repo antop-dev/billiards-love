@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="this.$isMobile()">
     <v-app>
       <div v-if="showLoading" class="text-center">
         <v-progress-circular
@@ -15,6 +15,7 @@
             <img
               src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
               width="222"
+              alt="카카오계정으로 로그인"
             />
           </a>
         </div>
@@ -25,9 +26,13 @@
     </v-app>
     <!-- 초기화가 되어있나 안되어있나-->
   </div>
+  <div v-else>
+    <NotMobile />
+  </div>
 </template>
 
 <script>
+import NotMobile from './view/NotMobile';
 import LoginApi from './api/login.api';
 import aes256 from './util/aes256';
 export default {
@@ -39,6 +44,7 @@ export default {
       showLoginButton: false,
     };
   },
+  components: { NotMobile },
   methods: {
     /**
      * 카카오 초기화 정보를 요청합니다
@@ -99,6 +105,7 @@ export default {
     },
   },
   async created() {
+    if (!this.$isMobile()) return;
     // 최초로 카카오 초기화 합니다.
     await this.kakaoInit();
     await this.kakaoLogin();
