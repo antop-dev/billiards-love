@@ -2,9 +2,11 @@ package org.antop.billiardslove.mapper;
 
 import org.antop.billiardslove.constants.MapStruct;
 import org.antop.billiardslove.dto.MatchDto;
-import org.antop.billiardslove.dto.PlayerDto;
+import org.antop.billiardslove.dto.MatchPlayerDto;
 import org.antop.billiardslove.jpa.entity.Match;
+import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
+import org.antop.billiardslove.model.MatchResult;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,26 +15,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = MapStruct.COMPONENT_MODEL)
 public abstract class MatchMapper {
-    private static final String MAPPING_OPPONENT = "opponent";
-    private static final String MAPPING_MATCH_RESULT = "matchResult";
+    private static final String MAPPING_LEFT = "left";
+    private static final String MAPPING_RIGHT = "right";
 
     @Autowired
-    private PlayerMapper playerMapper;
+    private MatchPlayerMapper matchPlayerMapper;
 
-    @Mapping(source = "match", target = "opponent", qualifiedByName = MAPPING_OPPONENT)
-    @Mapping(source = "match", target = "result", qualifiedByName = MAPPING_MATCH_RESULT)
+    @Mapping(source = "match", target = "left", qualifiedByName = MAPPING_LEFT)
+    @Mapping(source = "match", target = "right", qualifiedByName = MAPPING_RIGHT)
     @Mapping(source = "confirmed", target = "closed")
-    public abstract MatchDto toDto(Match match, @Context long memberId);
+    public abstract MatchDto toDto(Match match, @Context Member member);
 
-    @Named(MAPPING_OPPONENT)
-    protected PlayerDto opponent(Match match, @Context long memberId) {
-        Player player = match.getOpponent(memberId);
-        return playerMapper.toDto(player);
+    @Named(MAPPING_LEFT)
+    protected MatchPlayerDto left(Match match, @Context Member member) {
+        Player player = member.isManager() ? match.getPlayer1() : match.getMe(member.getId());
+        MatchResult result = member.isManager() ? match.getMatchResult1() : match.getMyResult(member.getId());
+        return matchPlayerMapper.toDto(player, result);
     }
 
-    @Named(MAPPING_MATCH_RESULT)
-    protected String[] matchResult(Match match, @Context long memberId) {
-        return match.getMatchResult(memberId).toArrayString();
+    @Named(MAPPING_RIGHT)
+    protected MatchPlayerDto matchResult(Match match, @Context Member member) {
+        Player player = member.isManager() ? match.getPlayer2() : match.getOpponent(member.getId());
+        MatchResult result = member.isManager() ? match.getMatchResult2() : match.getOpponentResult(member.getId());
+        return matchPlayerMapper.toDto(player, result);
     }
 
 }

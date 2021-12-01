@@ -1,13 +1,13 @@
 package org.antop.billiardslove.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-@Builder
+@SuperBuilder
 @RequiredArgsConstructor
 @ToString
 @FieldNameConstants
@@ -46,5 +46,5 @@ public class PlayerDto {
     /**
      * 진행률 (%)
      */
-    private final int progress;
+    private final double progress;
 }

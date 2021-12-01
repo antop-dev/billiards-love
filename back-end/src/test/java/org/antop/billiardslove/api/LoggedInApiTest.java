@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.CustomAttributes.encrypted;
-import static org.antop.billiardslove.RestDocsUtils.Descrption.NL;
+import static org.antop.billiardslove.RestDocsUtils.Description.NL;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

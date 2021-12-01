@@ -126,7 +126,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.player.handicap", is(player.getHandicap())))
                 .andExpect(jsonPath("$.player.rank", is(player.getRank())))
                 .andExpect(jsonPath("$.player.score", is(player.getScore())))
-                .andExpect(jsonPath("$.player.progress", is(30)))
+                .andExpect(jsonPath("$.player.progress", is(30.0)))
         ;
     }
 

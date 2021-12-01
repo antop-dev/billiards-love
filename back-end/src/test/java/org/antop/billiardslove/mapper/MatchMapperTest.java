@@ -48,13 +48,13 @@ class MatchMapperTest {
         match.enterResult(member1.getId(), Outcome.WIN, Outcome.LOSE, Outcome.WIN);
         match.enterResult(member2.getId(), Outcome.LOSE, Outcome.WIN, Outcome.LOSE);
 
-        MatchDto dto = mapper.toDto(match, member1.getId());
+        MatchDto dto = mapper.toDto(match, member1);
 
         assertThat(dto, notNullValue());
-        assertThat(dto.getResult(), is(new String[]{"WIN", "LOSE", "WIN"}));
-        assertThat(dto.getOpponent().getNickname(), is(member2.getNickname()));
-        assertThat(dto.getOpponent().getNumber(), is(player2.getNumber()));
-        assertThat(dto.getOpponent().getRank(), is(player2.getRank()));
-        assertThat(dto.getOpponent().getScore(), is(player2.getScore()));
+        assertThat(dto.getLeft().getResult(), is(new String[]{"WIN", "LOSE", "WIN"}));
+        assertThat(dto.getRight().getNickname(), is(member2.getNickname()));
+        assertThat(dto.getRight().getNumber(), is(player2.getNumber()));
+        assertThat(dto.getRight().getRank(), is(player2.getRank()));
+        assertThat(dto.getRight().getScore(), is(player2.getScore()));
     }
 }
