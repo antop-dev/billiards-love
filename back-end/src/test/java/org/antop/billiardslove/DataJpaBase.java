@@ -2,6 +2,7 @@ package org.antop.billiardslove;
 
 import com.github.javafaker.Faker;
 import com.integralblue.log4jdbc.spring.Log4jdbcAutoConfiguration;
+import org.antop.billiardslove.config.JpaConfig;
 import org.antop.billiardslove.constants.Profiles;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Kakao;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManager;
@@ -27,6 +29,7 @@ import java.util.Locale;
 @ActiveProfiles(Profiles.TEST)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ImportAutoConfiguration(Log4jdbcAutoConfiguration.class)
+@Import(JpaConfig.class)
 abstract public class DataJpaBase {
 
     protected static final Logger log = LoggerFactory.getLogger(DataJpaBase.class);

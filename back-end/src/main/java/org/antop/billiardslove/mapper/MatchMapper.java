@@ -29,14 +29,14 @@ public abstract class MatchMapper {
     @Named(MAPPING_LEFT)
     protected MatchPlayerDto left(Match match, @Context Member member) {
         Player player = member.isManager() ? match.getPlayer1() : match.getMe(member.getId());
-        MatchResult result = member.isManager() ? match.getMatchResult1() : match.getMyResult(member.getId());
+        MatchResult result = member.isManager() ? match.getMatchResult1() : match.getResult(player.getMember().getId());
         return matchPlayerMapper.toDto(player, result);
     }
 
     @Named(MAPPING_RIGHT)
     protected MatchPlayerDto matchResult(Match match, @Context Member member) {
         Player player = member.isManager() ? match.getPlayer2() : match.getOpponent(member.getId());
-        MatchResult result = member.isManager() ? match.getMatchResult2() : match.getOpponentResult(member.getId());
+        MatchResult result = member.isManager() ? match.getMatchResult2() : match.getResult(player.getMember().getId());
         return matchPlayerMapper.toDto(player, result);
     }
 

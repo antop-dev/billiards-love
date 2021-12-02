@@ -119,23 +119,15 @@ public class Match {
     }
 
     /**
-     * 해당 선수의 매칭 결과를 가져온다.
+     * 회원의 매칭 결과를 가져온다.
      *
      * @param memberId 회원 아이디
      * @return 경기 결과
+     * @throws NotJoinedMatchException 경기에 참여하지 않은 회원
      */
-    public MatchResult getMyResult(long memberId) {
-        return getMe(memberId) == player1 ? matchResult1 : matchResult2;
-    }
-
-    /**
-     * 상대 선수의 매칭 결과롤 가져온다.
-     *
-     * @param memberId 회원 아이디
-     * @return 상대 선수가 입력한 경기 결과
-     */
-    public MatchResult getOpponentResult(long memberId) {
-        return getMe(memberId) == player1 ? matchResult2 : matchResult1;
+    public MatchResult getResult(long memberId) {
+        Player p = getMe(memberId);
+        return p == player1 ? matchResult1 : matchResult2;
     }
 
     /**
@@ -154,6 +146,7 @@ public class Match {
      *
      * @param memberId 회원 아이디
      * @return 내 참가자 정보
+     * @throws NotJoinedMatchException 경기에 참여하지 않은 회원
      */
     public Player getMe(long memberId) {
         if (player1.getMember().getId() == memberId) {
@@ -170,6 +163,7 @@ public class Match {
      *
      * @param memberId 회원 아이디
      * @return 상대 참가자
+     * @throws NotJoinedMatchException 경기에 참여하지 않은 회원
      */
     public Player getOpponent(long memberId) {
         return getMe(memberId) == player1 ? player2 : player1;
