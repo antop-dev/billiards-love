@@ -3,11 +3,12 @@ package org.antop.billiardslove.api;
 import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.WebMvcBase;
 import org.antop.billiardslove.dto.MatchDto;
-import org.antop.billiardslove.dto.PlayerDto;
+import org.antop.billiardslove.dto.MatchPlayerDto;
 import org.antop.billiardslove.exception.MatchNotFoundException;
 import org.antop.billiardslove.exception.NotJoinedMatchException;
 import org.antop.billiardslove.model.Outcome;
 import org.antop.billiardslove.service.MatchService;
+import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,29 +47,40 @@ class MatchResultApiTest extends WebMvcBase {
     @DisplayName("정상적인 결과 입력")
     @Test
     void enter() throws Exception {
-        // when
+        // given
         when(matchService.enter(anyLong(), anyLong(), any())).then(invocation ->
                 MatchDto.builder()
                         .id(invocation.getArgument(0, Long.class))
-                        .result(Arrays.stream(invocation.getArgument(2, Outcome[].class))
-                                .map(Enum::name).
-                                toArray(String[]::new))
-                        .closed(false)
-                        .opponent(PlayerDto.builder()
+                        .left(MatchPlayerDto.builder()
+                                .id(10)
+                                .number(10)
+                                .nickname("안탑")
+                                .handicap(22)
+                                .rank(10)
+                                .score(14)
+                                .variation(2)
+                                .result(Arrays.stream(invocation.getArgument(2, Outcome[].class))
+                                        .map(Enum::name).
+                                        toArray(String[]::new))
+                                .build())
+                        .right(MatchPlayerDto.builder()
                                 .id(123)
                                 .nickname("상대선수 닉네임")
                                 .handicap(18)
                                 .number(10)
                                 .rank(15)
                                 .score(452)
+                                .variation(1)
+                                .result(new String[]{"NONE", "NONE", "NONE"})
                                 .build())
+                        .closed(false)
                         .build()
         );
-        // request
+        long matchId = 7L;
         Outcome[] result = {WIN, WIN, LOSE};
         MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
-        // action
-        mockMvc.perform(put("/api/v1/match/{id}", 7)
+        // when
+        ResultActions actions = mockMvc.perform(put("/api/v1/match/{id}", matchId)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJson(request))
@@ -84,12 +97,11 @@ class MatchResultApiTest extends WebMvcBase {
                                         .type(JsonFieldType.ARRAY)
                         ),
                         responseFields(RestDocsUtils.FieldSnippet.match())
-                ))
-                // verify
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result[0]", is(result[0].name())))
-                .andExpect(jsonPath("$.result[1]", is(result[1].name())))
-                .andExpect(jsonPath("$.result[2]", is(result[2].name())))
+                ));
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", NumberMatcher.is(matchId)))
+                .andExpect(jsonPath("$.left.result", is(Arrays.asList("WIN", "WIN", "LOSE"))))
         ;
     }
 

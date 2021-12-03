@@ -2,12 +2,10 @@ package org.antop.billiardslove.api;
 
 import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.WebMvcBase;
+import org.antop.billiardslove.dao.MatchDao;
 import org.antop.billiardslove.dto.MatchDto;
-import org.antop.billiardslove.dto.PlayerDto;
-import org.antop.billiardslove.model.MatchResult;
-import org.antop.billiardslove.model.Outcome;
+import org.antop.billiardslove.dto.MatchPlayerDto;
 import org.antop.billiardslove.service.MatchService;
-import org.hamcrest.Matchers;
 import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,51 +32,67 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MatchApiTest extends WebMvcBase {
     @MockBean
     private MatchService matchService;
+    @MockBean
+    private MatchDao matchDao;
 
     @Test
     void matches() throws Exception {
+        final MatchPlayerDto me = MatchPlayerDto.builder()
+                .id(10)
+                .number(10)
+                .nickname("안탑")
+                .handicap(22)
+                .rank(10)
+                .score(14)
+                .variation(2)
+                .result(new String[]{"WIN", "WIN", "WIN"})
+                .build();
         // when
         when(matchService.getMatches(anyLong(), anyLong())).then(invocation -> Arrays.asList(
                 MatchDto.builder()
                         .id(1)
-                        .result(MatchResult.of(Outcome.WIN, Outcome.LOSE, Outcome.WIN).toArrayString())
-                        .closed(true)
-                        .opponent(PlayerDto.builder()
-                                .id(111)
+                        .left(me)
+                        .right(MatchPlayerDto.builder()
+                                .id(11)
+                                .number(11)
                                 .nickname("띠용")
-                                .handicap(21)
-                                .number(3)
-                                .rank(1)
-                                .variation(3)
-                                .score(17)
+                                .handicap(18)
+                                .rank(21)
+                                .score(7)
+                                .variation(-1)
+                                .result(new String[]{"LOSE", "LOSE", "LOSE"})
                                 .build())
+                        .closed(true)
                         .build(),
                 MatchDto.builder()
                         .id(2)
-                        .result(MatchResult.of(Outcome.LOSE, Outcome.LOSE, Outcome.LOSE).toArrayString())
-                        .closed(false)
-                        .opponent(PlayerDto.builder()
-                                .id(222)
-                                .nickname("스터디2")
-                                .handicap(22)
-                                .number(4)
-                                .rank(3)
-                                .score(-2)
+                        .left(me)
+                        .right(MatchPlayerDto.builder()
+                                .id(12)
+                                .number(12)
+                                .nickname("인디")
+                                .handicap(20)
+                                .rank(19)
                                 .score(11)
+                                .variation(-2)
+                                .result(new String[]{"NONE", "NONE", "NONE"})
                                 .build())
+                        .closed(false)
                         .build(),
                 MatchDto.builder()
                         .id(3)
-                        .result(MatchResult.of(Outcome.NONE, Outcome.NONE, Outcome.NONE).toArrayString())
-                        .closed(false)
-                        .opponent(PlayerDto.builder()
-                                .id(333)
-                                .nickname("인디")
-                                .handicap(25)
-                                .number(5)
-                                .rank(8)
-                                .score(-3)
+                        .left(me)
+                        .right(MatchPlayerDto.builder()
+                                .id(33)
+                                .number(13)
+                                .nickname("스터디2")
+                                .handicap(30)
+                                .rank(2)
+                                .score(30)
+                                .variation(-1)
+                                .result(new String[]{"ABSTENTION", "ABSTENTION", "ABSTENTION"})
                                 .build())
+                        .closed(false)
                         .build()
         ));
 
@@ -93,11 +107,36 @@ class MatchApiTest extends WebMvcBase {
                         responseFields(RestDocsUtils.FieldSnippet.matches())
                 ))
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].result", is(Arrays.asList("WIN", "LOSE", "WIN"))))
+                .andExpect(jsonPath("$[0].left.id", is(10)))
+                .andExpect(jsonPath("$[0].left.number", is(10)))
+                .andExpect(jsonPath("$[0].left.nickname", is("안탑")))
+                .andExpect(jsonPath("$[0].left.result", is(Arrays.asList("WIN", "WIN", "WIN"))))
+                .andExpect(jsonPath("$[0].right.id", is(11)))
+                .andExpect(jsonPath("$[0].right.number", is(11)))
+                .andExpect(jsonPath("$[0].right.nickname", is("띠용")))
+                .andExpect(jsonPath("$[0].right.handicap", is(18)))
+                .andExpect(jsonPath("$[0].right.rank", is(21)))
+                .andExpect(jsonPath("$[0].right.score", is(7)))
+                .andExpect(jsonPath("$[0 ].right.variation", is(-1)))
+                .andExpect(jsonPath("$[0].right.result", is(Arrays.asList("LOSE", "LOSE", "LOSE"))))
                 .andExpect(jsonPath("$[0].closed", is(true)))
-                .andExpect(jsonPath("$[1].result", is(Arrays.asList("LOSE", "LOSE", "LOSE"))))
+                .andExpect(jsonPath("$[1].right.id", is(12)))
+                .andExpect(jsonPath("$[1].right.number", is(12)))
+                .andExpect(jsonPath("$[1].right.nickname", is("인디")))
+                .andExpect(jsonPath("$[1].right.handicap", is(20)))
+                .andExpect(jsonPath("$[1].right.rank", is(19)))
+                .andExpect(jsonPath("$[1].right.score", is(11)))
+                .andExpect(jsonPath("$[1].right.variation", is(-2)))
+                .andExpect(jsonPath("$[1].right.result", is(Arrays.asList("NONE", "NONE", "NONE"))))
                 .andExpect(jsonPath("$[1].closed", is(false)))
-                .andExpect(jsonPath("$[2].result", is(Arrays.asList("NONE", "NONE", "NONE"))))
+                .andExpect(jsonPath("$[2].right.id", is(33)))
+                .andExpect(jsonPath("$[2].right.number", is(13)))
+                .andExpect(jsonPath("$[2].right.nickname", is("스터디2")))
+                .andExpect(jsonPath("$[2].right.handicap", is(30)))
+                .andExpect(jsonPath("$[2].right.rank", is(2)))
+                .andExpect(jsonPath("$[2].right.score", is(30)))
+                .andExpect(jsonPath("$[2].right.variation", is(-1)))
+                .andExpect(jsonPath("$[2].right.result", is(Arrays.asList("ABSTENTION", "ABSTENTION", "ABSTENTION"))))
                 .andExpect(jsonPath("$[2].closed", is(false)))
         ;
 
@@ -105,22 +144,34 @@ class MatchApiTest extends WebMvcBase {
 
     @Test
     void match() throws Exception {
-        long matchId = 991;
+        long matchId = 1;
         // when
         when(matchService.getMatch(anyLong(), anyLong())).then(invocation ->
                 Optional.of(MatchDto.builder()
                         .id(invocation.getArgument(0, Long.class))
-                        .result(MatchResult.of(Outcome.WIN, Outcome.WIN, Outcome.WIN).toArrayString())
-                        .closed(true)
-                        .opponent(PlayerDto.builder()
-                                .id(9)
+                        .left(MatchPlayerDto.builder()
+                                .id(10)
+                                .number(10)
                                 .nickname("안탑")
                                 .handicap(22)
-                                .number(15)
-                                .rank(8)
-                                .variation(-4)
-                                .score(115)
+                                .rank(10)
+                                .score(14)
+                                .variation(2)
+                                .progress(15.6)
+                                .result(new String[]{"WIN", "WIN", "WIN"})
                                 .build())
+                        .right(MatchPlayerDto.builder()
+                                .id(11)
+                                .number(11)
+                                .nickname("띠용")
+                                .handicap(18)
+                                .rank(21)
+                                .score(7)
+                                .variation(-1)
+                                .progress(56.8)
+                                .result(new String[]{"LOSE", "LOSE", "LOSE"})
+                                .build())
+                        .closed(true)
                         .build())
         );
         // action
@@ -137,14 +188,24 @@ class MatchApiTest extends WebMvcBase {
                 ))
                 // verify
                 .andExpect(jsonPath("$.id", NumberMatcher.is(matchId)))
-                .andExpect(jsonPath("$.opponent.id", is(9)))
-                .andExpect(jsonPath("$.opponent.nickname", is("안탑")))
-                .andExpect(jsonPath("$.opponent.handicap", is(22)))
-                .andExpect(jsonPath("$.opponent.number", is(15)))
-                .andExpect(jsonPath("$.opponent.rank", is(8)))
-                .andExpect(jsonPath("$.opponent.score", is(115)))
-                .andExpect(jsonPath("$.opponent.variation", is(-4)))
-                .andExpect(jsonPath("$.result", Matchers.is(Arrays.asList("WIN", "WIN", "WIN"))))
+                .andExpect(jsonPath("$.left.id", is(10)))
+                .andExpect(jsonPath("$.left.number", is(10)))
+                .andExpect(jsonPath("$.left.nickname", is("안탑")))
+                .andExpect(jsonPath("$.left.handicap", is(22)))
+                .andExpect(jsonPath("$.left.rank", is(10)))
+                .andExpect(jsonPath("$.left.score", is(14)))
+                .andExpect(jsonPath("$.left.variation", is(2)))
+                .andExpect(jsonPath("$.left.progress", is(15.6)))
+                .andExpect(jsonPath("$.left.result", is(Arrays.asList("WIN", "WIN", "WIN"))))
+                .andExpect(jsonPath("$.right.id", is(11)))
+                .andExpect(jsonPath("$.right.number", is(11)))
+                .andExpect(jsonPath("$.right.nickname", is("띠용")))
+                .andExpect(jsonPath("$.right.handicap", is(18)))
+                .andExpect(jsonPath("$.right.rank", is(21)))
+                .andExpect(jsonPath("$.right.score", is(7)))
+                .andExpect(jsonPath("$.right.variation", is(-1)))
+                .andExpect(jsonPath("$.right.progress", is(56.8)))
+                .andExpect(jsonPath("$.right.result", is(Arrays.asList("LOSE", "LOSE", "LOSE"))))
                 .andExpect(jsonPath("$.closed", is(true)))
         ;
     }

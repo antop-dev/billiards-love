@@ -22,13 +22,15 @@ public class MatchDto {
      */
     private final long id;
     /**
-     * 상대 선수 정보
+     * 회원이 조회 시 : 내 정보<br>
+     * 관리자가 조회 시 : 왼쪽 선수 정보
      */
-    private final PlayerDto opponent;
+    private final MatchPlayerDto left;
     /**
-     * 경기 결과 (크기: 3)
+     * 회원이 조회 시 : 상대 선수 정보<br>
+     * 관리자가 조회 시 : 오른쪽 선수 정보
      */
-    private final String[] result;
+    private final MatchPlayerDto right;
     /**
      * 확정 여부
      */

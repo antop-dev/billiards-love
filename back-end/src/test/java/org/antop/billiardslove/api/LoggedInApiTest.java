@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.CustomAttributes.encrypted;
-import static org.antop.billiardslove.RestDocsUtils.Descrption.NL;
+import static org.antop.billiardslove.RestDocsUtils.Description.NL;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -145,7 +145,7 @@ class LoggedInApiTest extends WebMvcBase {
         return Arrays.asList(
                 fieldWithPath(LoggedInApi.Request.Fields.ID).description("카카오톡 회원번호"),
                 fieldWithPath(LoggedInApi.Request.Fields.CONNECTED_AT).description(
-                        "카카오톡 +++<a href=\"https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink\">연결</a>++ 완료된 시각, UTC" + NL
+                        "카카오톡 +++<a href=\"https://developers.kakao.com/docs/latest/ko/kakaologin/common#link-and-unlink\">연결</a>+++ 완료된 시각, UTC" + NL
                                 + " (+++<a href=\"https://tools.ietf.org/html/rfc3339\">RFC3339 internet date/time format</a>+++)"),
                 fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.NICKNAME).description("닉네임").attributes(encrypted()),
                 fieldWithPath(LoggedInApi.Request.Fields.PROFILE + "." + LoggedInApi.Request.Profile.Fields.IMAGE_URL).description("프로필 이미지 URL" + NL + "640px * 640px 또는 480px * 480px"),

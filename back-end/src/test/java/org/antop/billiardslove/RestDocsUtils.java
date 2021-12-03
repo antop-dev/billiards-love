@@ -2,6 +2,7 @@ package org.antop.billiardslove;
 
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.MatchDto;
+import org.antop.billiardslove.dto.MatchPlayerDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.dto.PlayerDto;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +20,9 @@ import java.util.stream.Collectors;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.CustomAttributes.encrypted;
-import static org.antop.billiardslove.RestDocsUtils.Descrption.NL;
+import static org.antop.billiardslove.RestDocsUtils.Description.NL;
 import static org.antop.billiardslove.config.error.ErrorMessage.Fields.CODE;
 import static org.antop.billiardslove.config.error.ErrorMessage.Fields.MESSAGE;
-import static org.springframework.restdocs.payload.JsonFieldType.ARRAY;
 import static org.springframework.restdocs.payload.JsonFieldType.BOOLEAN;
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.JsonFieldType.OBJECT;
@@ -49,8 +49,8 @@ public class RestDocsUtils {
      *
      * @author antop
      */
-    public static class Descrption {
-        private Descrption() {
+    public static class Description {
+        private Description() {
         }
 
         /**
@@ -184,10 +184,20 @@ public class RestDocsUtils {
         public static List<FieldDescriptor> match() {
             List<FieldDescriptor> fields = new ArrayList<>();
             fields.add(fieldWithPath(MatchDto.Fields.ID).description("경기 아이디").type(NUMBER));
-            fields.add(fieldWithPath(MatchDto.Fields.RESULT).description("경기 결과").type(ARRAY));
+            fields.add(fieldWithPath(MatchDto.Fields.LEFT).description("플레이어가 조회 : 나 자신" + NL + "관리자가 조회 : 왼쪽 선수").type(OBJECT));
+            fields.addAll(appendPrefix(matchPlayer(), MatchDto.Fields.LEFT));
+            fields.add(fieldWithPath(MatchDto.Fields.RIGHT).description("플레이어가 조회 : 상대 선수" + NL + "관리자가 조회 : 오른쪽 선수").type(OBJECT));
+            fields.addAll(appendPrefix(matchPlayer(), MatchDto.Fields.RIGHT));
             fields.add(fieldWithPath(MatchDto.Fields.CLOSED).description("확정 여부" + NL + "true : 수정 불가").type(BOOLEAN));
-            fields.add(fieldWithPath(MatchDto.Fields.OPPONENT).description("선수 정보").type(OBJECT));
-            fields.addAll(appendPrefix(player(), MatchDto.Fields.OPPONENT));
+            return fields;
+        }
+
+        /**
+         * 경기 - 플레이어
+         */
+        public static List<FieldDescriptor> matchPlayer() {
+            List<FieldDescriptor> fields = new ArrayList<>(player());
+            fields.add(fieldWithPath(MatchPlayerDto.Fields.RESULT).description("경기 결과"));
             return fields;
         }
 

@@ -86,8 +86,8 @@ class MatchRepositoryTest extends DataJpaBase {
         admin.setManager(true);
         memberRepository.save(admin);
 
-        match.enterResult(player1.getMember().getId(), WIN, LOSE, NONE);
-        match.enterResult(player2.getMember().getId(), LOSE, LOSE, NONE);
+        match.enterResult(member1.getId(), WIN, LOSE, NONE);
+        match.enterResult(member2.getId(), LOSE, LOSE, NONE);
         match.decide(admin);
         matchRepository.save(match);
 
@@ -97,8 +97,8 @@ class MatchRepositoryTest extends DataJpaBase {
         Optional<Match> optional = matchRepository.findById(match.getId());
         assertThat(optional.isPresent(), is(true));
         optional.ifPresent(it -> {
-            assertThat(it.getMatchResult(player1.getMember().getId()), is(MatchResult.of(WIN, LOSE, NONE)));
-            assertThat(it.getMatchResult(player2.getMember().getId()), is(MatchResult.of(LOSE, LOSE, NONE)));
+            assertThat(it.getResult(member1.getId()), is(MatchResult.of(WIN, LOSE, NONE)));
+            assertThat(it.getResult(member2.getId()), is(MatchResult.of(LOSE, LOSE, NONE)));
             assertThat(it.isConfirmed(), is(true));
         });
     }

@@ -7,7 +7,7 @@ endif::[]
 :sectlinks:
 :linkattrs:
 
-= 당구사랑
+= 당구사랑 API 명세서
 :toc: left
 :toclevels: 4
 

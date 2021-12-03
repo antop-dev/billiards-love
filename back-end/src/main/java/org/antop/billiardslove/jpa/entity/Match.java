@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldNameConstants;
 import org.antop.billiardslove.exception.NotJoinedMatchException;
 import org.antop.billiardslove.jpa.convertor.MatchResultConverter;
 import org.antop.billiardslove.model.MatchResult;
@@ -23,6 +24,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Getter
+@FieldNameConstants
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "tbl_mtc")
@@ -30,7 +33,6 @@ public class Match {
     /**
      * 매칭 아이디
      */
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mtc_id")
@@ -40,7 +42,6 @@ public class Match {
      * 대회 아이디
      */
     @NotNull
-    @Getter
     @ManyToOne
     @JoinColumn(name = "cnts_id")
     @ToString.Exclude
@@ -83,7 +84,6 @@ public class Match {
     /**
      * 확정 멤버 아이디
      */
-    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cnfr_mmbr_id")
     private Member manager;
@@ -91,12 +91,11 @@ public class Match {
     /**
      * 확정 일시
      */
-    @Getter
     @Column(name = "cnfr_dt")
     private LocalDateTime confirmAt;
 
     @Builder
-    private Match(Contest contest, Player player1, Player player2) {
+    protected Match(Contest contest, Player player1, Player player2) {
         this.contest = contest;
         this.player1 = player1;
         this.player2 = player2;
@@ -111,24 +110,25 @@ public class Match {
      * @param third    세번째 경기 결과
      */
     public void enterResult(long memberId, Outcome first, Outcome second, Outcome third) {
-        Player player = getMe(memberId);
-        if (player == player1) {
+        Player me = getMe(memberId);
+        if (me == player1) {
             matchResult1 = MatchResult.of(first, second, third);
-        } else if (player == player2) {
+        } else {
             matchResult2 = MatchResult.of(first, second, third);
         }
     }
 
     /**
-     * 해당 선수의 매칭 결과를 조회한다.
+     * 회원의 매칭 결과를 가져온다.
      *
      * @param memberId 회원 아이디
      * @return 경기 결과
+     * @throws NotJoinedMatchException 경기에 참여하지 않은 회원
      */
-    public MatchResult getMatchResult(long memberId) {
-        return getMe(memberId) == player1 ? matchResult1 : matchResult2;
+    public MatchResult getResult(long memberId) {
+        Player p = getMe(memberId);
+        return p == player1 ? matchResult1 : matchResult2;
     }
-
 
     /**
      * 경기 결과를 확정 짓는다.
@@ -146,6 +146,7 @@ public class Match {
      *
      * @param memberId 회원 아이디
      * @return 내 참가자 정보
+     * @throws NotJoinedMatchException 경기에 참여하지 않은 회원
      */
     public Player getMe(long memberId) {
         if (player1.getMember().getId() == memberId) {
@@ -162,6 +163,7 @@ public class Match {
      *
      * @param memberId 회원 아이디
      * @return 상대 참가자
+     * @throws NotJoinedMatchException 경기에 참여하지 않은 회원
      */
     public Player getOpponent(long memberId) {
         return getMe(memberId) == player1 ? player2 : player1;
