@@ -85,4 +85,20 @@ public class MatchService {
         matchDao.save(match);
     }
 
+    /**
+     * 경기를 확정한다.
+     *
+     * @param matchId  경기 아이디
+     * @param memberId 확정 짓는 회원(관리자) 아이디
+     * @param left     왼쪽 선수 결과
+     * @param right    오른쪽 선수 결과
+     * @return 경기 정보
+     */
+    public MatchDto decide(long matchId, long memberId, Outcome[] left, Outcome[] right) {
+        Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
+        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
+        match.decide(member, left, right);
+        return matchMapper.toDto(match, member);
+    }
+
 }

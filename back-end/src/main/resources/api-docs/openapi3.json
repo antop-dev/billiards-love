@@ -62,7 +62,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "error-forbidden" : {
@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"OEGVU2whV/1fy/C3/gwnjM+oY20Fj5HQXqB197qwDPo=\",\r\n  \"kakaoKey\" : \"ml/Tka9yZCQfzn9U/Wf2FDtHlZplP/C+/9cHvjkl/fXRBEJFkIHxMzSzij3UOzBfqQ==\",\r\n  \"adSenseKey\" : \"7Vzhlu9sI5YgGfNySQb+t65YvvXEMhRZtpcRIWc0TNlFO77WfgfI51GHvXecwA==\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"vy//lboGuKiVzvmTfdK9wqn1yi2FNrfEsdpwIp98zzU=\",\r\n  \"kakaoKey\" : \"Z97UjE7YMfxXaDUMmjmhW0RcTDBBnP/VdsxY1CZbHP8xOMPLmjOPtMsy2Z7ZipP39A==\",\r\n  \"adSenseKey\" : \"clFUId2E0sW23EeMdMET+5Dg1hPPqQPdDlbEMv0EISeE0E57crgVltBVZlpQ7Q==\"\r\n}"
                   }
                 }
               }
@@ -196,10 +196,10 @@
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"CAWgmpMDIz2G2sWHwOTRSABfNGHB57bgwdKRhQBw9KZi\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"yF/HtQw9Tn1ysLJIezX9IG6/r1PbPZmR3G+lQg86+huG\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"yaCTrCSwWntgJFc0iyfz7OY0n28cCKn9GoA+YWUgkbS9UkWH6owj5wTqRxA=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"DyfOsX92I3Wy+BsEXNwCY1F357NsTkL3jCA9MlOhy+OGA+A+tQT5MLplwc4=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\"\r\n}"
@@ -220,7 +220,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "error-bad-credentials" : {
@@ -239,7 +239,7 @@
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"0V7HDcDlawaN6dL85+kOCv/ER1VqmU/OKrAsiMdjyHg8jX6SJGI943kLWik=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"yhTE4Kh7GelOzacYUebCiaf2Z8TK+dVkPdnFYDHDtW7giHMk2g6O44IkGlk=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
                   }
                 }
               }
@@ -250,7 +250,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "member-modify-valid-handicap-not-null" : {
@@ -371,7 +371,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "error-already-contest-end" : {
@@ -415,7 +415,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-match-id307696740"
+                  "$ref" : "#/components/schemas/api-v1-match-id-decide307696740"
                 },
                 "examples" : {
                   "match" : {
@@ -429,7 +429,7 @@
       },
       "put" : {
         "tags" : [ "api" ],
-        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-bad-requestmatch-result-enter-invalidmatch-result-enter-not-joined",
+        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-bad-requestmatch-result-enter-not-joined",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -464,9 +464,6 @@
                 "match-result-enter-bad-request" : {
                   "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\", \"WIN\" ]\r\n}"
                 },
-                "match-result-enter-invalid" : {
-                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\", \"WIN\" ]\r\n}"
-                },
                 "match-result-enter-not-joined" : {
                   "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"LOSE\" ]\r\n}"
                 }
@@ -480,7 +477,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "error-match-not-found" : {
@@ -495,7 +492,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-match-id307696740"
+                  "$ref" : "#/components/schemas/api-v1-match-id-decide307696740"
                 },
                 "examples" : {
                   "match-result-enter" : {
@@ -510,14 +507,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "match-result-enter-bad-request" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"경기 결과의 크기는 3개입니다.\"\r\n}"
-                  },
-                  "match-result-enter-invalid" : {
-                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"잘못된 요청입니다.\"\r\n}"
                   },
                   "match-result-enter-not-joined" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"참여하지 않은 경기입니다.\"\r\n}"
@@ -572,7 +566,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "contest-end-already" : {
@@ -637,7 +631,7 @@
                 },
                 "examples" : {
                   "contest-join" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 38017620,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0.0\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 742911,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0.0\r\n  }\r\n}"
                   }
                 }
               }
@@ -648,7 +642,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "contest-join-already" : {
@@ -869,7 +863,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "contest-start-can-not" : {
@@ -925,11 +919,66 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-start-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-member-1153901879"
                 },
                 "examples" : {
                   "contest-stop-can-not" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회를 중지할 수 없는 상태입니다.\"\r\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/match/{id}/decide" : {
+      "post" : {
+        "tags" : [ "api" ],
+        "operationId" : "match-decide",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "경기 아이디",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "JWT 토큰",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "1"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-match-id-decide-1901348340"
+              },
+              "examples" : {
+                "match-decide" : {
+                  "value" : "{\r\n  \"left\" : [ \"WIN\", \"WIN\", \"WIN\" ],\r\n  \"right\" : [ \"LOSE\", \"LOSE\", \"LOSE\" ]\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-match-id-decide307696740"
+                },
+                "examples" : {
+                  "match-decide" : {
+                    "value" : "{\r\n  \"id\" : 1,\r\n  \"left\" : {\r\n    \"id\" : 100,\r\n    \"number\" : 72,\r\n    \"handicap\" : 23,\r\n    \"nickname\" : \"왼쪽 선수 닉네임\",\r\n    \"rank\" : 12,\r\n    \"score\" : 112,\r\n    \"variation\" : 2,\r\n    \"progress\" : 87.5,\r\n    \"result\" : [ \"WIN\", \"WIN\", \"WIN\" ]\r\n  },\r\n  \"right\" : {\r\n    \"id\" : 103,\r\n    \"number\" : 78,\r\n    \"handicap\" : 21,\r\n    \"nickname\" : \"오른쪽 선수 닉네임\",\r\n    \"rank\" : 56,\r\n    \"score\" : 100,\r\n    \"variation\" : 0,\r\n    \"progress\" : 70.0,\r\n    \"result\" : [ \"LOSE\", \"LOSE\", \"LOSE\" ]\r\n  },\r\n  \"closed\" : true\r\n}"
                   }
                 }
               }
@@ -1063,6 +1112,41 @@
           "id" : {
             "type" : "number",
             "description" : "카카오톡 회원번호"
+          }
+        }
+      },
+      "api-v1-match-id-decide-1901348340" : {
+        "type" : "object",
+        "properties" : {
+          "left" : {
+            "type" : "array",
+            "description" : "왼쪽 선수 경기 결과",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
+          },
+          "right" : {
+            "type" : "array",
+            "description" : "오른쪽 선수 경기 결과",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
           }
         }
       },
@@ -1279,7 +1363,7 @@
           }
         }
       },
-      "api-v1-contest-id-start-1153901879" : {
+      "api-v1-member-1153901879" : {
         "type" : "object",
         "properties" : {
           "code" : {
@@ -1289,6 +1373,19 @@
           "message" : {
             "type" : "string",
             "description" : "에러 메세지"
+          }
+        }
+      },
+      "api-v1-member-2071489835" : {
+        "type" : "object",
+        "properties" : {
+          "handicap" : {
+            "type" : "number",
+            "description" : "핸디캡"
+          },
+          "nickname" : {
+            "type" : "string",
+            "description" : "별명"
           }
         }
       },
@@ -1325,20 +1422,7 @@
           }
         }
       },
-      "api-v1-member-2071489835" : {
-        "type" : "object",
-        "properties" : {
-          "handicap" : {
-            "type" : "number",
-            "description" : "핸디캡"
-          },
-          "nickname" : {
-            "type" : "string",
-            "description" : "별명"
-          }
-        }
-      },
-      "api-v1-match-id307696740" : {
+      "api-v1-match-id-decide307696740" : {
         "type" : "object",
         "properties" : {
           "left" : {

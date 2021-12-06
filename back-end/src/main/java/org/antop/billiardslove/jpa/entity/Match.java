@@ -135,9 +135,11 @@ public class Match {
      *
      * @param manager 매니저 권한의 맴버
      */
-    public void decide(Member manager) {
+    public void decide(Member manager, Outcome[] left, Outcome[] right) {
         if (!manager.isManager()) throw new IllegalArgumentException("not manager");
         this.manager = manager;
+        this.matchResult1 = MatchResult.of(left);
+        this.matchResult2 = MatchResult.of(right);
         this.confirmAt = LocalDateTime.now();
     }
 
