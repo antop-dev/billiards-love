@@ -18,6 +18,7 @@
             <h2>
               <v-select
                 :value="result"
+                @input="r => updateResult(r, i)"
                 :items="['WIN', 'LOSE', 'ABSTENTION', 'HOLD']"
                 menu-props="auto"
                 hide-details
@@ -43,6 +44,7 @@ export default {
   name: 'MatchChartDetail',
   data() {
     return {
+      id: '',
       selected: '',
       match: {
         left: {}, // 내 정보
@@ -57,14 +59,23 @@ export default {
   },
   methods: {
     confirm() {
-      MatchApi.update(this.myself.id, this.myResult);
-      this.dialog = false;
+      try {
+        MatchApi.update(this.id, this.myResult);
+        this.$router.go(-1);
+        this.$toast.success('저장되었습니다');
+      } catch (e) {
+        alert('정보 업데이트 실패', e);
+      }
+    },
+    updateResult(result, idx) {
+      this.myResult[idx] = result;
     },
   },
   async created() {
     const matchId = this.$route.params.matchId;
     try {
       this.match = await MatchApi.inquire(matchId);
+      this.id = this.match.id;
       this.myself = this.match.left;
       this.myResult = this.match.left.result;
       this.opponent = this.match.right;
