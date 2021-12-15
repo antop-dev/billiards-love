@@ -4,6 +4,7 @@ import MatchStatus from '../view/MatchStatus';
 import MatchInfo from '../view/MatchInfo';
 import MatchRank from '../view/MatchRank';
 import MatchChart from '../view/MatchChart';
+import MatchChartDetail from '../view/MatchChartDetail';
 
 export default [
   {
@@ -15,7 +16,7 @@ export default [
     component: DashBoard,
   },
   {
-    path: '/match/:id',
+    path: '/contest/:id',
     component: MatchStatus,
     children: [
       {
@@ -29,9 +30,14 @@ export default [
         component: MatchRank,
       },
       {
-        name: 'chart',
-        path: 'chart',
+        name: 'match',
+        path: 'match',
         component: MatchChart,
+      },
+      {
+        name: 'matchDetail',
+        path: 'match/:matchId',
+        component: MatchChartDetail,
       },
     ],
   },
