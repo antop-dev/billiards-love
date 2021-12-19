@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"OEGVU2whV/1fy/C3/gwnjM+oY20Fj5HQXqB197qwDPo=\",\r\n  \"kakaoKey\" : \"ml/Tka9yZCQfzn9U/Wf2FDtHlZplP/C+/9cHvjkl/fXRBEJFkIHxMzSzij3UOzBfqQ==\",\r\n  \"adSenseKey\" : \"7Vzhlu9sI5YgGfNySQb+t65YvvXEMhRZtpcRIWc0TNlFO77WfgfI51GHvXecwA==\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"2XoS7Amnu69IKpacSW2YLQ9kVINcYWEslYr0A+K25io=\",\r\n  \"kakaoKey\" : \"MuPF979JxUpby3VnfTPkCFvOW4+V2WTRmL/xyOkjkFH0ypBh/ZB6uD1ey+4mM2Jetg==\",\r\n  \"adSenseKey\" : \"H+en6RkJkoUTl91+D5lI/aHUk7s84k3Xcr5SS5AS9OXsEr3vdpmZ+yYhkJ1bhQ==\"\r\n}"
                   }
                 }
               }
@@ -143,10 +143,10 @@
               },
               "examples" : {
                 "logged-in" : {
-                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : \"2020-08-17T15:45:04Z\",\r\n  \"profile\" : {\r\n    \"nickname\" : \"antop\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : \"2020-08-17T15:45:04Z\",\r\n  \"profile\" : {\r\n    \"nickname\" : \"TIK0cNhSKJ/wzJJ6eQ7u8KocV8LSii4ealrIlx+X1Sj6\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 },
                 "logged-in-registered" : {
-                  "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : \"2020-08-17T15:45:04+02:00\",\r\n  \"profile\" : {\r\n    \"nickname\" : \"Antop\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                  "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : \"2020-08-17T15:45:04+02:00\",\r\n  \"profile\" : {\r\n    \"nickname\" : \"AgDzrKDwI8QXjusLQ0K/fgPboLg3ZXOKW1BWsfGJZrgy\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 }
               }
             }
@@ -158,14 +158,14 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-logged-in-595124119"
+                  "$ref" : "#/components/schemas/api-v1-logged-in-1496566412"
                 },
                 "examples" : {
                   "logged-in" : {
-                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"antop\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\"\r\n  },\r\n  \"registered\" : false\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"gEP10yGAGj+8CuKmYRW9/FRI5RKrTMJEWSiIBLkPh66i\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"manager\" : false\r\n  },\r\n  \"registered\" : false\r\n}"
                   },
                   "logged-in-registered" : {
-                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"안탑\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\"\r\n  },\r\n  \"registered\" : true\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"JiNWCpj0Pw4BUZ8QrOSp9VLvVKw6U36dpoBE7zRDqtE7Ng==\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\",\r\n    \"manager\" : true\r\n  },\r\n  \"registered\" : true\r\n}"
                   }
                 }
               }
@@ -196,10 +196,10 @@
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"CAWgmpMDIz2G2sWHwOTRSABfNGHB57bgwdKRhQBw9KZi\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"TnkKLpHMgmzE0EhaAbGxO4/ESoP3c20usYr3t1XgKa/+\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"yaCTrCSwWntgJFc0iyfz7OY0n28cCKn9GoA+YWUgkbS9UkWH6owj5wTqRxA=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"S80o/AHhPEF+fM+Gcsix+3oSqid0MAu/3jNZiZsWFNIa7IAX7OZMa3dkwI0=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\"\r\n}"
@@ -235,11 +235,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-member-115978559"
+                  "$ref" : "#/components/schemas/api-v1-member-1099089930"
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"0V7HDcDlawaN6dL85+kOCv/ER1VqmU/OKrAsiMdjyHg8jX6SJGI943kLWik=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\"\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"bK0UuhhBxOUyrN4D8TLV/mz2M0NXOxOl+HOej0xoOmcDdzeRblI69ZF152U=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\",\r\n  \"manager\" : false\r\n}"
                   }
                 }
               }
@@ -429,7 +429,7 @@
       },
       "put" : {
         "tags" : [ "api" ],
-        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-bad-requestmatch-result-enter-invalidmatch-result-enter-not-joined",
+        "operationId" : "error-match-not-foundmatch-result-entermatch-result-enter-bad-requestmatch-result-enter-not-joined",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -462,9 +462,6 @@
                   "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"LOSE\" ]\r\n}"
                 },
                 "match-result-enter-bad-request" : {
-                  "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\", \"WIN\" ]\r\n}"
-                },
-                "match-result-enter-invalid" : {
                   "value" : "{\r\n  \"result\" : [ \"WIN\", \"WIN\", \"WIN\", \"WIN\" ]\r\n}"
                 },
                 "match-result-enter-not-joined" : {
@@ -515,9 +512,6 @@
                 "examples" : {
                   "match-result-enter-bad-request" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"경기 결과의 크기는 3개입니다.\"\r\n}"
-                  },
-                  "match-result-enter-invalid" : {
-                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"잘못된 요청입니다.\"\r\n}"
                   },
                   "match-result-enter-not-joined" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"참여하지 않은 경기입니다.\"\r\n}"
@@ -637,7 +631,7 @@
                 },
                 "examples" : {
                   "contest-join" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 38017620,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0.0\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 61714891,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"variation\" : 0,\r\n    \"progress\" : 0.0\r\n  }\r\n}"
                   }
                 }
               }
@@ -937,6 +931,61 @@
           }
         }
       }
+    },
+    "/api/v1/match/{id}/decide" : {
+      "post" : {
+        "tags" : [ "api" ],
+        "operationId" : "match-decide",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "경기 아이디",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "JWT 토큰",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "1"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-match-id-decide-1901348340"
+              },
+              "examples" : {
+                "match-decide" : {
+                  "value" : "{\r\n  \"left\" : [ \"WIN\", \"WIN\", \"WIN\" ],\r\n  \"right\" : [ \"LOSE\", \"LOSE\", \"LOSE\" ]\r\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-match-id-decide1945622188"
+                },
+                "examples" : {
+                  "match-decide" : {
+                    "value" : "{\r\n  \"id\" : 1,\r\n  \"left\" : {\r\n    \"id\" : 100,\r\n    \"number\" : 72,\r\n    \"handicap\" : 23,\r\n    \"nickname\" : \"왼쪽 선수 닉네임\",\r\n    \"rank\" : 12,\r\n    \"score\" : 112,\r\n    \"variation\" : 2,\r\n    \"result\" : [ \"WIN\", \"WIN\", \"WIN\" ]\r\n  },\r\n  \"right\" : {\r\n    \"id\" : 103,\r\n    \"number\" : 78,\r\n    \"handicap\" : 21,\r\n    \"nickname\" : \"오른쪽 선수 닉네임\",\r\n    \"rank\" : 56,\r\n    \"score\" : 100,\r\n    \"variation\" : 0,\r\n    \"result\" : [ \"LOSE\", \"LOSE\", \"LOSE\" ]\r\n  },\r\n  \"closed\" : true\r\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -1066,6 +1115,41 @@
           }
         }
       },
+      "api-v1-match-id-decide-1901348340" : {
+        "type" : "object",
+        "properties" : {
+          "left" : {
+            "type" : "array",
+            "description" : "왼쪽 선수 경기 결과",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
+          },
+          "right" : {
+            "type" : "array",
+            "description" : "오른쪽 선수 경기 결과",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
+          }
+        }
+      },
       "api-v1-init781399800" : {
         "type" : "object",
         "properties" : {
@@ -1080,6 +1164,31 @@
           "adSenseKey" : {
             "type" : "string",
             "description" : "구글 애드센스 키"
+          }
+        }
+      },
+      "api-v1-member-1099089930" : {
+        "type" : "object",
+        "properties" : {
+          "thumbnail" : {
+            "type" : "string",
+            "description" : "썸네일 이미지 URL"
+          },
+          "manager" : {
+            "type" : "boolean",
+            "description" : "관리자 여부"
+          },
+          "handicap" : {
+            "type" : "number",
+            "description" : "핸디캡"
+          },
+          "nickname" : {
+            "type" : "string",
+            "description" : "별명"
+          },
+          "id" : {
+            "type" : "number",
+            "description" : "회원 아이디"
           }
         }
       },
@@ -1245,40 +1354,6 @@
           }
         }
       },
-      "api-v1-logged-in-595124119" : {
-        "type" : "object",
-        "properties" : {
-          "member" : {
-            "type" : "object",
-            "properties" : {
-              "thumbnail" : {
-                "type" : "string",
-                "description" : "회원 이미지 (카카오톡 프로필 썸네일)"
-              },
-              "handicap" : {
-                "type" : "number",
-                "description" : "핸디캡"
-              },
-              "nickname" : {
-                "type" : "string",
-                "description" : "회원 별명"
-              },
-              "id" : {
-                "type" : "number",
-                "description" : "회원 아이디"
-              }
-            }
-          },
-          "registered" : {
-            "type" : "boolean",
-            "description" : "추가 정보 등록됨 여부 +\nfalse면 추가 정보를 입력 받아야 한다."
-          },
-          "token" : {
-            "type" : "string",
-            "description" : "JWT 토큰"
-          }
-        }
-      },
       "api-v1-contest-id-start-1153901879" : {
         "type" : "object",
         "properties" : {
@@ -1289,6 +1364,19 @@
           "message" : {
             "type" : "string",
             "description" : "에러 메세지"
+          }
+        }
+      },
+      "api-v1-member-2071489835" : {
+        "type" : "object",
+        "properties" : {
+          "handicap" : {
+            "type" : "number",
+            "description" : "핸디캡"
+          },
+          "nickname" : {
+            "type" : "string",
+            "description" : "별명"
           }
         }
       },
@@ -1322,19 +1410,6 @@
           "startDate" : {
             "type" : "string",
             "description" : "시작 날짜"
-          }
-        }
-      },
-      "api-v1-member-2071489835" : {
-        "type" : "object",
-        "properties" : {
-          "handicap" : {
-            "type" : "number",
-            "description" : "핸디캡"
-          },
-          "nickname" : {
-            "type" : "string",
-            "description" : "별명"
           }
         }
       },
@@ -1477,24 +1552,152 @@
           }
         }
       },
-      "api-v1-member-115978559" : {
+      "api-v1-logged-in-1496566412" : {
         "type" : "object",
         "properties" : {
-          "thumbnail" : {
-            "type" : "string",
-            "description" : "썸네일 이미지 URL"
+          "member" : {
+            "type" : "object",
+            "properties" : {
+              "thumbnail" : {
+                "type" : "string",
+                "description" : "회원 이미지 (카카오톡 프로필 썸네일)"
+              },
+              "manager" : {
+                "type" : "boolean",
+                "description" : "관리자 여부"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "핸디캡"
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "회원 별명"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "회원 아이디"
+              }
+            }
           },
-          "handicap" : {
-            "type" : "number",
-            "description" : "핸디캡"
+          "registered" : {
+            "type" : "boolean",
+            "description" : "추가 정보 등록됨 여부 +\nfalse면 추가 정보를 입력 받아야 한다."
           },
-          "nickname" : {
+          "token" : {
             "type" : "string",
-            "description" : "별명"
+            "description" : "JWT 토큰"
+          }
+        }
+      },
+      "api-v1-match-id-decide1945622188" : {
+        "type" : "object",
+        "properties" : {
+          "left" : {
+            "type" : "object",
+            "properties" : {
+              "result" : {
+                "type" : "array",
+                "description" : "경기 결과",
+                "items" : {
+                  "oneOf" : [ {
+                    "type" : "object"
+                  }, {
+                    "type" : "boolean"
+                  }, {
+                    "type" : "string"
+                  }, {
+                    "type" : "number"
+                  } ]
+                }
+              },
+              "score" : {
+                "type" : "number",
+                "description" : "점수"
+              },
+              "number" : {
+                "type" : "number",
+                "description" : "선수 번호"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "별명"
+              },
+              "rank" : {
+                "type" : "number",
+                "description" : "순위"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "variation" : {
+                "type" : "number",
+                "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
+              }
+            },
+            "description" : "플레이어가 조회 : 나 자신 +\n관리자가 조회 : 왼쪽 선수"
+          },
+          "closed" : {
+            "type" : "boolean",
+            "description" : "확정 여부 +\ntrue : 수정 불가"
+          },
+          "right" : {
+            "type" : "object",
+            "properties" : {
+              "result" : {
+                "type" : "array",
+                "description" : "경기 결과",
+                "items" : {
+                  "oneOf" : [ {
+                    "type" : "object"
+                  }, {
+                    "type" : "boolean"
+                  }, {
+                    "type" : "string"
+                  }, {
+                    "type" : "number"
+                  } ]
+                }
+              },
+              "score" : {
+                "type" : "number",
+                "description" : "점수"
+              },
+              "number" : {
+                "type" : "number",
+                "description" : "선수 번호"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "별명"
+              },
+              "rank" : {
+                "type" : "number",
+                "description" : "순위"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "variation" : {
+                "type" : "number",
+                "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
+              }
+            },
+            "description" : "플레이어가 조회 : 상대 선수 +\n관리자가 조회 : 오른쪽 선수"
           },
           "id" : {
             "type" : "number",
-            "description" : "회원 아이디"
+            "description" : "경기 아이디"
           }
         }
       },

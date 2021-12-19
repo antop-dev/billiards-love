@@ -557,9 +557,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 
 {
-  "secretKey" : "OEGVU2whV/1fy/C3/gwnjM+oY20Fj5HQXqB197qwDPo=",
-  "kakaoKey" : "ml/Tka9yZCQfzn9U/Wf2FDtHlZplP/C+/9cHvjkl/fXRBEJFkIHxMzSzij3UOzBfqQ==",
-  "adSenseKey" : "7Vzhlu9sI5YgGfNySQb+t65YvvXEMhRZtpcRIWc0TNlFO77WfgfI51GHvXecwA=="
+  "secretKey" : "2XoS7Amnu69IKpacSW2YLQ9kVINcYWEslYr0A+K25io=",
+  "kakaoKey" : "MuPF979JxUpby3VnfTPkCFvOW4+V2WTRmL/xyOkjkFH0ypBh/ZB6uD1ey+4mM2Jetg==",
+  "adSenseKey" : "H+en6RkJkoUTl91+D5lI/aHUk7s84k3Xcr5SS5AS9OXsEr3vdpmZ+yYhkJ1bhQ=="
 }</code></pre>
 </div>
 </div>
@@ -644,7 +644,7 @@ Content-Type: application/json
   "id" : 9999,
   "connectedAt" : "2020-08-17T15:45:04Z",
   "profile" : {
-    "nickname" : "antop",
+    "nickname" : "TIK0cNhSKJ/wzJJ6eQ7u8KocV8LSii4ealrIlx+X1Sj6",
     "imageUrl" : "https://cataas.com/cat?width=200&amp;height=200",
     "thumbnailUrl" : "https://cataas.com/cat?width=160&amp;height=100",
     "needsAgreement" : true
@@ -714,6 +714,13 @@ false면 추가 정보를 입력 받아야 한다.</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">핸디캡</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member.manager</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">관리자 여부</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -725,8 +732,9 @@ Content-Type: application/json;charset=UTF-8
   "token" : "created jwt token value!",
   "member" : {
     "id" : 12,
-    "nickname" : "antop",
-    "thumbnail" : "https://cataas.com/cat?width=160&amp;height=100"
+    "nickname" : "gEP10yGAGj+8CuKmYRW9/FRI5RKrTMJEWSiIBLkPh66i",
+    "thumbnail" : "https://cataas.com/cat?width=160&amp;height=100",
+    "manager" : false
   },
   "registered" : false
 }</code></pre>
@@ -742,9 +750,10 @@ Content-Type: application/json;charset=UTF-8
   "token" : "created jwt token value!",
   "member" : {
     "id" : 12,
-    "nickname" : "안탑",
+    "nickname" : "JiNWCpj0Pw4BUZ8QrOSp9VLvVKw6U36dpoBE7zRDqtE7Ng==",
     "handicap" : 22,
-    "thumbnail" : "https://bar"
+    "thumbnail" : "https://bar",
+    "manager" : true
   },
   "registered" : true
 }</code></pre>
@@ -827,7 +836,7 @@ Content-Type: application/json
 Authorization: 2
 
 {
-  "nickname" : "yaCTrCSwWntgJFc0iyfz7OY0n28cCKn9GoA+YWUgkbS9UkWH6owj5wTqRxA=",
+  "nickname" : "S80o/AHhPEF+fM+Gcsix+3oSqid0MAu/3jNZiZsWFNIa7IAX7OZMa3dkwI0=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -879,6 +888,13 @@ Authorization: 2
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">핸디캡</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>manager</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">관리자 여부</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -888,9 +904,10 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "id" : 2,
-  "nickname" : "0V7HDcDlawaN6dL85+kOCv/ER1VqmU/OKrAsiMdjyHg8jX6SJGI943kLWik=",
+  "nickname" : "bK0UuhhBxOUyrN4D8TLV/mz2M0NXOxOl+HOej0xoOmcDdzeRblI69ZF152U=",
   "handicap" : 30,
-  "thumbnail" : "https://img.foo.bar"
+  "thumbnail" : "https://img.foo.bar",
+  "manager" : false
 }</code></pre>
 </div>
 </div>
@@ -2224,7 +2241,7 @@ Content-Type: application/json;charset=UTF-8
   "stateName" : "접수중",
   "progress" : 0.0,
   "player" : {
-    "id" : 38017620,
+    "id" : 61714891,
     "handicap" : 30,
     "nickname" : "선수1",
     "variation" : 0,
@@ -4308,7 +4325,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-01 19:39:50 KST
+Last updated 2021-12-19 23:04:23 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
