@@ -39,7 +39,6 @@ import java.util.Locale;
 @AutoConfigureDataJpa
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:test-h2.sql")
 @Import({RestDocsConfig.class})
-@Deprecated
 public abstract class SpringBootBase {
     /**
      * 로깅
@@ -70,7 +69,7 @@ public abstract class SpringBootBase {
 
     @AfterEach
     public void tearDown() {
-        flush();
+        flushAndClear();
     }
 
     protected final void flush() {
@@ -78,6 +77,7 @@ public abstract class SpringBootBase {
         em.flush();
         log.info("after flush...");
     }
+
     protected void flushAndClear() {
         flush();
         em.clear();

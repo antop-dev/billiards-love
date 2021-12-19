@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import util.JsonUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -34,7 +35,7 @@ class NotBlankValidationTest extends WebMvcBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(body));
+                .content(JsonUtils.toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -49,7 +50,7 @@ class NotBlankValidationTest extends WebMvcBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(body));
+                .content(JsonUtils.toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())
@@ -64,7 +65,7 @@ class NotBlankValidationTest extends WebMvcBase {
 
         MockHttpServletRequestBuilder request = post(URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(body));
+                .content(JsonUtils.toJson(body));
 
         mockMvc.perform(request)
                 .andDo(print())

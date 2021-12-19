@@ -22,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import util.JsonUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -76,7 +77,6 @@ class ContestInfoApiTest extends WebMvcBase {
                 .rank(11)
                 .score(1154)
                 .variation(10)
-                .progress(30)
                 .build();
         ContestDto contest = ContestDto.builder()
                 .id(5L)
@@ -126,7 +126,6 @@ class ContestInfoApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.player.handicap", is(player.getHandicap())))
                 .andExpect(jsonPath("$.player.rank", is(player.getRank())))
                 .andExpect(jsonPath("$.player.score", is(player.getScore())))
-                .andExpect(jsonPath("$.player.progress", is(30.0)))
         ;
     }
 
@@ -215,7 +214,7 @@ class ContestInfoApiTest extends WebMvcBase {
         // action
         mockMvc.perform(post("/api/v1/contest")
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
@@ -248,7 +247,7 @@ class ContestInfoApiTest extends WebMvcBase {
         // action
         mockMvc.perform(post("/api/v1/contest")
                         .header(HttpHeaders.AUTHORIZATION, userToken())
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
@@ -295,7 +294,7 @@ class ContestInfoApiTest extends WebMvcBase {
         // action
         mockMvc.perform(put("/api/v1/contest/{id}", 5)
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
@@ -340,7 +339,7 @@ class ContestInfoApiTest extends WebMvcBase {
         // action
         mockMvc.perform(put("/api/v1/contest/{id}", 6)
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())
@@ -372,7 +371,7 @@ class ContestInfoApiTest extends WebMvcBase {
         // action
         mockMvc.perform(put("/api/v1/contest/{id}", 1)
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 // logging
                 .andDo(print())

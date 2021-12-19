@@ -43,8 +43,5 @@ public class PlayerDto {
      * 음수: 내려감
      */
     private final int variation;
-    /**
-     * 진행률 (%)
-     */
-    private final double progress;
+
 }

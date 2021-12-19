@@ -39,7 +39,7 @@ class MatchMapperTest {
                 .build();
         player2.setNumber(8);
         player2.setRank(10);
-        player2.setScore(871);
+        player2.incrementScore(871);
 
         Match match = Match.builder()
                 .player1(player1)

@@ -141,6 +141,21 @@ public class Match {
         this.matchResult1 = MatchResult.of(left);
         this.matchResult2 = MatchResult.of(right);
         this.confirmAt = LocalDateTime.now();
+        computeScore();
+    }
+
+    /**
+     * 경기 결과로 점수를 계산한다.
+     */
+    private void computeScore() {
+        computeScore(player1, matchResult1.toArray());
+        computeScore(player2, matchResult2.toArray());
+    }
+
+    private void computeScore(Player player, Outcome[] outcomes) {
+        for (Outcome outcome : outcomes) {
+            player.incrementScore(outcome.getScore());
+        }
     }
 
     /**

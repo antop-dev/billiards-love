@@ -2,8 +2,10 @@ package org.antop.billiardslove.service;
 
 import org.antop.billiardslove.dao.MatchDao;
 import org.antop.billiardslove.dao.MemberDao;
+import org.antop.billiardslove.dao.PlayerDao;
 import org.antop.billiardslove.dto.MatchDto;
 import org.antop.billiardslove.dto.MatchPlayerDto;
+import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
@@ -20,6 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,6 +42,8 @@ class MatchServiceTest {
     private MemberDao memberDao;
     @MockBean
     private MatchDao matchDao;
+    @MockBean
+    private PlayerDao playerDao;
 
     private final MatchService matchService;
 
@@ -136,6 +141,71 @@ class MatchServiceTest {
         match.enterResult(m2.getId(), Outcome.LOSE, Outcome.LOSE, Outcome.WIN);
 
         return match;
+    }
+
+    @DisplayName("순위를 재계산한다.")
+    @Test
+    void calculate() {
+        /*
+         * given
+         */
+
+        /*
+         * 처음 4명의 플레이어의 [점수, 증가폭]
+         * 1 - p1(100, 0)
+         * 2 - p2(90, 0), p3(90, 0)
+         * 4 - p4(80, 0)
+         */
+        Player p1 = Player.builder().build();
+        p1.setRank(1);
+        p1.incrementScore(100);
+        Player p2 = Player.builder().build();
+        p2.setRank(2);
+        p2.incrementScore(90);
+        Player p3 = Player.builder().build();
+        p3.setRank(2);
+        p3.incrementScore(90);
+        Player p4 = Player.builder().build();
+        p4.setRank(4);
+        p4.incrementScore(80);
+        Contest contest = mock(Contest.class);
+        when(contest.getId()).thenReturn(1L);
+        /*
+         * when
+         */
+        when(playerDao.findByContest(anyLong())).thenReturn(Arrays.asList(p1, p2, p3, p4));
+        /*
+         * p3 + 30
+         * p4 + 20
+         */
+        p3.incrementScore(30);
+        p4.incrementScore(20);
+        matchService.computeRank(contest);
+        /*
+         * then
+         */
+
+        /*
+         * 계산 후 아래와 같이 순위가 되어야 한다.
+         * 1 - p3(120, +1)
+         * 2 - p1(100, -1), p4(100, +2)
+         * 4 - p2(90, -2)
+         */
+        assertThat(p1.getRank(), is(2));
+        assertThat(p1.getScore(), is(100));
+        assertThat(p1.getVariation(), is(-1));
+
+        assertThat(p2.getRank(), is(4));
+        assertThat(p2.getScore(), is(90));
+        assertThat(p2.getVariation(), is(-2));
+
+        assertThat(p3.getRank(), is(1));
+        assertThat(p3.getScore(), is(120));
+        assertThat(p3.getVariation(), is(1));
+
+        assertThat(p4.getRank(), is(2));
+        assertThat(p4.getScore(), is(100));
+        assertThat(p4.getVariation(), is(2));
     }
 
 }

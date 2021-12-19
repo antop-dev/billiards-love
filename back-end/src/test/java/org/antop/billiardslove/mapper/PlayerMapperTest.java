@@ -28,7 +28,7 @@ class PlayerMapperTest {
                 .build();
         player.setRank(1);
         player.setNumber(112);
-        player.setScore(1192);
+        player.incrementScore(1192);
 
         PlayerDto dto = mapper.toDto(player);
 

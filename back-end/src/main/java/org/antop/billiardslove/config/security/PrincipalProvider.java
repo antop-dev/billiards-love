@@ -2,6 +2,7 @@ package org.antop.billiardslove.config.security;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * 인증 주체를 받아오는 인터페이스
@@ -20,6 +21,7 @@ public interface PrincipalProvider {
 
     @RequiredArgsConstructor
     @Getter
+    @ToString
     class Principal {
         /**
          * Principal 값

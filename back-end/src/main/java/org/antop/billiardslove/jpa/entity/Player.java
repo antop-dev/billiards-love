@@ -75,7 +75,6 @@ public class Player {
     /**
      * 점수
      */
-    @Setter
     @Column(name = "plyr_scr")
     private Integer score;
     /**
@@ -87,23 +86,39 @@ public class Player {
     @Column(name = "plyr_vrtn")
     private int variation;
 
-    /**
-     * 개인 진행률
-     */
-    @Column(name = "plyr_prgr")
-    private double progress;
-
     public void setRank(int rank) {
         Integer oldRank = this.rank;
         this.rank = rank;
-        this.variation = oldRank == null ? 0 : rank - oldRank;
+        this.variation = (oldRank == null) ? 0 : oldRank - rank;
     }
 
     @Builder
-    private Player(Contest contest, Member member, int handicap) {
+    protected Player(Contest contest, Member member, int handicap) {
         this.contest = contest;
         this.member = member;
         this.handicap = handicap;
+    }
+
+    /**
+     * 점수 증가
+     *
+     * @param score 증가시킬 점수
+     */
+    public void incrementScore(int score) {
+        if (this.score == null) {
+            this.score = 0;
+        }
+        this.score += score;
+    }
+
+    /**
+     * 선수 정보 초기화
+     * @param number 선수 번호
+     */
+    public void init(int number) {
+        this.number = number;
+        this.score = 0;
+        this.rank = null;
     }
 
 }

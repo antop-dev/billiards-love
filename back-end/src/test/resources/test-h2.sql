@@ -47,16 +47,16 @@ values (1, '2021 리그전', '2021.01.01~', parsedatetime('20210101', 'yyyyMMdd'
         parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '0', 32,
         parsedatetime('20191112151145', 'yyyyMMddHHmmss'));
 /* 참가자 목록 */
-insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
-values (1, 1, 1, 1, 22, 1, 150);
-insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
-values (2, 1, 2, 2, 24, 2, 40);
-insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr)
-values (3, 1, 3, 3, 26, 3, 10);
-insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (4, 1, 4, 4, 28, 20);
-insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (5, 1, 5, 5, 30, 30);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
+values (1, 1, 1, 1, 22, 1, 150, 0);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
+values (2, 1, 2, 2, 24, 2, 40, 0);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
+values (3, 1, 3, 3, 26, 5, 10, 0);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
+values (4, 1, 4, 4, 28, 4, 20, 0);
+insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
+values (5, 1, 5, 5, 30, 3, 30, 0);
 /* 경기 목록 */
 insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2_rslt_inpt, cnfr_mmbr_id, cnfr_dt)
 values (1, 1, 1, 2, 'WWL', 'LLW', 1, parsedatetime('20210102171202', 'yyyyMMddHHmmss'));

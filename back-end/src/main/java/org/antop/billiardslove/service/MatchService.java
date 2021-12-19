@@ -1,13 +1,18 @@
 package org.antop.billiardslove.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.antop.billiardslove.dao.MatchDao;
 import org.antop.billiardslove.dao.MemberDao;
+import org.antop.billiardslove.dao.PlayerDao;
 import org.antop.billiardslove.dto.MatchDto;
+import org.antop.billiardslove.exception.MatchClosedException;
 import org.antop.billiardslove.exception.MatchNotFoundException;
 import org.antop.billiardslove.exception.MemberNotFoundException;
+import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
+import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.mapper.MatchMapper;
 import org.antop.billiardslove.model.Outcome;
 import org.springframework.stereotype.Service;
@@ -30,6 +35,7 @@ public class MatchService {
     private final MemberDao memberDao;
     private final MatchDao matchDao;
     private final MatchMapper matchMapper;
+    private final PlayerDao playerDao;
 
     /**
      * 대회에서 나(회원)를 기준으로 상대방 대진표를 조회한다.
@@ -69,36 +75,61 @@ public class MatchService {
      */
     @Transactional
     public MatchDto enter(long matchId, long memberId, Outcome[] results) {
-        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
         Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
+        if (match.isConfirmed()) {
+            throw new MatchClosedException();
+        }
+        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
         match.enterResult(member.getId(), results[0], results[1], results[2]);
         return matchMapper.toDto(match, member);
     }
 
     /**
-     * 대진표를 저장한다.
+     * 경기를 확정한다.
      *
-     * @param match {@link Match} 대진표 정보
+     * @param matchId   경기 아이디
+     * @param managerId 확정 짓는 회원(관리자) 아이디
+     * @param left      왼쪽 선수 결과
+     * @param right     오른쪽 선수 결과
+     * @return 경기 정보
      */
     @Transactional
-    public void save(Match match) {
-        matchDao.save(match);
+    public MatchDto decide(long matchId, long managerId, Outcome[] left, Outcome[] right) {
+        Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
+        Member manager = memberDao.findById(managerId).orElseThrow(MemberNotFoundException::new);
+        match.decide(manager, left, right);
+        matchDao.saveAndFlush(match); // 바로 저장
+        computeRank(match.getContest()); // 순위 재계산
+        return matchMapper.toDto(match, manager);
     }
 
     /**
-     * 경기를 확정한다.
+     * 해당 대회의 순위를 재계산한다.
      *
-     * @param matchId  경기 아이디
-     * @param memberId 확정 짓는 회원(관리자) 아이디
-     * @param left     왼쪽 선수 결과
-     * @param right    오른쪽 선수 결과
-     * @return 경기 정보
+     * @param contest 대회 정보
      */
-    public MatchDto decide(long matchId, long memberId, Outcome[] left, Outcome[] right) {
-        Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
-        Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
-        match.decide(member, left, right);
-        return matchMapper.toDto(match, member);
+    @Transactional
+    public void computeRank(Contest contest) {
+        val matches = playerDao.findByContest(contest.getId());
+        // 선수들의 점수(score)로 내림차순 정렬
+        val players = matches.stream()
+                .sorted((o1, o2) -> o2.getScore() - o1.getScore())
+                .collect(Collectors.toList());
+        // 순위(rank)는 동률이 있다.
+        int rank = 0;
+        int count = 1;
+        long score = Long.MAX_VALUE;
+        for (Player player : players) {
+            if (player.getScore() < score) {
+                rank++;
+                if (rank != count) {
+                    rank = count;
+                }
+            }
+            player.setRank(rank);
+            score = player.getScore();
+            count++;
+        }
     }
 
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import util.JsonUtils;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.antop.billiardslove.RestDocsUtils.CustomAttributes.encrypted;
@@ -59,7 +60,7 @@ class MemberModifyApiTest extends WebMvcBase {
                         .sessionAttr(Security.SECRET_KEY, secretKey)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -90,7 +91,7 @@ class MemberModifyApiTest extends WebMvcBase {
                         .sessionAttr(Security.SECRET_KEY, secretKey)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -114,7 +115,7 @@ class MemberModifyApiTest extends WebMvcBase {
                         .sessionAttr(Security.SECRET_KEY, secretKey)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 .andDo(print())
                 .andDo(RestDocsUtils.error("member-modify-valid-handicap-not-null"))
@@ -135,7 +136,7 @@ class MemberModifyApiTest extends WebMvcBase {
                         .sessionAttr(Security.SECRET_KEY, secretKey)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -159,7 +160,7 @@ class MemberModifyApiTest extends WebMvcBase {
                         .sessionAttr(Security.SECRET_KEY, secretKey)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())

@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import util.JsonUtils;
 
 import java.util.Arrays;
 
@@ -51,7 +52,7 @@ class MatchDecideApiTest extends WebMvcBase {
         ResultActions actions = mockMvc.perform(post("/api/v1/match/{id}/decide", 1L)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 .andDo(print());
         // then
@@ -77,7 +78,6 @@ class MatchDecideApiTest extends WebMvcBase {
                                 .rank(12)
                                 .score(112)
                                 .variation(2)
-                                .progress(87.5)
                                 .result(MatchResult.of(inv.getArgument(2, Outcome[].class)).toArrayString())
                                 .build())
                         .right(MatchPlayerDto.builder()
@@ -88,7 +88,6 @@ class MatchDecideApiTest extends WebMvcBase {
                                 .rank(56)
                                 .score(100)
                                 .variation(0)
-                                .progress(70)
                                 .result(MatchResult.of(inv.getArgument(3, Outcome[].class)).toArrayString())
                                 .build())
                         .closed(true)
@@ -101,7 +100,7 @@ class MatchDecideApiTest extends WebMvcBase {
         ResultActions actions = mockMvc.perform(post("/api/v1/match/{id}/decide", matchId)
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 .andDo(print())
                 .andDo(document("match-decide",

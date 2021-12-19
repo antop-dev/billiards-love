@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.ResultActions;
+import util.JsonUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -83,7 +84,7 @@ class MatchResultApiTest extends WebMvcBase {
         ResultActions actions = mockMvc.perform(put("/api/v1/match/{id}", matchId)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -115,7 +116,7 @@ class MatchResultApiTest extends WebMvcBase {
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -138,7 +139,7 @@ class MatchResultApiTest extends WebMvcBase {
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -161,7 +162,7 @@ class MatchResultApiTest extends WebMvcBase {
         mockMvc.perform(put("/api/v1/match/{id}", 7)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 // logging
                 .andDo(print())
@@ -186,7 +187,7 @@ class MatchResultApiTest extends WebMvcBase {
         mockMvc.perform(put("/api/v1/match/{id}", 32)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 .andDo(print())
                 .andDo(RestDocsUtils.error("match-result-enter-not-joined"))
@@ -208,7 +209,7 @@ class MatchResultApiTest extends WebMvcBase {
         mockMvc.perform(put("/api/v1/match/{id}", 81)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                 )
                 .andDo(print())
                 .andDo(RestDocsUtils.error("error-match-not-found"))
