@@ -27,4 +27,8 @@ public class MemberDto {
      * 회원 이미지 (카카오톡 프로필 썸네일)
      */
     private final String thumbnail;
+    /**
+     * 관리자 여부
+     */
+    private final boolean manager;
 }
