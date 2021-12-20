@@ -18,18 +18,16 @@
             </th>
           </tr>
         </thead>
-        <tbody v-if="users.length > 0">
-          <tr v-for="user in users" :key="user.id">
-            <td class="text-center">{{ user.opponent.number }}</td>
-            <td>{{ user.opponent.nickname }}</td>
+        <tbody v-if="matches.length > 0">
+          <tr v-for="match in matches" :key="match.id">
+            <td class="text-center">{{ match.right.number }}</td>
+            <td>{{ match.right.nickname }}</td>
             <td>
-              <match-result
-                :id="id"
-                :opponent-id="user.opponent.id"
-                :value="renderButton(user.result)"
-              ></match-result>
+              <a @click.prevent="pushMatchResult(match.id)">{{
+                renderButton(match.left.result)
+              }}</a>
             </td>
-            <td>{{ user.closed }}</td>
+            <td>{{ match.closed }}</td>
           </tr>
         </tbody>
       </template>
@@ -39,14 +37,14 @@
 
 <script>
 import MatchApi from '../api/match.api';
-import MatchResult from './MatchResult';
 export default {
-  name: 'GameRank',
-  components: { MatchResult },
+  name: 'GameMatch',
   data() {
     return {
       id: '',
-      users: [],
+      matches: [],
+      isPopupOpen: false,
+      leftUser: {},
     };
   },
   methods: {
@@ -69,11 +67,14 @@ export default {
       }
       return (win > 0 ? win + '승' : '') + (lose > 0 ? lose + '패' : '');
     },
+    pushMatchResult(matchId) {
+      this.$router.push(`match/${matchId}`);
+    },
   },
   async created() {
     const params = this.$route.params;
     this.id = params.id;
-    this.users = await MatchApi.inquire_all(params.id);
+    this.matches = await MatchApi.inquire_all(params.id);
   },
 };
 </script>
