@@ -54,7 +54,6 @@ export default {
       myResult: [],
       opponent: {},
       results: [],
-      dialog: false,
     };
   },
   methods: {
@@ -79,10 +78,9 @@ export default {
       this.myself = this.match.left;
       this.myResult = this.match.left.result;
       this.opponent = this.match.right;
-    } catch {
-      console.error('error');
+    } catch (e) {
+      alert(e);
     }
-    this.results = this.match.result;
   },
 };
 </script>

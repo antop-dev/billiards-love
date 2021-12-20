@@ -21,7 +21,7 @@ export default [
     children: [
       {
         name: 'info',
-        path: 'info',
+        path: '/',
         component: MatchInfo,
       },
       {
