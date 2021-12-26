@@ -3,9 +3,12 @@ package org.antop.billiardslove.api;
 import org.antop.billiardslove.WebMvcBase;
 import org.antop.billiardslove.api.LoggedInApi.Request;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
+import org.antop.billiardslove.constants.Security;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.service.LoggedInService;
+import org.antop.billiardslove.util.Aes256Util;
+import org.hamcrest.Aes256Matcher;
 import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.test.web.servlet.ResultActions;
 import util.JsonUtils;
 
 import java.time.ZoneId;
@@ -28,6 +32,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.JsonFieldType.BOOLEAN;
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -46,7 +51,12 @@ class LoggedInApiTest extends WebMvcBase {
     @DisplayName("로그인 한다.")
     @Test
     void firstLogin() throws Exception {
-        // when
+        /*
+         * given
+         */
+        String secretKey = Aes256Util.generateKey();
+        String nickname = "antop";
+
         final long memberId = 12; // 생성될 회원 아이디
         when(jwtTokenProvider.createToken(any())).thenReturn("created jwt token value!");
         when(loggedInService.loggedIn(any(KakaoDto.class))).then(invocation -> {
@@ -55,6 +65,7 @@ class LoggedInApiTest extends WebMvcBase {
                     .id(memberId)
                     .nickname(kakao.getNickname())
                     .thumbnail(kakao.getThumbnailUrl())
+                    .manager(false)
                     .build();
         });
         // request
@@ -62,14 +73,17 @@ class LoggedInApiTest extends WebMvcBase {
                 .id(9999)
                 .connectedAt(ZonedDateTime.of(2020, 8, 17, 15, 45, 4, 0, ZoneId.of("UTC")))
                 .profile(Request.Profile.builder()
-                        .nickname("antop")
+                        .nickname(Aes256Util.encrypt(nickname, secretKey)) // 암호화
                         .imageUrl("https://cataas.com/cat?width=200&height=200")
                         .thumbnailUrl("https://cataas.com/cat?width=160&height=100")
                         .needsAgreement(true)
                         .build())
                 .build();
-        // action
-        mockMvc.perform(post("/api/v1/logged-in")
+        /*
+         * when
+         */
+        ResultActions actions = mockMvc.perform(post("/api/v1/logged-in")
+                        .sessionAttr(Security.SECRET_KEY, secretKey)
                         .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -79,33 +93,43 @@ class LoggedInApiTest extends WebMvcBase {
                 .andDo(document("logged-in",
                         requestFields(loginRequestFields()),
                         responseFields(loginResponseFields())
-                ))
-                // verify
-                .andExpect(status().isOk())
+                ));
+        /*
+         * then
+         */
+        actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").exists())
                 .andExpect(jsonPath("$.registered", is(false)))
                 .andExpect(jsonPath("$.member").exists())
                 .andExpect(jsonPath("$.member.id", NumberMatcher.is(memberId)))
-                .andExpect(jsonPath("$.member.nickname", is(request.getProfile().getNickname())))
+                .andExpect(jsonPath("$.member.nickname", Aes256Matcher.is(nickname, secretKey)))
                 .andExpect(jsonPath("$.member.thumbnail", is(request.getProfile().getThumbnailUrl())))
                 .andExpect(jsonPath("$.member.handicap").doesNotExist())
+                .andExpect(jsonPath("$.member.manager", is(false)))
+
         ;
     }
 
     @DisplayName("회원이 이미 한번 로그인(가입)했던 상태에서 로그인")
     @Test
     void reLogin() throws Exception {
-        // when
-        final String oldNickname = "안탑";
+        /*
+         * given
+         */
+        final String secretKey = Aes256Util.generateKey();
+        final String oldMemberNickname = "안탑";
+        final String newKakaoNickname = "Antop";
         final long memberId = 12;
+
         when(jwtTokenProvider.createToken(any())).thenReturn("created jwt token value!");
         when(loggedInService.loggedIn(any(KakaoDto.class))).then(invocation -> {
             KakaoDto kakao = invocation.getArgument(0, KakaoDto.class);
             return MemberDto.builder()
                     .id(memberId)
-                    .nickname(oldNickname)
+                    .nickname(oldMemberNickname)
                     .thumbnail(kakao.getThumbnailUrl())
                     .handicap(22)
+                    .manager(true)
                     .build();
         });
         // request
@@ -113,14 +137,17 @@ class LoggedInApiTest extends WebMvcBase {
                 .id(1)
                 .connectedAt(ZonedDateTime.of(2020, 8, 17, 15, 45, 4, 0, ZoneId.of("Europe/Paris")))
                 .profile(Request.Profile.builder()
-                        .nickname("Antop")
+                        .nickname(Aes256Util.encrypt(newKakaoNickname, secretKey))
                         .imageUrl("https://foo")
                         .thumbnailUrl("https://bar")
                         .needsAgreement(true)
                         .build())
                 .build();
-        // action
-        mockMvc.perform(post("/api/v1/logged-in")
+        /*
+         * when
+         */
+        ResultActions actions = mockMvc.perform(post("/api/v1/logged-in")
+                        .sessionAttr(Security.SECRET_KEY, secretKey)
                         .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -128,17 +155,21 @@ class LoggedInApiTest extends WebMvcBase {
                 .andDo(document("logged-in-registered",
                         requestFields(loginRequestFields()),
                         responseFields(loginResponseFields())
-                ))
-                .andExpect(status().isOk())
+                ));
+        /*
+         * then
+         */
+        actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").exists())
                 .andExpect(jsonPath("$.registered", is(true)))
                 .andExpect(jsonPath("$.member").exists())
                 .andExpect(jsonPath("$.member.id", NumberMatcher.is(memberId)))
                 // 회원의 별명은 유지된다.
-                .andExpect(jsonPath("$.member.nickname", is(oldNickname)))
+                .andExpect(jsonPath("$.member.nickname", Aes256Matcher.is(oldMemberNickname, secretKey)))
                 // 썸네일은 변경됨
                 .andExpect(jsonPath("$.member.thumbnail", is(request.getProfile().getThumbnailUrl())))
                 .andExpect(jsonPath("$.member.handicap", is(22)))
+                .andExpect(jsonPath("$.member.manager", is(true)))
         ;
     }
 
@@ -162,7 +193,8 @@ class LoggedInApiTest extends WebMvcBase {
                 fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.ID).description("회원 아이디"),
                 fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.THUMBNAIL).description("회원 이미지 (카카오톡 프로필 썸네일)"),
                 fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.NICKNAME).description("회원 별명").attributes(encrypted()),
-                fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.HANDICAP).description("핸디캡").type(NUMBER).optional()
+                fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.HANDICAP).description("핸디캡").type(NUMBER).optional(),
+                fieldWithPath(LoggedInApi.Response.Fields.MEMBER + "." + LoggedInApi.Response.Member.Fields.MANAGER).description("관리자 여부").type(BOOLEAN)
         );
     }
 

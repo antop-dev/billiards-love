@@ -151,7 +151,8 @@ public class RestDocsUtils {
                     fieldWithPath(MemberDto.Fields.ID).description("회원 아이디"),
                     fieldWithPath(MemberDto.Fields.NICKNAME).description("별명").attributes(encrypted()),
                     fieldWithPath(MemberDto.Fields.THUMBNAIL).description("썸네일 이미지 URL"),
-                    fieldWithPath(MemberDto.Fields.HANDICAP).description("핸디캡")
+                    fieldWithPath(MemberDto.Fields.HANDICAP).description("핸디캡"),
+                    fieldWithPath(MemberDto.Fields.MANAGER).description("관리자 여부")
             );
         }
 

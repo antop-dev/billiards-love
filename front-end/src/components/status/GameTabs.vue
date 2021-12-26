@@ -16,7 +16,7 @@
           <v-tabs-slider color="red"></v-tabs-slider>
           <v-tab id="info" :to="{ name: 'info', params: { id } }">정보</v-tab>
           <v-tab id="rank" :to="{ name: 'rank', params: { id } }">순위표</v-tab>
-          <v-tab id="match" :to="{ name: 'chart', params: { id } }"
+          <v-tab id="match" :to="{ name: 'match', params: { id } }"
             >대진표</v-tab
           >
         </v-tabs>

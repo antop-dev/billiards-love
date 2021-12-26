@@ -10,13 +10,16 @@ import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.antop.billiardslove.config.security.JwtTokenProvider;
+import org.antop.billiardslove.constants.Security;
 import org.antop.billiardslove.dto.KakaoDto;
 import org.antop.billiardslove.dto.MemberDto;
 import org.antop.billiardslove.service.LoggedInService;
+import org.antop.billiardslove.util.Aes256Util;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.time.ZonedDateTime;
 
 @Slf4j
@@ -28,10 +31,12 @@ public class LoggedInApi {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/api/v1/logged-in")
-    public Response loggedIn(@RequestBody final Request request) {
+    public Response loggedIn(@RequestBody final Request request, HttpSession session) {
+        String secretKey = (String) session.getAttribute(Security.SECRET_KEY);
+
         KakaoDto kakaoDto = KakaoDto.builder()
                 .id(request.getId())
-                .nickname(request.getProfile().getNickname())
+                .nickname(Aes256Util.decrypt(request.getProfile().getNickname(), secretKey))
                 .imageUrl(request.getProfile().getImageUrl())
                 .thumbnailUrl(request.getProfile().getThumbnailUrl())
                 .connectedAt(request.getConnectedAt())
@@ -44,9 +49,10 @@ public class LoggedInApi {
                 .token(token)
                 .member(Response.Member.builder()
                         .id(member.getId())
-                        .nickname(member.getNickname())
+                        .nickname(Aes256Util.encrypt(member.getNickname(), secretKey))
                         .handicap(member.getHandicap())
                         .thumbnail(member.getThumbnail())
+                        .manager(member.isManager())
                         .build())
                 .build();
 
@@ -159,6 +165,10 @@ public class LoggedInApi {
              * 회원 이미지 (카카오톡 프로필 썸네일)
              */
             private final String thumbnail;
+            /**
+             * 관리자 여부
+             */
+            private final boolean manager;
         }
     }
 

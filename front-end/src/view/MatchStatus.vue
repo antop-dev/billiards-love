@@ -27,8 +27,8 @@ export default {
     };
   },
   methods: {},
-  async created() {
-    let params = this.$route.params;
+  created() {
+    const params = this.$route.params;
     if (params) {
       this.id = params.id;
     }
