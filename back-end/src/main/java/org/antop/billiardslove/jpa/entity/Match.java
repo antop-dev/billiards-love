@@ -145,17 +145,11 @@ public class Match {
     }
 
     /**
-     * 경기 결과로 점수를 계산한다.
+     * 경기 결과로 선수의 점수를 계산한다.
      */
     private void computeScore() {
-        computeScore(player1, matchResult1.toArray());
-        computeScore(player2, matchResult2.toArray());
-    }
-
-    private void computeScore(Player player, Outcome[] outcomes) {
-        for (Outcome outcome : outcomes) {
-            player.incrementScore(outcome.getScore());
-        }
+        player1.computeScore(matchResult1.toArray());
+        player2.computeScore(matchResult2.toArray());
     }
 
     /**

@@ -27,6 +27,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
+import static org.antop.billiardslove.model.Outcome.LOSE;
+import static org.antop.billiardslove.model.Outcome.WIN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -137,15 +139,15 @@ class MatchServiceTest {
         when(p2.getMember()).thenReturn(m2);
 
         Match match = Match.builder().player1(p1).player2(p2).build();
-        match.enterResult(m1.getId(), Outcome.WIN, Outcome.WIN, Outcome.LOSE);
-        match.enterResult(m2.getId(), Outcome.LOSE, Outcome.LOSE, Outcome.WIN);
+        match.enterResult(m1.getId(), WIN, WIN, LOSE);
+        match.enterResult(m2.getId(), LOSE, LOSE, WIN);
 
         return match;
     }
 
     @DisplayName("순위를 재계산한다.")
     @Test
-    void calculate() {
+    void computeRank() {
         /*
          * given
          */
@@ -158,16 +160,16 @@ class MatchServiceTest {
          */
         Player p1 = Player.builder().build();
         p1.setRank(1);
-        p1.incrementScore(100);
+        for (int i = 0; i < 10; i++) p1.computeScore(new Outcome[]{WIN, WIN, WIN, LOSE}); // 100
         Player p2 = Player.builder().build();
         p2.setRank(2);
-        p2.incrementScore(90);
+        for (int i = 0; i < 9; i++) p2.computeScore(new Outcome[]{WIN, WIN, WIN, LOSE}); // 90
         Player p3 = Player.builder().build();
         p3.setRank(2);
-        p3.incrementScore(90);
+        for (int i = 0; i < 9; i++) p3.computeScore(new Outcome[]{WIN, WIN, WIN, LOSE}); // 90
         Player p4 = Player.builder().build();
         p4.setRank(4);
-        p4.incrementScore(80);
+        for (int i = 0; i < 8; i++) p4.computeScore(new Outcome[]{WIN, WIN, WIN, LOSE}); // 80
         Contest contest = mock(Contest.class);
         when(contest.getId()).thenReturn(1L);
         /*
@@ -178,8 +180,8 @@ class MatchServiceTest {
          * p3 + 30
          * p4 + 20
          */
-        p3.incrementScore(30);
-        p4.incrementScore(20);
+        for (int i = 0; i < 3; i++) p3.computeScore(new Outcome[] {WIN, WIN, WIN, LOSE}); // +30
+        for (int i = 0; i < 2; i++) p4.computeScore(new Outcome[] {WIN, WIN, WIN, LOSE}); // +20
         matchService.computeRank(contest);
         /*
          * then

@@ -66,14 +66,4 @@ public class MatchDao extends QuerydslRepositorySupport {
                 .fetch();
     }
 
-    /**
-     * 경기 정보를 저장한다.<br>
-     * JPA 라이프사이클에 의해 나중에 쿼리가 수행되지 않고 바로 수행된다.
-     *
-     * @param match 경기 정보
-     */
-    @Transactional
-    public void saveAndFlush(Match match) {
-        repository.saveAndFlush(match);
-    }
 }

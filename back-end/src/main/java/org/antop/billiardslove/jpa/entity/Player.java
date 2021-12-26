@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
+import org.antop.billiardslove.model.Outcome;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 
 /**
  * 선수 정보
@@ -76,7 +78,7 @@ public class Player {
      * 점수
      */
     @Column(name = "plyr_scr")
-    private Integer score;
+    private int score;
     /**
      * 순위 변동 현황<br>
      * 양수: 올라감
@@ -100,25 +102,26 @@ public class Player {
     }
 
     /**
-     * 점수 증가
+     * 선수 번호 부여<br>
+     * 선수에게 선수 번호가 부여되면서 정보를 초기화 한다.
      *
-     * @param score 증가시킬 점수
-     */
-    public void incrementScore(int score) {
-        if (this.score == null) {
-            this.score = 0;
-        }
-        this.score += score;
-    }
-
-    /**
-     * 선수 정보 초기화
      * @param number 선수 번호
      */
-    public void init(int number) {
+    public void assignNumber(int number) {
         this.number = number;
         this.score = 0;
         this.rank = null;
+    }
+
+    /**
+     * 경기 결과로 점수 적용
+     *
+     * @param outcomes 경기 결과들
+     */
+    public void computeScore(Outcome[] outcomes) {
+        score = Arrays.stream(outcomes)
+                .map(Outcome::getScoreFunc)
+                .reduce(this.score, (acc, func) -> func.apply(acc), Integer::sum);
     }
 
 }

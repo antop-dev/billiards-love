@@ -28,7 +28,6 @@ class PlayerMapperTest {
                 .build();
         player.setRank(1);
         player.setNumber(112);
-        player.incrementScore(1192);
 
         PlayerDto dto = mapper.toDto(player);
 
@@ -37,6 +36,5 @@ class PlayerMapperTest {
         assertThat(dto.getNickname(), is(player.getMember().getNickname()));
         assertThat(dto.getRank(), is(player.getRank()));
         assertThat(dto.getNumber(), is(player.getNumber()));
-        assertThat(dto.getScore(), is(player.getScore()));
     }
 }

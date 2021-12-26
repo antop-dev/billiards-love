@@ -5,8 +5,8 @@ package org.antop.billiardslove.exception;
  *
  * @author antop
  */
-public class MatchClosedException extends RuntimeException {
-    public MatchClosedException() {
+public class MatchConfirmedException extends RuntimeException {
+    public MatchConfirmedException() {
         super("이미 확정된 경기입니다.");
     }
 }

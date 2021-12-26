@@ -35,7 +35,7 @@ public class PlayerDto {
     /**
      * 점수
      */
-    private final Integer score;
+    private final int score;
     /**
      * 순위 변동 현황<br>
      * 양수: 올라감

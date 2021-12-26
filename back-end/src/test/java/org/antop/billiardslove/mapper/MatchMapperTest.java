@@ -39,7 +39,6 @@ class MatchMapperTest {
                 .build();
         player2.setNumber(8);
         player2.setRank(10);
-        player2.incrementScore(871);
 
         Match match = Match.builder()
                 .player1(player1)
@@ -55,6 +54,5 @@ class MatchMapperTest {
         assertThat(dto.getRight().getNickname(), is(member2.getNickname()));
         assertThat(dto.getRight().getNumber(), is(player2.getNumber()));
         assertThat(dto.getRight().getRank(), is(player2.getRank()));
-        assertThat(dto.getRight().getScore(), is(player2.getScore()));
     }
 }

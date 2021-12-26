@@ -6,7 +6,7 @@ import org.antop.billiardslove.dao.MatchDao;
 import org.antop.billiardslove.dao.MemberDao;
 import org.antop.billiardslove.dao.PlayerDao;
 import org.antop.billiardslove.dto.MatchDto;
-import org.antop.billiardslove.exception.MatchClosedException;
+import org.antop.billiardslove.exception.MatchConfirmedException;
 import org.antop.billiardslove.exception.MatchNotFoundException;
 import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
@@ -77,7 +77,7 @@ public class MatchService {
     public MatchDto enter(long matchId, long memberId, Outcome[] results) {
         Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
         if (match.isConfirmed()) {
-            throw new MatchClosedException();
+            throw new MatchConfirmedException();
         }
         Member member = memberDao.findById(memberId).orElseThrow(MemberNotFoundException::new);
         match.enterResult(member.getId(), results[0], results[1], results[2]);
@@ -98,7 +98,6 @@ public class MatchService {
         Match match = matchDao.findById(matchId).orElseThrow(MatchNotFoundException::new);
         Member manager = memberDao.findById(managerId).orElseThrow(MemberNotFoundException::new);
         match.decide(manager, left, right);
-        matchDao.saveAndFlush(match); // 바로 저장
         computeRank(match.getContest()); // 순위 재계산
         return matchMapper.toDto(match, manager);
     }
@@ -110,25 +109,17 @@ public class MatchService {
      */
     @Transactional
     public void computeRank(Contest contest) {
-        val matches = playerDao.findByContest(contest.getId());
+        val players = playerDao.findByContest(contest.getId());
+        if (players.isEmpty()) return;
         // 선수들의 점수(score)로 내림차순 정렬
-        val players = matches.stream()
-                .sorted((o1, o2) -> o2.getScore() - o1.getScore())
-                .collect(Collectors.toList());
-        // 순위(rank)는 동률이 있다.
-        int rank = 0;
-        int count = 1;
-        long score = Long.MAX_VALUE;
-        for (Player player : players) {
-            if (player.getScore() < score) {
-                rank++;
-                if (rank != count) {
-                    rank = count;
-                }
-            }
-            player.setRank(rank);
-            score = player.getScore();
-            count++;
+        players.sort((o1, o2) -> o2.getScore() - o1.getScore());
+        // 첫번째 선수는 1위
+        players.get(0).setRank(1);
+        for (int i = 1; i < players.size(); i++) {
+            Player prev = players.get(i - 1);
+            Player p = players.get(i);
+            // 순위(rank)는 동률이 있다.
+            p.setRank(p.getScore() == prev.getScore() ? prev.getRank() : i + 1);
         }
     }
 

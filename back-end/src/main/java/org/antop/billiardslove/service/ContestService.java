@@ -143,7 +143,7 @@ public class ContestService {
         List<Player> players = playerDao.findByContest(contest.getId());
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            p.init(i + 1);
+            p.assignNumber(i + 1);
 
             // 대진표 생성
             for (int j = i + 1; j < players.size(); j++) {
