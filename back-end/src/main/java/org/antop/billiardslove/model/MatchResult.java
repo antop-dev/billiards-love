@@ -49,8 +49,8 @@ public class MatchResult {
         return new String[]{first.name(), second.name(), third.name()};
     }
 
-    public static MatchResult of(Outcome first, Outcome second, Outcome third) {
-        return new MatchResult(first, second, third);
+    public static MatchResult of(Outcome... outcomes) {
+        return new MatchResult(outcomes[0], outcomes[1], outcomes[2]);
     }
 
 }

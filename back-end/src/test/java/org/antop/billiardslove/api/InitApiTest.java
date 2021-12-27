@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import util.JsonUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,7 +48,7 @@ class InitApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.adSenseKey", isBase64()))
                 .andReturn().getResponse().getContentAsString();
 
-        Response response = fromJson(json, Response.class);
+        Response response = JsonUtils.fromJson(json, Response.class);
         String secretKey = response.getSecretKey();
         assertThat(Aes256Util.decrypt(response.getKakaoKey(), secretKey), is(kakaoProperties.getJavaScriptKey()));
         assertThat(Aes256Util.decrypt(response.getAdSenseKey(), secretKey), is(googleProperties.getAdSenseKey()));

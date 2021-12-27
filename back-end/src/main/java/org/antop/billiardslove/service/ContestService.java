@@ -140,12 +140,10 @@ public class ContestService {
         Contest contest = findContest(contestId);
         contest.start();
 
-        List<Player> players = playerDao.findByContest(contestId);
+        List<Player> players = playerDao.findByContest(contest.getId());
         for (int i = 0; i < players.size(); i++) {
             Player p = players.get(i);
-            p.setScore(0);
-            p.setNumber(i + 1);
-            p.setRank(i + 1);
+            p.assignNumber(i + 1);
 
             // 대진표 생성
             for (int j = i + 1; j < players.size(); j++) {

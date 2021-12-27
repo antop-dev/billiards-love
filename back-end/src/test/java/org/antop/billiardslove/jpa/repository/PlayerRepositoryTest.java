@@ -4,6 +4,7 @@ import org.antop.billiardslove.DataJpaBase;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ class PlayerRepositoryTest extends DataJpaBase {
             assertThat(it.getHandicap(), is(newHandicap));
             assertThat(it.getNumber(), is(newNumber));
             assertThat(it.getRank(), nullValue());
-            assertThat(it.getScore(), nullValue());
+            assertThat(it.getScore(), is(0));
         });
     }
 

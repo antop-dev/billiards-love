@@ -6,6 +6,7 @@ import org.antop.billiardslove.jpa.entity.Match;
 import org.antop.billiardslove.jpa.entity.Member;
 import org.antop.billiardslove.jpa.entity.Player;
 import org.antop.billiardslove.model.MatchResult;
+import org.antop.billiardslove.model.Outcome;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -86,9 +87,7 @@ class MatchRepositoryTest extends DataJpaBase {
         admin.setManager(true);
         memberRepository.save(admin);
 
-        match.enterResult(member1.getId(), WIN, LOSE, NONE);
-        match.enterResult(member2.getId(), LOSE, LOSE, NONE);
-        match.decide(admin);
+        match.decide(admin, new Outcome[]{WIN, LOSE, NONE}, new Outcome[]{LOSE, LOSE, NONE});
         matchRepository.save(match);
 
         flushAndClear();

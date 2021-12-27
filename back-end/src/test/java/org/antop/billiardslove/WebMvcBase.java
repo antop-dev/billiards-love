@@ -1,6 +1,5 @@
 package org.antop.billiardslove;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.antop.billiardslove.config.filter.HttpLoggingFilter;
@@ -71,26 +70,6 @@ abstract public class WebMvcBase {
      */
     protected final String managerToken() {
         return MANAGER;
-    }
-
-    /**
-     * 오브젝트를 JSON 문자열로 변경
-     *
-     * @param o 변경할 오브젝트
-     * @return 변경된 문자열
-     */
-    protected final String toJson(Object o) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(o);
-    }
-
-    /**
-     * JSON 문자열을 오브젝트로 변경
-     *
-     * @param json      JSON 문자열
-     * @param valueType 변경할 클래스 타입
-     */
-    protected final <T> T fromJson(String json, Class<T> valueType) throws JsonProcessingException {
-        return objectMapper.readValue(json, valueType);
     }
 
     @BeforeEach

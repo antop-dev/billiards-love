@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.web.servlet.ResultActions;
+import util.JsonUtils;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -83,7 +84,7 @@ class LoggedInApiTest extends WebMvcBase {
          */
         ResultActions actions = mockMvc.perform(post("/api/v1/logged-in")
                         .sessionAttr(Security.SECRET_KEY, secretKey)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 // logging
@@ -147,7 +148,7 @@ class LoggedInApiTest extends WebMvcBase {
          */
         ResultActions actions = mockMvc.perform(post("/api/v1/logged-in")
                         .sessionAttr(Security.SECRET_KEY, secretKey)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())

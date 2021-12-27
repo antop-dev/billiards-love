@@ -25,7 +25,7 @@ import javax.servlet.Filter;
  * The jsr250Enabled property allows us to use the @RoleAllowed annotation
  */
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Profile({Profiles.LOCAL, Profiles.PRODUCTION})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;

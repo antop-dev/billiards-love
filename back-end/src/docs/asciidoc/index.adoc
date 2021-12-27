@@ -301,6 +301,23 @@ include::{snippets}/error-match-not-found/http-response.adoc[]
 
 include::{snippets}/match-result-enter-bad-request/http-response.adoc[]
 
+
+==== 경기 결과 확정
+
+경기 결과를 확정한다. 관리자만 확정할 수 있다.
+
+.요청
+include::{snippets}/match-decide/path-parameters.adoc[]
+include::{snippets}/match-decide/request-headers.adoc[]
+include::{snippets}/match-decide/request-fields.adoc[]
+include::{snippets}/match-decide/http-request.adoc[]
+
+.응답
+include::{snippets}/match-decide/http-response.adoc[]
+
+.권한이 없을 경우
+include::{snippets}/error-forbidden/http-response.adoc[]
+
 === 대진표
 
 ==== 순위

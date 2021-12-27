@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import util.JsonUtils;
 
 import java.time.LocalDate;
 
@@ -66,7 +67,7 @@ class ContestJoiningApiTest extends WebMvcBase {
         JoiningRequest request = new JoiningRequest(handicap);
         // action
         mockMvc.perform(post("/api/v1/contest/{id}/join", 2)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging
@@ -99,7 +100,7 @@ class ContestJoiningApiTest extends WebMvcBase {
         JoiningRequest request = new JoiningRequest(30);
         // action
         mockMvc.perform(post("/api/v1/contest/{id}/join", 1)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging
@@ -123,7 +124,7 @@ class ContestJoiningApiTest extends WebMvcBase {
         JoiningRequest request = new JoiningRequest(30);
         // action
         mockMvc.perform(post("/api/v1/contest/{id}/join", 2)
-                        .content(toJson(request))
+                        .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging

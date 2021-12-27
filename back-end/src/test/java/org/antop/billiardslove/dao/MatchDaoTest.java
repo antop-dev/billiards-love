@@ -12,11 +12,12 @@ import static org.hamcrest.Matchers.hasSize;
 
 class MatchDaoTest extends SpringBootBase {
     @Autowired
-    private MatchDao dao;
+    private MatchDao matchDao;
 
     @Test
     void findInMe() {
-        List<Match> matches = dao.findJoinedIn(1, 2);
+        List<Match> matches = matchDao.findJoinedIn(1, 2);
         assertThat(matches, hasSize(4));
     }
+
 }
