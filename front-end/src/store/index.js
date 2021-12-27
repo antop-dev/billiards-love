@@ -13,12 +13,7 @@ export default new Vuex.Store({
     login_info: {
       token: '',
       registered: false,
-      member: {
-        handicap: '',
-        id: '',
-        nickname: '',
-        thumbnail: '',
-      },
+      manager: false,
     },
     secret_key: '',
   },
