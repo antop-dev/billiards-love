@@ -1,4 +1,7 @@
 import HttpClient from './client';
+import store from '../store';
+import AES256 from '../util/aes256';
+
 // import store from '../store';
 /**
  * 로그인 API
@@ -24,7 +27,10 @@ const loginApi = class {
       id: userInfo.id,
       connectedAt: userInfo.connected_at,
       profile: {
-        nickname: userInfo.kakao_account.profile.nickname,
+        nickname: AES256.encrypt(
+          userInfo.kakao_account.profile.nickname,
+          store.state.secret_key,
+        ),
         imageUrl: userInfo.kakao_account.profile.profile_image_url,
         thumbnailUrl: userInfo.kakao_account.profile.thumbnail_image_url,
         needsAgreement: userInfo.kakao_account.profile_needs_agreement,
