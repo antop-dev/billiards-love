@@ -95,7 +95,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contests-1233707179"
+                  "$ref" : "#/components/schemas/api-v1-contests430874592"
                 },
                 "examples" : {
                   "contest-list" : {
@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"vpWVwOKIwFOAFB42Co4g7yI5nwgh0NeTWv9vkUZj1hQ=\",\r\n  \"kakaoKey\" : \"GHT2mZknzGatOPxGNo1MCNVCuzHxzbmYy2vlGIq1udAiRg8wfpi0BvCYSgvj6/Za2w==\",\r\n  \"adSenseKey\" : \"Cm40hABEOS3InP9y6LsnMI/QmZeYa6yUC6goziwb25XdZ6UQl5vFvYfa5vXxtw==\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"8nZtXhsbqfxeCKbVWksbrXj9ONGgV5IL+Kfh9rb58BM=\",\r\n  \"kakaoKey\" : \"624B0O0Ji5b5UmG+72BW3SvHCHSg3Dj5P+0iO4RcvWF0OSbmSNK0QqUq1hXfmi5wjQ==\",\r\n  \"adSenseKey\" : \"cQaHbhMGrLBoEsCRz9bRDJvZQzA8+jnCs4YV4a5THDNuLDEhivJzptCw1eb8rA==\"\r\n}"
                   }
                 }
               }
@@ -143,10 +143,10 @@
               },
               "examples" : {
                 "logged-in" : {
-                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : 1.597679104E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"hWHXHRKMCfXT2arqbseXN8Usc7qjBN+iviYhjdlqLnKn\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : 1.597679104E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"sTPndgwojVVKNtPKp2nMYGdvSCficAUwXfGBFcPGEfpV\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 },
                 "logged-in-registered" : {
-                  "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : 1.597671904E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"uuBQAM8akusLv07aahr70tGVs+/2RyZr0/WKh9mbxhsZ\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                  "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : 1.597671904E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"QfCzeQ7/AvUq2UxCEkKIDdDgpUBEXxd+M5hOA+6iMDn2\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 }
               }
             }
@@ -162,10 +162,10 @@
                 },
                 "examples" : {
                   "logged-in" : {
-                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"0+PaXgKq5iTqo6NsEjrcJFRsZqjvOFnmT9emzE4gw18U\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"manager\" : false\r\n  },\r\n  \"registered\" : false\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"+aAP/g5PPx1KoglqPnid56pN03b3yQcklSd677Jo1/4T\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"manager\" : false\r\n  },\r\n  \"registered\" : false\r\n}"
                   },
                   "logged-in-registered" : {
-                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"WLK2Hyq2UKApeb/bzRpOUAp9nKsWuThDJJE/1WP/O2egrA==\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\",\r\n    \"manager\" : true\r\n  },\r\n  \"registered\" : true\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"tLyf1l5D5u665Vw1/qlBOn1J02/gmQLO0ddnItYMY8X98Q==\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\",\r\n    \"manager\" : true\r\n  },\r\n  \"registered\" : true\r\n}"
                   }
                 }
               }
@@ -196,10 +196,10 @@
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"11a8WD3+7qk78dipCOPE8I98gA8DN/EyxexP77+Oivql\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"mndII8j4iU84tKDXPl7DrCxpCVdW6F2hmmaiTiFIytcg\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"eis8TAicSWU+j1FyBjCr/l35t357CERDHdcr4Yxr3F5zyVOT5xoagCOKb1A=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"rFAlcvbDcr5SO9YE9U4aQIJSaEPwFKj4BB8lAqf3iu88tCOZiyEMD5h1l0o=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\",\r\n  \"handicap\" : null\r\n}"
@@ -239,7 +239,7 @@
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"DBuZjNsg1lJat1pGRKC9WoiF4qMZgjA1lK51QxQsvxaIqupib4hUfniRrgA=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\",\r\n  \"manager\" : false\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"M2VfVpEYpRhnKsbQnhNevaH1fX1rCna/hg3oWoM9DCSNJOjXJmvTle6Fato=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\",\r\n  \"manager\" : false\r\n}"
                   }
                 }
               }
@@ -297,7 +297,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1814116974"
+                  "$ref" : "#/components/schemas/api-v1-contest-id1287620519"
                 },
                 "examples" : {
                   "contest-info" : {
@@ -627,11 +627,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-1814116974"
+                  "$ref" : "#/components/schemas/api-v1-contest-id1287620519"
                 },
                 "examples" : {
                   "contest-join" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 8997,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"score\" : 0,\r\n    \"variation\" : 0\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 9,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"score\" : 0,\r\n    \"variation\" : 0\r\n  }\r\n}"
                   }
                 }
               }
@@ -990,96 +990,6 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-contests-1233707179" : {
-        "type" : "array",
-        "items" : {
-          "type" : "object",
-          "properties" : {
-            "currentJoiner" : {
-              "type" : "number",
-              "description" : "현재 참가자 수"
-            },
-            "endDate" : {
-              "type" : "string",
-              "description" : "종료 날짜"
-            },
-            "description" : {
-              "type" : "string",
-              "description" : "대회 설명"
-            },
-            "title" : {
-              "type" : "string",
-              "description" : "대회명"
-            },
-            "maxJoiner" : {
-              "type" : "number",
-              "description" : "최대 참가자 수"
-            },
-            "stateName" : {
-              "type" : "string",
-              "description" : "상태명"
-            },
-            "progress" : {
-              "type" : "number",
-              "description" : "진행률 (%)"
-            },
-            "stateCode" : {
-              "type" : "string",
-              "description" : "상태 코드"
-            },
-            "startTime" : {
-              "type" : "string",
-              "description" : "시작 시간"
-            },
-            "endTime" : {
-              "type" : "string",
-              "description" : "종료 시간"
-            },
-            "id" : {
-              "type" : "number",
-              "description" : "대회 아이디"
-            },
-            "startDate" : {
-              "type" : "string",
-              "description" : "시작 날짜"
-            },
-            "player" : {
-              "type" : "object",
-              "properties" : {
-                "score" : {
-                  "type" : "number",
-                  "description" : "점수"
-                },
-                "number" : {
-                  "type" : "number",
-                  "description" : "선수 번호"
-                },
-                "handicap" : {
-                  "type" : "number",
-                  "description" : "선수 아이디"
-                },
-                "nickname" : {
-                  "type" : "string",
-                  "description" : "별명"
-                },
-                "rank" : {
-                  "type" : "number",
-                  "description" : "순위"
-                },
-                "id" : {
-                  "type" : "number",
-                  "description" : "선수 아이디"
-                },
-                "variation" : {
-                  "type" : "number",
-                  "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
-                }
-              },
-              "description" : "선수 정보"
-            }
-          }
-        }
-      },
       "api-v1-contest-id1962182449" : {
         "type" : "object",
         "properties" : {
@@ -1192,6 +1102,23 @@
           }
         }
       },
+      "api-v1-init781399800" : {
+        "type" : "object",
+        "properties" : {
+          "secretKey" : {
+            "type" : "string",
+            "description" : "암복호화 키"
+          },
+          "kakaoKey" : {
+            "type" : "string",
+            "description" : "카카오 API 키"
+          },
+          "adSenseKey" : {
+            "type" : "string",
+            "description" : "구글 애드센스 키"
+          }
+        }
+      },
       "api-v1-member-1099089930" : {
         "type" : "object",
         "properties" : {
@@ -1217,107 +1144,93 @@
           }
         }
       },
-      "api-v1-init781399800" : {
-        "type" : "object",
-        "properties" : {
-          "secretKey" : {
-            "type" : "string",
-            "description" : "암복호화 키"
-          },
-          "kakaoKey" : {
-            "type" : "string",
-            "description" : "카카오 API 키"
-          },
-          "adSenseKey" : {
-            "type" : "string",
-            "description" : "구글 애드센스 키"
-          }
-        }
-      },
-      "api-v1-contest-id-1814116974" : {
-        "type" : "object",
-        "properties" : {
-          "currentJoiner" : {
-            "type" : "number",
-            "description" : "현재 참가자 수"
-          },
-          "endDate" : {
-            "type" : "string",
-            "description" : "종료 날짜"
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "대회 설명"
-          },
-          "title" : {
-            "type" : "string",
-            "description" : "대회명"
-          },
-          "maxJoiner" : {
-            "type" : "number",
-            "description" : "최대 참가자 수"
-          },
-          "stateName" : {
-            "type" : "string",
-            "description" : "상태명"
-          },
-          "progress" : {
-            "type" : "number",
-            "description" : "진행률 (%)"
-          },
-          "stateCode" : {
-            "type" : "string",
-            "description" : "상태 코드"
-          },
-          "startTime" : {
-            "type" : "string",
-            "description" : "시작 시간"
-          },
-          "endTime" : {
-            "type" : "string",
-            "description" : "종료 시간"
-          },
-          "id" : {
-            "type" : "number",
-            "description" : "대회 아이디"
-          },
-          "startDate" : {
-            "type" : "string",
-            "description" : "시작 날짜"
-          },
-          "player" : {
-            "type" : "object",
-            "properties" : {
-              "score" : {
-                "type" : "number",
-                "description" : "점수"
-              },
-              "number" : {
-                "type" : "number",
-                "description" : "선수 번호"
-              },
-              "handicap" : {
-                "type" : "number",
-                "description" : "선수 아이디"
-              },
-              "nickname" : {
-                "type" : "string",
-                "description" : "별명"
-              },
-              "rank" : {
-                "type" : "number",
-                "description" : "순위"
-              },
-              "id" : {
-                "type" : "number",
-                "description" : "선수 아이디"
-              },
-              "variation" : {
-                "type" : "number",
-                "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
-              }
+      "api-v1-contests430874592" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "currentJoiner" : {
+              "type" : "number",
+              "description" : "현재 참가자 수"
             },
-            "description" : "선수 정보"
+            "endDate" : {
+              "type" : "string",
+              "description" : "종료 날짜"
+            },
+            "description" : {
+              "type" : "string",
+              "description" : "대회 설명"
+            },
+            "title" : {
+              "type" : "string",
+              "description" : "대회명"
+            },
+            "maxJoiner" : {
+              "type" : "number",
+              "description" : "최대 참가자 수"
+            },
+            "stateName" : {
+              "type" : "string",
+              "description" : "상태명"
+            },
+            "progress" : {
+              "type" : "number",
+              "description" : "진행률 (%)"
+            },
+            "stateCode" : {
+              "type" : "string",
+              "description" : "상태 코드"
+            },
+            "startTime" : {
+              "type" : "string",
+              "description" : "시작 시간"
+            },
+            "endTime" : {
+              "type" : "string",
+              "description" : "종료 시간"
+            },
+            "id" : {
+              "type" : "number",
+              "description" : "대회 아이디"
+            },
+            "startDate" : {
+              "type" : "string",
+              "description" : "시작 날짜"
+            },
+            "player" : {
+              "type" : "object",
+              "properties" : {
+                "score" : {
+                  "type" : "number",
+                  "description" : "점수"
+                },
+                "number" : {
+                  "type" : "number",
+                  "description" : "선수 번호"
+                },
+                "handicap" : {
+                  "type" : "number",
+                  "description" : "선수 아이디"
+                },
+                "nickname" : {
+                  "type" : "string",
+                  "description" : "별명"
+                },
+                "rank" : {
+                  "type" : "number",
+                  "description" : "순위"
+                },
+                "id" : {
+                  "type" : "number",
+                  "description" : "선수 아이디"
+                },
+                "variation" : {
+                  "type" : "number",
+                  "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
+                }
+              },
+              "description" : "선수 정보 +\n조회한 내가(회원) 참여하지 않은 대회: `+null+`"
+            }
           }
         }
       },
@@ -1472,6 +1385,93 @@
           "token" : {
             "type" : "string",
             "description" : "JWT 토큰"
+          }
+        }
+      },
+      "api-v1-contest-id1287620519" : {
+        "type" : "object",
+        "properties" : {
+          "currentJoiner" : {
+            "type" : "number",
+            "description" : "현재 참가자 수"
+          },
+          "endDate" : {
+            "type" : "string",
+            "description" : "종료 날짜"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "대회 설명"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "대회명"
+          },
+          "maxJoiner" : {
+            "type" : "number",
+            "description" : "최대 참가자 수"
+          },
+          "stateName" : {
+            "type" : "string",
+            "description" : "상태명"
+          },
+          "progress" : {
+            "type" : "number",
+            "description" : "진행률 (%)"
+          },
+          "stateCode" : {
+            "type" : "string",
+            "description" : "상태 코드"
+          },
+          "startTime" : {
+            "type" : "string",
+            "description" : "시작 시간"
+          },
+          "endTime" : {
+            "type" : "string",
+            "description" : "종료 시간"
+          },
+          "id" : {
+            "type" : "number",
+            "description" : "대회 아이디"
+          },
+          "startDate" : {
+            "type" : "string",
+            "description" : "시작 날짜"
+          },
+          "player" : {
+            "type" : "object",
+            "properties" : {
+              "score" : {
+                "type" : "number",
+                "description" : "점수"
+              },
+              "number" : {
+                "type" : "number",
+                "description" : "선수 번호"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "별명"
+              },
+              "rank" : {
+                "type" : "number",
+                "description" : "순위"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "variation" : {
+                "type" : "number",
+                "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
+              }
+            },
+            "description" : "선수 정보 +\n조회한 내가(회원) 참여하지 않은 대회: `+null+`"
           }
         }
       },
