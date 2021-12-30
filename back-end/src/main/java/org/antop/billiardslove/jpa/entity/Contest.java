@@ -228,4 +228,11 @@ public class Contest {
         state = ContestState.ACCEPTING;
     }
 
+    /**
+     * 참가자 수 증가
+     */
+    public void incrementJoiner() {
+        currentJoiner++;
+    }
+
 }
