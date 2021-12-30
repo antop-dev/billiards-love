@@ -2,11 +2,7 @@ package org.antop.billiardslove.api;
 
 import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.WebMvcBase;
-import org.antop.billiardslove.api.ContestJoiningApi.JoiningRequest;
 import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.dto.PlayerDto;
-import org.antop.billiardslove.exception.AlreadyJoinException;
-import org.antop.billiardslove.exception.CanNotJoinContestStateException;
 import org.antop.billiardslove.model.ContestState;
 import org.antop.billiardslove.service.ContestService;
 import org.hamcrest.NumberMatcher;
@@ -15,23 +11,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import util.JsonUtils;
 
 import java.time.LocalDate;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
-import static org.antop.billiardslove.api.ContestJoiningApi.JoiningRequest.Fields.HANDICAP;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -62,7 +50,7 @@ class ContestJoiningApiTest extends WebMvcBase {
         // request
         long contestId = 2;
         // action
-        mockMvc.perform(delete("/api/v1/contest/{id}/join", contestId)
+        mockMvc.perform(delete("/api/v1/contest/{contestId}/join", contestId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
                 .andDo(print())

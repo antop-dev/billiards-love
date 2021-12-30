@@ -7,12 +7,12 @@ import org.antop.billiardslove.dao.MatchDao;
 import org.antop.billiardslove.dao.MemberDao;
 import org.antop.billiardslove.dao.PlayerDao;
 import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.exception.AlreadyContestEndException;
-import org.antop.billiardslove.exception.AlreadyContestProgressException;
 import org.antop.billiardslove.exception.AlreadyJoinException;
 import org.antop.billiardslove.exception.CanNotCancelJoinException;
 import org.antop.billiardslove.exception.CanNotJoinContestStateException;
+import org.antop.billiardslove.exception.ContestEndException;
 import org.antop.billiardslove.exception.ContestNotFoundException;
+import org.antop.billiardslove.exception.ContestProceedingException;
 import org.antop.billiardslove.exception.MemberNotFoundException;
 import org.antop.billiardslove.jpa.entity.Contest;
 import org.antop.billiardslove.jpa.entity.Match;
@@ -107,7 +107,6 @@ public class ContestService {
     public ContestDto open(long contestId) {
         Contest contest = findById(contestId);
         contest.open();
-
         return contestMapper.toDto(contest);
     }
 
@@ -140,24 +139,28 @@ public class ContestService {
     @Transactional
     public ContestDto start(long contestId) {
         Contest contest = findById(contestId);
+        ContestState oldState = contest.getState();
         contest.start();
 
-        List<Player> players = playerDao.findByContest(contest.getId());
-        for (int i = 0; i < players.size(); i++) {
-            Player p = players.get(i);
-            p.assignNumber(i + 1);
+        // 접수중 상태에서 시작 되었을 때만 선수들을 초기화한다.
+        if (oldState == ContestState.ACCEPTING) {
+            List<Player> players = playerDao.findByContest(contest.getId());
+            for (int i = 0; i < players.size(); i++) {
+                Player p = players.get(i);
+                p.assignNumber(i + 1);
 
-            // 대진표 생성
-            for (int j = i + 1; j < players.size(); j++) {
-                Player opponent = players.get(j);
+                // 대진표 생성
+                for (int j = i + 1; j < players.size(); j++) {
+                    Player opponent = players.get(j);
 
-                Match match = Match.builder()
-                        .contest(contest)
-                        .player1(p)
-                        .player2(opponent)
-                        .build();
+                    Match match = Match.builder()
+                            .contest(contest)
+                            .player1(p)
+                            .player2(opponent)
+                            .build();
 
-                matchDao.save(match);
+                    matchDao.save(match);
+                }
             }
         }
 
@@ -176,9 +179,9 @@ public class ContestService {
                 .orElseThrow(ContestNotFoundException::new);
         // 준비중, 접수중, 중지 상태에서만 변경 가능
         if (contest.getState() == ContestState.PROCEEDING) {
-            throw new AlreadyContestProgressException();
+            throw new ContestProceedingException();
         } else if (contest.getState() == ContestState.END) {
-            throw new AlreadyContestEndException();
+            throw new ContestEndException();
         }
 
         contest.setTitle(dto.getTitle());

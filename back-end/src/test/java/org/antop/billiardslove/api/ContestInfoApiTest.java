@@ -4,8 +4,8 @@ import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.WebMvcBase;
 import org.antop.billiardslove.dto.ContestDto;
 import org.antop.billiardslove.dto.PlayerDto;
-import org.antop.billiardslove.exception.AlreadyContestEndException;
-import org.antop.billiardslove.exception.AlreadyContestProgressException;
+import org.antop.billiardslove.exception.ContestEndException;
+import org.antop.billiardslove.exception.ContestProceedingException;
 import org.antop.billiardslove.mapper.ContestMapperImpl;
 import org.antop.billiardslove.model.ContestState;
 import org.antop.billiardslove.service.CodeService;
@@ -95,7 +95,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .build();
         when(contestService.getContest(anyLong())).thenReturn(Optional.of(contest));
         // action
-        mockMvc.perform(get("/api/v1/contest/{id}", 5)
+        mockMvc.perform(get("/api/v1/contest/{contestId}", 5)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
                 // logging
                 .andDo(print())
@@ -292,7 +292,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .maxJoiner(64)
                 .build();
         // action
-        mockMvc.perform(put("/api/v1/contest/{id}", 5)
+        mockMvc.perform(put("/api/v1/contest/{contestId}", 5)
                         .header(HttpHeaders.AUTHORIZATION, managerToken())
                         .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -324,7 +324,7 @@ class ContestInfoApiTest extends WebMvcBase {
     @Test
     void alreadyContestEnd() throws Exception {
         // when
-        when(contestService.modify(anyLong(), any())).thenThrow(new AlreadyContestEndException());
+        when(contestService.modify(anyLong(), any())).thenThrow(new ContestEndException());
         // request
         ContestDto request = ContestDto.builder()
                 .title("2021 리그전 수정")
@@ -348,7 +348,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 // verify
                 .andExpect(status().isBadRequest()) // 400 에러
                 .andExpect(jsonPath("$.code", is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message", is("이미 종료된 대회입니다.")))
+                .andExpect(jsonPath("$.message", is("종료된 대회입니다.")))
         ;
     }
 
@@ -356,7 +356,7 @@ class ContestInfoApiTest extends WebMvcBase {
     @Test
     void alreadyContestProgress() throws Exception {
         // when
-        when(contestService.modify(anyLong(), any())).thenThrow(new AlreadyContestProgressException());
+        when(contestService.modify(anyLong(), any())).thenThrow(new ContestProceedingException());
         // request
         ContestDto request = ContestDto.builder()
                 .title("2021 리그전 수정")
@@ -380,7 +380,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 // verify
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
-                .andExpect(jsonPath("$.message", is("이미 진행된 대회입니다.")))
+                .andExpect(jsonPath("$.message", is("진행중인 대회입니다.")))
         ;
     }
 

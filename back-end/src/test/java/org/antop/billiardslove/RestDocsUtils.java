@@ -131,7 +131,7 @@ public class RestDocsUtils {
          */
         public static List<FieldDescriptor> contestWithPlayer() {
             List<FieldDescriptor> fields = contest();
-            fields.add(fieldWithPath(ContestDto.Fields.PLAYER).type(OBJECT).description("선수 정보").optional());
+            fields.add(fieldWithPath(ContestDto.Fields.PLAYER).type(OBJECT).description("선수 정보" + NL + "조회한 내가(회원) 참여하지 않은 대회: `+null+`").optional());
             fields.addAll(appendPrefix(player(), ContestDto.Fields.PLAYER));
             return fields;
         }
@@ -247,7 +247,7 @@ public class RestDocsUtils {
          * 대회 아이디
          */
         public static ParameterDescriptor contestId() {
-            return parameterWithName("id").description("대회 아이디").attributes(CustomAttributes.type(NUMBER));
+            return parameterWithName("contestId").description("대회 아이디").attributes(CustomAttributes.type(NUMBER));
         }
 
         /**

@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
-import org.antop.billiardslove.exception.AlreadyContestEndException;
 import org.antop.billiardslove.exception.CantEndContestStateException;
-import org.antop.billiardslove.exception.CantStartContestStateException;
-import org.antop.billiardslove.exception.CantStopContestStateException;
+import org.antop.billiardslove.exception.ContestEndException;
+import org.antop.billiardslove.exception.ContestPreparingException;
+import org.antop.billiardslove.exception.ContestProceedingException;
+import org.antop.billiardslove.exception.ContestStoppedException;
 import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.antop.billiardslove.model.ContestState;
 import org.springframework.data.annotation.CreatedDate;
@@ -127,11 +128,11 @@ public class Contest {
     private LocalDateTime modified;
 
     @Builder
-    private Contest(String title, String description,
-                    LocalDate startDate, LocalTime startTime,
-                    LocalDate endDate, LocalTime endTime,
-                    Integer maxJoiner, int currentJoiner,
-                    double progress) {
+    protected Contest(String title, String description,
+                      LocalDate startDate, LocalTime startTime,
+                      LocalDate endDate, LocalTime endTime,
+                      Integer maxJoiner, int currentJoiner,
+                      double progress) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -141,42 +142,6 @@ public class Contest {
         this.maxJoiner = maxJoiner;
         this.currentJoiner = currentJoiner;
         this.progress = progress;
-    }
-
-    /**
-     * 접수중 상태 여부
-     *
-     * @return 접수중
-     */
-    public boolean isAccepting() {
-        return state == ContestState.ACCEPTING;
-    }
-
-    /**
-     * 대회를 시작(재시작)할 수 있는 지 여부
-     *
-     * @return {@code true} 시작(재시작) 가능
-     */
-    public boolean canStart() {
-        return state == ContestState.ACCEPTING || state == ContestState.STOPPED;
-    }
-
-    /**
-     * 대회를 중지할 수 있는지 여부
-     *
-     * @return {@code true} 중지 가능
-     */
-    public boolean canStop() {
-        return state == ContestState.PROCEEDING;
-    }
-
-    /**
-     * 종료 상태인지 여부
-     *
-     * @return {@code true} 종료
-     */
-    public boolean isEnd() {
-        return state == ContestState.END;
     }
 
     /**
@@ -192,9 +157,7 @@ public class Contest {
      * 대회 중지
      */
     public void stop() {
-        if (!canStop()) {
-            throw new CantStopContestStateException();
-        }
+        if (isEnd()) throw new ContestEndException();
         state = ContestState.STOPPED;
     }
 
@@ -202,9 +165,9 @@ public class Contest {
      * 대회 시작
      */
     public void start() {
-        if (!canStart()) {
-            throw new CantStartContestStateException();
-        }
+        if (isPreparing()) throw new ContestPreparingException();
+        if (isEnd()) throw new ContestEndException();
+        if (isProceeding()) throw new ContestProceedingException();
         state = ContestState.PROCEEDING;
     }
 
@@ -213,7 +176,7 @@ public class Contest {
      */
     public void end() {
         if (isEnd()) {
-            throw new AlreadyContestEndException();
+            throw new ContestEndException();
         }
         if (!canEnd()) {
             throw new CantEndContestStateException();
@@ -225,7 +188,45 @@ public class Contest {
      * 접수 시작
      */
     public void open() {
+        if (isProceeding()) throw new ContestProceedingException();
+        if (isEnd()) throw new ContestEndException();
+        if (isStopped()) throw new ContestStoppedException();
         state = ContestState.ACCEPTING;
+    }
+
+    /**
+     * 준비중 상태 여부
+     */
+    public boolean isPreparing() {
+        return state == ContestState.PREPARING;
+    }
+
+    /**
+     * 접수중 상태 여부
+     */
+    public boolean isAccepting() {
+        return state == ContestState.ACCEPTING;
+    }
+
+    /**
+     * 진행중 상태 여부
+     */
+    public boolean isProceeding() {
+        return state == ContestState.PROCEEDING;
+    }
+
+    /**
+     * 중지 상태 여부
+     */
+    public boolean isStopped() {
+        return state == ContestState.STOPPED;
+    }
+
+    /**
+     * 종료 상태 여부
+     */
+    public boolean isEnd() {
+        return state == ContestState.END;
     }
 
     /**
@@ -234,5 +235,4 @@ public class Contest {
     public void incrementJoiner() {
         currentJoiner++;
     }
-
 }
