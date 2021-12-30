@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           <tr v-for="item in users" :key="item.id">
-            <td>{{ item.rank }}</td>
+            <td>{{ item.rank || 0 }}</td>
             <td>{{ item.nickname }}</td>
             <td>{{ item.handicap || 0 }}</td>
             <td>{{ item.progress || 0 }}</td>

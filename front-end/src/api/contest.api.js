@@ -17,6 +17,12 @@ const ContestApi = class {
       .get('/api/v1/contest/' + id)
       .then(({ data }) => data || {});
   }
+  join_contest(id, handicap) {
+    return this.#client.post(`/api/v1/contest/${id}/join`, { handicap });
+  }
+  cancel_contest(id) {
+    return this.#client.delete(`/api/v1/contest/${id}/join`);
+  }
   inquire_rank(id) {
     return this.#client
       .get('/api/v1/contest/' + id + '/ranks')
