@@ -46,7 +46,7 @@ create table if not exists tbl_plyr
     plyr_no   int     null comment '선수 번호',
     prtc_hndc tinyint null comment '선수 핸디캡',
     plyr_rnkn int     null comment '순위',
-    plyr_scr  int     null comment '점수',
+    plyr_scr  int     not null comment '점수',
     plyr_vrtn int     not null default 0 comment '순위 변동',
     plyr_prgr double  not null default 0 comment '개인 진행률',
     primary key (plyr_id),

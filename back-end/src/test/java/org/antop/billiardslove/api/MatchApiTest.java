@@ -96,7 +96,7 @@ class MatchApiTest extends WebMvcBase {
                         .build()
         ));
 
-        mockMvc.perform(get("/api/v1/contest/{id}/matches", 123)
+        mockMvc.perform(get("/api/v1/contest/{contestId}/matches", 123)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

@@ -164,7 +164,7 @@ include::{snippets}/contest-join-cancel/http-response.adoc[]
 
 ==== 대회 오픈
 
-대회를 접수중으로 변경한다.
+준비중인 대회를 접수중으로 변경한다.
 
 .request
 include::{snippets}/contest-open/path-parameters.adoc[]
@@ -175,9 +175,23 @@ include::{snippets}/contest-open/http-request.adoc[]
 include::{snippets}/contest-open/response-fields.adoc[]
 include::{snippets}/contest-open/http-response.adoc[]
 
+.관리자가 아닌 회원이 접근
+include::{snippets}/contest-open-not-manager/http-response.adoc[]
+
+.진행중인 대회
+include::{snippets}/contest-open-proceeding/http-response.adoc[]
+
+.중지된 대회
+include::{snippets}/contest-open-stopped/http-response.adoc[]
+
+.종료된 대회
+include::{snippets}/contest-open-end/http-response.adoc[]
+
 ==== 대회 시작
 
 대회를 시작(재시작)한다.
+
+접수중/중지 상태에서만 시작(재시작)할 수 있다.
 
 .request
 include::{snippets}/contest-start/path-parameters.adoc[]
@@ -188,8 +202,17 @@ include::{snippets}/contest-start/http-request.adoc[]
 include::{snippets}/contest-start/response-fields.adoc[]
 include::{snippets}/contest-start/http-response.adoc[]
 
-.대회를 시작할 수 없는 경우
-include::{snippets}/contest-start-can-not/http-response.adoc[]
+.관리자가 아닌 회원이 접근
+include::{snippets}/contest-start-not-manager/http-response.adoc[]
+
+.준비중인 대회를 시작
+include::{snippets}/contest-start-preparing/http-response.adoc[]
+
+.진행중인 대회를 시작
+include::{snippets}/contest-start-proceeding/http-response.adoc[]
+
+.종료된 대회를 시작
+include::{snippets}/contest-start-end/http-response.adoc[]
 
 ==== 대회 중지
 
@@ -204,8 +227,11 @@ include::{snippets}/contest-stop/http-request.adoc[]
 include::{snippets}/contest-stop/response-fields.adoc[]
 include::{snippets}/contest-stop/http-response.adoc[]
 
-.대회를 중지할 수 없는 경우
-include::{snippets}/contest-stop-can-not/http-response.adoc[]
+.관리자가 아닌 회원이 접근
+include::{snippets}/contest-stop-not-manager/http-response.adoc[]
+
+.종료된 대회를 중지
+include::{snippets}/contest-stop-end/http-response.adoc[]
 
 ==== 대회 종료
 

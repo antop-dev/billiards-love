@@ -247,7 +247,7 @@ public class RestDocsUtils {
          * 대회 아이디
          */
         public static ParameterDescriptor contestId() {
-            return parameterWithName("id").description("대회 아이디").attributes(CustomAttributes.type(NUMBER));
+            return parameterWithName("contestId").description("대회 아이디").attributes(CustomAttributes.type(NUMBER));
         }
 
         /**
