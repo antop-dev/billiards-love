@@ -28,23 +28,30 @@
           label="진행률"
         ></v-text-field>
         <div class="text-right">
-          <div v-if="!$store.state.login_info.manager">
+          <div v-if="$store.state.login_info.manager">
+            <v-btn class="ma-2" v-if="stateCode === '2'" @click="openContest"
+              >오픈</v-btn
+            >
+            <v-btn class="ma-2" v-if="stateCode === '1'" @click="startContest"
+              >시작</v-btn
+            >
             <v-btn
               class="ma-2"
-              color="secondary"
-              v-if="checkIsJoin"
-              @click="join"
+              v-if="stateCode === '0' || stateCode === '1'"
+              @click="stopContest"
+              >중지</v-btn
+            >
+            <v-btn class="ma-2" v-if="stateCode === '3'" @click="endContest"
+              >종료</v-btn
+            >
+          </div>
+          <div>
+            <v-btn class="ma-2" color="secondary" v-if="checkJoin" @click="join"
               >참가</v-btn
             >
             <v-btn class="ma-2" color="error" v-else @click="cancelJoin"
               >참가취소</v-btn
             >
-          </div>
-          <div v-else>
-            <v-btn class="ma-2" @click="openContest">오픈</v-btn>
-            <v-btn class="ma-2" @click="startContest">시작</v-btn>
-            <v-btn class="ma-2" @click="stopContest">중지</v-btn>
-            <v-btn class="ma-2" @click="quitContest">종료</v-btn>
           </div>
         </div>
       </v-container>
@@ -60,7 +67,7 @@ export default {
     return {
       id: '',
       date: '',
-      stateCode: 0,
+      stateCode: '',
       progress: '',
       maxJoiner: 0,
       player: {},
@@ -107,14 +114,45 @@ export default {
         alert(e);
       }
     },
-    openContest() {},
-    stopContest() {},
-    quitContest() {},
-    startContest() {},
+    async openContest() {
+      try {
+        await ContestApi.open_contest(this.id);
+        this.$toast.success('대회가 열렸습니다.');
+      } catch (e) {
+        alert(e);
+      }
+    },
+    async stopContest() {
+      try {
+        await ContestApi.stop_contest(this.id);
+        this.$toast.info('대회가 닫혔습니다.');
+      } catch (e) {
+        alert(e);
+      }
+    },
+    async endContest() {
+      try {
+        await ContestApi.end_contest(this.id);
+        this.$toast.info('대회가 열렸습니다.');
+      } catch (e) {
+        alert(e);
+      }
+    },
+    async startContest() {
+      try {
+        await ContestApi.start_contest(this.id);
+        this.$toast.info('대회가 열렸습니다.');
+      } catch (e) {
+        alert(e);
+      }
+    },
   },
   computed: {
-    checkIsJoin() {
-      return Object.keys(this.player).length === 0;
+    checkJoin() {
+      return (
+        Object.keys(this.player).length === 0 &&
+        (this.stateCode === '2' || this.stateCode === '1')
+      ); // 준비중 접수중일 때 표시
     },
   },
   created() {

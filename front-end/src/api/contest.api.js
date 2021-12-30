@@ -23,6 +23,18 @@ const ContestApi = class {
   cancel_contest(id) {
     return this.#client.delete(`/api/v1/contest/${id}/join`);
   }
+  open_contest(id) {
+    return this.#client.post(`/api/v1/contest/${id}/open`);
+  }
+  start_contest(id) {
+    return this.#client.post(`/api/v1/contest/${id}/start`);
+  }
+  stop_contest(id) {
+    return this.#client.post(`/api/v1/contest/${id}/stop`);
+  }
+  end_contest(id) {
+    return this.#client.post(`/api/v1/contest/${id}/end`);
+  }
   inquire_rank(id) {
     return this.#client
       .get('/api/v1/contest/' + id + '/ranks')
