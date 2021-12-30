@@ -39,7 +39,7 @@ class ContestJoinTest extends SpringBootBase {
         int handicap = 30;
         JoiningRequest request = new JoiningRequest(handicap);
         // when
-        ResultActions actions = mockMvc.perform(post("/api/v1/contest/{id}/join", 2L)
+        ResultActions actions = mockMvc.perform(post("/api/v1/contest/{contestId}/join", 2L)
                         .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, token))
