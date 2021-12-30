@@ -85,13 +85,13 @@ values (2, '2022 리그전', '2021.05.01~', parsedatetime('20210101', 'yyyyMMdd'
         parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), '1', 128,
         parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (6, 2, 4, null, 30, null);
+values (6, 2, 4, null, 30, 0);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (7, 2, 1, null, 23, null);
+values (7, 2, 1, null, 23, 0);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (8, 2, 2, null, 21, null);
+values (8, 2, 2, null, 21, 0);
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
-values (9, 2, 3, null, 28, null);
+values (9, 2, 3, null, 28, 0);
 /** 준비중인 대회 (1) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)

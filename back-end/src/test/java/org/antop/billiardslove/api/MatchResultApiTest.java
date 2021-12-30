@@ -81,7 +81,7 @@ class MatchResultApiTest extends WebMvcBase {
         Outcome[] result = {WIN, WIN, LOSE};
         MatchApi.MatchResultEnterRequest request = new MatchApi.MatchResultEnterRequest(result);
         // when
-        ResultActions actions = mockMvc.perform(put("/api/v1/match/{id}", matchId)
+        ResultActions actions = mockMvc.perform(put("/api/v1/match/{contestId}", matchId)
                         .header(HttpHeaders.AUTHORIZATION, userToken())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtils.toJson(request))

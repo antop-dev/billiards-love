@@ -46,7 +46,7 @@ public abstract class ContestMapper {
 
     @Named(MAPPING_STATE_CODE)
     String stateCode(ContestState state) {
-        return state.getCode();
+        return state.name();
     }
 
     @Named(MAPPING_STATE_NAME)

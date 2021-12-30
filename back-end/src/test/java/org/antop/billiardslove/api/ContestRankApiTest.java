@@ -45,7 +45,7 @@ class ContestRankApiTest extends WebMvcBase {
         ));
         // action
         mockMvc.perform(
-                        get("/api/v1/contest/{id}/ranks", 1)
+                        get("/api/v1/contest/{contestId}/ranks", 1)
                                 .header(HttpHeaders.AUTHORIZATION, userToken())
                 )
                 // logging

@@ -66,7 +66,7 @@ class ContestJoiningApiTest extends WebMvcBase {
         // request
         JoiningRequest request = new JoiningRequest(handicap);
         // action
-        mockMvc.perform(post("/api/v1/contest/{id}/join", 2)
+        mockMvc.perform(post("/api/v1/contest/{contestId}/join", 2)
                         .content(JsonUtils.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
@@ -158,7 +158,7 @@ class ContestJoiningApiTest extends WebMvcBase {
         // request
         long contestId = 2;
         // action
-        mockMvc.perform(delete("/api/v1/contest/{id}/join", contestId)
+        mockMvc.perform(delete("/api/v1/contest/{contestId}/join", contestId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, userToken()))
                 .andDo(print())

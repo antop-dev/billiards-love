@@ -40,4 +40,16 @@ public class Aes256Matcher extends TypeSafeMatcher<String> {
         return StringUtils.equals(value, Aes256Util.decrypt(item, secretKey));
     }
 
+    @Override
+    protected void describeMismatchSafely(String item, Description description) {
+        if (item == null) {
+            super.describeMismatch(null, description);
+        } else {
+            description.appendText("was a ")
+                    .appendText(Aes256Util.decrypt(item, secretKey))
+                    .appendText(" (")
+                    .appendValue(item)
+                    .appendText(")");
+        }
+    }
 }
