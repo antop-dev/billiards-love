@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 /**
  * 대회 참가 API
  *
@@ -29,7 +32,7 @@ public class ContestJoiningApi {
     @PostMapping("/api/v1/contest/{id}/join")
     public ContestDto join(@PathVariable(name = "id") long contestId,
                            @AuthenticationPrincipal Long memberId,
-                           @RequestBody JoiningRequest request) {
+                           @RequestBody @Valid JoiningRequest request) {
         return contestService.join(contestId, memberId, request.getHandicap());
     }
 
@@ -44,14 +47,15 @@ public class ContestJoiningApi {
      */
     @Getter
     @FieldNameConstants
-    static class JoiningRequest {
+    public static class JoiningRequest {
         /**
-         * 참가 핸디캡
+         * 참가 핸디
          */
-        private final int handicap;
+        @NotNull(message = "참가 핸디를 입력하세요.")
+        private final Integer handicap;
 
         @JsonCreator
-        public JoiningRequest(@JsonProperty int handicap) {
+        public JoiningRequest(@JsonProperty Integer handicap) {
             this.handicap = handicap;
         }
     }

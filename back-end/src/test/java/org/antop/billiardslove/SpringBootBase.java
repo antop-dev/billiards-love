@@ -38,7 +38,7 @@ import java.util.Locale;
 @AutoConfigureMockMvc
 @AutoConfigureDataJpa
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:test-h2.sql")
-@Import({RestDocsConfig.class})
+@Import({RestDocsConfig.class, TestSecurityConfig.class})
 public abstract class SpringBootBase {
     /**
      * 로깅

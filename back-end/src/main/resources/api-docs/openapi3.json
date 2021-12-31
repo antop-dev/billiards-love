@@ -47,7 +47,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-register" : {
@@ -62,7 +62,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "error-forbidden" : {
@@ -95,7 +95,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contests-1233707179"
+                  "$ref" : "#/components/schemas/api-v1-contests430874592"
                 },
                 "examples" : {
                   "contest-list" : {
@@ -122,7 +122,7 @@
                 },
                 "examples" : {
                   "init" : {
-                    "value" : "{\r\n  \"secretKey\" : \"6V4kzlh61Q5IJgZNkV6pZ6SHtF4MXlKkxapBJMQymjY=\",\r\n  \"kakaoKey\" : \"m4p2+3zKTMGvKwZTcTGslgR3t4KGQMcQm0YIXJDKRO2kZi0BiiUW38M5w99JzU4kOA==\",\r\n  \"adSenseKey\" : \"qX4pUq6HE27aWBb1lWO0hct/BkBdQzIA79eSyckZ6NQrEAf4jZ+Vuhy7oA3ApQ==\"\r\n}"
+                    "value" : "{\r\n  \"secretKey\" : \"yk9T8EoQzK7WtGmHdPDYkZ9UufQi6F8ssJVsTiYxC9w=\",\r\n  \"kakaoKey\" : \"uLjUSf+tPjHo8t8dCGGvRyTZVbm+rxtzIMSyWrlsm3/Djb/d0HCHKB97QHGn/cUd+g==\",\r\n  \"adSenseKey\" : \"T4xYUCNOJtI0AAsHIvg4JPFtptOEfbFwak8GF54gZhEEpECd+3eskF/bJRoeCQ==\"\r\n}"
                   }
                 }
               }
@@ -143,10 +143,10 @@
               },
               "examples" : {
                 "logged-in" : {
-                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : 1.597679104E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"KuLG60Yj1wGeV3DwZgAHpQEBedHtEwubrdXJ6UzbiHxm\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                  "value" : "{\r\n  \"id\" : 9999,\r\n  \"connectedAt\" : 1.597679104E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"iaGKeG4ei191kodJM3gholF0kaFiU5TpTKhIrwSkK/98\",\r\n    \"imageUrl\" : \"https://cataas.com/cat?width=200&height=200\",\r\n    \"thumbnailUrl\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 },
                 "logged-in-registered" : {
-                  "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : 1.597671904E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"lNLhz8kxNxEAByAOpIMfVBDe73TUkbRItPbHT6JOvCm5\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
+                  "value" : "{\r\n  \"id\" : 1,\r\n  \"connectedAt\" : 1.597671904E9,\r\n  \"profile\" : {\r\n    \"nickname\" : \"vovqbHMuaCWK1nj9kYj/OzHhPzdMeG1CCXvKVWad9SZG\",\r\n    \"imageUrl\" : \"https://foo\",\r\n    \"thumbnailUrl\" : \"https://bar\",\r\n    \"needsAgreement\" : true\r\n  }\r\n}"
                 }
               }
             }
@@ -162,10 +162,10 @@
                 },
                 "examples" : {
                   "logged-in" : {
-                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"/Rk4rlPlwc7DZ5/xEGVTEKor+VMfm6XJ4AfDWKMPNVxQ\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"manager\" : false\r\n  },\r\n  \"registered\" : false\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"SlBi0vB/au8fegK4TDFTqDjS4IVz+SONDYjjYAokFCkC\",\r\n    \"thumbnail\" : \"https://cataas.com/cat?width=160&height=100\",\r\n    \"manager\" : false\r\n  },\r\n  \"registered\" : false\r\n}"
                   },
                   "logged-in-registered" : {
-                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"GfSL352yIECONmLwHK7ZBgVU8WglQH8eQ71R+TMCV9EdeA==\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\",\r\n    \"manager\" : true\r\n  },\r\n  \"registered\" : true\r\n}"
+                    "value" : "{\r\n  \"token\" : \"created jwt token value!\",\r\n  \"member\" : {\r\n    \"id\" : 12,\r\n    \"nickname\" : \"rWZlH2d/h0Y3ZfxS9nIoXUJp9LjdBRqm/WnTP7hAC0Ftmw==\",\r\n    \"handicap\" : 22,\r\n    \"thumbnail\" : \"https://bar\",\r\n    \"manager\" : true\r\n  },\r\n  \"registered\" : true\r\n}"
                   }
                 }
               }
@@ -196,10 +196,10 @@
               },
               "examples" : {
                 "error-bad-credentials" : {
-                  "value" : "{\r\n  \"nickname\" : \"9TjwkANeNc6oNIYe865d0FxkMEsmxtpMgPdmD3TDhp7D\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"1z9zgwrNep9g9J9mNuRQ0qnk3LdAPifnbiRLrx7wOcKZ\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify" : {
-                  "value" : "{\r\n  \"nickname\" : \"LF9h0C6VB8hLWL76GCy8Gqyei6tkV0mhadSu75VGptFm7USJoLV/5Z4AEs4=\",\r\n  \"handicap\" : 30\r\n}"
+                  "value" : "{\r\n  \"nickname\" : \"ZDYcN3YjjAgVBt12aJ1SO5iLLLAwTbXwGALPINqr0v7hVLeFuJ0KoQERoMg=\",\r\n  \"handicap\" : 30\r\n}"
                 },
                 "member-modify-valid-handicap-not-null" : {
                   "value" : "{\r\n  \"nickname\" : \"NICKNAME\",\r\n  \"handicap\" : null\r\n}"
@@ -220,7 +220,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "error-bad-credentials" : {
@@ -239,7 +239,7 @@
                 },
                 "examples" : {
                   "member-modify" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"0mn8knejfLofBdfOFeUERA5yq9ZMCi4n/g6xuA2uRskk0kVI6KdWy9P7rzo=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\",\r\n  \"manager\" : false\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"nickname\" : \"e4ccUlBWQtND+anZ/WHAg1bCTmb2d5NmCqIbvkiTsLBI/NuGO4ngCtjDI1s=\",\r\n  \"handicap\" : 30,\r\n  \"thumbnail\" : \"https://img.foo.bar\",\r\n  \"manager\" : false\r\n}"
                   }
                 }
               }
@@ -250,7 +250,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "member-modify-valid-handicap-not-null" : {
@@ -297,7 +297,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId-join-1814116974"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId1287620519"
                 },
                 "examples" : {
                   "contest-info" : {
@@ -350,7 +350,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-modify" : {
@@ -399,7 +399,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "error-already-contest-end" : {
@@ -548,7 +548,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "error-match-not-found" : {
@@ -563,7 +563,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "match-result-enter-bad-request" : {
@@ -607,7 +607,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-end" : {
@@ -640,11 +640,11 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "2"
+          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjQwODUwMTIwLCJleHAiOjE2NDA4NTE5MjB9.rnN7IPE2SDBdx5le1O_sBGlmRqfzXNF1hoF-MlQf--g"
         } ],
         "requestBody" : {
           "content" : {
-            "application/json" : {
+            "application/json;charset=UTF-8" : {
               "schema" : {
                 "$ref" : "#/components/schemas/api-v1-contest-contestId-join-405702609"
               },
@@ -662,11 +662,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId-join-1814116974"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId1287620519"
                 },
                 "examples" : {
                   "contest-join" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"참가 가능한 대회\",\r\n  \"startDate\" : \"2020-07-01\",\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"1\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 976091,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"선수1\",\r\n    \"score\" : 0,\r\n    \"variation\" : 0\r\n  }\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"2022 리그전\",\r\n  \"description\" : \"2021.05.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2022-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"currentJoiner\" : 5,\r\n  \"stateCode\" : \"ACCEPTING\",\r\n  \"stateName\" : \"접수중\",\r\n  \"progress\" : 0.0,\r\n  \"player\" : {\r\n    \"id\" : 10,\r\n    \"handicap\" : 30,\r\n    \"nickname\" : \"춘향이\",\r\n    \"score\" : 0,\r\n    \"variation\" : 0\r\n  }\r\n}"
                   }
                 }
               }
@@ -701,7 +701,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-join-cancel" : {
@@ -775,7 +775,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODQ2MzYzLCJleHAiOjE2NDA4NDgxNjN9.397SFN9NiIlYam2RiHoGKqnfEnRN0LjgUNoge3oYJxQ"
+          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODUwMTM0LCJleHAiOjE2NDA4NTE5MzR9.RBFJA6_i2MdjZh0ge1RSTZg8c0bbAmOBTNHFnjGxtT0"
         } ],
         "responses" : {
           "200" : {
@@ -783,7 +783,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-open" : {
@@ -798,7 +798,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-open-end" : {
@@ -825,7 +825,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-open-not-manager" : {
@@ -899,7 +899,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODQ2MzY2LCJleHAiOjE2NDA4NDgxNjZ9.U_K5sF9tOWoSBesANi5zYkVZSBozI7kDfDqErVx_H6g"
+          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODUwMTM2LCJleHAiOjE2NDA4NTE5MzZ9.Bi6xVRlKzYR0D23heG_73QY7JVjlz6ubfy-JuI7NPfA"
         } ],
         "responses" : {
           "200" : {
@@ -907,11 +907,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-start" : {
-                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"2022 리그전\",\r\n  \"description\" : \"2021.05.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2022-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"currentJoiner\" : 0,\r\n  \"stateCode\" : \"PROCEEDING\",\r\n  \"stateName\" : \"진행중\",\r\n  \"progress\" : 0.0\r\n}"
+                    "value" : "{\r\n  \"id\" : 2,\r\n  \"title\" : \"2022 리그전\",\r\n  \"description\" : \"2021.05.01~\",\r\n  \"startDate\" : \"2021-01-01\",\r\n  \"startTime\" : \"00:00:00\",\r\n  \"endDate\" : \"2022-12-30\",\r\n  \"endTime\" : \"23:59:59\",\r\n  \"maxJoiner\" : 128,\r\n  \"currentJoiner\" : 4,\r\n  \"stateCode\" : \"PROCEEDING\",\r\n  \"stateName\" : \"진행중\",\r\n  \"progress\" : 0.0\r\n}"
                   }
                 }
               }
@@ -922,7 +922,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-start-end" : {
@@ -943,7 +943,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-start-not-manager" : {
@@ -976,7 +976,7 @@
           "schema" : {
             "type" : "string"
           },
-          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODQ2MzY4LCJleHAiOjE2NDA4NDgxNjh9.dByZznviRfD6EjJiXkxsJAz3OOMRXz9hYp6P2E0qqBc"
+          "example" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODUwMTM3LCJleHAiOjE2NDA4NTE5Mzd9.0kQ8wgn9dHcweKvod3cXupJtVcl0t2IsgooKNkrVLDY"
         } ],
         "responses" : {
           "400" : {
@@ -984,7 +984,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-state-end" : {
@@ -1002,7 +1002,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-state-not-manager" : {
@@ -1020,7 +1020,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-contestId1698091274"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop1698091274"
                 },
                 "examples" : {
                   "contest-stop" : {
@@ -1052,7 +1052,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-end-already" : {
@@ -1080,7 +1080,7 @@
         } ],
         "requestBody" : {
           "content" : {
-            "application/json" : {
+            "application/json;charset=UTF-8" : {
               "schema" : {
                 "$ref" : "#/components/schemas/api-v1-contest-id-join486549215"
               },
@@ -1090,6 +1090,9 @@
                 },
                 "contest-join-can-not" : {
                   "value" : "{\r\n  \"handicap\" : 30\r\n}"
+                },
+                "contest-join-required-handicap" : {
+                  "value" : "{\r\n  \"handicap\" : null\r\n}"
                 }
               }
             }
@@ -1101,7 +1104,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-join-already" : {
@@ -1109,6 +1112,9 @@
                   },
                   "contest-join-can-not" : {
                     "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"대회에 참가할 수 없는 상태입니다.\"\r\n}"
+                  },
+                  "contest-join-required-handicap" : {
+                    "value" : "{\r\n  \"code\" : 400,\r\n  \"message\" : \"참가 핸디를 입력하세요.\"\r\n}"
                   }
                 }
               }
@@ -1136,7 +1142,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-start-can-not" : {
@@ -1168,7 +1174,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-contest-id-join-1153901879"
+                  "$ref" : "#/components/schemas/api-v1-contest-contestId-stop-1153901879"
                 },
                 "examples" : {
                   "contest-stop-can-not" : {
@@ -1239,96 +1245,6 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-contests-1233707179" : {
-        "type" : "array",
-        "items" : {
-          "type" : "object",
-          "properties" : {
-            "currentJoiner" : {
-              "type" : "number",
-              "description" : "현재 참가자 수"
-            },
-            "endDate" : {
-              "type" : "string",
-              "description" : "종료 날짜"
-            },
-            "description" : {
-              "type" : "string",
-              "description" : "대회 설명"
-            },
-            "title" : {
-              "type" : "string",
-              "description" : "대회명"
-            },
-            "maxJoiner" : {
-              "type" : "number",
-              "description" : "최대 참가자 수"
-            },
-            "stateName" : {
-              "type" : "string",
-              "description" : "상태명"
-            },
-            "progress" : {
-              "type" : "number",
-              "description" : "진행률 (%)"
-            },
-            "stateCode" : {
-              "type" : "string",
-              "description" : "상태 코드"
-            },
-            "startTime" : {
-              "type" : "string",
-              "description" : "시작 시간"
-            },
-            "endTime" : {
-              "type" : "string",
-              "description" : "종료 시간"
-            },
-            "id" : {
-              "type" : "number",
-              "description" : "대회 아이디"
-            },
-            "startDate" : {
-              "type" : "string",
-              "description" : "시작 날짜"
-            },
-            "player" : {
-              "type" : "object",
-              "properties" : {
-                "score" : {
-                  "type" : "number",
-                  "description" : "점수"
-                },
-                "number" : {
-                  "type" : "number",
-                  "description" : "선수 번호"
-                },
-                "handicap" : {
-                  "type" : "number",
-                  "description" : "선수 아이디"
-                },
-                "nickname" : {
-                  "type" : "string",
-                  "description" : "별명"
-                },
-                "rank" : {
-                  "type" : "number",
-                  "description" : "순위"
-                },
-                "id" : {
-                  "type" : "number",
-                  "description" : "선수 아이디"
-                },
-                "variation" : {
-                  "type" : "number",
-                  "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
-                }
-              },
-              "description" : "선수 정보"
-            }
-          }
-        }
-      },
       "api-v1-contest-contestId1962182449" : {
         "type" : "object",
         "properties" : {
@@ -1441,6 +1357,23 @@
           }
         }
       },
+      "api-v1-init781399800" : {
+        "type" : "object",
+        "properties" : {
+          "secretKey" : {
+            "type" : "string",
+            "description" : "암복호화 키"
+          },
+          "kakaoKey" : {
+            "type" : "string",
+            "description" : "카카오 API 키"
+          },
+          "adSenseKey" : {
+            "type" : "string",
+            "description" : "구글 애드센스 키"
+          }
+        }
+      },
       "api-v1-member-1099089930" : {
         "type" : "object",
         "properties" : {
@@ -1466,111 +1399,97 @@
           }
         }
       },
-      "api-v1-init781399800" : {
-        "type" : "object",
-        "properties" : {
-          "secretKey" : {
-            "type" : "string",
-            "description" : "암복호화 키"
-          },
-          "kakaoKey" : {
-            "type" : "string",
-            "description" : "카카오 API 키"
-          },
-          "adSenseKey" : {
-            "type" : "string",
-            "description" : "구글 애드센스 키"
-          }
-        }
-      },
-      "api-v1-contest-contestId-join-1814116974" : {
-        "type" : "object",
-        "properties" : {
-          "currentJoiner" : {
-            "type" : "number",
-            "description" : "현재 참가자 수"
-          },
-          "endDate" : {
-            "type" : "string",
-            "description" : "종료 날짜"
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "대회 설명"
-          },
-          "title" : {
-            "type" : "string",
-            "description" : "대회명"
-          },
-          "maxJoiner" : {
-            "type" : "number",
-            "description" : "최대 참가자 수"
-          },
-          "stateName" : {
-            "type" : "string",
-            "description" : "상태명"
-          },
-          "progress" : {
-            "type" : "number",
-            "description" : "진행률 (%)"
-          },
-          "stateCode" : {
-            "type" : "string",
-            "description" : "상태 코드"
-          },
-          "startTime" : {
-            "type" : "string",
-            "description" : "시작 시간"
-          },
-          "endTime" : {
-            "type" : "string",
-            "description" : "종료 시간"
-          },
-          "id" : {
-            "type" : "number",
-            "description" : "대회 아이디"
-          },
-          "startDate" : {
-            "type" : "string",
-            "description" : "시작 날짜"
-          },
-          "player" : {
-            "type" : "object",
-            "properties" : {
-              "score" : {
-                "type" : "number",
-                "description" : "점수"
-              },
-              "number" : {
-                "type" : "number",
-                "description" : "선수 번호"
-              },
-              "handicap" : {
-                "type" : "number",
-                "description" : "선수 아이디"
-              },
-              "nickname" : {
-                "type" : "string",
-                "description" : "별명"
-              },
-              "rank" : {
-                "type" : "number",
-                "description" : "순위"
-              },
-              "id" : {
-                "type" : "number",
-                "description" : "선수 아이디"
-              },
-              "variation" : {
-                "type" : "number",
-                "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
-              }
+      "api-v1-contests430874592" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "currentJoiner" : {
+              "type" : "number",
+              "description" : "현재 참가자 수"
             },
-            "description" : "선수 정보"
+            "endDate" : {
+              "type" : "string",
+              "description" : "종료 날짜"
+            },
+            "description" : {
+              "type" : "string",
+              "description" : "대회 설명"
+            },
+            "title" : {
+              "type" : "string",
+              "description" : "대회명"
+            },
+            "maxJoiner" : {
+              "type" : "number",
+              "description" : "최대 참가자 수"
+            },
+            "stateName" : {
+              "type" : "string",
+              "description" : "상태명"
+            },
+            "progress" : {
+              "type" : "number",
+              "description" : "진행률 (%)"
+            },
+            "stateCode" : {
+              "type" : "string",
+              "description" : "상태 코드"
+            },
+            "startTime" : {
+              "type" : "string",
+              "description" : "시작 시간"
+            },
+            "endTime" : {
+              "type" : "string",
+              "description" : "종료 시간"
+            },
+            "id" : {
+              "type" : "number",
+              "description" : "대회 아이디"
+            },
+            "startDate" : {
+              "type" : "string",
+              "description" : "시작 날짜"
+            },
+            "player" : {
+              "type" : "object",
+              "properties" : {
+                "score" : {
+                  "type" : "number",
+                  "description" : "점수"
+                },
+                "number" : {
+                  "type" : "number",
+                  "description" : "선수 번호"
+                },
+                "handicap" : {
+                  "type" : "number",
+                  "description" : "선수 아이디"
+                },
+                "nickname" : {
+                  "type" : "string",
+                  "description" : "별명"
+                },
+                "rank" : {
+                  "type" : "number",
+                  "description" : "순위"
+                },
+                "id" : {
+                  "type" : "number",
+                  "description" : "선수 아이디"
+                },
+                "variation" : {
+                  "type" : "number",
+                  "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
+                }
+              },
+              "description" : "선수 정보 +\n조회한 내가(회원) 참여하지 않은 대회: `+null+`"
+            }
           }
         }
       },
-      "api-v1-contest-id-join-1153901879" : {
+      "api-v1-contest-contestId-stop-1153901879" : {
         "type" : "object",
         "properties" : {
           "code" : {
@@ -1683,6 +1602,93 @@
           "id" : {
             "type" : "number",
             "description" : "카카오톡 회원번호"
+          }
+        }
+      },
+      "api-v1-contest-contestId1287620519" : {
+        "type" : "object",
+        "properties" : {
+          "currentJoiner" : {
+            "type" : "number",
+            "description" : "현재 참가자 수"
+          },
+          "endDate" : {
+            "type" : "string",
+            "description" : "종료 날짜"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "대회 설명"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "대회명"
+          },
+          "maxJoiner" : {
+            "type" : "number",
+            "description" : "최대 참가자 수"
+          },
+          "stateName" : {
+            "type" : "string",
+            "description" : "상태명"
+          },
+          "progress" : {
+            "type" : "number",
+            "description" : "진행률 (%)"
+          },
+          "stateCode" : {
+            "type" : "string",
+            "description" : "상태 코드"
+          },
+          "startTime" : {
+            "type" : "string",
+            "description" : "시작 시간"
+          },
+          "endTime" : {
+            "type" : "string",
+            "description" : "종료 시간"
+          },
+          "id" : {
+            "type" : "number",
+            "description" : "대회 아이디"
+          },
+          "startDate" : {
+            "type" : "string",
+            "description" : "시작 날짜"
+          },
+          "player" : {
+            "type" : "object",
+            "properties" : {
+              "score" : {
+                "type" : "number",
+                "description" : "점수"
+              },
+              "number" : {
+                "type" : "number",
+                "description" : "선수 번호"
+              },
+              "handicap" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "nickname" : {
+                "type" : "string",
+                "description" : "별명"
+              },
+              "rank" : {
+                "type" : "number",
+                "description" : "순위"
+              },
+              "id" : {
+                "type" : "number",
+                "description" : "선수 아이디"
+              },
+              "variation" : {
+                "type" : "number",
+                "description" : "순위 변동 +\n양수: 순위 올라감. +\n0: 변동 없음 +\n음수: 순위 내려감."
+              }
+            },
+            "description" : "선수 정보 +\n조회한 내가(회원) 참여하지 않은 대회: `+null+`"
           }
         }
       },
@@ -1949,7 +1955,7 @@
           }
         }
       },
-      "api-v1-contest-contestId1698091274" : {
+      "api-v1-contest-contestId-stop1698091274" : {
         "type" : "object",
         "properties" : {
           "currentJoiner" : {

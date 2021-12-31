@@ -80,9 +80,9 @@ insert into tbl_mtc (mtc_id, cnts_id, plyr1_id, plyr2_id, plyr1_rslt_inpt, plyr2
 values (10, 1, 4, 5, 'NNN', 'NNN', null, null);
 /** 접수중인 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
-                      rgst_dt)
+                      crnt_prsn, rgst_dt)
 values (2, '2022 리그전', '2021.05.01~', parsedatetime('20210101', 'yyyyMMdd'), parsedatetime('000000', 'HHmmss'),
-        parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), '1', 128,
+        parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), '1', 128, 4,
         parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
 values (6, 2, 4, null, 30, 0);

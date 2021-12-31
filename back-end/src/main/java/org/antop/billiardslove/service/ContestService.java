@@ -73,7 +73,7 @@ public class ContestService {
     @Transactional
     public ContestDto join(long contestId, long memberId, int handicap) {
         // 대회
-        Contest contest = findContest(contestId);
+        Contest contest = findById(contestId);
         if (!contest.isAccepting()) {
             throw new CanNotJoinContestStateException();
         }
@@ -93,6 +93,8 @@ public class ContestService {
                 .build();
         playerDao.save(player);
 
+        contest.incrementJoiner();
+
         return contestMapper.toDto(contest, memberId);
     }
 
@@ -103,7 +105,7 @@ public class ContestService {
      */
     @Transactional
     public ContestDto open(long contestId) {
-        Contest contest = findContest(contestId);
+        Contest contest = findById(contestId);
         contest.open();
         return contestMapper.toDto(contest);
     }
@@ -136,7 +138,7 @@ public class ContestService {
      */
     @Transactional
     public ContestDto start(long contestId) {
-        Contest contest = findContest(contestId);
+        Contest contest = findById(contestId);
         ContestState oldState = contest.getState();
         contest.start();
 
@@ -200,7 +202,7 @@ public class ContestService {
      */
     @Transactional
     public ContestDto stop(long contestId) {
-        Contest contest = findContest(contestId);
+        Contest contest = findById(contestId);
         contest.stop();
 
         return contestMapper.toDto(contest);
@@ -213,7 +215,7 @@ public class ContestService {
      */
     @Transactional
     public ContestDto end(long contestId) {
-        Contest contest = findContest(contestId);
+        Contest contest = findById(contestId);
         contest.end();
 
         return contestMapper.toDto(contest);
@@ -227,7 +229,7 @@ public class ContestService {
      */
     @Transactional
     public ContestDto cancelJoin(long contestId, long memberId) {
-        Contest contest = findContest(contestId);
+        Contest contest = findById(contestId);
         if (!contest.isAccepting()) {
             throw new CanNotCancelJoinException();
         }
@@ -237,7 +239,7 @@ public class ContestService {
         return contestMapper.toDto(contest);
     }
 
-    public Contest findContest(long contestId) {
+    public Contest findById(long contestId) {
         return contestDao.findById(contestId).orElseThrow(ContestNotFoundException::new);
     }
 

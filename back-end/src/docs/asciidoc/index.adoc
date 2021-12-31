@@ -141,10 +141,13 @@ include::{snippets}/contest-join/http-request.adoc[]
 include::{snippets}/contest-join/response-fields.adoc[]
 include::{snippets}/contest-join/http-response.adoc[]
 
+.핸디를 입력하지 않음
+include::{snippets}/contest-join-required-handicap/http-response.adoc[]
+
 .참가할 수 없는 상태
 include::{snippets}/contest-join-can-not/http-response.adoc[]
 
-.대회에 이미 참여한 상태
+.대회에 이미 참여한 경우
 include::{snippets}/contest-join-already/http-response.adoc[]
 
 ==== 대회 참가 취소

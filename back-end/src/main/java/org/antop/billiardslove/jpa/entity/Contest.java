@@ -228,4 +228,11 @@ public class Contest {
     public boolean isEnd() {
         return state == ContestState.END;
     }
+
+    /**
+     * 참가자 수 증가
+     */
+    public void incrementJoiner() {
+        currentJoiner++;
+    }
 }
