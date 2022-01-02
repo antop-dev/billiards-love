@@ -46,38 +46,6 @@ class ContestRepositoryTest extends DataJpaBase {
     }
 
     @Test
-    @DisplayName("대회정보를 변경한다.")
-    void change() {
-        // 1. 데이터 준비
-        Contest contestData = contest();
-        repository.save(contestData);
-
-        flushAndClear();
-
-        // 2. 실행
-        final String newTitle = "코로나 추석 리그전 2021 - 2";
-        final String newDescription = "2021년 2번째 리그전 설연휴로 인해 종료";
-
-        repository.findById(contestData.getId()).ifPresent(contest -> {
-            contest.setTitle(newTitle);
-            contest.setDescription(newDescription);
-            contest.end();
-        });
-
-        flushAndClear();
-
-        // 3. 검증
-        Optional<Contest> optional = repository.findById(contestData.getId());
-        assertThat(optional, isPresent());
-        optional.ifPresent(contest -> {
-            assertThat(contest.getTitle(), is(newTitle));
-            assertThat(contest.getDescription(), is(newDescription));
-            assertThat(contest.getState(), is(ContestState.END));
-            assertThat(contest.getModified(), notNullValue());
-        });
-    }
-
-    @Test
     @DisplayName("없는 대회를 조회한다.")
     void notExist() {
         // 1. 데이터 준비

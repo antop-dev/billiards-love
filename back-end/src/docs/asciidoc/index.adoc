@@ -91,12 +91,15 @@ include::{snippets}/contest-list/http-response.adoc[]
 대회 정보를 조회한다.
 
 .request
-include::{snippets}/contest-info/path-parameters.adoc[]
-include::{snippets}/contest-info/http-request.adoc[]
+include::{snippets}/contest-get/path-parameters.adoc[]
+include::{snippets}/contest-get/http-request.adoc[]
 
 .response
-include::{snippets}/contest-info/response-fields.adoc[]
-include::{snippets}/contest-info/http-response.adoc[]
+include::{snippets}/contest-get/response-fields.adoc[]
+include::{snippets}/contest-get/http-response.adoc[]
+
+.존재하지 않는 대회를 조회
+include::{snippets}/contest-get-not-found/http-response.adoc[]
 
 ==== 대회 등록
 
@@ -249,8 +252,15 @@ include::{snippets}/contest-end/http-request.adoc[]
 include::{snippets}/contest-end/response-fields.adoc[]
 include::{snippets}/contest-end/http-response.adoc[]
 
-.이미 종료한 대회인 경우
-include::{snippets}/contest-end-already/http-response.adoc[]
+.관리자가 아닌 경우
+include::{snippets}/contest-end-not-manager/http-response.adoc[]
+
+.접수중인 대회를 종료
+include::{snippets}/contest-end-accept/http-response.adoc[]
+
+.진행중인 대회를 종료
+include::{snippets}/contest-end-proceeding/http-response.adoc[]
+
 
 === 경기 정보
 

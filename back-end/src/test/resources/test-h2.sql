@@ -42,9 +42,9 @@ insert into tbl_mmbr (mmbr_id, mmbr_nck_nm, mmbr_hndc, rgst_dt, kko_lgn_id)
 values (6, '짝대기', 40, NOW(), 5);
 /** 진행중인 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
-                      rgst_dt)
+                      crnt_prsn, rgst_dt)
 values (1, '2021 리그전', '2021.01.01~', parsedatetime('20210101', 'yyyyMMdd'), PARSEDATETIME('000000', 'HHmmss'),
-        parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '0', 32,
+        parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '0', 32, 5,
         parsedatetime('20191112151145', 'yyyyMMddHHmmss'));
 /* 참가자 목록 */
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
