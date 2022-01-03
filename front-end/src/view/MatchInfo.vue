@@ -107,8 +107,8 @@ export default {
     },
     async cancelJoin() {
       try {
-        await ContestApi.cancel_contest(this.id);
-        await this.inquireContest();
+        let contest = await ContestApi.cancel_join(this.id);
+        this.setDetail(contest);
         this.$toast.error('취소되었습니다.');
       } catch (e) {
         alert(e);

@@ -20,8 +20,10 @@ const ContestApi = class {
   join_contest(id, handicap) {
     return this.#client.post(`/api/v1/contest/${id}/join`, { handicap });
   }
-  cancel_contest(id) {
-    return this.#client.delete(`/api/v1/contest/${id}/join`);
+  cancel_join(id) {
+    return this.#client
+      .delete(`/api/v1/contest/${id}/join`)
+      .then(({ data }) => data || {});
   }
   open_contest(id) {
     return this.#client.post(`/api/v1/contest/${id}/open`);
