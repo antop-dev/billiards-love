@@ -17,7 +17,9 @@ export default {
       },
     },
      */
-    state.login_info = payload;
+    state.login_info.manager = payload.member.manager;
+    state.login_info.token = payload.token;
+    state.login_info.registered = payload.registered;
   },
   [types.SAVE_MATCH_ID](state, payload) {
     state.match_detail.id = payload;

@@ -5,6 +5,7 @@ import MatchInfo from '../view/MatchInfo';
 import MatchRank from '../view/MatchRank';
 import MatchChart from '../view/MatchChart';
 import MatchChartDetail from '../view/MatchChartDetail';
+import JoinContest from '../view/JoinContest';
 
 export default [
   {
@@ -23,6 +24,11 @@ export default [
         name: 'info',
         path: '/',
         component: MatchInfo,
+      },
+      {
+        name: 'join',
+        path: 'join',
+        component: JoinContest,
       },
       {
         name: 'rank',

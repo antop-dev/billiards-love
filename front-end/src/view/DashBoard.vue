@@ -49,7 +49,7 @@ export default {
   components: { BoardContents, AppHeader, NoData },
   methods: {
     getDetail(id) {
-      this.$router.push(`/contest/${id}/info`);
+      this.$router.push(`/contest/${id}`);
     },
   },
   async created() {
