@@ -51,21 +51,6 @@ class ContestDaoTest extends SpringBootBase {
     }
 
     @Test
-    void change() {
-        Optional<Contest> optional = dao.findById(2L);
-        assertThat(optional, isPresent());
-
-        optional.ifPresent(contest -> {
-            contest.setTitle("2020 리그전 - 2");
-            contest.setDescription("2020년 2번째 리그전 코로나로 인해 종료");
-            contest.end();
-
-            flush();
-            assertThat(contest.getModified(), notNullValue());
-        });
-    }
-
-    @Test
     void findAllWithPlayers() {
         List<Contest> contests = dao.findAllOrdered();
         // 시작일이 입력된 "준비중인 대회 (2)"가 "준비중인 대회 (1)"보다 위에 있어야 한다.

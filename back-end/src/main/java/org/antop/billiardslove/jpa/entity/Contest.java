@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
-import org.antop.billiardslove.exception.CantEndContestStateException;
+import org.antop.billiardslove.exception.ContestAcceptingException;
 import org.antop.billiardslove.exception.ContestEndException;
 import org.antop.billiardslove.exception.ContestPreparingException;
 import org.antop.billiardslove.exception.ContestProceedingException;
@@ -145,15 +145,6 @@ public class Contest {
     }
 
     /**
-     * 종료할 수 있는 지 여부
-     *
-     * @return {@code true} 종료 가능
-     */
-    public boolean canEnd() {
-        return !isEnd();
-    }
-
-    /**
      * 대회 중지
      */
     public void stop() {
@@ -172,15 +163,13 @@ public class Contest {
     }
 
     /**
-     * 대회 종료
+     * 대회 종료<br>
+     * 준비중/중지된 대회는 종료 가능
      */
     public void end() {
-        if (isEnd()) {
-            throw new ContestEndException();
-        }
-        if (!canEnd()) {
-            throw new CantEndContestStateException();
-        }
+        if (isAccepting()) throw new ContestAcceptingException();
+        if (isProceeding()) throw new ContestProceedingException();
+        if (isEnd()) throw new ContestEndException();
         state = ContestState.END;
     }
 

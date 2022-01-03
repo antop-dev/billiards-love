@@ -558,9 +558,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 
 {
-  "secretKey" : "yk9T8EoQzK7WtGmHdPDYkZ9UufQi6F8ssJVsTiYxC9w=",
-  "kakaoKey" : "uLjUSf+tPjHo8t8dCGGvRyTZVbm+rxtzIMSyWrlsm3/Djb/d0HCHKB97QHGn/cUd+g==",
-  "adSenseKey" : "T4xYUCNOJtI0AAsHIvg4JPFtptOEfbFwak8GF54gZhEEpECd+3eskF/bJRoeCQ=="
+  "secretKey" : "96WWmrzEiO5fq1++mlVNTPfhwbfLMaQsdDiCs4WmHgw=",
+  "kakaoKey" : "zBLNjiRLQBLkDbuGYQdi4DqcYZ0SAEDzCfmqYl5PII7mo95pe8fGtARA4E4kTWTTpw==",
+  "adSenseKey" : "0v2FPQkbt4AXYpXDPjtGEt5JfyYLJOPJcq3DcusoAh5h2jaJENAqFp2YfNk9ig=="
 }</code></pre>
 </div>
 </div>
@@ -645,7 +645,7 @@ Content-Type: application/json
   "id" : 9999,
   "connectedAt" : 1.597679104E9,
   "profile" : {
-    "nickname" : "iaGKeG4ei191kodJM3gholF0kaFiU5TpTKhIrwSkK/98",
+    "nickname" : "LwLNKqxStXkdvZUYAYrX6zDNJeNddcVm4/+H6wQVlMdj",
     "imageUrl" : "https://cataas.com/cat?width=200&amp;height=200",
     "thumbnailUrl" : "https://cataas.com/cat?width=160&amp;height=100",
     "needsAgreement" : true
@@ -733,7 +733,7 @@ Content-Type: application/json;charset=UTF-8
   "token" : "created jwt token value!",
   "member" : {
     "id" : 12,
-    "nickname" : "SlBi0vB/au8fegK4TDFTqDjS4IVz+SONDYjjYAokFCkC",
+    "nickname" : "WghQR6fyV+d82sMisWiyV6zUEkDMHHftdkc6d6BjwmcS",
     "thumbnail" : "https://cataas.com/cat?width=160&amp;height=100",
     "manager" : false
   },
@@ -751,7 +751,7 @@ Content-Type: application/json;charset=UTF-8
   "token" : "created jwt token value!",
   "member" : {
     "id" : 12,
-    "nickname" : "rWZlH2d/h0Y3ZfxS9nIoXUJp9LjdBRqm/WnTP7hAC0Ftmw==",
+    "nickname" : "NAkNQokPWSC8HOANSL15CwGYKVo7UkUhYyuh683CW881vg==",
     "handicap" : 22,
     "thumbnail" : "https://bar",
     "manager" : true
@@ -837,7 +837,7 @@ Content-Type: application/json
 Authorization: 2
 
 {
-  "nickname" : "ZDYcN3YjjAgVBt12aJ1SO5iLLLAwTbXwGALPINqr0v7hVLeFuJ0KoQERoMg=",
+  "nickname" : "XPOGrm9PTqS51WS5mN6pBq87L5WQD43TuZ1/qLp46uYOHb3m5BEdZrM40gI=",
   "handicap" : 30
 }</code></pre>
 </div>
@@ -905,7 +905,7 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "id" : 2,
-  "nickname" : "e4ccUlBWQtND+anZ/WHAg1bCTmb2d5NmCqIbvkiTsLBI/NuGO4ngCtjDI1s=",
+  "nickname" : "Ed1fktfB9Z6JdeyVY4+3KcbvlIKrp+huxx4V4LCJrLx113AeLjXSpG+ptDs=",
   "handicap" : 30,
   "thumbnail" : "https://img.foo.bar",
   "manager" : false
@@ -1237,8 +1237,9 @@ Content-Type: application/json;charset=UTF-8
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/5 HTTP/1.1
-Authorization: 2</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/contest/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQxMTM3MzUxLCJleHAiOjE2NDExMzkxNTF9.9Uw64XAfDLyQN520rxgSlu6UJCzR-_PRvG8on-FoqsA</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1410,29 +1411,43 @@ Authorization: 2</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+Content-Length: 488
 
 {
-  "id" : 5,
-  "title" : "대회 타이틀",
-  "description" : "대회 설명",
-  "startDate" : "2020-01-01",
+  "id" : 1,
+  "title" : "2021 리그전",
+  "description" : "2021.01.01~",
+  "startDate" : "2021-01-01",
   "startTime" : "00:00:00",
-  "endDate" : "2020-03-31",
+  "endDate" : "2021-12-30",
   "endTime" : "23:59:59",
-  "maxJoiner" : 128,
-  "currentJoiner" : 108,
-  "stateCode" : "0",
+  "maxJoiner" : 32,
+  "currentJoiner" : 5,
+  "stateCode" : "PROCEEDING",
   "stateName" : "진행중",
-  "progress" : 12.5,
+  "progress" : 0.0,
   "player" : {
-    "id" : 332,
-    "number" : 3,
+    "id" : 1,
+    "number" : 1,
     "handicap" : 22,
     "nickname" : "안탑",
-    "rank" : 11,
-    "score" : 1154,
-    "variation" : 10
+    "rank" : 1,
+    "score" : 150,
+    "variation" : 0
   }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">존재하지 않는 대회를 조회</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
+Content-Type: application/json;charset=UTF-8
+Content-Length: 73
+
+{
+  "code" : 404,
+  "message" : "대회를 찾을 수 없습니다."
 }</code></pre>
 </div>
 </div>
@@ -2036,7 +2051,7 @@ Content-Type: application/json;charset=UTF-8
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/join HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjQwODUwMTIwLCJleHAiOjE2NDA4NTE5MjB9.rnN7IPE2SDBdx5le1O_sBGlmRqfzXNF1hoF-MlQf--g
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjQxMTM3MzUxLCJleHAiOjE2NDExMzkxNTF9.fPpaseBTOrgb7-d230zL9V9HFwDmNmN12NZDR-_XehM
 Content-Length: 23
 
 {
@@ -2525,7 +2540,7 @@ Content-Type: application/json;charset=UTF-8
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/3/open HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODUwMTM0LCJleHAiOjE2NDA4NTE5MzR9.RBFJA6_i2MdjZh0ge1RSTZg8c0bbAmOBTNHFnjGxtT0</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQxMTM3MzUzLCJleHAiOjE2NDExMzkxNTN9.UhCkemiBlxqQGjL6DdYQJbQjPACi3A6S0k-t9IJYxF8</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -2642,8 +2657,8 @@ Content-Length: 221
 {
   "id" : 3,
   "title" : "준비중인 대회 (1)",
-  "startDate" : "2021-12-30",
-  "endDate" : "2021-12-30",
+  "startDate" : "2022-01-03",
+  "endDate" : "2022-01-03",
   "currentJoiner" : 0,
   "stateCode" : "ACCEPTING",
   "stateName" : "접수중",
@@ -2765,7 +2780,7 @@ Content-Length: 65
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/start HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODUwMTM2LCJleHAiOjE2NDA4NTE5MzZ9.Bi6xVRlKzYR0D23heG_73QY7JVjlz6ubfy-JuI7NPfA</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQxMTM3MzU0LCJleHAiOjE2NDExMzkxNTR9.gaftTOmg7_Mi-LUXNWkrjkxO_maWWohowfxDzLtB2ro</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -3006,7 +3021,7 @@ Content-Length: 65
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/3/stop HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQwODUwMTM3LCJleHAiOjE2NDA4NTE5Mzd9.0kQ8wgn9dHcweKvod3cXupJtVcl0t2IsgooKNkrVLDY</code></pre>
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQxMTM3MzU2LCJleHAiOjE2NDExMzkxNTZ9.Vq0LgraSv5XK6oYY0BkHGkGKyD7wbn0S9kcMOpsJtSc</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -3123,8 +3138,8 @@ Content-Length: 216
 {
   "id" : 3,
   "title" : "준비중인 대회 (1)",
-  "startDate" : "2021-12-30",
-  "endDate" : "2021-12-30",
+  "startDate" : "2022-01-03",
+  "endDate" : "2022-01-03",
   "currentJoiner" : 0,
   "stateCode" : "STOPPED",
   "stateName" : "중지",
@@ -3215,9 +3230,9 @@ Content-Length: 65
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/2/end HTTP/1.1
-Content-Type: application/json
-Authorization: 1</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/contest/5/end HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQxMTM3MzUwLCJleHAiOjE2NDExMzkxNTB9.UxP6tDdYedwyMrTd-2kryWXqcUEId77BYvEbAmIKcWE</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -3329,27 +3344,55 @@ Authorization: 1</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+Content-Length: 176
 
 {
-  "id" : 2,
-  "title" : "종료한 대회",
+  "id" : 5,
+  "title" : "중지된 대회",
   "startDate" : "2021-01-01",
   "currentJoiner" : 0,
-  "stateCode" : "4",
+  "stateCode" : "END",
   "stateName" : "종료",
   "progress" : 0.0
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">이미 종료한 대회인 경우</div>
+<div class="title">관리자가 아닌 경우</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+Content-Length: 62
+
+{
+  "code" : 403,
+  "message" : "권한이 없습니다."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">접수중인 대회를 종료</div>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json;charset=UTF-8
+Content-Length: 68
 
 {
   "code" : 400,
-  "message" : "종료된 대회입니다."
+  "message" : "접수중인 대회입니다."
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">진행중인 대회를 종료</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+Content-Length: 68
+
+{
+  "code" : 400,
+  "message" : "진행중인 대회입니다."
 }</code></pre>
 </div>
 </div>
@@ -4539,7 +4582,7 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-12-30 16:33:35 KST
+Last updated 2022-01-03 00:28:23 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
