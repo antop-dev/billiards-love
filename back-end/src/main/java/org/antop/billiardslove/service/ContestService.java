@@ -78,6 +78,8 @@ public class ContestService {
             throw new CanNotJoinContestStateException();
         }
 
+        contest.incrementJoiner();
+
         // 이미 참가한 회원인지 확인
         playerDao.findByContestAndMember(contestId, memberId).ifPresent(player -> {
             throw new AlreadyJoinException();
@@ -93,7 +95,6 @@ public class ContestService {
                 .build();
         playerDao.save(player);
 
-        contest.incrementJoiner();
 
         return contestMapper.toDto(contest, memberId);
     }

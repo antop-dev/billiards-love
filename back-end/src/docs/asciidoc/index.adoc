@@ -153,6 +153,9 @@ include::{snippets}/contest-join-can-not/http-response.adoc[]
 .대회에 이미 참여한 경우
 include::{snippets}/contest-join-already/http-response.adoc[]
 
+.이미 최대 인원이 참가한 경우
+include::{snippets}/contest-join-max-joiner/http-response.adoc[]
+
 ==== 대회 참가 취소
 
 회원이 해당 대회에 참가 취소한다.
