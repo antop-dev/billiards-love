@@ -73,7 +73,7 @@ public class ContestService {
     @Transactional
     public ContestDto join(long contestId, long memberId, int handicap) {
         // 대회
-        Contest contest = findById(contestId);
+        Contest contest = contestDao.findByIdForUpdate(contestId).orElseThrow(ContestNotFoundException::new);
         if (!contest.isAccepting()) {
             throw new CanNotJoinContestStateException();
         }

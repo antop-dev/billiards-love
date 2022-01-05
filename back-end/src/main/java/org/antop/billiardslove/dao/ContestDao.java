@@ -38,6 +38,17 @@ public class ContestDao extends QuerydslRepositorySupport {
     }
 
     /**
+     * 업데이트를 하려는 락을 건 대회 정보 조회<br>
+     * 이 메서드를 이용해서 대회 정보를 조회시 다른 트랜잭션은 이 데이터를 조회한 트랜잭션이 끝날때까지 기다린다.
+     *
+     * @param contestId 대회 아이디
+     * @return 대회 엔티티
+     */
+    public Optional<Contest> findByIdForUpdate(long contestId) {
+        return repository.findByIdForUpdate(contestId);
+    }
+
+    /**
      * 정렬하여 조회한다.
      *
      * @return 대회 목록

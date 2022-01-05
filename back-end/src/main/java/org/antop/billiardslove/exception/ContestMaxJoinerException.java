@@ -7,6 +7,6 @@ package org.antop.billiardslove.exception;
  */
 public class ContestMaxJoinerException extends BadRequestException {
     public ContestMaxJoinerException(int maxJoiner) {
-        super("이미 최대 " + maxJoiner + "명이 참가했습니다.");
+        super("이미 최대 참가자 수인 " + maxJoiner + "명이 참가했습니다.");
     }
 }
