@@ -223,7 +223,7 @@ public class Contest {
      * 참가자 수 증가
      */
     public void incrementJoiner() {
-        if (currentJoiner == maxJoiner) throw new ContestMaxJoinerException(maxJoiner);
+        if (currentJoiner >= maxJoiner) throw new ContestMaxJoinerException(maxJoiner);
         currentJoiner++;
     }
 }
