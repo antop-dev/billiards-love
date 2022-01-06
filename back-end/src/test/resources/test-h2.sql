@@ -9,13 +9,17 @@ from tbl_mmbr;
 delete
 from tbl_kko_lgn;
 alter table tbl_mmbr
-    alter column mmbr_id bigint auto_increment (6);
+alter
+column mmbr_id bigint auto_increment (6);
 alter table tbl_cnts
-    alter column cnts_id bigint auto_increment (6);
+alter
+column cnts_id bigint auto_increment (7);
 alter table tbl_plyr
-    alter column plyr_id bigint auto_increment (6);
+alter
+column plyr_id bigint auto_increment (6);
 alter table tbl_mtc
-    alter column cnts_id bigint auto_increment (11);
+alter
+column cnts_id bigint auto_increment (11);
 /* 카카오 로그인 목록 */
 insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_img_url)
 values (1, now(), '안정용', 'https://picsum.photos/640', 'https://picsum.photos/110');
@@ -108,7 +112,11 @@ values (5, '중지된 대회', null, parsedatetime('20210101', 'yyyyMMdd'), null
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
 values (6, '종료된 대회', null, parsedatetime('20200101', 'yyyyMMdd'), null, null, null, '4', null, now(), now());
-
+/* 접수중 - 인원이 꽉 찬 대회 */
+insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
+                      crnt_prsn, rgst_dt)
+values (7, '접수중 대회 - 인원 꽉참', null, parsedatetime('20210101', 'yyyyMMdd'), null, null, null, '1', 2, 2,
+        parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
 /* 대회 상태 코드 */
 insert into tbl_cd_grp (cd_grp_id, cd_grp_nm, cd_grp_dscr, rgst_dt)
 values ('0000000001', '대회 상태', '대회 상태 코드 모듬', now());

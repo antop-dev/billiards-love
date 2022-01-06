@@ -9,6 +9,7 @@ import lombok.ToString;
 import lombok.experimental.FieldNameConstants;
 import org.antop.billiardslove.exception.ContestAcceptingException;
 import org.antop.billiardslove.exception.ContestEndException;
+import org.antop.billiardslove.exception.ContestMaxJoinerException;
 import org.antop.billiardslove.exception.ContestPreparingException;
 import org.antop.billiardslove.exception.ContestProceedingException;
 import org.antop.billiardslove.exception.ContestStoppedException;
@@ -222,6 +223,7 @@ public class Contest {
      * 참가자 수 증가
      */
     public void incrementJoiner() {
+        if (currentJoiner >= maxJoiner) throw new ContestMaxJoinerException(maxJoiner);
         currentJoiner++;
     }
 }

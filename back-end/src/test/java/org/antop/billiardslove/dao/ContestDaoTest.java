@@ -54,9 +54,9 @@ class ContestDaoTest extends SpringBootBase {
     void findAllWithPlayers() {
         List<Contest> contests = dao.findAllOrdered();
         // 시작일이 입력된 "준비중인 대회 (2)"가 "준비중인 대회 (1)"보다 위에 있어야 한다.
-        assertThat(contests.get(2).getId(), is(4L));
-        assertThat(contests.get(2).getTitle(), is("준비중인 대회 (2)"));
-        assertThat(contests.get(3).getId(), is(3L));
-        assertThat(contests.get(3).getTitle(), is("준비중인 대회 (1)"));
+        assertThat(contests.get(3).getId(), is(4L));
+        assertThat(contests.get(3).getTitle(), is("준비중인 대회 (2)"));
+        assertThat(contests.get(4).getId(), is(3L));
+        assertThat(contests.get(4).getTitle(), is("준비중인 대회 (1)"));
     }
 }

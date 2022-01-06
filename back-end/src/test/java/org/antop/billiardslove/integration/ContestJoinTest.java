@@ -128,4 +128,25 @@ class ContestJoinTest extends SpringBootBase {
         ;
     }
 
+    @DisplayName("참가인원이 다 찬 대회에 참가")
+    @Test
+    void maxJoiner() throws Exception {
+        // given
+        String token = jwtTokenProvider.createToken(2L);
+        JoiningRequest request = new JoiningRequest(30);
+        // when
+        ResultActions actions = mockMvc.perform(post("/api/v1/contest/{id}/join", 7L) // 최대 2명, 참여 인원 2명
+                        .content(JsonUtils.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andDo(print())
+                .andDo(RestDocsUtils.error("contest-join-max-joiner"));
+        // verify
+        actions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(400)))
+                .andExpect(jsonPath("$.message", is("이미 최대 참가자 수인 2명이 참가했습니다.")))
+
+        ;
+    }
+
 }

@@ -73,10 +73,12 @@ public class ContestService {
     @Transactional
     public ContestDto join(long contestId, long memberId, int handicap) {
         // 대회
-        Contest contest = findById(contestId);
+        Contest contest = contestDao.findByIdForUpdate(contestId).orElseThrow(ContestNotFoundException::new);
         if (!contest.isAccepting()) {
             throw new CanNotJoinContestStateException();
         }
+
+        contest.incrementJoiner();
 
         // 이미 참가한 회원인지 확인
         playerDao.findByContestAndMember(contestId, memberId).ifPresent(player -> {
@@ -93,7 +95,6 @@ public class ContestService {
                 .build();
         playerDao.save(player);
 
-        contest.incrementJoiner();
 
         return contestMapper.toDto(contest, memberId);
     }
