@@ -41,7 +41,7 @@ class ContestStateApiTest extends WebMvcBase {
                         .id(invocation.getArgument(0, Long.class))
                         .title("종료한 대회")
                         .startDate(LocalDate.of(2021, 1, 1))
-                        .stateCode(ContestState.END.getCode())
+                        .stateCode(ContestState.END.name())
                         .stateName(stateName(ContestState.END))
                         .build()
         );
@@ -59,7 +59,7 @@ class ContestStateApiTest extends WebMvcBase {
                 ))
                 // verify
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.stateCode", is(ContestState.END.getCode())))
+                .andExpect(jsonPath("$.stateCode", is(ContestState.END.name())))
                 .andExpect(jsonPath("$.stateName", is("종료")))
         ;
     }

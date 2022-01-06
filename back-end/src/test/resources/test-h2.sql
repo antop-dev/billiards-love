@@ -9,17 +9,17 @@ from tbl_mmbr;
 delete
 from tbl_kko_lgn;
 alter table tbl_mmbr
-alter
-column mmbr_id bigint auto_increment (6);
+    alter
+        column mmbr_id bigint auto_increment (6);
 alter table tbl_cnts
-alter
-column cnts_id bigint auto_increment (7);
+    alter
+        column cnts_id bigint auto_increment (7);
 alter table tbl_plyr
-alter
-column plyr_id bigint auto_increment (6);
+    alter
+        column plyr_id bigint auto_increment (6);
 alter table tbl_mtc
-alter
-column cnts_id bigint auto_increment (11);
+    alter
+        column cnts_id bigint auto_increment (11);
 /* 카카오 로그인 목록 */
 insert into tbl_kko_lgn (lgn_id, lst_cnct_dt, nck_nm, prfl_img_url, prfl_thmb_img_url)
 values (1, now(), '안정용', 'https://picsum.photos/640', 'https://picsum.photos/110');
@@ -48,7 +48,7 @@ values (6, '짝대기', 40, NOW(), 5);
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       crnt_prsn, rgst_dt)
 values (1, '2021 리그전', '2021.01.01~', parsedatetime('20210101', 'yyyyMMdd'), PARSEDATETIME('000000', 'HHmmss'),
-        parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), '0', 32, 5,
+        parsedatetime('20211230', 'yyyyMMdd'), PARSEDATETIME('235959', 'HHmmss'), 'PROCEEDING', 32, 5,
         parsedatetime('20191112151145', 'yyyyMMddHHmmss'));
 /* 참가자 목록 */
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_rnkn, plyr_scr, plyr_vrtn)
@@ -86,7 +86,7 @@ values (10, 1, 4, 5, 'NNN', 'NNN', null, null);
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       crnt_prsn, rgst_dt)
 values (2, '2022 리그전', '2021.05.01~', parsedatetime('20210101', 'yyyyMMdd'), parsedatetime('000000', 'HHmmss'),
-        parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), '1', 128, 4,
+        parsedatetime('20221230', 'yyyyMMdd'), parsedatetime('235959', 'HHmmss'), 'ACCEPTING', 128, 4,
         parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
 insert into tbl_plyr (plyr_id, cnts_id, mmbr_id, plyr_no, prtc_hndc, plyr_scr)
 values (6, 2, 4, null, 30, 0);
@@ -99,35 +99,21 @@ values (9, 2, 3, null, 28, 0);
 /** 준비중인 대회 (1) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (3, '준비중인 대회 (1)', null, now(), null, now(), null, '2', null, now(), now());
+values (3, '준비중인 대회 (1)', null, now(), null, now(), null, 'PREPARING', null, now(), now());
 /** 준비중인 대회 (2) */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (4, '준비중인 대회 (2)', null, parsedatetime('20210801', 'yyyyMMdd'), null, null, null, '2', null, now(), now());
+values (4, '준비중인 대회 (2)', null, parsedatetime('20210801', 'yyyyMMdd'), null, null, null, 'PREPARING', null, now(), now());
 /** 중지된 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (5, '중지된 대회', null, parsedatetime('20210101', 'yyyyMMdd'), null, null, null, '3', null, now(), now());
+values (5, '중지된 대회', null, parsedatetime('20210101', 'yyyyMMdd'), null, null, null, 'STOPPED', null, now(), now());
 /** 종료된 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       rgst_dt, mdfy_dt)
-values (6, '종료된 대회', null, parsedatetime('20200101', 'yyyyMMdd'), null, null, null, '4', null, now(), now());
+values (6, '종료된 대회', null, parsedatetime('20200101', 'yyyyMMdd'), null, null, null, 'END', null, now(), now());
 /* 접수중 - 인원이 꽉 찬 대회 */
 insert into tbl_cnts (cnts_id, cnts_nm, cnts_dscr, strt_date, strt_time, end_date, end_time, prgr_stt, max_prtc_prsn,
                       crnt_prsn, rgst_dt)
-values (7, '접수중 대회 - 인원 꽉참', null, parsedatetime('20210101', 'yyyyMMdd'), null, null, null, '1', 2, 2,
+values (7, '접수중 대회 - 인원 꽉참', null, parsedatetime('20210101', 'yyyyMMdd'), null, null, null, 'ACCEPTING', 2, 2,
         parsedatetime('20200411001145', 'yyyyMMddHHmmss'));
-/* 대회 상태 코드 */
-insert into tbl_cd_grp (cd_grp_id, cd_grp_nm, cd_grp_dscr, rgst_dt)
-values ('0000000001', '대회 상태', '대회 상태 코드 모듬', now());
-
-insert into tbl_cd (cd_grp_id, cd_id, cd_nm, ord_no, rgst_dt)
-values ('0000000001', '0', '진행중', 0, now());
-insert into tbl_cd (cd_grp_id, cd_id, cd_nm, ord_no, rgst_dt)
-values ('0000000001', '1', '접수중', 1, now());
-insert into tbl_cd (cd_grp_id, cd_id, cd_nm, ord_no, rgst_dt)
-values ('0000000001', '2', '준비중', 2, now());
-insert into tbl_cd (cd_grp_id, cd_id, cd_nm, ord_no, rgst_dt)
-values ('0000000001', '3', '중지', 3, now());
-insert into tbl_cd (cd_grp_id, cd_id, cd_nm, ord_no, rgst_dt)
-values ('0000000001', '4', '종료', 4, now());

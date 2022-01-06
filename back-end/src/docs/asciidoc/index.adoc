@@ -379,28 +379,23 @@ include::{snippets}/ranks/http-response.adoc[]
 
 .대회 상태
 
-[%header,cols="2,1,7"]
+[%header,cols="3,7"]
 |===
-|코드|내부 값|설명
+|코드|설명
 
 |PROCEEDING
-|0
 |진행중
 
 |ACCEPTING
-|1
 |접수중 (시작하지 않음)
 
 |PREPARING
-|2
 |준비중
 
 |STOPPED
-|3
 |중지
 
 |END
-|4
 |종료
 
 |===

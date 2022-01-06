@@ -13,16 +13,16 @@ import org.antop.billiardslove.exception.ContestMaxJoinerException;
 import org.antop.billiardslove.exception.ContestPreparingException;
 import org.antop.billiardslove.exception.ContestProceedingException;
 import org.antop.billiardslove.exception.ContestStoppedException;
-import org.antop.billiardslove.jpa.convertor.ContestStateConverter;
 import org.antop.billiardslove.model.ContestState;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -93,8 +93,8 @@ public class Contest {
      * 진행상태
      */
     @NotNull
-    @Convert(converter = ContestStateConverter.class)
     @Column(name = "prgr_stt")
+    @Enumerated(EnumType.STRING)
     private ContestState state = ContestState.PREPARING;
     /**
      * 최대 참가 인원

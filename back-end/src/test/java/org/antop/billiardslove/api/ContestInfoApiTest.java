@@ -8,11 +8,9 @@ import org.antop.billiardslove.exception.ContestEndException;
 import org.antop.billiardslove.exception.ContestProceedingException;
 import org.antop.billiardslove.mapper.ContestMapperImpl;
 import org.antop.billiardslove.model.ContestState;
-import org.antop.billiardslove.service.CodeService;
 import org.antop.billiardslove.service.ContestService;
 import org.antop.billiardslove.service.PlayerService;
 import org.antop.billiardslove.util.TemporalUtils;
-import org.hamcrest.NumberMatcher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,7 +25,6 @@ import util.JsonUtils;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Optional;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static org.hamcrest.Matchers.hasSize;
@@ -62,8 +59,6 @@ class ContestInfoApiTest extends WebMvcBase {
      */
     @MockBean
     private PlayerService playerService;
-    @MockBean
-    private CodeService codeService;
 
     @DisplayName("대회 목록 조회")
     @Test
@@ -78,7 +73,7 @@ class ContestInfoApiTest extends WebMvcBase {
                         .startTime(LocalTime.of(18, 0, 0))
                         .endDate(LocalDate.of(2020, 7, 31))
                         .endTime(LocalTime.of(22, 0, 0))
-                        .stateCode(ContestState.END.getCode())
+                        .stateCode(ContestState.END.name())
                         .stateName(stateName(ContestState.END))
                         .maxJoiner(128)
                         .player(PlayerDto.builder()
@@ -96,7 +91,7 @@ class ContestInfoApiTest extends WebMvcBase {
                         .startDate(LocalDate.of(2022, 1, 1))
                         .startTime(LocalTime.of(18, 0, 0))
                         .endDate(LocalDate.of(2022, 3, 31))
-                        .stateCode(ContestState.PREPARING.getCode())
+                        .stateCode(ContestState.PREPARING.name())
                         .stateName(stateName(ContestState.PREPARING))
                         .maxJoiner(64)
                         .build()
@@ -131,7 +126,7 @@ class ContestInfoApiTest extends WebMvcBase {
                             .startTime(request.getStartTime())
                             .endDate(request.getEndDate())
                             .endTime(request.getEndTime())
-                            .stateCode(ContestState.PREPARING.getCode())
+                            .stateCode(ContestState.PREPARING.name())
                             .stateName(stateName(ContestState.PREPARING))
                             .maxJoiner(request.getMaxJoiner())
                             .build();
@@ -169,7 +164,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.startTime", is(TemporalUtils.format(request.getStartTime()))))
                 .andExpect(jsonPath("$.endDate", is(TemporalUtils.format(request.getEndDate()))))
                 .andExpect(jsonPath("$.endTime", is(TemporalUtils.format(request.getEndTime()))))
-                .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.getCode())))
+                .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.name())))
                 .andExpect(jsonPath("$.stateName", is(stateName(ContestState.PREPARING))))
                 .andExpect(jsonPath("$.maxJoiner", is(request.getMaxJoiner())))
         ;
@@ -211,7 +206,7 @@ class ContestInfoApiTest extends WebMvcBase {
                             .startTime(request.getStartTime())
                             .endDate(request.getEndDate())
                             .endTime(request.getEndTime())
-                            .stateCode(ContestState.PREPARING.getCode())
+                            .stateCode(ContestState.PREPARING.name())
                             .stateName(stateName(ContestState.PREPARING))
                             .maxJoiner(request.getMaxJoiner())
                             .build();
@@ -250,7 +245,7 @@ class ContestInfoApiTest extends WebMvcBase {
                 .andExpect(jsonPath("$.startTime", is(TemporalUtils.format(request.getStartTime()))))
                 .andExpect(jsonPath("$.endDate", is(TemporalUtils.format(request.getEndDate()))))
                 .andExpect(jsonPath("$.endTime", is(TemporalUtils.format(request.getEndTime()))))
-                .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.getCode())))
+                .andExpect(jsonPath("$.stateCode", is(ContestState.PREPARING.name())))
                 .andExpect(jsonPath("$.stateName", is(stateName(ContestState.PREPARING))))
                 .andExpect(jsonPath("$.maxJoiner", is(request.getMaxJoiner())))
         ;

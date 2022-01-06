@@ -3,8 +3,6 @@ package org.antop.billiardslove.model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-
 /**
  * 대회 진행 상태
  *
@@ -16,30 +14,24 @@ public enum ContestState {
     /**
      * 진행중
      */
-    PROCEEDING("0"),
+    PROCEEDING("진행중"),
     /**
      * 접수중 (시작하지 않음)
      */
-    ACCEPTING("1"),
+    ACCEPTING("접수중"),
     /**
      * 준비중
      */
-    PREPARING("2"),
+    PREPARING("준비중"),
     /**
      * 중지됨
      */
-    STOPPED("3"),
+    STOPPED("중지"),
     /**
      * 종료
      */
-    END("4");
+    END("종료");
 
-    private final String code;
+    private final String label;
 
-    public static ContestState of(String code) {
-        return Arrays.stream(values())
-                .filter(it -> it.code.equals(code))
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
-    }
 }

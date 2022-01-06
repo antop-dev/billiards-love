@@ -29,7 +29,7 @@ create table if not exists tbl_cnts
     strt_time     time         null comment '시작 시간',
     end_date      date         null comment '종료 일자',
     end_time      time         null comment '종료 시간',
-    prgr_stt      char(1)      not null comment '진행 상태',
+    prgr_stt      varchar(10)  not null comment '진행 상태',
     max_prtc_prsn int          null comment '최대 참가인원',
     crnt_prsn     int          not null default 0 comment '현재 참가인원',
     cnts_prgr     double       not null default 0.0 comment '진행률 (%)',
@@ -64,25 +64,4 @@ create table if not exists tbl_mtc
     cnfr_mmbr_id    bigint   null comment '확정한 맴버 아이디',
     cnfr_dt         datetime null comment '확정 일시',
     primary key (mtc_id)
-);
-
-create table if not exists tbl_cd_grp
-(
-    cd_grp_id   varchar(10)  not null,
-    cd_grp_nm   varchar(50)  not null,
-    cd_grp_dscr varchar(255) not null,
-    rgst_dt     datetime     not null,
-    mdfy_dt     datetime,
-    primary key (cd_grp_id)
-);
-
-create table if not exists tbl_cd
-(
-    cd_grp_id varchar(10) not null,
-    cd_id     varchar(10) not null,
-    cd_nm     varchar(50) not null,
-    ord_no    int         not null,
-    rgst_dt   datetime    not null,
-    mdfy_dt   datetime,
-    primary key (cd_grp_id, cd_id)
 );
