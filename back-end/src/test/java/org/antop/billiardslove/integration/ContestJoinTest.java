@@ -144,7 +144,7 @@ class ContestJoinTest extends SpringBootBase {
         // verify
         actions.andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is(400)))
-                .andExpect(jsonPath("$.message", is("이미 최대 2명이 참가했습니다.")))
+                .andExpect(jsonPath("$.message", is("이미 최대 참가자 수인 2명이 참가했습니다.")))
 
         ;
     }
