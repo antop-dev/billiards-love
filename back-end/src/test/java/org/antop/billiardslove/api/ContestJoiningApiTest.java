@@ -43,7 +43,7 @@ class ContestJoiningApiTest extends WebMvcBase {
                         .startDate(LocalDate.of(2021, 1, 10))
                         .endDate(LocalDate.of(2021, 11, 12))
                         .maxJoiner(128)
-                        .stateCode(ContestState.ACCEPTING.getCode())
+                        .stateCode(ContestState.ACCEPTING.name())
                         .stateName(stateName(ContestState.ACCEPTING))
                         .build()
         );

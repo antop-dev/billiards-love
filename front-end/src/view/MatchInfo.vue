@@ -29,19 +29,28 @@
         ></v-text-field>
         <div class="text-right">
           <div v-if="$store.state.login_info.manager">
-            <v-btn class="ma-2" v-if="stateCode === '2'" @click="openContest"
+            <v-btn
+              class="ma-2"
+              v-if="stateCode === 'PREPARING'"
+              @click="openContest"
               >오픈</v-btn
             >
-            <v-btn class="ma-2" v-if="stateCode === '1'" @click="startContest"
+            <v-btn
+              class="ma-2"
+              v-if="stateCode === 'ACCEPTING' || stateCode === 'STOPPED'"
+              @click="startContest"
               >시작</v-btn
             >
             <v-btn
               class="ma-2"
-              v-if="stateCode === '0' || stateCode === '1'"
+              v-if="stateCode === 'PROCEEDING' || stateCode === 'ACCEPTING'"
               @click="stopContest"
               >중지</v-btn
             >
-            <v-btn class="ma-2" v-if="stateCode === '3'" @click="endContest"
+            <v-btn
+              class="ma-2"
+              v-if="stateCode === 'STOPPED'"
+              @click="endContest"
               >종료</v-btn
             >
           </div>
