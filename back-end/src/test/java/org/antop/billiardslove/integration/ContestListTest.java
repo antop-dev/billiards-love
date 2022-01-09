@@ -51,11 +51,7 @@ class ContestListTest extends SpringBootBase {
         // given
         String token = jwtTokenProvider.createToken(1L); // 관리자
         // when
-        ResultActions actions = request(token)
-                .andDo(document("contest-list",
-                        requestHeaders(RestDocsUtils.Header.jwtToken()),
-                        responseFields(RestDocsUtils.FieldSnippet.contestsWithPlayer())
-                ));
+        ResultActions actions = request(token);
         // then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(7)))
