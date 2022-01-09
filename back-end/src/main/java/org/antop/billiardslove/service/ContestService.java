@@ -55,9 +55,12 @@ public class ContestService {
      *
      * @return 대회 목록
      */
-    public List<ContestDto> getAllContests() {
-        return contestDao.findAllOrdered()
-                .stream()
+    public List<ContestDto> getContests() {
+        List<Contest> contests = SecurityUtils.isManager()
+                ? contestDao.findListForManager()
+                : contestDao.findListForMember();
+
+        return contests.stream()
                 .map(contest -> contestMapper.toDto(contest, SecurityUtils.getMemberId()))
                 .collect(Collectors.toList());
     }

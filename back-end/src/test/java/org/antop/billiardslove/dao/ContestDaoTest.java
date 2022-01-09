@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresent;
@@ -50,13 +49,4 @@ class ContestDaoTest extends SpringBootBase {
         assertThat(contest.getId(), notNullValue());
     }
 
-    @Test
-    void findAllWithPlayers() {
-        List<Contest> contests = dao.findAllOrdered();
-        // 시작일이 입력된 "준비중인 대회 (2)"가 "준비중인 대회 (1)"보다 위에 있어야 한다.
-        assertThat(contests.get(3).getId(), is(4L));
-        assertThat(contests.get(3).getTitle(), is("준비중인 대회 (2)"));
-        assertThat(contests.get(4).getId(), is(3L));
-        assertThat(contests.get(4).getTitle(), is("준비중인 대회 (1)"));
-    }
 }
