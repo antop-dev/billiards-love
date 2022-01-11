@@ -63,6 +63,13 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://raw.githack.com/antop-dev/log4jdbc-log4j2-jdbc4.1/master/maven/")
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
+    }
 }
 
 dependencies {
@@ -83,6 +90,7 @@ dependencies {
     implementation "io.sentry:sentry-spring-boot-starter:$sentryVersion"
     // https://github.com/candrews/log4jdbc-spring-boot-starter/
     implementation "com.integralblue:log4jdbc-spring-boot-starter:$log4jdbcSpring"
+    implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16-kr"
     // https://mariadb.com/kb/en/about-mariadb-connector-j/
     implementation "org.mariadb.jdbc:mariadb-java-client:$mariadbVersion"
     // https://commons.apache.org/proper/commons-io/

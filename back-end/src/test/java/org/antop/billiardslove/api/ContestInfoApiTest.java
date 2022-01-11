@@ -3,7 +3,6 @@ package org.antop.billiardslove.api;
 import org.antop.billiardslove.RestDocsUtils;
 import org.antop.billiardslove.WebMvcBase;
 import org.antop.billiardslove.dto.ContestDto;
-import org.antop.billiardslove.dto.PlayerDto;
 import org.antop.billiardslove.exception.ContestEndException;
 import org.antop.billiardslove.exception.ContestProceedingException;
 import org.antop.billiardslove.mapper.ContestMapperImpl;
@@ -24,10 +23,8 @@ import util.JsonUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.notNullValue;
@@ -35,7 +32,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -59,58 +55,6 @@ class ContestInfoApiTest extends WebMvcBase {
      */
     @MockBean
     private PlayerService playerService;
-
-    @DisplayName("대회 목록 조회")
-    @Test
-    void listApi() throws Exception {
-        // stub
-        when(contestService.getAllContests()).thenReturn(Arrays.asList(
-                ContestDto.builder()
-                        .id(1121L)
-                        .title("2020년 7월 동호회 리그전")
-                        .description("총 상금 100만원!")
-                        .startDate(LocalDate.of(2021, 7, 1))
-                        .startTime(LocalTime.of(18, 0, 0))
-                        .endDate(LocalDate.of(2020, 7, 31))
-                        .endTime(LocalTime.of(22, 0, 0))
-                        .stateCode(ContestState.END.name())
-                        .stateName(stateName(ContestState.END))
-                        .maxJoiner(128)
-                        .player(PlayerDto.builder()
-                                .id(335)
-                                .number(16)
-                                .nickname("띠용")
-                                .handicap(18)
-                                .rank(5)
-                                .score(600)
-                                .build())
-                        .build(),
-                ContestDto.builder()
-                        .id(1121L)
-                        .title("2022년 1분기 대회")
-                        .startDate(LocalDate.of(2022, 1, 1))
-                        .startTime(LocalTime.of(18, 0, 0))
-                        .endDate(LocalDate.of(2022, 3, 31))
-                        .stateCode(ContestState.PREPARING.name())
-                        .stateName(stateName(ContestState.PREPARING))
-                        .maxJoiner(64)
-                        .build()
-        ));
-        // action
-        mockMvc.perform(get("/api/v1/contests").header(HttpHeaders.AUTHORIZATION, userToken()))
-                // logging
-                .andDo(print())
-                .andDo(document("contest-list",
-                        requestHeaders(RestDocsUtils.Header.jwtToken()),
-                        responseFields(RestDocsUtils.FieldSnippet.contestsWithPlayer())
-                ))
-                // verify
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].player").exists())
-                .andExpect(jsonPath("$[1].player").doesNotExist())
-        ;
-    }
 
     @DisplayName("대회 등록")
     @Test

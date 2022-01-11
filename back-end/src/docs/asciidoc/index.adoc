@@ -79,6 +79,8 @@ include::{snippets}/error-bad-credentials/http-response.adoc[]
 
 대회 목록을 조회한다.
 
+일반 회원/관리자 권한에 따라 필터링된 목록이 조회된다.
+
 .request
 include::{snippets}/contest-list/request-headers.adoc[]
 

@@ -50,7 +50,7 @@ public class ContestInfoApi {
      */
     @GetMapping("/api/v1/contests")
     public List<ContestDto> list() {
-        return contestService.getAllContests();
+        return contestService.getContests();
     }
 
     /**

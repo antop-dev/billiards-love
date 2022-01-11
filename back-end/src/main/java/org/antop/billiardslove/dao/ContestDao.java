@@ -7,14 +7,12 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 
 import static org.antop.billiardslove.jpa.entity.QContest.contest;
+import static org.antop.billiardslove.model.ContestState.PREPARING;
+import static org.antop.billiardslove.model.ContestState.STOPPED;
 
 @Slf4j
 @Repository
@@ -49,19 +47,27 @@ public class ContestDao extends QuerydslRepositorySupport {
     }
 
     /**
-     * 정렬하여 조회한다.
+     * 회원을 위한 대회 목록을 조회한다.<br>
+     * 준비중, 종료
      *
      * @return 대회 목록
      */
-    public List<Contest> findAllOrdered() {
-        List<Contest> fetch = from(contest)
-                .orderBy(contest.state.asc(),
-                        // NULL을 정렬에서 아래로 보낸다.
-                        contest.startDate.coalesce(LocalDate.of(9999, 12, 31)).asc(),
-                        contest.startTime.coalesce(LocalTime.of(23, 59, 59, 999999)).asc(),
-                        contest.created.desc())
+    public List<Contest> findListForMember() {
+        return from(contest)
+                .where(contest.state.notIn(PREPARING, STOPPED))
+                .orderBy(contest.id.desc())
                 .fetch();
-        return new ArrayList<>(new LinkedHashSet<>(fetch));
+    }
+
+    /**
+     * 관리자를 위한 모든 대회 목록 조회
+     *
+     * @return 대회 목록
+     */
+    public List<Contest> findListForManager() {
+        return from(contest)
+                .orderBy(contest.id.desc())
+                .fetch();
     }
 
     @Transactional
