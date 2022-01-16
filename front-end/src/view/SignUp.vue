@@ -1,18 +1,28 @@
 <template>
   <div>
     <app-header title="추가정보 입력"></app-header>
-    <div>
-      <md-field>
-        <label>별명</label>
-        <md-input v-model="nickname"></md-input>
-      </md-field>
-      <md-field>
-        <label>대대 핸디</label>
-        <md-input v-model="handicap"></md-input>
-      </md-field>
-      <div class="text-align-center">
-        <md-button @click="confirm" class="md-raised">확인</md-button>
-      </div>
+    <v-form>
+      <v-row>
+        <v-col cols="12">
+          <v-text-field
+            v-model="nickname"
+            counter="25"
+            label="별명"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-text-field
+            v-model="handicap"
+            counter="25"
+            label="핸디"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-form>
+    <div class="text-align-center">
+      <v-btn @click="confirm" elevation="2">확인</v-btn>
     </div>
   </div>
 </template>
