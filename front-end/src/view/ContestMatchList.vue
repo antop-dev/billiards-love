@@ -38,7 +38,7 @@
 <script>
 import MatchApi from '../api/match.api';
 export default {
-  name: 'GameMatch',
+  name: 'ContestMatchList',
   data() {
     return {
       id: '',

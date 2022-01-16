@@ -1,69 +1,67 @@
 <template>
   <div>
     <v-row class="pa-4" align="center" justify="center">
-      <v-col class="text-center">
+      <v-col cols="12" class="text-center">
         <h3 class="text-h5">
-          상태
+          대회 상태
         </h3>
       </v-col>
     </v-row>
     <v-form>
-      <v-container>
-        <v-text-field
-          v-model="date"
-          filled
-          color="blue-grey lighten-2"
-          label="날짜"
-        ></v-text-field>
-        <v-text-field
-          v-model="currentJoiner"
-          filled
-          color="blue-grey lighten-2"
-          label="참가자"
-        ></v-text-field>
-        <v-text-field
-          v-model="progress"
-          filled
-          color="blue-grey lighten-2"
-          label="진행률"
-        ></v-text-field>
-        <div class="text-right">
-          <div v-if="$store.state.login_info.manager">
-            <v-btn
-              class="ma-2"
-              v-if="stateCode === 'PREPARING'"
-              @click="openContest"
-              >오픈</v-btn
-            >
-            <v-btn
-              class="ma-2"
-              v-if="stateCode === 'ACCEPTING' || stateCode === 'STOPPED'"
-              @click="startContest"
-              >시작</v-btn
-            >
-            <v-btn
-              class="ma-2"
-              v-if="stateCode === 'PROCEEDING' || stateCode === 'ACCEPTING'"
-              @click="stopContest"
-              >중지</v-btn
-            >
-            <v-btn
-              class="ma-2"
-              v-if="stateCode === 'STOPPED'"
-              @click="endContest"
-              >종료</v-btn
-            >
-          </div>
-          <div>
-            <v-btn class="ma-2" color="secondary" v-if="checkJoin" @click="join"
-              >참가</v-btn
-            >
-            <v-btn class="ma-2" color="error" v-else @click="cancelJoin"
-              >참가취소</v-btn
-            >
-          </div>
+      <v-text-field
+        v-model="date"
+        filled
+        disabled
+        color="blue-grey lighten-2"
+        label="날짜"
+      ></v-text-field>
+      <v-text-field
+        v-model="currentJoiner"
+        filled
+        disabled
+        color="blue-grey lighten-2"
+        label="참가자"
+      ></v-text-field>
+      <v-text-field
+        v-model="progress"
+        filled
+        disabled
+        color="blue-grey lighten-2"
+        label="진행률"
+      ></v-text-field>
+      <div class="text-right">
+        <div v-if="$store.state.login_info.manager">
+          <v-btn
+            class="ma-2"
+            v-if="stateCode === 'PREPARING'"
+            @click="openContest"
+            >오픈</v-btn
+          >
+          <v-btn
+            class="ma-2"
+            v-if="stateCode === 'ACCEPTING' || stateCode === 'STOPPED'"
+            @click="startContest"
+            >시작</v-btn
+          >
+          <v-btn
+            class="ma-2"
+            v-if="stateCode === 'PROCEEDING' || stateCode === 'ACCEPTING'"
+            @click="stopContest"
+            >중지</v-btn
+          >
+          <v-btn class="ma-2" v-if="stateCode === 'STOPPED'" @click="endContest"
+            >종료</v-btn
+          >
         </div>
-      </v-container>
+        <div>
+          <v-btn class="ma-2" color="secondary" v-if="checkJoin" @click="join"
+            >참가</v-btn
+          >
+          <v-btn class="ma-2" color="error" v-else @click="cancelJoin"
+            >참가취소</v-btn
+          >
+        </div>
+      </div>
     </v-form>
   </div>
 </template>
@@ -71,7 +69,7 @@
 <script>
 import ContestApi from '../api/contest.api';
 export default {
-  name: 'GameInfo',
+  name: 'ContestInfo',
   data() {
     return {
       id: '',
@@ -98,21 +96,19 @@ export default {
       this.player = detail.player || {};
       this.stateCode = detail.stateCode;
       this.date =
-        detail.startDate + (detail.endDate ? ' - ' + detail.endDate : '');
+        (detail.startDate || '-') +
+        (detail.endDate ? '-' + detail.endDate : '');
       this.progress =
         (detail.progress || 0) +
         '% (' +
         (detail.currentJoiner || 0) +
         '/' +
-        detail.maxJoiner +
+        (detail.maxJoiner || 0) +
         ')';
       this.currentJoiner = (detail.currentJoiner || 0) + ' 명';
     },
     join() {
       this.$router.push(`/contest/${this.id}/join`);
-    },
-    toggleJoin() {
-      this.isJoin = !this.isJoin;
     },
     async cancelJoin() {
       try {
@@ -172,10 +168,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.md-card {
-  margin: 4px;
-  display: inline-block;
-  vertical-align: top;
-}
-</style>
+<style scoped></style>

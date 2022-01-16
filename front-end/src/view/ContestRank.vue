@@ -39,7 +39,7 @@
 import RankApi from '../api/rank.api';
 
 export default {
-  name: 'GameRank',
+  name: 'ContestRank',
   data() {
     return {
       users: [],

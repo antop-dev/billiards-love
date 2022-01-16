@@ -1,11 +1,11 @@
-import SignUp from '../view/SignUp';
+import SignUp from '../view/UserRegister';
 import DashBoard from '../view/DashBoard';
-import MatchStatus from '../view/MatchStatus';
-import MatchInfo from '../view/MatchInfo';
-import MatchRank from '../view/MatchRank';
-import MatchChart from '../view/MatchChart';
-import MatchChartDetail from '../view/MatchChartDetail';
-import JoinContest from '../view/JoinContest';
+import MatchStatus from '../view/ContestApp';
+import ContestInfo from '../view/ContestInfo';
+import ContestRank from '../view/ContestRank';
+import ContestMatchList from '../view/ContestMatchList';
+import ContestMatchDetail from '../view/ContestMatchDetail';
+import ContestJoin from '../view/ContestJoin';
 
 export default [
   {
@@ -23,27 +23,27 @@ export default [
       {
         name: 'info',
         path: '/',
-        component: MatchInfo,
+        component: ContestInfo,
       },
       {
         name: 'join',
         path: 'join',
-        component: JoinContest,
+        component: ContestJoin,
       },
       {
         name: 'rank',
         path: 'rank',
-        component: MatchRank,
+        component: ContestRank,
       },
       {
         name: 'match',
         path: 'match',
-        component: MatchChart,
+        component: ContestMatchList,
       },
       {
         name: 'matchDetail',
         path: 'match/:matchId',
-        component: MatchChartDetail,
+        component: ContestMatchDetail,
       },
     ],
   },

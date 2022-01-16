@@ -41,7 +41,7 @@
 <script>
 import MatchApi from '../api/match.api';
 export default {
-  name: 'MatchChartDetail',
+  name: 'ContestMatchDetail',
   data() {
     return {
       id: '',

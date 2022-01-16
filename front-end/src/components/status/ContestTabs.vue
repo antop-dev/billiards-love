@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar color="deep-purple accent-4" dark flat>
+    <v-app-bar app color="deep-purple accent-4" dark flat>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>{{ title }}</v-toolbar-title>
@@ -21,20 +21,12 @@
           >
         </v-tabs>
       </template>
-    </v-toolbar>
-
-    <v-tabs-items v-model="tab">
-      <v-tab-item v-for="item in items" :key="item">
-        <v-card flat>
-          <v-card-text v-text="item"></v-card-text>
-        </v-card>
-      </v-tab-item>
-    </v-tabs-items>
+    </v-app-bar>
   </div>
 </template>
 <script>
 export default {
-  name: 'GameTabs',
+  name: 'ContestTabs',
   props: {
     id: String,
     title: String,
