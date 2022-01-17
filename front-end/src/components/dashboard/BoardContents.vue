@@ -54,7 +54,4 @@ export default {
   padding: 6px;
   cursor: pointer;
 }
-.md-layout {
-  padding: 10px;
-}
 </style>

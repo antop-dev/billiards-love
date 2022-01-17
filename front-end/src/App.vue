@@ -61,6 +61,7 @@ export default {
           this.$store.state.secret_key,
         );
         window.Kakao.init(kakaoInitKey);
+        await this.kakaoLogin();
       } catch (e) {
         console.error('error :: ', e);
       }
@@ -108,7 +109,6 @@ export default {
     if (!this.$isMobile()) return;
     // 최초로 카카오 초기화 합니다.
     await this.kakaoInit();
-    await this.kakaoLogin();
   },
 };
 </script>
