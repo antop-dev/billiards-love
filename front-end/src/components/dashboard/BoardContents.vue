@@ -3,7 +3,9 @@
     <v-row>
       <v-col cols="2" class="d-flex align-content-center flex-wrap">
         <v-btn text align="center">
-          <span>{{ content.player.rank || '-' }} 위</span>
+          <span
+            >{{ content.player != null ? content.player.rank : '-' }} 위</span
+          >
         </v-btn>
       </v-col>
       <v-col cols="10">
