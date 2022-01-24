@@ -13,7 +13,7 @@
           <span>{{ content.title }}</span>
           <v-spacer></v-spacer>
           <span>
-            {{ content.stateCode }}
+            {{ content.stateName }}
           </span>
         </v-card-title>
         <v-card-subtitle v-text="content.description"></v-card-subtitle>
