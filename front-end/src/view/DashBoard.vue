@@ -10,7 +10,7 @@
           indeterminate
         ></v-progress-circular>
       </div>
-      <v-card v-else-if="contests.length > 0" outlined>
+      <div v-else-if="contests.length > 0" outlined>
         <div
           class="board"
           v-for="content in contests"
@@ -22,7 +22,7 @@
             @click.native="getDetail(content.id)"
           ></board-contents>
         </div>
-      </v-card>
+      </div>
       <v-card v-else>
         <v-content>
           <no-data></no-data>

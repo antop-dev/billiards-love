@@ -1,16 +1,33 @@
 <template>
-  <v-card color="#385F73" dark class="contents">
-    <ContentsHeader
-      :title="content.title"
-      :state-name="content.stateName"
-      :state-code="content.stateCode"
-    ></ContentsHeader>
-    <div v-if="content.player">
-      <v-col cols="12">
-        <v-card-title class="text-h4">
-          {{ content.player.rank }}위
-          <v-icon large color="orange darken-2">mdi-arrow-up-bold</v-icon>
+  <v-card class="mx-auto" outlined>
+    <v-row>
+      <v-col cols="2" class="d-flex align-content-center flex-wrap">
+        <v-btn text align="center">
+          <span
+            >{{ content.player != null ? content.player.rank : '-' }} 위</span
+          >
+        </v-btn>
+      </v-col>
+      <v-col cols="10">
+        <v-card-title class="subtitle-1">
+          <span>{{ content.title }}</span>
+          <v-spacer></v-spacer>
+          <span>
+            {{ content.stateName }}
+          </span>
         </v-card-title>
+        <v-card-subtitle v-text="content.description"></v-card-subtitle>
+        <v-card-actions class="caption">
+          <v-spacer></v-spacer>
+          {{ content.progress }}% ({{ content.maxJoiner || 0 }} /
+          {{ content.currentJoiner || 0 }})
+        </v-card-actions>
+      </v-col>
+    </v-row>
+
+    <!--    <div v-if="content.player">
+      <v-col cols="12">
+        
       </v-col>
       <v-col cols="12">
         <v-row justify="end">
@@ -26,14 +43,12 @@
           >
         </v-row>
       </v-col>
-    </div>
+    </div>-->
   </v-card>
 </template>
 <script>
-import ContentsHeader from './ContentsHeader';
 export default {
   name: 'BoardContents',
-  components: { ContentsHeader },
   props: {
     content: Object,
   },
@@ -49,9 +64,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.contents {
-  padding: 6px;
-  cursor: pointer;
-}
-</style>
+<style scoped></style>
