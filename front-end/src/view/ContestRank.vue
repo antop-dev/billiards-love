@@ -1,33 +1,21 @@
 <template>
   <div>
-    <v-simple-table>
+    <v-simple-table fixed-header>
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">
-              Rank
-            </th>
-            <th class="text-left">
-              참가자
-            </th>
-            <th class="text-left">
-              핸디
-            </th>
-            <th class="text-left">
-              진행률
-            </th>
-            <th class="text-left">
-              점수
-            </th>
+            <th scope="col" class="text-left">순위</th>
+            <th scope="col" class="text-left">참가자</th>
+            <th scope="col" class="text-center">핸디</th>
+            <th scope="col" class="text-right">점수</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in users" :key="item.id">
-            <td>{{ item.rank || '-' }}</td>
+          <tr v-for="item in players" :key="item.id">
+            <td>{{ rank(item) }}</td>
             <td>{{ item.nickname }}</td>
-            <td>{{ item.handicap || 0 }}</td>
-            <td>{{ item.progress || 0 }}</td>
-            <td>{{ item.score || 0 }}</td>
+            <td class="text-center">{{ item.handicap }}</td>
+            <td class="text-right">{{ item.score || '' }}</td>
           </tr>
         </tbody>
       </template>
@@ -42,12 +30,20 @@ export default {
   name: 'ContestRank',
   data() {
     return {
-      users: [],
+      players: [],
     };
   },
-  methods: {},
+  methods: {
+    rank: function(item) {
+      if (!item['rank']) return '';
+      let v = '';
+      if (item['variation'] > 0) v = '▲';
+      if (item['variation'] < 0) v = '▼';
+      return item['rank'] + ' ' + v;
+    },
+  },
   async created() {
-    this.users = await RankApi.inquire(this.$route.params.id);
+    this.players = await RankApi.inquire(this.$route.params.id);
   },
 };
 </script>
